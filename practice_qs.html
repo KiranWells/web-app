@@ -1,0 +1,334 @@
+# Practice Questions
+
+This is a collection of a few complex questions that cover many of the topics. I will focus most of these on Chapter 16 topics, but each question will be designed to include topics from the previous chapters to ensure it prepares you for as much as possible.
+
+These questions are long and are likely more complex than the ones on the exam. However, you should use a calculator if necessary because the goal is to simply practice as many of the skills we studied as possible.
+
+This list of questions has been constructed to cover the topics on the test as mentioned by the professor, however, it may not be complete.
+
+## Questions:
+
+1. Use Stokes' Theorem to find the surface integral of $\iint\limits_S curl\ \vec F \cdot dr$ where $\vec F = \langle \arctan(1-x^2) + 2x^2y, e^{\frac{1}{y}} - 2xy^2 \rangle$ and $S$ is the [surface][1] of the sphere with radius 1 above the $xy$-plane.
+
+2. Use the divergence theorem to find the surface integral of $S$, where $S$ is the [surface][2] of the volume bounded by the paraboloid $z = x^2 + y^2$ and the plane $z = 4$, where $\vec F = \langle x^3, \sin x + y^3, z^2+ xy\rangle$
+
+3. Use Stokes' Theorem (sorry, last time) to find the curve integral $\oint\limits_C \vec F \cdot dr$, where $\vec F = \langle xy, x^2, 3z\rangle$ and $C$ is the [intersections][3] of the cylinder $9 = x^2 + y^2$ and the plane $2x + z = 1$ above the $xy$-plane.
+
+4. Find the line integral $\oint\limits_C \vec F \cdot dr$ where $\vec F = \langle ye^z, xe^z - ze^{yz}, xye^z - ye^{yz}\rangle$ and $C$ is the curve $\vec r(t) = \langle \sin(2t), \cos^2(t/2), 3t + 1 \rangle$ from $t = 0$ to $t = \pi$
+
+5. What is the meaning of Curl and Divergence?
+
+6. Determine whether $F = \langle 3xy, 3x^2, z \rangle$ is convergent. If so, find $f$ such that $\nabla f = \vec F$.
+
+7. Find the work done on the particle that travels from the point $(0,1,2)$ to $(1, 3, 4)$ by the vector field $F = \langle xz, y^2, 2z \rangle$.
+
+8. Show that the surface area of a sphere with radius $\rho$ is $4\pi\rho^2$.
+
+9. Find the line integral $\oint\limits_C (x^2 + 3xy)dx + (4y + xy)dy$ where $C$ is the line segment from $(1,0)$ to $(3,1)$
+
+[1]: https://llumen.neocities.org/projects/ray-grapher.html?eq=r-(1*float(z%3E0))&zoom=3.4&m=[71,-28.31]&v=1
+[2]: https://llumen.neocities.org/projects/ray-grapher.html?eq=(z-x%5E2-y%5E2)(z-4)&zoom=10.6&m=[160.4,1.99]&v=1
+[3]: https://llumen.neocities.org/projects/ray-grapher.html?eq=(z%5E2-x%5E2-y%5E2)(x%5E2%2By%5E2-1)&zoom=3.4&m=[54.68,-23.55]&v=1
+
+## Solutions:
+
+<details>
+  <summary>Click to show solution for Question 1</summary>
+
+1. Use Stokes' Theorem to find the surface integral of $\iint\limits_S curl\ \vec F \cdot dr$ where $\vec F = \langle \arctan(1-x^2) + 2x^2y, e^{\frac{1}{y}} - 2xy^2 \rangle$ and $S$ is the [surface][1] of the sphere with radius 1 above the $xy$-plane.
+
+First, notice that we are using the formula backwards, going from a surface integral to a line integral. This means we can change the problem to:
+
+$$\oint\limits_C \vec F \cdot dr$$
+
+Next, let's define $C$. Since the surface is bordered by the plane z = 0, as you can see [here][1], we can define $C$ as the circle with radius 1.
+
+$$
+C = 
+\begin{cases}
+  x = (1)\cos t \\
+  y = (1)\sin t \\
+  z = 0 
+\end{cases}
+$$
+
+Now we need to notice that the curve is in the xy-plane, and that the field only has $x$ and $y$ portions. This means we can integrate in two dimensions, and since $C$ is closed, Green's Theorem applies. 
+
+$$\int\limits_C \vec F \cdot dr = \iint\limits_D \left({\delta Q\over \delta x} - {\delta P\over \delta y}\right)dxdy$$
+
+Now to plug $\vec F$ into the formula:
+
+$$\iint\limits_D \left({\delta (e^{\frac{1}{y}} - 2xy^2)\over \delta x} - {\delta (\arctan(1-x^2) + 2x^2y)\over \delta y}\right)dxdy$$
+$$\iint\limits_D \left(- 2y^2 - 2x^2\right)dxdy$$
+
+The domain $D$ in this case is the circle with radius $1$, so we can conveniently convert to a polar integral.
+
+$$\int\limits_0^{2\pi}\int\limits_0^1 (-2r^2)r\ drd\theta$$
+$$\int\limits_0^{2\pi}d\theta * -\frac{1}{2}r^4 |_0^1$$
+$$2\pi * -\frac{1}{2}$$
+$$-\pi$$
+
+</details>
+
+<details>
+  <summary>Click to show solution for Question 2</summary>
+
+2. Use the divergence theorem to find the surface integral of $S$, where $S$ is the [surface][2] of the volume bounded by the paraboloid $z = x^2 + y^2$ and the plane $z = 4$, where $\vec F = \langle x^3, \sin x + y^3, z^2+ xy\rangle$
+
+$$\iint\limits_S \vec F\cdot dr = \iiint\limits_E div\ \vec FdV$$
+
+So, let's first find $div\ \vec F$.
+
+$$= {\delta\over\delta x}(x^3) + {\delta\over\delta y}(\sin x + y^3) + {\delta\over\delta z}(z^2 + xy)$$
+$$= 3x^2 + 3y^2 + 2z$$
+
+And now determine the [volume][2] we are integrating over. Since it is a parabola cut off at $4$, we can define the integral in cylindrical coordinates.
+
+$$
+\begin{cases}
+  r^2 \le z \le 4 \\
+  0 \le r \le 2 \\
+  0 \le \theta \le 2\pi
+\end{cases}
+$$
+
+And now integrate:
+
+$$\int\limits_0^{2\pi}\int\limits_0^2\int\limits_{r^2}^4 3r^2 + 2z\ dzrdrd\theta$$
+$$3r^2z + z^2 |_{r^2}^4$$
+$$\int 12r^2 + 16 - 3r^4 - r^4$$
+$$\int -4r^4 + 12r^2 + 16$$
+$$-\frac{4}{5}r^5 + 4r^3 + 16r|_0^2$$
+$$\int\limits_0^{2\pi} d\theta * (-\frac{128}{5} + 64)$$
+$$2\pi(-\frac{128}{5} + 64)$$
+
+</details>
+
+<details>
+  <summary>Click to show solution for Question 3</summary>
+
+3. Use Stokes' Theorem (sorry, last time) to find the curve integral $\oint\limits_C \vec F \cdot dr$, where $\vec F = \langle xy, x^2, 3z\rangle$ and $C$ is the [intersections][3] of the cylinder $9 = x^2 + y^2$ and the plane $2x + z = 1$ above the $xy$-plane.
+
+First, find $curl\ \vec F$:
+
+$$
+curl\ \vec F = 
+\begin{vmatrix}
+  i && j && k \\
+  dx && dy && dz \\
+  P && Q && R
+\end{vmatrix}
+= 
+(Rdy - Qdz)i + (Pdz - Rdx)j + (Qdx - Pdy)k
+$$
+
+$$= (0 - 0)i + (0 - 0)j + (2x-x)k$$
+
+Now, we need to parameterize $S$. Since it is the intersection of a plane and cylinder, we can just use the plane.
+
+To identify the $r_u \times r_v$, notice that conveniently for planes, it is equal to the normal.
+
+$$\langle 2,0,1 \rangle$$
+
+And now we integrate:
+
+$$\iint\limits_D \langle 0,0,x \rangle \cdot \langle 2,0,1 \rangle dA$$
+$$\iint\limits_D x dA$$
+
+The domain of $S$ is just the area inside the cylinder, which is the circle from $x^2 + y^2 = 9$. We can make it more convenient by converting to polar coordinates:
+
+$$\int\limits_0^{2\pi}\int\limits_0^3 r\cos\theta r\ drd\theta$$
+$$\int\limits_0^{2\pi} \cos\theta d\theta * 1/3r^3|_0^3$$
+$$0 * 9$$
+$$0$$
+
+</details>
+
+<details>
+  <summary>Click to show solution for Question 4</summary>
+
+4. Find the line integral $\oint\limits_C \vec F \cdot dr$ where $\vec F = \langle ye^z, xe^z - ze^{yz}, xye^z - ye^{yz}\rangle$ and $C$ is the curve $\vec r(t) = \langle \sin(2t), \cos^2(t/2), 3t + 1 \rangle$ from $t = 0$ to $t = \pi$
+
+This integral can be simplified by using the fundamental theorem:
+
+$$\int\limits_C \nabla f \cdot dr = f(B) - f(A)$$
+
+So, we find a fuction $f$ such that $\nabla f = \vec F$. Start by finding the integral of the first section.
+
+$$\int ye^zdx = xye^z + h(y,z)$$
+
+Now, we find the $h(y,z)$ that works for the others. With some intuition, it can be found to be:
+
+$$xye^z - e^yz$$
+
+And now we plug in the values for the beginning and end of $C$:
+
+$$A = \langle \sin(0), cos^2(0), 0+1\rangle$$
+$$B = \langle \sin(2\pi), cos^2(\pi/2), 3\pi+1\rangle$$
+
+$$0*0*e^{3\pi+1} - e^{0*(3\pi + 1)} - ((0)*(1)*e^{1} - e^{(1*1)})$$
+$$e - 1$$
+
+</details>
+
+<details>
+  <summary>Click to show solution for Question 5</summary>
+
+5. What is the meaning of Curl and Divergence?
+
+Curl represents the tendency of the particles at that point to rotate around the direction of $curl\ \vec F$, and divergence is the amount a particle will move away from its location at that point. (Note: a conservative vector field is defined as a field where its curl is 0 and it has continuous second derivatives.)
+
+[Reference](https://tutorial.math.lamar.edu/Classes/CalcIII/CurlDivergence.aspx)
+
+</details>
+
+<details>
+  <summary>Click to show solution for Question 6</summary>
+
+6. Determine whether $F = \langle 3xy, 3x^2, z \rangle$ is convergent. If so, find $f$ such that $\nabla f = \vec F$.
+
+$\vec F$ is conservative if $curl\ \vec F = 0$. So, let's find the curl:
+
+$$
+curl\ \vec F = 
+\begin{vmatrix}
+  i && j && k \\
+  dx && dy && dz \\
+  P && Q && R
+\end{vmatrix}
+= 
+(Rdy - Qdz)i + (Pdz - Rdx)j + (Qdx - Pdy)k
+$$
+
+$$=\langle 0 - 0, 0 - 0, 6x - 3x\rangle$$
+
+It is not conservative.
+
+</details>
+
+<details>
+  <summary>Click to show solution for Question 7</summary>
+
+7. Find the work done on the particle that travels from the point $(0,1,2)$ to $(1, 3, 4)$ by the vector field $F = \langle xz, y^2, 2z \rangle$.
+
+The work done is equal to the line integral:
+
+$$\int\limits_C \vec F \cdot dr$$
+
+First, parameterize $C$. We can jusr define $0 \le t\le 1$ for simplicity.
+
+$$
+C = 
+\begin{cases}
+  x = t \\
+  y = 2t + 1 \\
+  z = 2t + 2 
+\end{cases}
+$$
+
+Then we use the formula for line integrals:
+
+$$\int\limits_C \vec F \cdot dr = \int\limits_a^b \vec F(\vec r(t)) \cdot \vec r'(t)$$
+
+$$\int\limits_0^1 \langle (t)(2t + 2), (2t + 1)^2, 2(2t + 2)\rangle \cdot \langle 1,2,2 \rangle$$
+$$\int\limits_0^1 10t^2 + 16t + 12 dt$$
+$$\frac{10}{3}t^3 + 8t^2 + 12t |_0^1$$
+$$\frac{10}{3} + 8 + 12$$
+
+</details>
+
+<details>
+  <summary>Click to show solution for Question 8</summary>
+
+The surface area is the surface integral of 1. So:
+
+$$\iint\limits_S 1 dS = \iint\limits_D |r_u \times r_v|dA$$
+
+First find the parameterization of $S$. This is simply the conversion to spherical coordinates:
+
+$$
+S = 
+\begin{cases}
+  x = \rho\cos\theta\sin\phi \\
+  y = \rho\sin\theta\sin\phi \\
+  z = \rho\cos\phi
+\end{cases}
+$$
+
+So, we need to find $r_u$ and $r_v$
+
+$$r_u = \langle -\rho\sin\theta\sin\phi, \rho\cos\theta\sin\phi, 0\rangle$$
+$$r_v = \langle \rho\cos\theta\cos\phi, \rho\sin\theta\cos\phi, -\rho\sin\phi \rangle$$
+
+And find the cross product:
+
+$$
+\begin{vmatrix}
+  \hat i && \hat j && \hat k \\
+  -\rho\sin\theta\sin\phi && \rho\cos\theta\sin\phi && 0 \\
+  \rho\cos\theta\cos\phi && \rho\sin\theta\cos\phi && -\rho\sin\phi
+\end{vmatrix}
+$$
+
+$$
+= \langle -\rho^2\cos\theta\sin^2\phi, -\rho^2\sin\theta\sin^2\phi, -\rho^2\sin^2\theta\sin\phi\cos\phi - \rho^2\cos^2\theta\sin\phi\cos\phi \rangle
+$$
+$$
+= \langle -\rho^2\cos\theta\sin^2\phi, -\rho^2\sin\theta\sin^2\phi, -\rho^2\sin\phi\cos\phi \rangle
+$$
+
+And find the length:
+
+$$\sqrt{\rho^4\cos^2\theta\sin^4\phi + \rho^4\sin^2\theta\sin^4\phi + \rho^4\sin^2\phi\cos^2\phi}$$
+$$\sqrt{\rho^4\sin^4\phi + \rho^4\sin^2\phi\cos^2\phi}$$
+$$\sqrt{\rho^4\sin^2\phi(\sin^2\phi + \cos^2\phi)}$$
+$$\sqrt{\rho^4\sin^2\phi}$$
+$$\rho^2\sin\phi$$
+
+And take the integral:
+
+$$\int\limits_0^{2\pi}\int\limits_0^\pi \rho^2\sin\phi\ d\phi d\theta$$
+$$2\pi * -\rho^2\cos\phi|_0^\pi$$
+$$2\pi * -\rho^2((-1) - 1)$$
+$$2\pi * 2\rho^2$$
+$$4\pi\rho^2$$
+
+Congratulations! You just derived the formula for the surface area of a sphere.
+
+</details>
+
+<details>
+  <summary>Click to show solution for Question 9</summary>
+
+9. Find the line integral $\oint\limits_C (x^2 + 3xy)dx + (4y + xy)dy$ where $C$ is the line segment from $(1,0)$ to $(3,1)$
+
+First parameterize $C$:
+
+$$
+\begin{cases}
+  x = 2t + 1 \\
+  y = t
+\end{cases}
+$$
+
+And set up the integral:
+
+$$\int\limits_C f(x,y)dx + g(x,y)dy = \int\limits_a^b f(x(t), y(t))*x'(t) + g(x(t), y(t))*y'(t)$$
+
+$$\int\limits_a^b ((2t + 1)^2 + 3(2t + 1)(t))*(2) + (4(t) + (2t + 1)(t))*1\ dt$$
+
+$$\int\limits_0^1 22t^2 + 19t + 2\ dt$$
+$$\frac{22}{3}t^3 + \frac{19}{2}t^2 + 2t|_0^1$$
+$$\frac{22}{3} + \frac{19}{2} + 2$$
+
+</details>
+
+<!-- Template
+<details>
+  <summary>Click to show solution for Question N</summary>
+
+</details>
+-->
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
