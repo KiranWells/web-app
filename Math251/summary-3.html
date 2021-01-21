@@ -1,6 +1,6 @@
 # Summary, Chapter 15 - Multi-variable integrals
 
-## [Double Integrals](Sections/15/integrals.html)
+## [Double Integrals](15/integrals.html)
 
 Double integrals are simply integrals taken over an area instead of a range of numbers (line). To do them, you just integrate one variable at a time:
 
@@ -40,9 +40,9 @@ The latter domain would be best integrated as a $dxdy$ to make the integration p
 
 $$\iint f(x,y)dA = \int\limits_0^1\left(\int\limits_y^{\sqrt{y}} f(x,y)dy\right)dx$$
 
-### [Polar Double Integrals](Sections/15/polar_integrals.html)
+### [Polar Double Integrals](15/polar_integrals.html)
 
-Instead of using normal cartesian coordinates, we can use polar coordinates for some domains such as a circle to make it easier. In the conversion, we need to multiply by $r$ to make sure the math is correct (for an explanation, see [change of variables and Jacobians](Sections/15/change_of_var.html)).
+Instead of using normal cartesian coordinates, we can use polar coordinates for some domains such as a circle to make it easier. In the conversion, we need to multiply by $r$ to make sure the math is correct (for an explanation, see [change of variables and Jacobians](15/change_of_var.html)).
 
 $$\iint f(x,y)dxdy = \iint f(r\cos\theta, r\sin\theta) r\ drd\theta$$
 
@@ -70,7 +70,7 @@ $$\iint 1 dA = Area\ of\ A$$
 
 (This likely will be on the test)
 
-## [Triple Integrals](Sections/15/triple_integals.html)
+## [Triple Integrals](15/triple_integals.html)
 
 Triple integrals are like double integrals, but with three variables instead of two. (As a side note, you could theoretically extend this to any number of variables, although the complexity would obviously grow very high for 6 or 7 variables.) 
 
@@ -115,11 +115,11 @@ $$\int\limits_0^1\int\limits_0^{1-x}\int\limits_0^{1-x+y} xyz\ dzdydx$$
 
 If we integrate over the function $f(x,y,z) = 1$, we get the volume of the domain, similar to the double integral.
 
-### [Cylindrical Triple Integrals](Sections/15/triple_int_cyl.html)
+### [Cylindrical Triple Integrals](15/triple_int_cyl.html)
 
 Triple integrals have more than one other coordinate system we can use for integrating. The first is cylindrical doordinates. These are coordinates where we use a set of polar coordinates for two variables and leave the other. Usually, this is in the form $(r, \theta, z)$. This easily allows us to represent cylindrical domains.
 
-The triple integral over cylindirical coordinates must first be converted to that coordinate system, and similar to polar integrals will require an extra $r$ to be multiplied after. (again, see [change of variables and Jacobians](Sections/15/change_of_var.html) for an explanation)
+The triple integral over cylindirical coordinates must first be converted to that coordinate system, and similar to polar integrals will require an extra $r$ to be multiplied after. (again, see [change of variables and Jacobians](15/change_of_var.html) for an explanation)
 
 $$\iiint f(x,y,z)dV = \int\int\int f(r\cos\theta, r\sin\theta, z)\ dz(r)drd\theta$$
 
@@ -140,7 +140,7 @@ Note that $x^2 + y^2 = r^2$.
 
 Cylindrical integrals can also have variable domains and change the order of integration. We can also use x and z or y and z as the two variables to change to polar instead of x and y.
 
-### [Spherical Triple Integrals](Sections/15/triple_int_sph.html)
+### [Spherical Triple Integrals](15/triple_int_sph.html)
 
 Spherical integrals convert the $(x,y,z)$ coordinates to $(\rho, \theta, \phi)$ coordinates where:
 
@@ -164,7 +164,7 @@ $$
 
 This converts everything to a radius and angle. An important thing to note is that $\phi$ is measured from the z-up direction down, not from the xy-plane up.
 
-For integrals in spherical coords, we need to convert to spherical coordinates and add $\rho^2\sin\phi$ to the end. (again, see [change of variables and Jacobians](Sections/15/change_of_var.html) for an explanation)
+For integrals in spherical coords, we need to convert to spherical coordinates and add $\rho^2\sin\phi$ to the end. (again, see [change of variables and Jacobians](15/change_of_var.html) for an explanation)
 
 $$\iiint f(x,y,z)dV = \int\int\int f(\rho\cos\theta\sin\phi, \rho\sin\theta\sin\phi, \rho\cos\phi)\ \rho^2\sin\phi\ d\rho d\phi d\theta$$
 
@@ -183,8 +183,8 @@ $$\int\limits_0^{\pi/2}\int\limits_0^{\pi/2}\int\limits_0^2 (\rho\cos\theta\sin\
 
 As with other integrals, the domain can be variable and the integration order can be changed.
 
-## [Change of variables (Jacobians)](Sections/15/change_of_var.html)
-As has been made clear in the above examples, it is often useful to change the coordinate system to make the domain a simpler shape. This can not only be done with cylindrical and spherical coordinates, but with any transformation from one system to another. This sections explains how to do this for integrals.
+## [Change of variables (Jacobians)](15/change_of_var.html)
+As has been made clear in the above examples, it is often useful to change the coordinate system to make the domain a simpler shape. This can not only be done with cylindrical and spherical coordinates, but with any transformation from one system to another. This section explains how to do this for integrals.
 
 We can define a transformation formula $T: (x,y) \to (u,v)$ as 
 

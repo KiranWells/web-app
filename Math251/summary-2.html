@@ -1,4 +1,4 @@
-# Summary, sections 14.1 - 14.8
+# Summary, Math251 14.1 - 14.8
 
 ## Chapter 14 - Partial Derivatives and their Uses
 
@@ -21,7 +21,7 @@ $$z = f(x,y)$$
 Or even
 $$s = f(x,y,z)$$
 
-### [Partial Derivatives](Sections/14/partial-derivatives.html)
+### [Partial Derivatives](14/partial-derivatives.html)
 
 The partial derivative of a multivariable function depends on the direction it is taken in. The most common are the derivatives in the directions of x and y:
 
@@ -73,7 +73,7 @@ $$f_{xx} = 2y + y^2e^{xy}$$
 
 </details>
 
-#### [Chain Rule One](Sections/14/tangent_planes.html)
+#### [Chain Rule One](14/tangent_planes.html)
 
 Given a two-variable function $z = f(x,y)$, use the two portions as functions themselves. $x = g(t)$, $y = h(t)$
 $$z(t) = f(g(t),h(t))$$
@@ -98,7 +98,7 @@ $${dz\over dt} = (3)(2) = 6$$
 
 </details>
 
-#### [Chain Rule Two](Sections/14/more_differentiation.html)
+#### [Chain Rule Two](14/more_differentiation.html)
 
 Given a two-variable function $z = f(x,y)$, use the two portions as multivariable functions themselves. $x = g(s, t)$, $y = h(s, t)$
 $${\delta z\over \delta s} = {\delta z\over \delta x} * {\delta x\over \delta s} + {\delta z\over \delta y} * {\delta y\over \delta s}$$
@@ -123,7 +123,7 @@ $${\delta z\over \delta s} = e^{st^2}\sin(s^2t) * t^2 + e^{st^2}\cos(s^2t) * 2st
 
 </details>
 
-#### [Directional Derivative](Sections/14/directional_derivatives.html)
+#### [Directional Derivative](14/directional_derivatives.html)
 
 The derivative can also be taken in a certain direction. So, we just add together the parts of the vector multiplied by the gradient. The formula for this is:
 
@@ -131,7 +131,7 @@ $$D_{\vec u}f(x,y) = f_x(x,y) * a + f_y(x,y) * b$$
 
 Which means that the derivative in the direction of $\vec u = \langle a,b \rangle$ is equal to the partial derivatives multiplied by the components of $\vec u$
 
-#### [Gradient Vector](Sections/14/directional_derivatives.html)
+#### [Gradient Vector](14/directional_derivatives.html)
 
 The gradient is the vector made of the two partial derivatives.
 
@@ -139,18 +139,18 @@ $$\nabla f = \langle f_x f_y \rangle$$
 
 ***This gradient vector defines the direction of the largest slope.***
 
-### [Local Maximum and Minimum](Sections/14/max_and_min.html)
+### [Local Maximum and Minimum](14/max_and_min.html)
 
 The local maximum and minimum can be found by finding critical points, then checking to see if they are max, min, saddle, or unknown
 
-#### [Critical Points](Sections/14/max_and_min.html)
+#### [Critical Points](14/max_and_min.html)
 
 Critical points are all the places where $f'(x,y) = 0$.
 Meaning:
 
 $$f_x = f_y = 0$$
 
-#### [Second Derivatives Test](Sections/14/max_and_min.html)
+#### [Second Derivatives Test](14/max_and_min.html)
 
 We can use the second derivative to see if they are maximums or minimums.
 
@@ -165,7 +165,7 @@ $$D(x,y) = \begin{vmatrix}f_{xx} f_{xy} \\ f_{yx} f_{yy}\end{vmatrix} = f_{xx}f_
 3. If $D(a,b) = 0$, then the results are inconclusive
 
 Saddle points are like this:
-![Saddle illustration](Sections/14/saddle.jpg)
+![Saddle illustration](14/saddle.jpg)
 
 <details>
   <summary>Click to show example for local max and min</summary>
@@ -207,9 +207,9 @@ So now we test in $f_{xx}$
 
 </details>
 
-### [Absolute Maximum and Minimum](Sections/14/absolute_max_min.html)
+### [Absolute Maximum and Minimum](14/absolute_max_min.html)
 
-#### [Finding Max and Min on the Boundary of the Domain](Sections/14/absolute_max_min.html)
+#### [Finding Max and Min on the Boundary of the Domain](14/absolute_max_min.html)
 
 The absolute max and min can be found by checking all local max and min point in the closed domain $D$ along with all the critical points at the edge of the domain
 
