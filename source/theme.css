@@ -53,6 +53,15 @@ footer {
   flex-direction: column;
 }
 
+aside {
+  font-style: italic;
+  font-size: smaller;
+}
+
+h1+aside {
+  text-align: center;
+}
+
 .disclaimer {
   width: 80%;
   font-size: small;

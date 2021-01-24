@@ -1,0 +1,170 @@
+# Classification of DEs
+
+If a DE can be written as a linear combination of the unknown function and its derivatives, it is called **linear**.
+
+$$a_n(t)y^{(n) + ... = g(t)}$$
+
+Ex:
+
+$$3ty''' + 2t^2 y' = g(t)$$
+
+If $g(t) = 0$, the equation is homogeneous.
+
+<details>
+  <summary>Click to show Example 5.</summary>
+
+Classify each DE:
+
+1. ${x^2y'' + y\over y'} = \cos x$
+  this is linear and homogenous
+2. $y'' + (y^2 - 1)y' - t^3y = \tan t$
+  This is nonlinead=r, and even if it was, it would be non-homogenous because $\tan t$ has no $y$ attached to it, so it is $g(t) \ne 0$.
+3. $u_{xxx} - 3u_{xy} + (x^2 + y^3)u_x = 1 - u$
+  In this case, it is linear, since any function of $x$ and $y$ can be in it, and any partial derivative of $u$. However it is non-homogenous as $g(x,y) = 1$
+4. $u_{xx} + uu_y = 0$
+  non-linear since $u$ is multiplied by $u_y$
+</details>
+
+## Basic Mathematical models
+
+A DE that describes some physical process is often called a **mathematical model** of the process.
+
+<details>
+
+Example 6:
+
+A bullet enters a board of thickness h with a velocity v_0 and goes out with a velocity v_1. Considering the resistance force of the board to the movement of the bullet is prroportional to the square of the velocity, find the time required for the bullet to pass through the board.
+
+So, we can write down the rule we are told:
+
+$$F = -kv^2$$
+
+Where $k$ is some constant that represents how the velocity squared is proportional to F.
+
+Since Distance is the average velocity multiblied by time, we can solve for time by dividing $h$ by the average velocity. However, we do not know the average velocity. But, we can estimate from our data and assuming a linear change (which is clearly false).
+
+$$T \approxeq {h\over \frac{v_0 + v_1}{2}} $$
+
+We can use Newton's law to start
+
+$$F = ma$$
+
+$$m\frac{dv}{dt} = -kv^2$$
+$$\frac{dv}{dt} = {-kv^2\over m}$$
+
+This is a non-linear, first-order, ordinary differential equation.
+
+Now, we can also define the other values we have:
+
+$$v(0) = v_0, v(T) = v_1, x(T) = h$$
+
+One note is that we would need as many initial conditions as there are orders in the equation.
+
+So now, we are trying to find $T$, and perhaps $\frac{k}{m}$
+
+One strategy would be to find the equation for the position:
+
+$$x' = v(t)$$
+$$x(0) = 0$$
+
+(Try it yourself)
+
+A shorter approach is to find a relationship between the position and the velocity:
+
+$$\frac{dv}{dt} = -\alpha v^2$$
+
+Where $\alpha$ is $\frac{k}{m}$.
+
+We want to change the independent variable to $x$ instead of $t$
+
+We can do this by multiplying 
+
+$$\frac{dv}{dx} * \frac{dx}{dt} = \frac{dv}{dt}$$
+
+And $\frac{dx}{dt}$ is just the velocity $v$, so we can rewrite it as:
+
+$$v\frac{dv}{dx} = -\alpha v^2$$
+$$\frac{dv}{dx} = -\alpha v$$
+
+Here, we cannot really integrate with respect to $x$, since we do not know $v$. We could use an integrated equation to iterate, plugging in values over and over to approximate an equation.
+
+Instead, we can either recognize the pattern, or we can rearrange it to a combination we know. For example, we know that $\frac{d}{dx}\ln(x) = frac{dx}{x}$
+
+Now we can rearrange and integrate both sides.
+
+$$\frac{dv}{dx} = -\alpha v$$
+$$\int{\frac{dv}{dx}\over v} = \int -\alpha$$
+$$\ln(v) = -\alpha x + C$$
+
+Now we can use our initial conditions to solve for $C$.
+
+$v(0) = v_0$
+$\ln(v_0) = -\alpha (0) + C$
+$C = \ln(v_0)$
+
+After simplifying, we get:
+
+$$v(x) = v_0 e^{-\alpha x}$$
+
+Now we can use the initial conitions to find $\alpha$:
+
+$$v(h) = v_1 = v_0 e^{-\alpha h}$$
+$$\alpha  = -({\ln(\frac{v_1}{v_0}) \over h})$$
+
+Now we can find the exact average velocity.
+
+$$T = \frac{h}{v_{avg}} = {h\over (\int\limita_0^h v_0e^{-\alpha x} dx)/h}$$
+$$= {h^2 / v_0 \over (-\frac{1}{\alpha}e^{-\alpha h} - 1)}$$
+
+And we simplify:
+
+$$T = {h^2 {({\ln(\frac{v_0}{v_1}) \over h})}\over v_0 - v_1}$$
+
+</details>
+
+## Direction Fields
+
+An equation solved for $y'$ is called a **normal form**.
+
+$$y' = f(t,y)$$
+
+This equation allows us to display a grid of values of $y'$, which are the slopes at that point. By making a graph of $y$ and $t$, and drawing the slopes at each point, we can get a vector field (direction field).
+
+<details>
+
+Example 7:
+
+Draw a direction field for the ODE $y' = 3 - y$. Then use that to determine the behavior as $t\to\inf$
+
+We can plot it by hand by plugging in values at each point. For example, if $y =3$, the slope is 0.
+
+In addition, $t$ does not affect the equation (it is autonomous), so the slope will be identical across all $t$s.
+
+![Direction Field](DirecField.png)
+
+Here, we can see that the equation will always converge to $3$, and the solution $y = 3$ will be a horizontal line.
+
+This line is the **equilibrium solution** (any constant would be one).
+
+This is stable equilibrium, as all values converge to 3, even with small variations in the stating point.
+
+</details>
+
+### Equilibrium Solutions
+
+Any constant solution of a DE is called an **equilibrium solution**, meaning that any solution that only contains a constant expression is such a solution.
+
+We can find such solutions by finding a point where the derivatives are all $0$. So,
+
+$$y'' - xy = 0$$
+$$0 - xy = 0$$
+$$y = 0$$
+
+$$y'' - xy = 1$$
+$$0 - xy = 1$$
+$$y = -1/x$$
+
+So, the second equation does not have an equilibrium solution, as there is no constant $y$ that will satisfy all values of $x$
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">

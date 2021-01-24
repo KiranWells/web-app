@@ -12,6 +12,7 @@ window.onload = () =>
   <div class="links">
     <a href="/index.html">Home</a>
     <a href="/Math251">Math 251</a>
+    <a href="/Math308">Math 308</a>
   </div>
   <div class="disclaimer">
     If you feel any content on this site is your intellectual property, 
