@@ -2,7 +2,7 @@
 
 If a DE can be written as a linear combination of the unknown function and its derivatives, it is called **linear**.
 
-$$a_n(t)y^{(n) + ... = g(t)}$$
+$$a_n(t)y^{(n)} + ... = g(t)$$
 
 Ex:
 
@@ -30,6 +30,7 @@ Classify each DE:
 A DE that describes some physical process is often called a **mathematical model** of the process.
 
 <details>
+  <summary>Click to show Example 6.</summary>
 
 Example 6:
 
@@ -113,7 +114,7 @@ $$\alpha  = -({\ln(\frac{v_1}{v_0}) \over h})$$
 
 Now we can find the exact average velocity.
 
-$$T = \frac{h}{v_{avg}} = {h\over (\int\limita_0^h v_0e^{-\alpha x} dx)/h}$$
+$$T = \frac{h}{v_{avg}} = {h\over (\int\limit_0^h v_0e^{-\alpha x} dx)/h}$$
 $$= {h^2 / v_0 \over (-\frac{1}{\alpha}e^{-\alpha h} - 1)}$$
 
 And we simplify:
@@ -131,6 +132,7 @@ $$y' = f(t,y)$$
 This equation allows us to display a grid of values of $y'$, which are the slopes at that point. By making a graph of $y$ and $t$, and drawing the slopes at each point, we can get a vector field (direction field).
 
 <details>
+  <summary>Click to show Example 7.</summary>
 
 Example 7:
 
@@ -165,6 +167,148 @@ $$0 - xy = 1$$
 $$y = -1/x$$
 
 So, the second equation does not have an equilibrium solution, as there is no constant $y$ that will satisfy all values of $x$
+
+Another example is:
+
+$y' = \sin(y)\cos(t^2)$
+
+This is in equilibrium for any $y$ for which $\sin(y) = 0$, meaning $0, \pi, 2\pi,...$
+
+All solutions in this class will be real, but imaginary values can be used as intermediate values.
+
+<details>
+  <summary>Click to show Example</summary>
+
+Question:
+Draw a direction field for $y' = y^2 - y^4$ and find the equilibrium solutions.
+Then use that to determine the behavios of $y$ as $t \to \inf$
+
+We can see from the equation that the eqilibrium solutions are $0, 1, -1$.
+From there, we can draw som conclusions from the behavior of $y'$.
+
+![The direction Field](DirecField.jpeg)
+
+Above 1, the slope slowly decreases as $y$ increases.
+Below -1, the slope decreases as y decreases.
+Between these, the slope is positive, growing more positive the farther from each equilibrium solution.
+
+Because of this behavior, we can determine that lines as $t\to\inf$, will move toward wither $1$, $0$, or $-\inf$.
+Of course, for the case of equilibrium, they will stay the same.
+
+To be clear, this is as $t$ increases; as it might not be able to go to infinity.
+
+</details>
+
+### Types of asymptotes
+
+In the previous example, some of the asymptotes converged from both directions, and some diverged.
+
+A stable asymptote converges from both sides; an unstable one diverges from both sides.
+
+A semistable one diverges from one side and converges from the other.
+
+## Autonomous systems
+
+Autonomous systems have a property that allows you to find a similar solution by shifting the function.
+
+For example, an equation will have some constant of integration that allows you to find multiple solutions.
+
+$$y' = 2t$$
+$$y = t^2 + C$$
+
+This C can be changed to find many solutions. 
+
+In this case, the differential equation does not actually depend on y, so it can easily be integrated. In more complex equations, the location of the constant may be located in many other places.
+
+$$y' = y$$
+$$y = Ce^x$$
+
+## Behavior of a function
+
+We can use direction fields to visualize an equation, and combined with the asymptotes, we can undestand the behavior of a function.
+
+<details>
+  <summary>Click to show Example 11</summary>
+
+Question:
+Solve the initial value problem (IVP)
+
+$${dy\over dt} = ay + b$$
+$$y(0) = y_0$$
+
+Where $a$ and $b$ are constants and $a$ is non-zero.
+
+In this case, integration will not immediately help, because we cannot integrate $y$ with respect to $t$.
+
+In this case, we can divide by the right side to get:
+
+$${\frac{dy}{dt}\over ay + b} = 1$$
+
+We can now integrate both sides:
+
+$$\int{\frac{dy}{dt}\over ay + b}dt = \int 1dt$$
+
+In this case, we are dividing by $y + b$, so we need to account for if that is 0:
+
+$y = -b/a$
+
+This happens to be an equilibrium solution.
+
+Now, we can further simplify the original equation, assuming $ay +b \ne 0$:
+
+$$\int{\frac{dy}{dt}\over ay + b}dt = \int 1dt$$
+$$\frac{1}{a}\ln|ay+b| = t + C$$
+
+At this point, we can solve for $C$ given $y_0 = 0$.
+
+$$C = \frac{1}{a}\ln|ay_0+b|$$
+
+$$\ln|ay+b| = at + aC$$
+$$|ay+b| = e^{at + aC}$$
+$$|ay+b| = e^{aC}e^{at}$$
+$$|ay+b| = C_1e^{at}$$
+
+Where $C_1 = e^{aC}$ 
+
+$$C_1 = e^{a(\frac{1}{a}\ln|ay_0+b|)}$$
+$$C_1 = |ay_0+b|$$
+
+In this case we can simplify to 
+
+$$ay + b = \pm e^{at} ay + b$$
+
+But only the positive solution satisfies the initial value. So now we can solve for y.
+
+$$y = e^{at}(y_0 + \frac{b}{a}) - \frac{b}{a}$$
+
+Using the direction field and the asymptote, we can see that all values will either converge or diverge from the asymptote based on whether $a$ is positive or negative. (converging when negative, diverging when positive).
+
+</details>
+
+<details>
+  <summary>Click to show example 12</summary>
+
+Question 12:
+Given an object of mass $m$ falling in an atmosphere with a drag coefficient of $\gamma$, assuming the drag force is $F = \gamma v$, find the behavior for $v$.
+
+Here, we can define $F = ma$. In this case, $a = \frac{dv}{dt}$, so if we solve for $a$:
+
+$$\frac{dv}{dt} = \frac{F}{m}$$
+
+Also, the force is the sum of all forces on the object, so adding gravity and the drag:
+
+$$F = mg - \gamma v$$
+
+So, we plug it in:
+
+$$\frac{dv}{dt} ={mg - \gamma v \over m}$$
+$$\frac{dv}{dt} = g - \frac{\gamma}{m} v$$
+
+We can model the behavior of this with a direction field, and see that the graphs converge to an equilibrium solution $$v_t = \frac{mg}{\gamma}$$
+
+We can follow the same strategy as above to divide by the right and integrate based on $\int \frac{dx}{x} = \ln|x|$.
+
+</details>
 
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">
