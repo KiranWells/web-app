@@ -1,6 +1,6 @@
 ---
 name: Error report
-about: Create a report to help us improve
+about: Tell me about an error in the math or text
 title: Error on page
 labels: error
 assignees: ''
