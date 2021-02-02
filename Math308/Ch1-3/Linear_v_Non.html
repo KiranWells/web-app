@@ -1,0 +1,95 @@
+# Differences between Linear and Nonlinear Equations
+
+## Existence and Uniqueness of DEs
+
+For all linear equations, we are trying to determine:
+1. Does a solution to the equation exist?
+2. How many are there? (Is it unique)
+
+### Linear Equations
+
+We have already found a solution for these equations:
+
+$$y' + p(t)y = g(t), y(t_0) = y_0$$
+
+This is summarized in a formula:
+
+#### Theorem:
+If the function $p$ and $g$ are continuous on an open interval $I = \alpha \lt t \lt \beta$ containing $t_0$, the solution is given by:
+
+$$y = \frac{1}{\mu(t)}\left[y_0 + \int_{t_0}^t \mu(s)g(s)ds\right]$$
+
+Where:
+
+$$\mu(t) = e^{\int_{t_0}^t p(s)ds}$$
+
+!!Example 1
+
+Find an interval in which the solution of the initial value problem:
+
+$$(t^2 - 2t - 3)y' - t^3y = e^{2t}\ln(t), y(2) = 7$$
+
+is certain to exist, and whether it is unique.
+
+First, we need to change it into standard form:
+
+$$y' - {t^3\over t^2 - 2t - 3}y = {e^{2t}\ln(t)\over t^2 - 2t - 3}$$
+
+Now, to determine the interval, we need to verify that $p$ and $g$ are continuous. (Those are the conditions for the theorem.) Clearly, they do not work when $t^2 - 2t - 3 = 0$, so our interval is between any of those solutions:
+
+$(t - 3)(t + 1) = 0$
+$t = 3, -1$
+
+Secondly, we need to ensure $t > 0$ as $\ln(t)$ is only valid for these values:
+
+So since the initial value is in between these points, our interval is from $(0, 3)$.
+
+There is no need to solve this for a general solution!
+
+!!
+
+### Non-linear Equations
+
+For these types of equations, we need to use a different theorem:
+
+#### Theorem
+If $f$ and $\frac{\partial f}{\partial y}$ are continuous in some rectangular interval $R = \alpha \lt t \lt \beta, \gamma \lt y \lt \delta$ containing the point $(t_0, y_0)$, in some interval $t_0 - h \lt t \lt t_0 + h$ contained on the larger interval $R$, there is a unique solution of the initial value problem:
+
+$$y' = f(t,y), y(t_0) = y_0$$
+
+However, the existence, but not the uniqueness, can be established on the continuity of $f$ alone.
+
+If the initial rectangle has $(t_0,y_0)$ as its center, then $h$ can be taken to be at least as large as:
+
+$$h = min(a,b/M)$$
+
+Where $M$ is the maximum (or upper bound) of $|f|$ on the rectangle, and $a,b$ are the distances from the center to the sides of $t,y$ respectively. So, if the rectangle is from $t_0 - a \lt t \lt t_0 + a, y_0 - b \lt t \lt y_0 + b$, we can use the above formula.
+
+This is a much more complex definition, which shows us how hard to study non-linear equations are.
+
+!!Example 2
+
+In the following problems separate out domains in the plane in which the given ODE has unique solutions.
+
+1. $y' = t^2 + y^2$  
+    This is continuous everywhere, so it will have unique solutions everywhere.
+2. $y' = {\cot(t)y\over y^2 - t^2}$  
+    $f$ is only continuous if:
+    $$
+    \begin{cases}
+      y^2 + t^2 \ne 0 \\
+      \sin t \ne 0
+    \end{cases}
+    $$
+    So, we just need to be in some area that lies between those lines. We also need to ensure the derivatives are not invalid, but after differentiating, we can see that the points of discontinuity are the same.
+
+3. $y' = \sqrt[3]{3x - y - 1}$  
+    In this case, $f$ is continuous (which guarantees the existence of a solution), but $f_y$ is not when:
+    $$
+      3x - y - 1 = 0
+    $$
+
+!!
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">

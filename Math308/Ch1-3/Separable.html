@@ -1,0 +1,68 @@
+# Separable Equations
+
+A separable equation is an ordinary DE that can be written as separate functions of each of the two variables.
+
+$$y' = f(x)g(y)$$
+
+Example: $y' = xy$ is separable, as $f(x) = x$ and $g(y) = y$, but $y' = x + y$ is not. 
+
+Separable:
+$$y' = y^3$$
+$$yy' = \sin (y) x^3$$
+$$x^2y' = y\sin x $$
+
+Not separable:
+$$y' = \sin (xy)$$
+$$y' + x^2 = y$$
+
+Equations of this form can be solved by separating variables and integrating:
+
+$$y' = f(x)g(y)$$
+$${y'\over g(y)} = f(x)$$
+$$\int {y'\over g(y)}dy = \int f(x)dx + C$$
+
+Since we are dividing by $g(y)$ here, we need to ensure that $g(y) \ne 0$. For these equations, the solution to $g(y) = 0$ is always an equilibrium solution.
+
+!!Example 4
+
+Solve the initial value problem and determine the interval of validity:
+
+$$y' = {xy^3 \over \sqrt{1 + x^2}}, y(0) = -1$$
+
+First, test to see if the solution $g(y) = 0$ is an equilibrium solution:
+
+$$y' = {x \over \sqrt{1 + x^2}}y^3$$
+$$y' = {x \over \sqrt{1 + x^2}}(0)$$
+$$y' = 0$$
+
+Yes, so this is one solution. Now, find the general solution:
+
+$$y' = {x \over \sqrt{1 + x^2}}y^3$$
+$$\int {y'\over y^3} = \int {x \over \sqrt{1 + x^2}}$$
+$$- {1\over 2y^2} = \int (x) * (1 + x^2)^{-\frac{1}{2}}$$
+$$- {1\over 2y^2} = (1 + x^2)^{\frac{1}{2}} + C$$
+
+And find C:
+
+$$- {1\over 2} = (1)^{\frac{1}{2}} + C$$
+$$- {3\over 2} = C$$
+
+And simplify:
+
+$$- {1\over 2y^2} = (1 + x^2)^{\frac{1}{2}} - \frac{3}{2}$$
+$${1\over 2y^2} = \frac{3}{2} - \sqrt{1 + x^2}$$
+$${1\over 2(\frac{3}{2} - \sqrt{1 + x^2})} = y^2$$
+$$y = \pm {1\over \sqrt{3 - 2\sqrt{1 + x^2}}}$$
+
+Now we use the initial value again to determine which sign should be used:
+
+$$-1 = \pm {1\over \sqrt{3 - 2\sqrt{1 + 0}}}$$
+$$-1 = - {1\over 1}$$
+
+So out final answer is:
+$$y = - {1\over \sqrt{3 - 2\sqrt{1 + x^2}}}$$
+
+!!
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">

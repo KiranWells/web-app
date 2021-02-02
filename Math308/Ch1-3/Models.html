@@ -1,0 +1,99 @@
+# Physical models with first order DEs
+
+## Mixing Fluid
+
+There are very many related rate type problems which resolve into differential equations.
+
+!!Example 1 (Mixing Fluid)
+
+A tank contains $V_0$ gal of water and $m_0$ kg of salt at time $t_0=0$,mixed well. Water containing a salt concentration of $C_{in}(t)$ kg/gal flows into the tank at a rate of $r_{in}(t)$ gal/min, and the mixture in the tank flows out at the a rate of $r_{out}(t)$ gal/min. Assume the mixture is mixed well instantaneously. Find the amount of salt in the tank as a function $m(t)$.
+
+To start, set up a problem to find the equation of the volume as a function of time.
+
+We know that the change in the volume will be the amount entering the tank - the amount leaving the tank:
+
+$$V'(t) = r_{in}(t) - r_{out}(t), V(0) = V_0$$
+
+From here, we can simply integrate:
+
+$$V(t) = \int r_{in}(t) - r_{out}(t) + C$$
+
+Since we just want the value from 0 to a time $t$, we can use those as the integration limits:
+
+$$V(t) = \int\limits_0^t (r_{in}(s) - r_{out}(s))ds + C$$
+
+Here, $s$ is simply an arbitrary variable.
+
+And $C$ can be shown to $= V_0$ by the fact that $\int\limits_0^0 f(x)dx = 0$.
+
+Next, we set up an initial value problem for $m(t)$. Since the tank is immediately well-mixed, we can set $C(t) = C_{out}(t)$.
+
+The change in the amount of salt is here is euqal to the amount of salt entering and exiting, which are in turn the concentration times the volume:
+
+$$\frac{dm}{dt} = C_{in}(t) * r_{in}(t) - C_{out}(t) * r{out}(t), m(0) = m_0$$
+
+Here, since $C(t) = C_{out}(t) = $, we can plug that in:
+
+$$m' = C_{in}(t) * r_{in}(t) - {m\over V(t)} * r{out}(t)$$
+
+And rearranging, we get:
+
+$$m' + {r{out}(t)\over V(t)}m = C_{in}(t) * r_{in}(t)$$
+
+Which is a standard form equation.
+
+$$p(t) = {r{out}(t)\over V(t)}$$
+$$\mu(t) = e^{\int r{out}(t)\over V(t)dt}$$
+
+$$\mu * m = \int \mu * C_{in} * r_{in}dt + C$$
+
+And we can use the same strategy from earlier to get:
+
+$$\mu * m = \int\limits_0^t \mu * C_{in}(s) * r_{in}(s)ds + m_0$$
+$$m(t) ={m_0 + \int_0^t \mu * C_{in}(s) * r_{in}(s)ds \over \mu(t)}$$
+
+Where:
+$$\mu(t) = e^{\int_0^t r{out}(s)\over V(s)ds}$$
+$$\mu(0) = e^{\int_0^0} = 1$$
+
+!!
+
+## Newton's Law of Cooling
+
+Newton's law of cooling states that the temperature $v(t)$ of an object changes at a rate proportional to the difference between its temperature and that of it's surroundings.
+
+$$u' = -k(u - T)$$
+
+Where $T$ is the ambient temp and $u$ is the temp of the object ($k$ is a positive constant).
+
+One note is that there is a negative in the front of this equation, telling us that if $u > T$, the temperature decreases, and vice-versa.
+
+If we graph this equation, we can see that the direction field will approach a stable asymptote at $u = T$.
+
+Solving this equation gives us:
+
+$$u' = -k(u - T)$$
+$$u' / (u - T) = -k$$
+$$\ln|u - T| = -kt + C$$
+$$(u - T) = Ce^{-kt}$$
+
+With an initial value $u_0$:
+
+$$(u_0 - T) = C$$
+$$(u - T) = (u_0 - T)e^{-kt}$$
+$$u = (u_0 - T)e^{-kt} + T$$
+
+!!Example 2 (Newton's law of cooling)
+
+If a coffee maker uses water that is $180\deg F$, how long will you need to wait for the temperature to drop to a comfortable $115\deg F$ if after 20 minutes, it has dropped to $160\deg F$?
+
+So, we have two times, and two temperatures:
+
+$$(u_1 - T) = (u_0 - T)e^{-kt_1}$$
+$$(u_2 - T) = (u_0 - T)e^{-kt_2}$$
+
+We do not know $T$ or $k$ in this equation, so to solve this we need to find a way to solve for one and then plug that into the other equation.
+!!
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
