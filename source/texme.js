@@ -17,7 +17,38 @@ $2
   </details>
   `);
   document.body.innerHTML = text;
+  // change to HTML
   runtexme();
+
+  // add theme button
+  let themes = ["Dark", "Light"];//, "Tropical", "Summer"
+  let currentTheme = "Dark";
+
+  function changeTheme(name) {
+    if (!themes.includes(name)) return -1;
+    document.body.parentElement.classList.remove(currentTheme.toLowerCase());
+    currentTheme = name;
+    document.body.parentElement.classList.add(currentTheme.toLowerCase());
+  }
+
+  let themeToggle = document.createElement("div");
+  themeToggle.classList.add("themetoggle")
+  let themeHTML = document.createElement("div");
+  themeHTML.classList.add("themelist");
+  for (e of themes) {
+    let div = document.createElement("button");
+    div.innerHTML = e;
+    div.onclick = () => changeTheme(div.innerHTML);
+    div.classList.add("themeitem");
+    themeHTML.appendChild(div);
+  }
+  themeToggle.innerHTML = `
+  ⚙
+  `;
+  themeToggle.appendChild(themeHTML);
+  document.getElementsByTagName("main")[0].appendChild(themeToggle);
+
+  // add footer
   let footer = document.createElement("footer"); 
   footer.innerHTML = `
   <div class="links">

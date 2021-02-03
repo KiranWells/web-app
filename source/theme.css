@@ -3,14 +3,54 @@
  * https://github.com/KiranWells
  */
 
-:root {
-  /* Colors from the nord theme */
+ :root, :root.dark {
+  /* Default Colors from the nord theme */
   /* https://nordtheme.com/ */
   --fg: #d8dee9;
+  --h1: #d8dee9;
+  --h2: #d8dee9;
   --bg: #2e3440;
   --bg-dark: #1f2228;
   --ac: #5e81ac;
   --al: #81a1c1;
+  --hl: #8fbcbb;
+}
+
+:root.light {
+  /* Colors from the nord theme */
+  /* https://nordtheme.com/ */
+  --fg: #2e3440;
+  --h1: #2e3440;
+  --h2: #2e3440;
+  --bg: #eceff4;
+  --bg-dark: #d8dee9;
+  --ac: #5e81ac;
+  --al: #81a1c1;
+  --hl: #b48ead;
+}
+
+:root.tropical {
+  /* Colors custom generated */
+  --fg: #c4c5c5;
+  --h1: #bb3408;
+  --h2: #dc710a;
+  --bg: #4e5151;
+  --bg-dark: #141818;
+  --ac: #117a67;
+  --al: #83a378;
+  --hl: #d89d17;
+}
+
+:root.summer {
+  /* Colors custom generated */
+  --fg: #331832;
+  --h1: #331832;
+  --h2: #948694;
+  --bg: #F5F3F5;
+  --bg-dark: #948694;
+  --ac: #F0544F;
+  --al: #FFC07F;
+  --hl: #948694;
 }
 
 body {
@@ -27,6 +67,7 @@ main {
 }
 
 h1 {
+  color: var(--h1, #d8dee9);
   width: 60%;
   font-variant: small-caps;
   margin: auto;
@@ -35,6 +76,7 @@ h1 {
 }
 
 h2 {
+  color: var(--h2, #d8dee9);
   border-bottom: 1px solid var(--fg, #e5e9f0);
 }
 
@@ -62,6 +104,15 @@ h1+aside {
   text-align: center;
 }
 
+summary {
+  color: var(--hl, #8fbcbb);
+  margin-left: -2em;
+}
+
+details {
+  margin-left: 2em;
+}
+
 .disclaimer {
   width: 80%;
   font-size: small;
@@ -79,6 +130,45 @@ h1+aside {
 .links>a {
   display: block;
   margin: 0 1em;
+}
+
+.themetoggle {
+  position: fixed;
+  margin: 1em;
+  right:0;
+  top:0;
+  background-color: var(--bg, #2e3440);
+  color: var(--fg, #eceff4);
+  border-radius: .3em;
+  padding: .2em .3em .1em .3em;
+}
+
+.themelist {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin: 0em;
+  border-radius: .3em;
+  background-color: var(--bg, #2e3440);
+}
+
+.themetoggle:hover .themelist {
+  display: block;
+}
+
+.themeitem {
+  border: none;
+  width: 100%;
+  text-align: center;
+  margin: 0 .1em;
+  border-radius: .3em;
+  background-color: var(--bg, #2e3440);
+  color: var(--fg, #eceff4);
+}
+
+.themeitem:hover {
+  background-color: var(--bg-dark, #1f2228);
 }
 
 a:link {
