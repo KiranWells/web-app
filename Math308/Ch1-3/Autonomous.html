@@ -1,0 +1,47 @@
+
+# Autonomous Equations and Population Dynamics
+
+Using an autonomous equation:
+
+$$y' = f(y)$$
+
+We assume $f$ is continuous (for this document). We can find an equilibrium solution by setting $y' = 0$:
+
+$$y' = 0 = f{\bar y}$$
+
+The equation is alwas separable, so the solution is either an equiibrium solution, or it can be integrated:
+
+$$\int \frac{dy}{f(y)} = t + C$$
+
+We can find the time it takes for a solution to start from one y-value and get to another.
+
+$$t_2 - t_1 = \Delta t = \int\limits_{y1}^{y2} \frac{dy}{f(y)}$$
+
+Specifically, it may take an infinite amount of time. This means that there is a horizontal asymptote, as it never reaches the new value. If it can reach an infinite value in a finite time, we can find a vertical asymptote:
+
+(Remember that an improper integral is an integral to $\pm \inf$)
+
+$$\int_{y_0}^{\inf} {dy\over f(y)} = t_1 - t_0$$
+
+If this integral converges, we have a vertical asymptote, as it will reach inf.
+
+!!Example 1
+
+$$y' = y^2,y(0) = 1$$
+
+So, if this has a vertical asymptote, we can find a time to reach infinity:
+
+$$\int\limits_0^{\tau}dt = \int\limits_1^{\inf} \frac{dy}{y^2}$$
+
+Remember from calculus that if $p \gt 1$, it will converge, so this will converge, meaning there is a vertical asymptote.
+
+However, with an equation $y' = \sqrt{y}$, it will diverge, so there is no asymptote.
+
+!!
+
+An equilibrium solution is called stable if solutions approach that equilibrium, and unstable if solutions move away from it. Semistable equilibriums are stable from only one side.
+
+If we graph $y'$ as a function of $y$, we can take the horizontal axis, and that will show all of the equilibrium solutions. Then, we can see if they are stable by cheking nearb
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
