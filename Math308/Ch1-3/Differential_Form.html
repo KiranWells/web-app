@@ -1,0 +1,28 @@
+# Differential Form
+
+we can also write differential equations like this:
+
+$$\frac{dx}{dy} = f(x,y)$$
+$$M(x,y)dx + N(x,y)dy = 0$$
+
+If $Mdx + Ndy = d\psi$, meaning that this is the solution to some equation $\psi(x,y)$, which since $d\psi = 0$, will be constant. So, we can try to find that equation using the properties of partial derivatives:
+
+$$d\psi = \psi_xdx+\psi_ydy = Mdx + Ndy$$
+
+If this equation hold true, this is called an exact equation. We can determine if this is true by using another formula of partial derivatives:
+
+For some $f(x,y)$, $f_{xy} = f_{yx}$, which means that we can take the derivative with respect to the opposite variable and check if they are the same. For example:
+
+$$(2x + y)dx + (2y + x)dy = 0$$
+
+We can validate that this is exact by taking the partial derivative of each side with respect to the opposite variable:
+
+$$\frac{\partial}{\partial y} (2x + y) = 1$$
+$$\frac{\partial}{\partial x} (2y + x) = 1$$
+
+And when integrating, we can find the function $\psi$:
+
+$$x^2 + y^2 + xy$$
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">

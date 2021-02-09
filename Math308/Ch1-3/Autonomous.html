@@ -41,7 +41,111 @@ However, with an equation $y' = \sqrt{y}$, it will diverge, so there is no asymp
 
 An equilibrium solution is called stable if solutions approach that equilibrium, and unstable if solutions move away from it. Semistable equilibriums are stable from only one side.
 
-If we graph $y'$ as a function of $y$, we can take the horizontal axis, and that will show all of the equilibrium solutions. Then, we can see if they are stable by cheking nearb
+If we graph $y'$ as a function of $y$, we can take the horizontal axis, and that will show all of the equilibrium solutions. Then, we can see if they are stable by checking nearby and estimating the motion of the particle.
+
+![Example](stability.png)
+
+We can do the same regardless of whether it is a function of $x,y$, or any other variable. The times when $f' = 0$ will be equilibriums.
+
+Remember that autonomous equations can be shifted in the $t$ direction because they do not depend on $t$.
+
+In addition to the solutions of the first derivative, we can look at the inflection points (or "levels", since they are horizontal lines for $y' = y$). This will help see more of the graph's shape.
+
+To get the second derivative, we need to take the derivative of the first derivative:
+
+$$\frac{dy}{dt} = f(y) \to \frac{d^2y}{dt} = f'(y)*f(y)$$
+
+Visually, these are the locations where the graph $y' = f(y)$ has a slope of $0$. So, we take all the solutions to $f'(y) = 0$ and make sure that they are not the same as $f(y) = 0$
+
+!!Example 1
+
+The population of a certain species, P(t), satisfies the following differential equation:
+
+$$\frac{dP}{dt} = rP\left(1 - \frac{P}{K}\right)$$
+
+Where $r > 0$ is a constant growth rate, and $K >0$ is a constant carrying capacity. Show the behavior of the function and solve the equation for an inital point $P(0) = P_0 >0$.
+
+If we graph $f(P)$ for this equation (vertically for convenience), we get a parabolic shape:
+
+![f(P)](fp.jpg)
+
+Then, we can infer the shape of the graph. First, we assume $P >0$, as a negative population makes no sense. We can also see that $K$ is an equilibrium solution, and it is stable. There is also an inflection point at $K/2$, but if $P_0$ is greater, the function will never cross it. The graph shape starts at $P_0$ and grows with a curve to $K$, concave up from $0 < P < K/2$ and concave up for the rest to $K$. If the function starts above $K$, it will converge to $K$. (This solves the $\lim\limits_{t\to \inf}P(t)$)
+
+These were all taken from the function $f(P)$ and its derivative.
+
+$$P'' = \frac{d}{dt} (f(P)) = f(P)f'(P) = $$
+$$(rP - \frac{r}{K}P^2)*(r - \frac{2r}{K}P)$$
+
+Which has an inflection point at $P = \frac{K}{2}$.
+
+To solve this, we follow the same strategy as for most autonomous functions, which are always separable. We separate the variables and integrate:
+
+$$P' = rP(1 - \frac{P}{K})$$
+$$\int {KdP\over P(K-P)} = \int rdt$$
+$$\int_{P_0}^P {Kdu\over u(K-u)} = \int_0^{\tau} rd\tau = rt$$
+
+The left side is more difficult. We can use partial fractions to divide it into two added fractions which can be integrated:
+
+$${K\over z(K-u)} = \frac{1}{u}+\frac{1}{K-u}$$
+$$\int_{P_0}^P {K\over z(K-u)} = ln|u|-ln|{K-u}| |_{P_0}^P$$
+
+and then we can continue to the answer.
+
+!!
+
+!!Example 2
+
+Show the behavior of 
+
+$$y' = y^2, y(0) = y_0$$
+
+By using the existence and uniqueness theorem, we can prove that there is a unique solution for all $y_0, t_0$.
+
+We can infer the basic shape of this graph based on its function. At $y=0$, there is a semistable equilibrium solution, and the graph will always be increasing, and concave up above $y = 0$ and concave down below.
+
+![f(y)](fy.jpg)
+
+We can also check if $y(t) \to \inf$ in a finite time ($t \ne \inf$). We can check this by testing if the integral from an initial value to infinity leads to a finite time.
+
+So, given a $y_0$ and time $T$, can $y \to \inf$ where the time it takes $T$ is less than $\inf$?
+
+$$\int\limits_{y_0}^{\inf} \frac{ds}{s^2} = \int\limits_0^T d\tau = T$$
+
+This type of integral will converge because it is of the type $\int \frac{1}{x^p}$ where $p > 1$. This means that after a certain time ($\frac{1}{y_0}$ if you solve it), $y \to \inf$.
+
+This means there is a vertical asymptote at $t = \frac{1}{y_0}$. (if $y_0 > 0$).
+
+We can also take this backwards and see whether it will hit $y = 0$.
+
+$$\int\limits_{0}^{y_0} \frac{ds}{s^2} = \int\limits_{-T_1}^0 d\tau = T_1$$
+
+This does diverge, so the function will never hit $0$.
+
+!!
+
+!!Example 3
+
+Solve the IVP:
+
+$$y' = \sqrt{|y|}, y(0)$$
+
+Since this would be of a form $\frac{1}{x^p}, p <1$, it will not have a vertcal asymptote.
+
+The graph of this will be a square root shape, but mirrored on the $f(y)$ axis.
+
+Using existence and uniqueness theorem, we can determine that it exists everywhere, and that it is unique for all $y \ne 0$ locally to that point.
+
+We can also draw a few curves based on the values we can infer. It will be constantly increasing as $y'$ is always positive, and is concave up above $y = 0$ and concave down below.
+
+We can also see that there will be a finite amount of time to reach $0$, which means the solution will hit $0$ and stay there, which if we look at the shape will show that it can stay at $0$ for any amount of time.
+
+To solve it we get:
+
+$$\int \frac{y'}{\sqrt{|y|}} = 1$$
+$$2\sqrt{|y|} = t + C$$
+$$y = \pm \left({t + C \over 2}\right)^2$$
+
+!!
 
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">
