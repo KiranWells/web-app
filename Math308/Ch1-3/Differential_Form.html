@@ -24,5 +24,212 @@ And when integrating, we can find the function $\psi$:
 
 $$x^2 + y^2 + xy$$
 
+The reason for this can be explained as follows:
+
+A total differential of a function of two variables can be given by the differential form:
+
+$$d\psi = \psi_xdx+\psi_ydy$$
+
+This represents the total change in $\psi$ if x changes by $dx$ and y changes by dy. So, if this derivative equals zero, it means that the function is constant. We can represent this by graphing $\psi$ on the xy-plane with its values representing z, giving a 3d surface. If $\psi = C$, meaning it is constant, it represents a curve which is the slice of that surface at $C$, also called level curves or equipotential curves. This will give us a normal 2-D curve, which means that we can find $\psi$ and set it equal to $C$ to solve for a particular solution of the differential of the form:
+
+$$Mdx + Ndy = 0 = \psi_xdx + \psi_ydy$$
+
+To help clear up notation, notice that we can rewrite
+
+$$Mdx + Ndy = 0$$
+
+as
+
+$$M + N({dy\over dx}) = 0$$
+
+by dividing by $dx$. So, with any DE of the form:
+
+$$M(x,y) + N(x,y)y' = 0$$
+
+We can attempt to find a function $\psi$ that satisfies the differential, and find the level curves of this function by setting it equal to a constant, which also gives us a solution for the differnetial equation.
+
+If there is no $\psi$, the equation is not exact, and will not be solved this way (although it is possible to convert an inexact equation to an exact equation).
+
+!!Example 1 
+
+Solve the equation:
+
+$$x^3 + xy^2 + (x^2y + y^3)y' = 0$$
+
+So, we can rearrange by multiplying everything by $dx$:
+
+$$(x^3 + xy^2)dx + (x^2y + y^3)y' = 0$$
+
+So, now we check if it is exact, meaning that $\psi$ exists. To check this, we can see if $M_y = N_x$:
+
+$$M = x^3 + xy^2$$
+$$M_y = 2xy$$
+
+$$N = x^2y + y^3$$
+$$N_x = 2xy = M_y$$
+
+So, we can use the above strategy to solve.
+
+This really is a Calc 3 topic, which can be found [here](../../Math251/16/fund_theorem.html) (Under the fundamental theorem for Line integrals). The process will be reviewed below.
+
+First, take the integral of $M$ with respect to $x$:
+
+$$\int M dx = \frac{1}{4}x^4 + \frac{1}{2}x^2y^2 + f(y)$$
+
+Here, instead of adding a constant $C$, we add a function of $y$, because when taking a partial derivative with respect to $x$, and function of only $y$ will be treated as a constant. So, we try to find a function of $y$ that will allow the partial derivative with respect to $y$ to equal $N$. One strategy is to take the derivative of the new equation and set it equal to $N$:
+
+$$N = x^2y + y^3 = {\partial\over\partial y}(\frac{1}{4}x^4 + \frac{1}{2}x^2y^2 + f(y))$$
+$$ x^2y + y^3 = x^2y + f'(y)$$
+
+Here we can clearly see $f(y) = y^3$. And so we have the full equation:
+
+$$\psi = \frac{1}{4}x^4 + \frac{1}{2}x^2y^2 + y^3$$
+
+And we set $\psi = C$:
+
+$$\frac{1}{4}x^4 + \frac{1}{2}x^2y^2 + y^3 = C$$
+
+And we have a solution.
+
+!!
+
+!!Example 2
+
+$$y' = {2x - y^2 \over 2xy}$$
+
+So, we can rewrite it in the proper formula:
+
+$$(2x-y^2)dx = 2xydy$$
+$$((2x-y^2)dx - 2xydy = 0) * -1$$
+$$(y^2-2x)dx + 2xydy = 0$$
+
+So, now we check if it is exact:
+
+$$M_y = 2y$$
+$$N_x = 2y$$
+
+It is exact, and now we can find $\psi$. Another strategy is to take the integral of both functions and combine the common variables:
+
+$$\int Mdx = xy^2 - x^2$$
+$$\int Ndx = xy^2$$
+
+After combining the functions, we get:
+
+$$\psi = xy^2 - x^2 = C$$
+
+And this is easy to solve explicitly:
+
+$$y = \pm \sqrt{x^2 + C \over x}$$
+
+!!
+
+But what if the equation is not exact? If that is the case, it is impossible to find a correct $\psi$. However, it is occasionally possible to find a multiplying function (or integrating factor) to make it exact:
+
+$$Mdx + Ndy = 0$$
+$$\mu Mdx + \mu Ndy = 0$$
+
+The problem is that solving for $\mu$ will result in a partial differntial equation. To do this, we need to use the test for exactness:
+
+$$(\mu M)_y = (\mu N)_x$$
+
+And apply the product rule:
+
+$$\mu_y M + \mu M_y = \mu_x N + \mu N_x$$
+$$\mu(M_y - N_x) = \mu_x N - \mu_y M$$
+$$M_y - N_x = \frac{\mu_x}{\mu} N - \frac{\mu_y}{\mu} M$$
+
+This looks quite complex. However, if we notice, the fractions are the same as $\ln(u) = \frac{du}{u}$.
+
+$$N(\ln\mu)_x - M(\ln\mu)_y = M_y - N_x \ne 0$$
+
+The solution of this can be show to always exist, but is terribly difficult, if not impossible to find. However, if we assume that $\mu$ is only a function of either $x$ or $y$, we can get rid of one of the partial derivatives, simplifying it:
+
+$$N(\frac{d}{dx}\ln \mu) = M_y - N_x$$
+$$\mu(x) = e^{\int {M_y - N_x\over N}dx}$$
+$$-M(\frac{d}{dy}\ln \mu) = M_y - N_x$$
+$$\mu(y) = e^{\int {N_x - M_y\over M}dy}$$
+
+This is very similar to the integrating factor for linear differential equations. Unfortunately, this integrating factor is not always possible to find as it does not always only include $x$ or $y$.
+
+One mnemonic for "If $(M_y - N_x)/N$ is a function of $x$ only" (from Dr. Kamran Reihani's class) is "My Next Netflix series is X-files only!" For y-only, just swap $M$ and the top negatives.
+
+!!Example 3
+
+Find an integrating factor for 
+
+$$y' + p(x)y = g(x)$$
+
+Using exact equations.
+
+This shows that the original integrating factor for linear equations is the same:
+
+$$(1)dy + (p(x)y - g(x))dx = 0$$
+$${M_y - N_x \over N} = {p(x) - 0 \over 1} = p(x)$$
+
+And the integrating factor is:
+
+$$\mu = e^{\int p(x)}$$
+
+!!
+
+!!Example 4
+
+Solve: $$y' = {3xy-2y^2\over x^2 - xy}$$
+
+In the correct form this is:
+
+$$(3xy - 2y^2)dx + (xy - x^2)dy = 0$$
+
+Testing for exactness:
+
+$$M_y = 3x-4y \ne N_x = y-2x$$
+
+So, we try to find an integrating factor. Let's start with x-only:
+
+$${M_y - N_x\over N} = {3x-4y - (y-2x)\over xy - x^2} = {5x - 4y \over -x(x- y)} = {5\over -x}$$
+
+So the integrating factor is:
+
+$$e^{\int {5\over -x}dx} = e^{-5\ln x}$$
+$$= e^{\ln x^{-5}} = \frac{1}{x^5}$$
+
+And now we cna multiply the function with that:
+
+$$(3xy - 2y^2)/x^5dx + (xy - x^2)/x^5dy = 0$$
+$$(3x^{-4}y - 2x^{-5}y^2)dx + (x^{-4}y - x^{-3})dy = 0$$
+
+We can show that this equation is exact:
+
+$$M_y = 3x^{-4}-4x^{-5}y = N_x = -4x^{-5}y + 3x^{-4}$$
+
+So, we can integrate:
+
+$$\psi = {3y\over -3x^3} - {2y^2\over -4x^{4}}$$
+$$C = {y^2\over 2x^{4}} - {y\over x^3}$$
+
+If you need to find the explicit formula, you need to use the quadratic formula.
+
+!!
+
+!!Example 5
+
+Find the integrating factor:
+
+$$2xy\ln y + (x^2 + y^2\sqrt{y^2 + 1})y' = 0$$
+
+First, check for exactness:
+
+$$M_y = 2x[\ln y + 1] \ne N_x = 2x$$
+
+In this case, $M$ is much simpler, so we should use the y-only formula:
+
+$${N_x - M_y\over M} = {2x - 2x[\ln y + 1]\over 2xy\ln y} = -\frac{1}{y}$$
+
+$$\mu = e^{-\ln y} = y^{-1}$$
+
+Now we can solve for $\psi$.
+
+!!
+
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">
