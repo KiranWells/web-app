@@ -63,6 +63,11 @@ $2
   // themeToggle.appendChild(themeHTML);
   document.getElementsByTagName("main")[0].appendChild(themeToggle);
 
+  // add base href
+  var base = document.createElement("base");
+  base.href = window.location.href;
+  document.head.appendChild(base);
+
   // add footer
   let footer = document.createElement("footer"); 
   footer.innerHTML = `
