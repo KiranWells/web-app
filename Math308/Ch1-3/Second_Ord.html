@@ -1,0 +1,239 @@
+# Second Order Linear Equations
+
+## Homogenous Equations
+
+Remember that a second order equation is a function of t, y, and the first and second derivative of y.
+
+$$F(t,y,y',y'')=0$$
+
+Or in normal form:
+
+$$y'' = f(t,y,y')$$
+
+Or **Linear Form**:
+
+$$P(t)y'' + Q(t)y' + R(t)y = G(t)$$
+
+This is incredibly important for dynamic because the position of a particle and its acceleration due to a force are second derivatives:
+
+$$F = ma \to a = x'' = f(t, x, x')$$
+
+To solve these we need two initial conditions:
+
+$$y(t_0) = y_0, y'(t_0) = y_0'$$
+
+### Homogenous Equations with Constant Coefficients
+
+A linear equation is **Homogenous** if $G(t)=0$. The next section discusses homogenous equations with constant coefficients:
+
+$$ay'' + by' +cy=0$$
+
+A side note is that second order equations have no general strategy for solving. For example, the Airy equation ($y'' - ty = 0$), requires a non-elementary function (one that we do not know from calculus) to solve. Generally speaking, linear equations (not homogenous ones with const. coefficients) will require non-elementary functions to solve.
+
+As we have seen before, after substituting the Euler's trial function $y=e^{rt}$, we can simplify some equations. For example, we can use this with these special functions:
+
+$$ay'' + by' +cy=0$$
+$$a(r^2e^{rt}) + b(re^{rt}) +c(e^{rt})=0$$
+$$a(r^2) + b(r) +c=0$$
+
+Which can be solved for $r$ easily. If this equation has distinct real roots ($r_1 \ne r_2$ and ${b^2-4ac} > 0$), then the general solution of the equation has the form:
+
+$$y = c_1 e^{r_1t}+c_2e^{r_2t}$$
+
+Where $c_1, c_2$ are arbitrary constants.
+
+!!Example 1
+
+Solve $y'' + 4y' + 3y = 0$, $y(0) =2, y'(0)=-1$:
+
+$y'' + 4y' + 3y = 0$
+$r^2 + 4r + 3 = 0$
+$$r = -1, -3$$
+
+So, we can use the general solution:
+
+$$y = c_1 e^{-t} + c_2 e^{-3t}$$
+$$y(0) = c_1 + c_2 = 2$$
+$$y'(0) = -c_1 - 3c_2 = -1$$
+
+$$y(t) = -\frac{1}{2}e^{-3t}+\frac{5}{2} e^{-t}$$
+
+!!
+
+!!Example 2
+
+Find the differential equation and IVP representing: $y=c_1e^{t/2}+c_2e^{-t/2}$
+
+$$y(0) = 3, y'(0) = \Beta$$
+
+where the solution approaches 0 as $t \to \infty$
+
+There is a general approach to finding a representative differential equation by taking the derivative and trying to eliminate the constants, but we can use the formulas to simplify this:
+
+$$r_1 = 1/2, r_2 = -1/2$$
+$$(r - 1/2)(r + 1/2) = r^2 - 1/4 = 0$$
+
+$$y'' - \frac{1}{4} y = 0$$
+
+To find $\Beta$, we need to find what conditions cause $\lim\limits_{t \to \infty} y=c_1e^{t/2}+c_2e^{-t/2} = 0$.
+
+Looking at this, we can see that $c_1 = 0$, so $c_2 = 3$ and $\Beta = -\frac{3}{2}$ because:
+
+$$y'(0) = \Beta = \frac{c_1}{2} e^0 - \frac{c_2}{2} e^0$$
+$$\Beta = \frac{0}{2} - \frac{3}{2}$$
+
+We can also see that $\Beta$ is actually a determination of how the graph behaves, and $-\frac{3}{2}$ is a bifurcation value. Above it, the function blows up, and below it, the function goes to $-\infty$
+
+!!
+
+If we have $r_1 = r_2$ we will not have a unique solution because the general form will simplify to only one constant, which means that it is not a proper solution. This is because we fundamentally need two independent constants in a solution to a second-order equation
+
+### Other Homogenous Equations
+
+A Standard for has a coefficient of 1 on the $y''$ value:
+
+$$y'' + p(t)y' + q(t)y = g(t)$$
+
+#### Existence and Uniqueness Theorem for Second Order Linear ODE's
+
+If all three of the coefficient function in a standard-form equation are continuous over $I$, then there is a unique solution $y = \phi(t)$ of the IVP throughout the interval $I$.
+
+!!Example 1
+
+Determine the longest interval in which the initial value problem
+
+$$(t^3 + t)y'' - \sin(t)y' + \arctan(t)y = 5t + 1, y(-1)=8, y'(-1)=-3$$
+
+First, we need the function in standard form, so we need to divide by $t^3 + t$:
+
+$$y'' - {\sin(t) \over (t^3 + t)}y' + {\arctan(t) \over (t^3 + t)}y = {5t + 1 \over (t^3 + t)}$$
+
+We just need to find the continuous interval containing the initial values, so we need to find the values of (t) which are not valid:
+
+$t^3 + t = 0$
+$t = 0$
+
+The domain of $\sin(t)$ and $\arctan(t)$ are continuous, so we only need t avoid $0$.
+
+$$-\infty \lt t \lt 0$$
+$$I = (-\infty, 0)$$
+
+!!
+
+#### Superposition Principle for Linear Homogeneous ODE's
+
+If $y_1, y_2$ are two solutions of the ODE
+
+$$y'' + p(t)y' + q(t)y = 0$$
+
+then any linear combination $c_1y_1 + c_2y_2$ is also a solution of the ODE, for any constant $c_1, c_2$.
+
+The proof for this is:
+
+$$(c_1y_1 + c_2y_2)'' + p(t)(c_1y_1 + c_2y_2)' + q(t)(c_1y_1 + c_2y_2) = 0$$
+$$c_1y_1'' + c_2y_2'' + p(t)(c_1y_1' + c_2y_2') + q(t)(c_1y_1 + c_2y_2) = 0$$
+$$c_1y_1'' + c_2y_2'' + p(t)c_1y_1' + p(t)c_2y_2' + q(t)c_1y_1 + q(t)c_2y_2 = 0$$
+$$(c_1y_1'' + p(t)c_1y_1' + q(t)c_1y_1) + (c_2y_2'' + p(t)c_2y_2' + q(t)c_2y_2) = 0$$
+$$c_1(y_1'' + p(t)y_1' + q(t)y_1) + c_2(y_2'' + p(t)y_2' + q(t)y_2) = 0$$
+
+And since the functions are solutions, we can show that:
+
+$$y_1'' + p(t)y_1' + q(t)y_1 = 0$$
+$$y_2'' + p(t)y_2' + q(t)y_2 = 0$$
+
+So:
+
+$$c_1(y_1'' + p(t)y_1' + q(t)y_1) + c_2(y_2'' + p(t)y_2' + q(t)y_2) = 0$$
+$$c_1(0) + c_2(0) = 0$$
+$$0 = 0$$
+
+#### Differential Operator
+
+An operator is a function who's input is a function:
+
+$$L(y(t))$$
+
+For example the operator (* t^2) multiplies whatever it gets by t^2:
+
+$$L(y) = y * t^2$$
+$$L(3t+1) = (3t + 1) * t^2$$
+
+The superpositon is just showing that a linear operator acts linearly:
+
+$$L[c_1y_1 + c_2y_2] = c_1L[y_1] + c_2L[y_2]$$
+
+So two solutions give rise to infinitely many solutions. But would this provide all the solutions or not? The answer is yes if the **Wronskian** is nonzero.
+
+#### Wronskian
+
+A Wronskian of two funstions $y_1(t)$ and $y_2(t)$ is defined by the following determinant
+
+$$
+W(t) = W(y_1, y_2) = 
+\begin{vmatrix}
+  y_1 && y_2 \\
+  y_1' && y_2'
+\end{vmatrix}
+= y_1y_2' - y_2y_1'
+$$
+
+!!Example 2
+
+Find the wronskian of the following pairs of functions:
+
+1. $y_1(t) = \sin(t), y_2(t) = \cos(t)$
+
+$$
+W(t) = W(y_1, y_2) = 
+\begin{vmatrix}
+  \sin(t) && \cos(t) \\
+  \cos(t) && -\sin(t)
+\end{vmatrix}
+= \sin(t)(-\sin(t)) - \cos(t)(\cos(t))
+= -(\sin^2(t) + \cos^2(t)) = -1 \ne 0
+$$
+
+4. $y_1(t) = e^{rt}, y_2(t)=te^{rt}$
+
+$$W(t) = (e^{rt})(rte^{rt}+e^{rt}) - (te^{rt})(re^{rt}) = rte^{2rt}+e^{2rt}) - rte^{2rt}) = e^{2rt} \ne 0$$
+
+!!
+
+#### Fundamental Set of Solutions
+
+If the Wronskian of two solutions $y_1(t)$ and $y_2(t)$ of the ODE
+
+$$y'' + p(t)y' + q(t)y = 0$$
+
+is nonzero at some $(t_0)$, or if $W(t)$ is not 0 everywhere, they form a fundamental set of solutions, meaning that you can linearly interpolate them to get a larger set of solutions.
+
+!!Example 3
+
+Show that $y_1(t) = 1/t^2$ and $y_2(t) = t^4$ form a fundamental set of solutions for 
+
+$$t^2y'' - ty' - 8y = 0$$
+
+First, we prove that they are both solutions:
+
+$$y_1(t) = 1/t^2$$
+$$y_1' = -2t^{-3}$$
+$$y_1' = 6t^{-4}$$
+
+$$L[y_1] = t^2(6t^{-4})-t(-2t^{-3})-8t^{-2} = 6t^{-2}+2t^{-2}-8t^{-2} = 0$$
+
+The second one can be proved similarly.
+
+Then, we seee if the Wronskian is at some time non-zero:
+
+$$W[y_1,y_2] = 4t + 2t = 6t \ne 0$$
+
+!!
+
+Notice that if $y_1, y_2$ are linearly dependent, meaning that:
+
+$y_1 = cy_2$
+
+for all $t$, then the Wronskian is zero, but the converse is not true.
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
