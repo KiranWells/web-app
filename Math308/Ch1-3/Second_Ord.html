@@ -64,7 +64,7 @@ $$y(t) = -\frac{1}{2}e^{-3t}+\frac{5}{2} e^{-t}$$
 
 Find the differential equation and IVP representing: $y=c_1e^{t/2}+c_2e^{-t/2}$
 
-$$y(0) = 3, y'(0) = \Beta$$
+$$y(0) = 3, y'(0) = \beta$$
 
 where the solution approaches 0 as $t \to \infty$
 
@@ -75,14 +75,14 @@ $$(r - 1/2)(r + 1/2) = r^2 - 1/4 = 0$$
 
 $$y'' - \frac{1}{4} y = 0$$
 
-To find $\Beta$, we need to find what conditions cause $\lim\limits_{t \to \infty} y=c_1e^{t/2}+c_2e^{-t/2} = 0$.
+To find $\beta$, we need to find what conditions cause $\lim\limits_{t \to \infty} y=c_1e^{t/2}+c_2e^{-t/2} = 0$.
 
-Looking at this, we can see that $c_1 = 0$, so $c_2 = 3$ and $\Beta = -\frac{3}{2}$ because:
+Looking at this, we can see that $c_1 = 0$, so $c_2 = 3$ and $\beta = -\frac{3}{2}$ because:
 
-$$y'(0) = \Beta = \frac{c_1}{2} e^0 - \frac{c_2}{2} e^0$$
-$$\Beta = \frac{0}{2} - \frac{3}{2}$$
+$$y'(0) = \beta = \frac{c_1}{2} e^0 - \frac{c_2}{2} e^0$$
+$$\beta = \frac{0}{2} - \frac{3}{2}$$
 
-We can also see that $\Beta$ is actually a determination of how the graph behaves, and $-\frac{3}{2}$ is a bifurcation value. Above it, the function blows up, and below it, the function goes to $-\infty$
+We can also see that $\beta$ is actually a determination of how the graph behaves, and $-\frac{3}{2}$ is a bifurcation value. Above it, the function blows up, and below it, the function goes to $-\infty$
 
 !!
 
@@ -234,6 +234,21 @@ Notice that if $y_1, y_2$ are linearly dependent, meaning that:
 $y_1 = cy_2$
 
 for all $t$, then the Wronskian is zero, but the converse is not true.
+
+One last note: the Wronskian of three functions would just be the determinant of a matrix with thier first and second derivatives:
+
+$$\
+W[y_1,y_2,y_3] = 
+\begin{vmatrix}
+  y_1 && y_2 && y_3 \\
+  y_1' && y_2' && y_3' \\
+  y_1'' && y_2'' && y_3''
+\end{vmatrix}
+$$
+
+The determinant of a matrix can wither be found using the diagonals, or more generally, by moving down a row, and multiplying it by the elements in the rows/columns that the element you are focusing on is not it. For more detail on this, look up matrix determinants. 
+
+This will allow us to find a wronskian for higher (third) order equations. However, if the same substitution is used, you will get a cubic function.
 
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">

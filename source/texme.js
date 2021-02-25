@@ -30,13 +30,14 @@ $2
   runtexme();
 
   // add theme button
-  let themes = ["Dark", "Light"];//, "Tropical", "Summer"
+  let themes = ["Dark", "Light", "Tropical", "Summer"];
 
   function changeTheme(name) {
     if (!themes.includes(name)) return -1;
     document.body.parentElement.classList.remove(currentTheme.toLowerCase());
     currentTheme = name;
     document.body.parentElement.classList.add(currentTheme.toLowerCase());
+    localStorage.setItem("theme", currentTheme);
   }
 
   let themeToggle = document.createElement("div");
@@ -54,19 +55,19 @@ $2
   ⚙
   `;
   // temporary dark/light toggle
-  themeToggle.onclick = () => {
-    document.body.parentElement.classList.toggle("light");
-    currentTheme = currentTheme == "Light" ? "Dark":"Light";
-    themeToggle.innerHTML = currentTheme == "Light" ? "⚙": "☽";
-    localStorage.setItem("theme", currentTheme);
-  }
-  // themeToggle.appendChild(themeHTML);
+  // themeToggle.onclick = () => {
+  //   document.body.parentElement.classList.toggle("light");
+  //   currentTheme = currentTheme == "Light" ? "Dark":"Light";
+  //   themeToggle.innerHTML = currentTheme == "Light" ? "⚙": "☽";
+  //   localStorage.setItem("theme", currentTheme);
+  // }
+  themeToggle.appendChild(themeHTML);
   document.getElementsByTagName("main")[0].appendChild(themeToggle);
 
   // add base href
   var base = document.createElement("base");
   base.href = window.location.href;
-  document.head.appendChild(base);
+  // document.head.appendChild(base);
 
   // add footer
   let footer = document.createElement("footer"); 

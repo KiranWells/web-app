@@ -34,7 +34,7 @@
   --fg: #c4c5c5;
   --h1: #bb3408;
   --h2: #dc710a;
-  --bg: #4e5151;
+  --bg: #242828;
   --bg-dark: #141818;
   --ac: #117a67;
   --al: #83a378;
@@ -43,19 +43,31 @@
 
 :root.summer {
   /* Colors custom generated */
-  --fg: #331832;
-  --h1: #331832;
-  --h2: #948694;
-  --bg: #F5F3F5;
-  --bg-dark: #948694;
-  --ac: #F0544F;
-  --al: #FFC07F;
-  --hl: #948694;
+  --fg: #c5c4c4;
+  --h1: #753516;
+  --h2: #82662e;
+  --bg: #181616;
+  --bg-dark: #121010;
+  --ac: #435e6c;
+  --al: #3b4754;
+  --hl: #425f2e;
+  --tp: #6d7166;
+}
+
+::selection {
+  background-color: var(--ac);
+  color: var(--bg);
+}
+
+a::selection {
+  background-color: var(--ac);
+  color: var(--fg);
 }
 
 body {
   background: var(--bg-dark, #1f2228);
   color: var(--fg, #d8dee9);
+  font-size: 20px;
 }
 main {
   box-sizing: border-box;
@@ -140,14 +152,14 @@ details {
   background-color: var(--bg, #2e3440);
   color: var(--fg, #eceff4);
   border-radius: .3em;
-  padding: .2em .3em .1em .3em;
+  padding: .3em .4em .2em .4em;
 }
 
 .themelist {
   display: none;
   position: absolute;
-  top: 100%;
-  right: 0;
+  top: 0;
+  right: 100%;
   margin: 0em;
   border-radius: .3em;
   background-color: var(--bg, #2e3440);
@@ -161,10 +173,12 @@ details {
   border: none;
   width: 100%;
   text-align: center;
-  margin: 0 .1em;
+  padding: .2em .5em;
   border-radius: .3em;
   background-color: var(--bg, #2e3440);
   color: var(--fg, #eceff4);
+  font-size: small;
+  font-family: serif;
 }
 
 .themeitem:hover {
