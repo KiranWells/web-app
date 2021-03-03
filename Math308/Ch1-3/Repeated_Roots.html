@@ -1,0 +1,143 @@
+# Repeated Roots and Reduction of Order
+
+Given a homogenous differential equation
+
+$$ay'' + by' + cy = 0$$
+
+In the case that the two roots given by substituting $y=e^{rt}$ are the same, assuming that $b^2 - 4ac = 0$, we have:
+
+$$r_1 = r_2 = -\frac{b}{2a}$$
+
+And the general solution is given by:
+
+$$y = c_1 e^{r_1t}+ c_2te^{r_1t}$$
+
+or:
+
+$$y = e^{rt}(c_1 + c_2t)$$
+
+Notice that $y_2$, or the second part of the solution, is $te^t$ instead of just $e^t$
+
+This $t$ is explained by the reduction of order process described in [Example 3](#Example_3).
+
+!!Example 1
+
+$$y'' + 6y' + 9y = 0,\ y(1)=2,\ y'(1) = -1$$
+
+Solving r gives:
+
+$$r^2 + 6r + 9 = 0 \to r = -3$$
+
+So:
+$$y = c_1 e^{r_1t}+ c_2te^{r_1t}$$
+$$y = c_1 e^{-3t}+ c_2te^{-3t}$$
+$$y = e^{-3t}(c_1 + c_2 t)$$
+
+$$y' = -3e^{-3t}(c_1 + c_2t) + e^{-3t}(c_2)$$
+
+And solcing the IVP:
+
+$$2 = e^{-3}(c_1 + c_2)$$
+
+$$-1 = -3e^{-3}(c_1 + c_2) + e^{-3}(c_2)$$
+
+Substitution then gives:
+
+$$-1 = -3(2) + e^{-3}(c_2)$$
+$$5 = e^{-3}(c_2)$$
+$$c_2 = 5e^3$$
+
+And solving for $c_1$ is simple.
+
+!!
+
+## Reduction of Order
+
+If we have one non-zero solution of $y_1(t)$ of the ODE:
+
+$$y'' + p(t)y' + q(t)y = 0$$
+
+We can find a second solution 
+
+Reduction of order searches for a second solution $y_2$ by finding some equation for it.
+
+One way to do this is using Abel's Theorem, as the Wronskian is a function of $y_1$ and $y_2$. This maeans we can manipluate the formula to solve for y_2 as follows:
+
+$$W[y_1, y_2] = y_1y_2' - y_1'y_2 = c e^{-\int p(t)dt}$$
+
+Which we can simplify by stating that $c=1$ because the constants that modify $y_1$ and $y_2$ can be manipulated in a way that will cause it to be 1, meaning that it can be ignored.
+
+$${y_1y_2' - y_1'y_2 \over y_1^2} = {e^{-\int p(t)dt}\over y_1^2}$$
+
+And since the left side is just the quotient rule:
+
+$$\frac{d}{dt}\left({y_2 \over y_1}\right) = {e^{-\int p(t)dt}\over y_1^2}$$
+$${y_2 \over y_1} = \int {e^{-\int p(t)dt}\over y_1^2}$$
+$${y_2} = y_1 \int {e^{-\int p(t)dt}\over y_1^2}$$
+
+This formula is called the **Liouville formula**.
+
+This works beacuse $y_1$ is already known, allowing us to find a known function of $t$ and integrating it.
+
+This also guarantees that the new function will be linearly independent, as the Wronskian is not zero.
+
+!!another method
+
+One other way of solving this is defining:
+
+$$v(t) = \int {e^{-\int p(t)dt}\over y_1^2}$$
+
+Which allows you to show $y_2 = v(t) y_1$ and substitute this into the original equation for y.
+
+After some math and rearranging, this gives:
+
+$$v''y_1 + v'(2y_1' + py_1) = 0$$
+
+Which, if we define $w = v'$, can be converted into a *first-order* equation, which is simple to solve.
+
+However, this takes a lot of time and it would be simpler to just use the Liouville formula.
+
+!!
+
+!!Example 2
+
+$$2t^2y''+ty - 3y=0$$
+
+Given that $y_1(t) = 1/t$ is a solution.
+
+Standardizing this gives:
+
+$$y'' + \frac{t}{2t^2}y' - \frac{3}{2t^2}y =0$$
+
+Using the formula gives:
+
+$${y_2} = y_1 \int {e^{-\int p(t)dt}\over y_1^2}$$
+$${y_2} = \frac{1}{t} \int {e^{-\int \frac{1}{2t}}\over \left(\frac{1}{t}\right)^2}$$
+$${y_2} = \frac{1}{t} \int {e^{-\frac{1}{2}\ln{t}}\over \left(\frac{1}{t}\right)^2}$$
+$${y_2} = \frac{1}{t} \int {t^{-\frac{1}{2}}\over t^{-2}}$$
+$${y_2} = \frac{1}{t} \int {t^{\frac{3}{2}}}$$
+$${y_2} = \frac{1}{t} \frac{2}{5}{t^{\frac{5}{2}}}$$
+$${y_2} = \frac{2}{5}{t^{\frac{3}{2}}}$$
+
+!!
+
+!!Example 3
+
+$$ay'' + by' + cy = 0$$
+
+Given that $y_1 = e^{r_1t}$, and $r_1 = r_2 = -b/2a$.
+
+If we standardize this, $p$ will be $b/a$.
+
+Therefore, the formula gives:
+
+$${y_2} = e^{r_1t} \int {e^{-\int b/a}\over (e^{r_1t})^2}$$
+$${y_2} = e^{r_1t} \int {e^{-\frac{b}{a}t}\over e^{2(-b/2a)t}}$$
+$${y_2} = e^{r_1t} \int {e^{-\frac{b}{a}t}\over e^{-\frac{b}{a}t}}$$
+$${y_2} = e^{r_1t} \int 1$$
+$${y_2} = e^{r_1t}*t$$
+
+!!
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">

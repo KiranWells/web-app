@@ -18,13 +18,20 @@ window.onload = () =>
   let text = document.body.innerHTML;
   // support for custom details element
   text = text.replace(/!!([^\n]+)\n(((?!!!).|\n)+)!!/mg, `
-  <details>
+  <details id="__remove spaces__$1__end remove spaces__">
     <summary>Click to show $1</summary>
   
 $2
   
   </details>
   `);
+  for (let i = 0; i < 10000; i++) {
+    let match = text.match(/__remove spaces__([^_]*)__end remove spaces__/);
+    if (match === null) {break;}
+    let inner = match[1];
+    inner = inner.replace(/ /g, "_");
+    text = text.replace(/__remove spaces__[^_]*__end remove spaces__/, inner);
+  }
   document.body.innerHTML = text;
   // change to HTML
   runtexme();
@@ -90,6 +97,11 @@ $2
     I will remove it if necessary.
   </div>
     `;
+  // add header ids
+  let hs = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+  for (let h of hs) {
+    h.id = h.textContent.replace(/ /g, "_");
+  }
   document.body.firstChild.appendChild(footer);
 
 }
