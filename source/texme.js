@@ -24,6 +24,7 @@ window.onload = () =>
 $2
   
   </details>
+  
   `);
   for (let i = 0; i < 10000; i++) {
     let match = text.match(/__remove spaces__([^_]*)__end remove spaces__/);
@@ -37,7 +38,7 @@ $2
   runtexme();
 
   // add theme button
-  let themes = ["Dark", "Light", "Tropical", "Summer"];
+  let themes = ["Dark", "Light", "Tropical", "Summer", "Hyperlight"];
 
   function changeTheme(name) {
     if (!themes.includes(name)) return -1;

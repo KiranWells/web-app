@@ -1,0 +1,357 @@
+# Quasi-Polynomial Non-Homogenous Equations
+
+## Summary of Homogenous Equations
+
+First, let's review the rules we found for second-order equations:
+
+1. Two real solutions of $r$:
+$$
+\begin{cases}
+  y_1 = e^{r_1t} \\
+  y_2 = e^{r_2t} \\
+\end{cases}
+$$
+2. Two complex solutions
+$$
+\begin{cases}
+  y_1 = e^{\alpha t}\cos{\beta t} \\
+  y_2 = e^{\alpha t}\sin{\beta t} \\
+\end{cases}
+$$
+3. One real solution
+$$
+\begin{cases}
+  y_1 = e^{r_1t} \\
+  y_2 = te^{r_2t} \\
+\end{cases}
+$$
+
+## Using Reduction of Order
+
+To extend this to higher-order homogeneous equations, we can find patterns that will work for higher-order functions.
+
+Given some higher-order homogenous equation:
+
+$$a_ny^{(n)} + a_{n-1}y^{(n-1)} + a_{n-2}y^{(n-2)} + ... + a_0y = 0$$
+
+You can use the same $y = e^{rt}$ substitution to get:
+
+$$a_nr^{n-1} + a_{n-1}r^{n-2} + a_{n-2}r^{n-3} + ... + a_0 = 0$$
+
+Which will give a series of roots. The equation can also be shown as a group of factorizations. The rules we know can be used to find slolutions from these patterns.
+
+Ex:
+$$5(r+2)^3(r-1)(r^2 + 2r + 3)^2 = 0$$
+
+This is an eighth-order ODE, which will result in several roots.
+
+## Cases for multi-root
+
+1. Real roots
+
+This is the simplest, using the normal rules:
+
+$$(r - a)$$
+
+$$
+y = e^{at}
+$$
+
+1. Complex Roots
+
+This will just use the same rules as normal:
+
+$$f(r) \to r = \alpha \pm \beta i$$
+
+$$y_1 = e^{\alpha t}\cos{\beta t}$$
+$$y_2 = e^{\alpha t}\sin{\beta t}$$
+
+3. Same roots
+
+As with second order, we will get a pair with $t$, but in this case the pattern continues.
+
+$$(r-a)^k$$
+
+$$
+\begin{cases}
+  y_1 = e^{rt} \\
+  y_2 = te^{rt} \\
+  y_3 = t^2e^{rt} \\
+  ...
+\end{cases}
+$$
+
+One note is that these can be combined, particularly the complex and same root rules:
+
+$$(f(r))^k \to r = \alpha \pm \beta i$$
+
+$$
+\begin{cases}
+  y_1 = e^{\alpha t}\cos{\beta t} \\
+  y_1 = e^{\alpha t}\sin{\beta t} \\
+  y_2 = te^{\alpha t}\cos{\beta t} \\
+  y_2 = te^{\alpha t}\sin{\beta t} \\
+  ...
+\end{cases}
+$$
+
+## Non-Homogeneous Equations
+
+Theorem:
+
+The general solution of the nonhomogeneous linear equation:
+
+$$y'' + p(t)y' + q(t)y = g(t)$$
+
+With continuous functions of $t$ on interval $I$ can be written as:
+
+$$y = c_1y_1(t) + c_2y_2(t) + Y(t)$$
+
+Where $Y(t)$ is a function of $t$, and $y_1$ and $y_2$ form a fundamental set of solutions for the corresponding homogeneous equation:
+
+$$y'' + p(t)y' + q(t)y = 0$$
+
+There are two important points here:
+
+1. $y_h(t) = c_1y_1(t) + c_2y_2(t)$ is a homogeneous complementary solution.
+2. $Y(t)$ is an unknown function that satisfies the above solution. We will be trying to find this, most of the time.
+
+This is proved by setting the equation as an operation $L$ and defining a certain solution:
+
+$$L[y] = g(t), L[Y] = g(t)$$
+$$L[y] - L[Y] = 0$$
+$$L[y - Y] = 0$$
+
+Which is homogenous, so we get:
+
+$$y - Y = c_1y_1 + c_2y_2$$
+$$y = c_1y_1 + c_2y_2 + Y$$
+
+!!Example 3
+
+Find the general solution of $y'' + 3y' + 2y = 12t^2$.
+
+First, finding the complementary homogeneous equation:
+
+$$y'' + 3y' + 2y = 0$$
+$$r = -1,-2$$
+$$y_h = c_1e^{-t} + c_2e^{-2t}$$
+
+Next, we need to find some $Y(t)$ which will satisfy the ODE:
+
+If we try a constant, we can see that after differentiating, the constant will disappear, so we have:
+
+$$y_h'' + 3y_h' + 2(y_h + C) = 12t^2$$
+$$y_h'' + 3y_h' + 2y_h + 2C = 12t^2$$
+
+And we know that $y_h'' + 3y_h' + 2y_h = 0$, so we get $2C = 12t^2$. This means that a constant is equal to $t$, so it doesn't work. 
+
+Instead, if we assume that $Y(t)$ is a polynomial, we can differentiate it and solve for the constants in front:
+
+$$Y(t) = At^2 + Bt + C$$
+$$Y'(t) = At + B$$
+$$Y''(t) = A$$
+
+So we get:
+$$y_h'' + Y''(t) + 3(y_h' + Y'(t)) + 2(y_h + Y(t)) = 12t^2$$
+$$y_h'' + A + 3y_h' + 3(At + B) + 2y_h + 2(At^2 + Bt + C) = 12t^2$$
+$$y_h'' + 3y_h' + 2y_h + A + 3(At + B) + 2(At^2 + Bt + C) = 12t^2$$
+
+And removing the $y_h$ again:
+
+$$A + 3(At + B) + 2(At^2 + Bt + C) = 12t^2$$
+
+So now we can solve for the solutions:
+
+$$A + 3At + 3B + 2At^2 + 2Bt + 2C = 12t^2 + 0t + 0$$
+$$2At^2 + (3A + 2B)t + (A + 3B + 2C) = 12t^2 + 0t + 0$$
+
+$$
+\begin{cases}
+  2A = 12 \\
+  3A + 2B = 0 \\
+  A + 3B + 2C = 0 
+\end{cases}
+$$
+
+And we can easily solve for $A,B$, and $C$.
+
+$$A = 6, B = -9, C = 21$$
+
+!!
+
+!!Example 4
+
+Find the general solution to:
+
+$$y'' - 2y' + y = e^t$$
+
+First, find the homogeneous solution:
+
+$$y'' - 2y' + y = 0$$
+$$r = 1$$
+$$y_h = c_1e^t + c_2te^t$$
+
+Now we need to find a function that satisfies:
+
+$$y_h'' + Y''(t) - 2(y_h' + Y'(t)) + (y_h + Y(t)) = e^t$$
+$$y_h'' - 2y_h' + y_h + Y''(t) - 2Y'(t) + Y(t) = e^t$$
+$$Y''(t) - 2Y'(t) + Y(t) = e^t$$
+
+If we try $e^t$, or even $te^t$, we will end up with zero, as we have already shown that these are solutions to an equation equaling zero. Instead, we can try $t^2e^t$
+
+$$Y(t) = At^2e^t$$
+$$Y'(t) = A2te^t + At^2e^t = Ae^t(2t + t^2)$$
+$$Y''(t) = Ae^t(2 + 2t + 2t + t^2) = Ae^t(2 + 4t + t^2)$$
+
+$$Y''(t) - 2Y'(t) + Y(t) = e^t$$
+$$Ae^t(2 + 4t + t^2) - 2Ae^t(2t + t^2) + At^2e^t = e^t$$
+$$Ae^t(2 + 4t + t^2 - 2(2t + t^2) + t^2) = e^t$$
+$$Ae^t(2 + 4t + t^2 - 4t - 2t^2 + t^2) = e^t$$
+$$Ae^t(2) = e^t$$
+$$2Ae^t = e^t$$
+$$A = \frac{1}{2}$$
+
+So the solution is:
+
+$$c_1e^t + c_2te^t + \frac{1}{2}t^2e^t$$
+
+!!
+
+Note that in the previous example, the $g(t)$ was actually one of the solutions to the homogeneous function, meaning it is resonant. This meant that the function we used had to be multiplied by the independent variable to work.
+
+### Quasi-Polynomials
+
+A quasi-polynomial is an equation similar to a polynomial of the form:
+
+$$g(t) = e^{\alpha t}[(a_0 + a_1t + ...)\cos(\beta t) + (b_0 + b_1t + ...)\sin(\beta t)]$$
+
+Where $\alpha, \beta, a_0, a_1, b_0, b_1, ...$ are constants. Notice that if $\alpha = \beta = 0$ we can just get a polynomial $a_0 + a_1t ...$.
+
+The exponent/epsilon of this function is $\epsilon = \alpha + \beta i$, and the degree is the power the polynomials go to: $\delta = k, (a_0 + a_1t + ... a_kt^k)$
+
+!!Example 1
+
+Are the following quasi-polynomials? <br>
+<br>
+
+1. $3$ - yes, because we can have: $e^{0 t}[(3)\cos(0 t) + (b_0)\sin(0 t)]$ <br/>
+2. $t^2 + 7$ - this also works, as it is a polynomial <br/>
+3. $te^{2t} + 5e^{2t}$ - yes, as we can factor out $e^{2t}$ and set $\beta = 0$ <br/>
+4. $e^t\cos{5t} + e^t(t^7 + 1)\sin{5t}$ - yes, because there is a polynomial in front of each trigonometric function and $e^t$ can be factored out <br/>
+
+!!
+We can find the function $Y(t)$ in these cases by looking for the coefficients and multiplying by some power of $t$ that prevents resonance:
+
+If the epsilon is one of the roots to the equation ($ar^2 + br + c = 0$), then it is resonant and needs a $t^s$ in front, were $s$ is high enough to prevent resonance.
+
+$$g(t) = e^{\alpha t}[(a_0 + a_1t + ...)\cos(\beta t) + (b_0 + b_1t + ...)\sin(\beta t)]$$
+$$Y(t) = t^s * e^{\alpha t}[(A_0 + A_1t + ...)\cos(\beta t) + (B_0 + B_1t + ...)\sin(\beta t)]$$
+
+Where $s$ is a high enough power to prevent the function from being a solution in the homogeneous equation.
+
+The important part of a quasi-polynomial is that the derivative of one is still a quasi-polynomial. However, the degree for a $Y'(t)$ is the same as $Y(t)$, but it does not increase: (the same will be true of higher derivatives of $Y$)
+
+$$Y(t) = e^{\alpha t}[p(t)\cos(\beta t) + q(t)\sin(\beta t)]$$
+$$Y'(t) = e^{\alpha t}[(\alpha p(t) + p'(t) + \beta q(t))\cos(\beta t) + (\alpha q(t) + q'(t) + \beta p(t))\sin(\beta t)]$$
+
+So, with any function with a quasi-polynomial on the right side ($g(t)$), all we need is the exponent. If the exponent is a root of the characteristic equation, we need to multiply by some $t^s$. Otherwise, we just use the quasi-polynomial itself, but with undetermined coefficients to find $Y(t)$.
+
+$$ay'' + by' + cy = g(t)$$
+
+$$y = y_h + Y$$
+
+Where $y_h$ is the homogenous solution.
+
+If $g(t)$ is the sum of quasi-polynomials, then we can try a sum of quasi-polynomials. This gives the **Superposition Principle** of linear ODEs:
+
+$$P(x)y_1'' + Q(x)y_1' + R(x)y_1 = g_1(x)$$
+$$P(x)y_2'' + Q(x)y_2' + R(x)y_2 = g_2(x)$$
+
+$$P(x)(c_1y_1'' + c_2y_2'') + Q(x)(c_1y_1' + c_2y_2') + R(x)(c_1y_1 + c_2y_2) = c_1g_1(x) + c_2g_2(x)$$
+
+!!Example 2 
+
+Make a guess for the form of the particular solution of the equation:
+
+$$y'' + 6y' + 13y = 3t^2 - 5 + e^{3t}\cos(2t) + 2te^{-3t}\sin(2t) + e^{-t}(t^2 - 1)$$
+
+The roots of this equation are: $r = -3 \pm 2i$. On the right hand side, we can see four separate quasi-polynomials:
+
+$$3t^2 - 5$$
+$$e^{3t}\cos(2t)$$
+$$2te^{-3t}\sin(2t)$$
+$$e^{-t}(t^2 - 1)$$
+
+We can find the degree and the epsilon ($\epsilon = \alpha + \beta i$) for each:
+
+$$\delta_1 = 2, \epsilon_1 = 0$$
+$$\delta_2 = 0, \epsilon_2 = 3+2i$$
+$$\delta_3 = 2, \epsilon_3 = -3+2i$$
+$$\delta_4 = 2, \epsilon_4 = -1$$
+
+Since $\delta_3$ is the same as one of the roots, we need to set $s_3 = 1$ there to prevent the solution being one of the given equations. So, now we can combine the equations to find $Y$.
+
+For each equation, we need to find the most general form of the quasi--polynomial that has the same degree and epsilon. For the first:
+
+$$\delta_1 = 2, \epsilon_1 = 0$$
+$$e^0[(At^2 + Bt + C)\cos0 + (A_1t^2 + B_1t + C_1)\sin0]$$
+$$= (At^2 + Bt + C)$$
+
+(remember that the degree is the highest power of t in the polnomial)
+
+$$\delta_2 = 0, \epsilon_2 = 3+2i$$
+$$e^{3t}[(D)\cos2t + (E)\sin2t]$$
+$$\delta_3 = 2, \epsilon_3 = -3+2i$$
+$$e^{-3t}[(Ft^2 + Gt + H)\cos2t + (It^2 + Jt + K)\sin2t]$$
+
+This can be repeated for the last, which will result in $Y(t)$, which can be combined with the solution of the corresponding homogeneous equation to get the solution.
+
+When solving for all of the constants, it would be best to focus on one of these quasi-polynomials at a time. As this would take a monumental amount of time, you will not likely see questions like this on the homework or exam.
+
+!!
+
+!!Example 5
+
+Find the general solution of $y'' - 3y' + 2y = xe^{2x}+\sin x$
+
+This is made of two quasi-polynomials, as there is an x on $e^{2x}$, but not to $\sin x$. So we have the first degree as 1 and epsilon as 2, and th esecond degree as 0 and epsilon as $i$.
+
+The roots of the equation are 1 and 2, so we need an $s$ of 1 in front of the $e^{2x}$.
+
+$$Y_1(x) = xe^{2x}(Ax+B) = e^{2x}(Ax^2+Bx)$$
+$$Y_2(x) = C\cos x + D\sin x$$
+
+So, to get the constants, we solve each of these equations:
+
+$$L[Y_1] = xe^{2x}$$
+$$Y_1'' -3Y_1' + 2Y_1 = xe^{2x}$$
+$$Y_1 = e^{2x}(Ax^2+Bx)$$
+$$Y_1' = e^{2x}(2Ax+B) + 2e^{2x}(Ax^2+Bx) = e^{2x}(2Ax^2 + (2A + B)x + B)$$
+$$Y_1'' = 2e^{2x}(Ax^2 + (2A + B)x + B) + e^{2x}(2Ax + 2A + B)$$
+$$=e^{2x}[4Ax^2 + (8A + 2B)x + 3B + 2A] $$
+
+We can just divide by $e^{2x}$ immediately, then add together:
+
+$$2(Ax^2 + Bx) - 3(2Ax^2 + (2A + B)x + B) + 4Ax^2 + (8A + 2B)x + 3B + 2A=x$$
+
+Then we group powers of $x$:
+
+$$0x^2 + (2B - 3(2A+B)+(8A+2B))x + (-3B + 3B + 2A) = x$$
+
+So, we can see that $A = 0$, $B = 1$.
+
+We do the same for $Y_2$, getting $C = 3/10$, $D = 1/10$
+
+So the entire $Y$ is:
+
+$$Y(x) = xe^{2x} + 3/10\cos x + 1/10\sin x$$
+
+And the solution is:
+
+$$y = y_h + Y = c_1e^x + c_2e^{2x} + xe^{2x} + 3/10\cos x + 1/10\sin x$$
+
+!!
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
