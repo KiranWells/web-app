@@ -1,0 +1,160 @@
+# Variation of Parameters
+
+## Lagrange Formula 
+
+Given the equation:
+
+$$y'' + p(t)y' + q(t)y = g(t)$$
+
+Assuming that a fundamental pair of homogeneous solutions is known, so 
+
+$$y_h = c_1y_1(t) + c_2y_2(t)$$
+
+We were able to find a solution of the form:
+
+$$y = y_h + y_p = c_1y_1 + c_2y_2 + Y$$
+
+The idea of variation of parameters is to find a solution that looks like:
+
+$$Y = u_1(t)y_1(t) + u_s(t)y_2(t)$$
+
+After finding the derivatives adn plugging it into the original equation, we get (something like):
+
+$$(u_1'y_1' + u_2'y_2') + (u_1'y_1 + u_2'y_2) + p(t)(u_1'y_1 + u_2'y_2') = g(t)$$
+
+Using 
+
+$$u_1'y_1 + u_2'y_2 = 0$$ 
+
+We eliminate much of the formula, allowing us to use the formula below.
+
+### Solutions of linear equations:
+
+Given a pair of linear equations:
+
+$$
+\begin{cases}
+  a_1x + b_1y = c_1 \\
+  a_2x + b_2y = c_2 \\
+\end{cases}
+$$
+
+Which in matrix format is:
+
+$$
+\begin{bmatrix}
+  a_1 && b_1 \\
+  a_2 && b_2
+\end{bmatrix}
+\begin{bmatrix}
+  x \\
+  y
+\end{bmatrix}
+= 
+\begin{bmatrix}
+  c_1 \\
+  c_2
+\end{bmatrix}
+$$
+
+Which when solved, leads to cramer's rule.
+
+Which we can use for this equation.This will lead to the Lagrange formula:
+
+$$y = c_1y_1 + c_2y_2 + \left(\int {-gy_2 \over W(y_1,y_2)}\right)y_1 + \left(\int {gy_1 \over W(y_1,y_2)}\right)y_2$$
+
+!!Example 1
+
+Solve: $y'' + y = \tan t, -\pi/2 \lt t \lt \pi/2$
+
+This cannot be solved with the method of undetermined coefficients, because $\tan t$ is not a quasi-polynomial.
+
+Using variation of parameters instead, we start with the homogeneous equation:
+
+$$y'' + y = 0$$
+$$r = \pm i$$
+
+$$y_1 = \cos t$$
+$$y_2 = \sin t$$
+
+(These are from the [solution for complex roots](Complex_Roots.html))
+
+Since the equation is already standard, now we use the Lagrange formula:
+
+$$y = c_1y_1 + c_2y_2 + \left(\int {-gy_2 \over W(y_1,y_2)}\right)y_1 + \left(\int {gy_1 \over W(y_1,y_2)}\right)y_2$$
+
+The wronskian is:
+
+$$
+\begin{vmatrix}
+  \cos t && \sin t \\
+  -\sin t && \cos t
+\end{vmatrix}
+= 1
+$$
+
+$$y = c_1(\cos t) + c_2(\sin t) $$
+$$+ \left(\int {-(\tan t)(\sin t) \over 1}\right)(\cos t) + \left(\int {(\tan t)(\cos t) \over 1}\right)(\sin t)$$
+$$y = c_1(\cos t) + c_2(\sin t) $$
+$$+ \left(\int -{\sin^2 t \over \cos t}\right)\cos t + \left(\int {\sin t}\right)\sin t$$
+
+$$-\int {\sin^2 t \over \cos t} = \int {1-\cos^2 t \over \cos t}$$
+$$= \int \cos t dt - \int \sec t dt$$
+
+Which is a tricky integral, but results in:
+
+$$\sin t - \ln|\sec t + \tan t|$$
+
+So, we have:
+$$y = c_1(\cos t) + c_2(\sin t) + \left(\sin t - \ln|\sec t + \tan t|\right)\cos t - \cos t\sin t$$
+$$y = c_1\cos t + c_2\sin t -\ln|\sec t + \tan t|\cos t$$
+
+If this were an initial value problem, such as $y(0) = 1, y'(0) = -2$, we would follow a similar strategy as normal to find the particular solution:
+
+$$y = c_1\cos t + c_2\sin t -\ln|\sec t + \tan t|\cos t$$
+$$y' = -c_1\sin t + c_2\cos t - \sec t\cos t + \sin t(\ln|\sec t + \tan t|)$$
+
+$$1 = c_1 - \ln|1 + 0|$$
+$$1 = c_1 - 0$$
+$$1 = c_1$$
+
+$$-2 = c_2 - 1 + 0$$
+$$-1 = c_2$$
+
+$$y = \cos t - \sin t - \ln|\sec t + \tan t| \cos t$$
+
+!!
+
+!!Example 2
+
+Solve $t^2y'' - 2ty' + 2y = 4t^2, t > 0$
+
+Since the coefficients here are variable, we cannot use the method of undetermined coefficients. So, again we start out with finding the solutions to the homogeneous equation, which requires a standard equation.
+
+$$y'' - 2t^{-1}y' + 2t^{-2}y = 4$$
+
+So we have $g(t) = 4$, $y_1 = t$, but we also need $y_2$. To get this, we should use reduction of order using the Louville formula:
+
+$$y_2 = y_1\int {e^{-\int p(t)dt} \over y_1^2}dt$$
+$$y_2 = t\int {e^{-\int -2/t\ dt} \over t^2}dt$$
+$$y_2 = t\int {e^{2\ln t} \over t^2}dt$$
+$$y_2 = t\int {t^2 \over t^2}dt$$
+$$y_2 = t^2$$
+
+So, we can find a wronskian (also, note that the $e^{-\int p(t)dt}$ is the wronskian in the previous formula, we just need the constant):
+
+$$t(2t) - t^2 = t^2$$
+
+So, we use lagrange:
+
+$$y = c_1y_1 + c_2y_2 + u_1y_1 + u_2y_2$$
+
+$$y = c_1y_1 + c_2y_2 + \left(\int {-gy_2 \over W(y_1,y_2)}\right)y_1 + \left(\int {gy_1 \over W(y_1,y_2)}\right)y_2$$
+$$y = c_1t + c_2t^2 + \left(\int {-4t^2 \over t^2}\right)t + \left(\int {4t \over t^2}\right)t^2$$
+$$y = c_1t + c_2t^2 - 4t^2 + 4t^2\ln t$$
+$$y = c_1t + c_3t^2 + 4t^2\ln t$$
+
+!!
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">

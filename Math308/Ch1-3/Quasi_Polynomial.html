@@ -248,7 +248,7 @@ If the epsilon is one of the roots to the equation ($ar^2 + br + c = 0$), then i
 $$g(t) = e^{\alpha t}[(a_0 + a_1t + ...)\cos(\beta t) + (b_0 + b_1t + ...)\sin(\beta t)]$$
 $$Y(t) = t^s * e^{\alpha t}[(A_0 + A_1t + ...)\cos(\beta t) + (B_0 + B_1t + ...)\sin(\beta t)]$$
 
-Where $s$ is a high enough power to prevent the function from being a solution in the homogeneous equation.
+Where $s$ is a high enough power to prevent the function from being a solution in the homogeneous equation. If the root is repeated, then we will have $te^t$ in the homogenous equation, so we need $s=2$ to ensure that resonance does not occur. If the roots are not repeated, $s=1$ should suffice.
 
 The important part of a quasi-polynomial is that the derivative of one is still a quasi-polynomial. However, the degree for a $Y'(t)$ is the same as $Y(t)$, but it does not increase: (the same will be true of higher derivatives of $Y$)
 
@@ -290,7 +290,7 @@ $$\delta_2 = 0, \epsilon_2 = 3+2i$$
 $$\delta_3 = 2, \epsilon_3 = -3+2i$$
 $$\delta_4 = 2, \epsilon_4 = -1$$
 
-Since $\delta_3$ is the same as one of the roots, we need to set $s_3 = 1$ there to prevent the solution being one of the given equations. So, now we can combine the equations to find $Y$.
+Since $\delta_3$ is the same as one of the roots, we need to set $s_3 = 1$ there to prevent the solution being one of the given equations. (the root is not repeated, so $te^t$ is not resonant) So, now we can combine the equations to find $Y$.
 
 For each equation, we need to find the most general form of the quasi--polynomial that has the same degree and epsilon. For the first:
 
