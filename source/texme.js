@@ -30,7 +30,7 @@ $2
     let match = text.match(/__remove spaces__([^_]*)__end remove spaces__/);
     if (match === null) {break;}
     let inner = match[1];
-    inner = inner.replace(/ /g, "_");
+    inner = inner.replace(/ /g, "-").toLowerCase();
     text = text.replace(/__remove spaces__[^_]*__end remove spaces__/, inner);
   }
   document.body.innerHTML = text;
@@ -101,7 +101,7 @@ $2
   // add header ids
   let hs = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
   for (let h of hs) {
-    h.id = h.textContent.replace(/ /g, "_");
+    h.id = h.textContent.replace(/ /g, "-").toLowerCase();
   }
   document.body.firstChild.appendChild(footer);
 

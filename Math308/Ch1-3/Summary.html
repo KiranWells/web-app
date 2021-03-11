@@ -1,0 +1,283 @@
+# Chapters 1-3 Summary
+
+**Section 3.6 - Lagrange Formula is not on the Exam**
+
+## [Intro to Differential Equations](Intro_to_DEs.html)
+
+A differential equation is an equation that has a function and it's derivatives or the independent variable.
+
+$$y'' + y' = yt$$
+
+These are often the result of more complex physics ideas, such as:
+
+$$F_{spring} = kx \to a = x'' = \frac{k}{m}x$$
+$$a_{box} = v_{box}' = -mg + kv_{box}$$
+
+## [Classifying DEs and Direction Fields](Classifying_DEs.html)
+
+Given a function $y(t)$ in a differential equation (DE):
+
+- Autonomous: the independent variable (t) is not present, solvable because they are [separable](#separable-equations)
+- Ordinary: the function (y) is of one variable (meaning the derivatives are not partial)
+- Partial: the opposite of ordinary. The equation includes partial derivatives. (This class does not use PDEs)
+- Linear: The equation is a linear combination of $y$ and some function of $t$
+- Non-linear: any DE that is not linear
+- Equilibrium Solution: any constant solution to a DE
+- First (Second, third...) order: the level of derivative present in the DE
+- Separable: $y$ and $t$ can be separated to different sides, allowing for [integration to solve](#separable-equations)
+
+## Forms
+
+### First Order
+
+- Normal form: solved for $y'$
+- Standard Form: $y' + p(t)y = g(t)$
+  - solvable by the [integrating factor](#standard-form) method
+- [Differential Form](Differential_Form.html#differential-form)
+
+### Second Order
+
+- Standard Form: $y'' + p(t)y' + q(t)y = g(t)$
+  - solvable using the [Lagrange Equation](#standard-form---lagrange)
+- Homogenous Form: $y'' + p(t)y' + q(t)y = 0$
+  - solvable by [homogenous methods](#homogenous-equations)
+
+## Methods of Solution
+
+### First Order Linear Equations
+
+#### [Separable Equations](Separable.html)
+
+Most first-order equations that are separable are able to be solved by separating variables and integrating:
+
+$$f(y,y')g(x) = h(y,y')j(x)$$
+$${f(y,y')\over h(y,y')} = {j(x)\over g(x)}$$
+$$\int {f(y,y')\over h(y,y')} = \int {j(x)\over g(x)}$$
+
+This works if the equation can be put into a form where each side can be integrated. Normally, it looks something like this:
+
+$$y' = f(x)g(y)$$
+$${y'\over g(y)} = f(x)$$
+$$\int {dy\over g(y)} = \int f(x)dx$$
+
+Often resulting in $e^x$ type of solutions. Being able to separate and integrate these functions is the hardest part of many of these problems, so make sure to brush up on partial fractions and integrating by parts!
+
+#### [Standard Form](Equil_StdForm.html)
+
+Equations in standard form can be solved by using integrating factors. The integrating factor $\mu$ is found by:
+
+$$\mu = e^{\int p(t)dt}$$
+
+in the equation:
+
+$$y' + p(t)y = q(t)$$
+
+This allows the eqation to be turned into a product rule and integrated:
+
+$$\mu y' + (\mu p(t)) y = q(t)$$
+$$\mu y = \int q(t)dt $$
+
+Where $\mu p(t)$ is equal to $\mu'$.
+
+### First order non-linear
+
+#### [Autonomous Equations](Autonomous.html)
+
+Autonomous equations can be solved by separating them and integrating:
+
+$$y' = kf(y)$$
+$${y'\over f(y)} = k$$
+$$\int {dy\over f(y)} = \int kdx$$
+
+See [Separable Equations](#separable-equations) for more
+
+#### [Exact and inexact Equations](Differential_Form.html#exact-equations)
+
+Exact equations of the form
+
+$$Mdx + Ndy = 0$$
+
+Can be solved by finding the function $\phi$ where $\phi_x = M, \phi_y = N$. In other words, take the integral of both and find the common pieces. This is described in the [fundamental theorem for line integrals](/Math251/16/fund_theorem.html#the-fundamental-theorem-of-line-integrals) in Calculus III.
+
+### Second Order Linear Equations
+
+#### Homogenous Equations
+
+##### Links:
+
+- [Normal Roots](Second_Ord.html)
+- [Complex Roots](Complex_Roots.html)
+- [Repeated Roots](Repeated_Roots.html)
+
+Homogeneous equations of the form:
+
+$$ay'' + by' + cy = 0$$
+
+can be solved using a substitution of $e^{rt}$. This will result in a solution for $r$ that gives:
+
+$$ar^2 + br + c = 0$$
+
+$r$ can then easily be found. If it is a normal set of two roots, then the solutions will be:
+
+$$y = c_1e^{r_1t} +  c_2e^{r_2t}$$
+
+For a single root:
+
+$$y =  c_1e^{r_1t} +  c_2te^{r_1t}$$
+
+And for complex roots:
+
+$$y =  c_1e^{\alpha t}\cos(\beta t) + c_2e^{\alpha t}\sin (\beta t)$$
+
+Where $\alpha$ and $\beta$ are:
+
+$$r = \alpha \pm \beta i$$
+
+Non-constant coefficient equations of the form:
+
+$$y'' + p(t)y' + q(t)y = 0$$
+
+can be solved using a starting solution $y_1$ an integrating factor, which is found using [Liouville's Formula](Repeated_Roots.html#liouville's-formula):
+
+$$y_2 = y_1\int {e^{-\int p(t)dt}}\over y_1^2$$
+
+#### [Standard Form - Lagrange](Variation_of_parameters.html)
+
+- [Homogenous](#homogenous-equations)
+- [Quasi-Polynomial](Quasi_Polynomial.html)
+- [Non-Quasi-Polynomial](Variation_of_parameters.html)
+
+Homogenous equations (which are a subset of standard form) are discussed above. If the equation has the form:
+
+$$y'' + p(t)y' + q(t)y = g(t)$$
+
+Then the solution will be of the form:
+
+$$y = y_h + Y(t)$$
+
+However, the method to find $Y(t)$ will depend on the function $g(t)$. If it is a quasi-polynomial, or a sum of quasi-polynomials, meaning:
+
+$$g(t) = e^{\alpha t}[(B + Ct + Dt^2 ... At^\delta)\cos (\beta t) + (G + Ht + It^2 ... Ft^\delta)\sin (\beta t)]$$
+
+Then the solution can be found by taking each quasi-polynomial and using the method of undetermined coefficients on each. This method says $Y$ is:
+
+$$Y(t) = t^s e^{\alpha t}[(A + Bt + Ct^2 ... Dt^\delta)\cos (\beta t) + (F + Gt + Ht^2 ... It^\delta)\sin (\beta t)]$$
+
+Where $\alpha$, $\beta$, and $\delta$ are the same as in the above quasi-polynomial, and the capital constants are what needs to be solved. Note that sometimes the term $\epsilon = \alpha + \beta i$ will be called the "exponent" of the QP. For example, given the following QPs, we get the following $Y$:
+
+1. $$g(t) = e^{-t}$$
+
+$$\alpha = -1, \beta = 0, \delta = 0$$
+
+$$Y = Ae^{-t}$$
+
+2. $$g(t) = 12t^2\sin(3t)$$
+
+$$\alpha = 0, \beta = 3, \delta = 2$$
+
+$$Y = e^{0}[(At^2 + Bt + C)\cos (\beta t) + (Dt^2 + Et + F)\cos (\beta t)]$$
+
+Note that in the above example, both sin and cos were used; this is always the case in $Y$.
+
+If $g(t)$ is not a QP, then the [Lagrange Formula](Variation_of_parameters.html) is necessary; this should not be on the test this time.
+
+## [Making Physical Models](Models.html)
+
+One of the most important aspect of differential equations is the ability to easily represent a physical system. For example, forces in physics case acceleration. If a force varies with the location, the acceleration of the particle $a(t) = x''(t)$ is dependent on $x(t)$ itself. This leads to a second order differential equation.
+
+A more common example for the test is the rate of a solution flowing into and out of a container:
+
+If a X gallon tank has a K g/gal solution of salt flowing in at a rate of A gal/min, and solution is leaving the tank at B gal/min, what is the weight of salt in the tank as a function of time?
+
+In this case, the *change in salt* is the rate of solution flowing in times the concentration of that solution minus the rate of water flowing out times that concentration:
+
+$$S'(t) = K*A - C(t)*B$$
+
+Where the concentration $C(t)$ varies as the tank is drained and filled, given by the salt per volume. The volume is the starting volume plus the rate of liquid coming in times time and minus the rate of liquid going out times time:
+
+$$V(t) = X + (A-B)t$$
+$$C(t) = S(t)/V(t)$$
+
+So the full equation for the change in salt is the differential equation:
+
+$$S'(t) = K*A + \left({S(t)\over X + (A-B)t}\right)B$$
+
+This can now be solved for $S(t)$.
+
+A more logical (and easy-to-understand) example is the force of a spring. If a block is only moved by the force of a spring, what equation gives its position with respect to time?
+
+$$F = -kx = ma = mx''$$
+
+$$x'' = -\frac{k}{m}x$$
+$$x'' + 0x' + \frac{k}{m}x = 0$$
+
+This is homogenous with constant coefficients, so the equation would be:
+
+$$r^2 + \frac{k}{m} = 0$$
+$$r = 0 + \sqrt{\frac{k}{m}}i$$
+
+Which is an imaginary root, so the solution is:
+
+$$x(t) = c_1\cos\left(\sqrt{\frac{k}{m}} t\right) + c_2\sin\left( \sqrt{\frac{k}{m}} t\right)$$
+
+Which gives [this graph](https://www.desmos.com/calculator/2dxgyefjmh) from Desmos:
+
+![The graph, showing an oscillating function](kx.jpg)
+
+## Existence and Uniqueness Formulas
+
+- [Linear vs. Non-Linear](Linear_v_Non.html)
+
+### First Order Uniqueness
+
+#### Linear Uniqueness
+
+If the functions $p$ and $g$ are continuous in the form:
+
+$$y' + p(t)y + g(t) = 0$$
+
+Then the solution exists, is unique, and is given by the integrating factor method.
+
+The interval of validity is the range which $p$ and $g$ are continuous around the initial point $t_0$
+
+Note that you need to divide by the coefficient of $y'$ because it is in standard form.
+
+#### Non-linear Uniqueness
+
+If $f(t,y)$ and $f_y$ is continuous in some rectangle $\alpha \lt t \lt \beta, \gamma \lt y \lt \delta$ containing the point ($t_0, y_0$) then there is a solution on an interval of $t$: $t_0 - h \lt t \lt t_0 + h$ that is contained in $\alpha \lt t \lt \beta$.
+
+The term $h$ can be found by:
+
+$$h = min(a, b/M)$$
+
+Where $M$ is the maximum of $|f|$ on the rectangle and $a$ and $b$ are the distances within the rectangle around $(t_0, y_0)$.
+
+### Second Order Uniqueness
+
+If the functions $p$, $q$, and $g$ are continuous on some interval $I$ for the equation:
+
+$$y'+ p(t)y' + q(t)y = g(t)$$
+
+Then there is a unique solution $y = \phi(t)$ of the IVP throughout the interval $I$.
+
+## [Wronskian](Wronskian_Uses.html)
+
+The Wronskian is given by:
+
+$$
+W(t) = W(y_1, y_2) = 
+\begin{vmatrix}
+  y_1 && y_2 \\
+  y_1' && y_2'
+\end{vmatrix}
+= y_1y_2' - y_2y_1'
+$$
+
+It can also be found as:
+
+$$W[y_1, y_2] = ce^{-\int p(t)dt}$$
+
+Which should not be confused with the formula for the integrating factor.
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
