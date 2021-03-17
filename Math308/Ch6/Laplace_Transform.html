@@ -1,0 +1,124 @@
+# The Laplace Transform
+
+Translating a problem from one form to another, or one context to another, is often useful to make a problem simpler.
+
+The Laplace Transform is a similar type of transformation. It is a relatively new idea in mathematics. To describe  it, we need some definitions. 
+
+## Definitions
+
+### Piecewise continuous
+
+A function is piecewise continuous on some interval if the interval can be divided into other intervals on shich the function is continuous. $f$ must have a finite limit as the endpoints of the interval are approached from inside the interval.
+
+![An Examle of a piecewise function](piecewise.jpg)
+
+To be clearer, a function that is piecewise can have discontinuity, but not vertical asymptotes. 
+
+### Exponential Order
+
+A function $f$ is said to be of **exponential order** if $|f(t)| \le Ke^a{t}$ for $t\ge M$
+
+This means that the exponential function is at some point greater than the magnitude of the function. For example, exponential functions themselves, linear functions, polynomials, and sin functions are of exponential order as they do not grow as fast as exponential functions.
+
+The way to prove this is to find a value for these numbers $K, M$ and $a$ that will satisfy the equation.
+
+$$t^2 \le e^t\ for\ t\ge100$$
+
+Any polynomial will eventually be outgrown by an exponential function, as long as $a \gt 0$
+
+Functions which are not of exponential order exceed the exponential. For example, any function which has a vartical asymptote which repeats, such as $tan(t)$ will eventually exceed the exponential, regardless of what $M$ you choose. Another example woould be $e^{t^2}$.
+
+## The definition of the Laplace Transform
+
+$$\mathcal{L}\{f(t)\} = \int\limits_0^{\infty} e^{-st}f(t)dt$$
+
+This improper integral multiplies by $e^{-st}$, which is called the kernel of the Laplace Transform.  This integral must converge to be useful, so the function $f(t)$ must be of exponential order, which will allow the integral to converge.
+
+The Laplace transform will result in a function of $s$, which is usually denoted the *frequency*. One important note is that $s$ is considered fixed during integration. Also, $s$ is a complex number, which may only have a real component.
+
+This allows to transform the function from the time domain $t$ to the frequency domain $s$. However, we need to know when the Laplace tranform converges.
+
+### Theorem (Existence of Laplace Transform)
+
+With a function $f$ which is piecewise continuous on $[0,A]$, for any $A$ and of exponential order, the Laplace transformation $\mathcal{L}\{f(t)\} = F(s$ exists for $s \gt a$.
+
+The value $a$ is called the abscissa of convergence. For example, the abscissa for $t^2 + 6t - 1$ is $0$ $0$, because it is a polynomial, and we already defined that $a > 0$ for polynomials.
+
+One strategy for finding this is to define it as a limit:
+
+$$\lim\limits_{t\to\infty} {f(t) \over e^{at}} = 0$$
+
+!!Example 1a - Important!
+
+This may be the most important example:
+
+$$f(t) = e^{\lambda t}, \lambda = a + bi$$
+
+We can separate this function through Euler's formula:
+
+$$f(t) = e^{at}[\cos(bt) + i\sin(bt)]$$
+
+But first, lets just plug the function in normally:
+
+$$\int\limits_0^{\infty} e^{(\lambda - s)t}$$
+$${1\over \lambda - s}e^{(\lambda - s)t}|_0^{\infty}$$
+
+$$= {1\over \lambda - s}\lim\limits_{A \to \infty} [e^{(\lambda - s)A} - 1]$$
+
+While we can define $s$ as imaginary, lets try to find a real number for it. We can see that if $s$ is greater than $\lambda$, the function will converge. However, we need to convert that to find a real version of $s$:
+
+$$= {1\over \lambda - s}\lim\limits_{A \to \infty} [e^{(a - s + bi)A} - 1]$$
+$$= {1\over \lambda - s}\lim\limits_{A \to \infty} [e^{(a - s)A}(\cos(Ab) + i\sin(Ab)) - 1]$$
+
+Here, the complex number $\cos(Ab) + i\sin(Ab)$ is just a point on the unit circle that rotates around the origin; it is bounded.
+
+In this case, if $s \gt a$, then the first term will be divied by an infinite value, which since the top is bounded, will result in 0. (If you plotted it with respect to time, it would spiral to 0). So, even though it is an imaginary result, it will tend toward $0 + 0i$, which is the same as normal $0$ and can be used as such our equation.
+
+So, we have proved that if $s \gt a$, then the Laplace transform will equal $1\over \lambda - s$. If $s = a$, then the limits will not exist, as it will be periodic. If $s \lt a$, the answer will spiral outwards to infinity.
+
+Note that $s = \lambda$ is a "pole", where there is an asymptote in the frequency function.
+
+Also, note that the original function is a quasi-polynomial, with degree 0 and exponent $\lambda$, which is an important as it defines the "pole" location. This shows that the Laplace tranform will detect the exponent.
+
+Answer:
+
+$$F(s) = {1 \over s - \lambda}, s > Re(\lambda) = a$$
+
+!!
+
+!!Example 1b
+
+$$e^{at}\cos(bt)$$
+
+Notice that this is only the real form of the integral we just did above. Since Laplace transform is a linear operation (you can prove this by plugging $f(t) + g(t)$ into the formula), we can just apply the Real operator to the result:
+
+$$\mathcal{L}\{e^{at}\cos(bt)\} = Re(\mathcal{L}\{e^{\lambda t}\})$$
+
+This is because the Real portion is a linear part of the transformation:
+
+$$\mathcal{L}\{e^{\lambda t}\} = \mathcal{L}\{e^at[\cos(bt) + i\sin(bt)]\} =  \mathcal{L}\{e^at[\cos(bt)]\} + \mathcal{L}\{[i\sin(bt)]\}$$
+
+So, we have:
+
+$$\mathcal{L}\{e^{at}\cos(bt)\} = Re(\mathcal{L}\{e^{\lambda t}\})$$
+$$\mathcal{L}\{e^{at}\cos(bt)\} = Re\left({1 \over s- \lambda}\right)$$
+$$= Re\left({1 \over s- a - bi}\right) = Re\left({s - a + bi \over (s - a - bi)(s - a + bi)}\right)$$
+$$= Re\left({s - a + bi \over (s - a)^2 + b^2}\right)= {s - a \over (s - a)^2 + b^2}$$
+
+
+So we have out answer:
+
+$$F(s) = {s - a \over (s - a)^2 + b^2}, s \gt a$$
+
+!!
+
+A similar strategy can be used to solve any quasi-polynomial equation.
+
+### Summary
+
+The Laplace tranform of any quasi-polynomial with degree 0 is given by:
+
+$$F(s) = {s - a \over (s - a)^2 + b^2}, s \gt a$$
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
