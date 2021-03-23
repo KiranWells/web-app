@@ -114,11 +114,64 @@ $$F(s) = {s - a \over (s - a)^2 + b^2}, s \gt a$$
 
 A similar strategy can be used to solve any quasi-polynomial equation.
 
-### Summary
+## Linearity of Laplace
 
-The Laplace tranform of any quasi-polynomial with degree 0 is given by:
+The Laplace transform is linear, which can be proved by expanding it:
 
-$$F(s) = {s - a \over (s - a)^2 + b^2}, s \gt a$$
+$$\mathcal{L}\{c_1f + c_2g\} = \int\limits_0^{\infty} e^{-st} (c_1f + c_2g)dt$$
+$$= c_1\int\limits_0^{\infty} e^{-st}f + c_2\int\limits_0^{\infty} e^{-st}g)dt$$
+
+!!Example 2
+
+Find the Laplace Transform of:
+$$f(t) = 5 - 2e^{3t} + 7\cos(4t)-3e^{5t}\sin(9t)$$
+
+Here, we can just take the laplace of each portion.
+
+$$F(s) = 5/s - 2\left({1\over s - 3}\right) + 7\left({s\over s^2 +16}\right) - 3\left({9\over (s-5)^2 + 81}\right)$$
+
+These are found by taking the exponent and using the formula from last lecture:
+
+$$F(s) = {s - a \over (s - a)^2 + b^2}$$
+For the real part ($\cos$), and 
+$$F(s) = {b \over (s - a)^2 + b^2}$$
+For the imaginary part ($\sin$)
+
+!!
+
+!!Example 3
+
+Find the Laplace Transform of:
+$$
+f(t) = 
+\begin{cases}
+  t^2 && 0 \le t \lt 1 \\
+  2 && 1 \le t \lt \infty
+\end{cases}
+$$
+
+As from earlier strategies, we can see that this function will converge (i.e. the Laplace transform exists) for $s \gt 0$
+
+To do this, we only need to take the integral for each piece:
+
+$$F(s) = \int\limits_0^{\infty} e^{-st}f'(tf)dt(t)$$
+$$= \int\limits_0^{1} e^{-st}t^2dt + \int\limits_1^{\infty} e^{-st}dt$$
+
+Using integration by parts, the first integral is:
+
+$$\left(-\frac{t^2}{s}-\frac{2t}{s^2}-\frac{2}{s^3} \right)e^{-st}|_0^{\infty}$$
+
+The second is:
+
+$$\frac{2}{-s}e^{-st}|_{1}^{\infty}$$
+
+After simplifying, we get:
+
+$$F(s) = \left(-\frac{1}{s}-\frac{2}{s^2}-\frac{2}{s^3} \right)e^{-s} - \left(-\frac{2}{s^3} \right)+ \frac{2}{s}e^{-s}$$
+
+!!
+
+For reference, a table of Laplace transforms for different forms of functions can be found [here](https://tutorial.math.lamar.edu/pdf/Laplace_Table.pdf).
 
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">
