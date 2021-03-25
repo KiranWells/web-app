@@ -1,0 +1,152 @@
+# More Inverse Laplace Examples
+
+Often when solving problems using the Laplace transform, the  main issue is trying to convert from $s$ (frequency) to $t$ or the normal variable.
+
+There is not a formula (that we have) for the inverse of Laplace, although there is one, so we need to break the problem up into linear combinations of the patterns we can see from either experience or a formula table.
+
+## Partial Fraction Decomposition
+
+[Tutorial Link](https://www.purplemath.com/modules/partfrac.htm) - Check here if you need a refresher.
+
+Partial fraction decomposition is often used to simplify these problems, so let's summarize the strategy.
+
+First, factor the denominator, then add fractions with undetermined coefficients and polynomials on top and the factored elements on the bottom.
+
+For example:
+
+$${2s^2 + 3 \over s^4 - 4} = {A \over s^2 + 2} + {B \over s^2 - 2}$$
+
+Then solve for $A$ and $B$.
+
+!!Example 3
+
+$$F(s) = {8s^2 - 4s + 12 \over s^3 + 4s}$$
+
+Here, we set it equal to some addition of the factors of the denominator:
+
+$${8s^2 - 4s + 12 \over s^3 + 4s} = {A\over s} + {Bs + C \over s^2 + 4}$$
+
+When multiplying we get:
+
+$${8s^2 - 4s + 12 \over s^3 + 4s} = {As^2 + 4A + Bs^2 + Cs \over s(s^2 + 4)}$$
+
+$$
+\begin{cases}
+  A + B = 8 \\
+  4A = 12 \\
+  C = -4
+\end{cases}
+$$
+$$
+\begin{cases}
+  A = 3 \\
+  B = 5 \\
+  C = -4
+\end{cases}
+$$
+
+If this were a laplace transform problem, then we could now break it up into manageable chunks:
+
+$$F(s) = \frac{3}{s} + {5s - 4 \over s^2 + 4}$$
+
+And break it up further into recognizable patterns from the table:
+
+$$F(s) = \frac{3}{s} + {5s \over s^2 + 4} - {4 \over s^2 + 4}$$
+
+$$f(t) = 3 + 5\cos(2t) - 2\sin(2t)$$
+
+!!
+
+!!Example 4
+
+$$y'' + 4y' + 5y = e^{-t}$$
+
+This could be solved using other strategies we have found in earlier chapters, such as th emethod of undetermined coefficients or Lagrange. However, lets do it with Laplace. First, we take the laplace of both sides:
+
+$$F(s) = \mathcal{L}\{y(t)\}$$
+
+$$(s^2F(s) - sy(0) - y'(0)) + 4(sF(s) - y(0)) + 5F(s) = \mathcal{L}\{e^{-t}\}$$
+$$s^2F(s) - s - 0 + 4sF(s) - 4 + 5F(s) = {1 \over s + 1}$$
+$$(s^2 + 4s + 5)F(s) = s + 4 + {1 \over s + 1}$$
+$$F(s) = {s + 4 \over s^2 + 4s + 5} + {1 \over (s + 1)(s^2 + 4s + 5)}$$
+$$F(s) = {(s + 4)(s + 1) + 1 \over (s + 1)(s^2 + 4s + 5)}$$
+
+Now we just need to change it back to the normal domain:
+
+$$F(s) = {s^2 + 5s + 5 \over (s + 1)(s^2 + 4s + 5)}$$
+
+Note that the poles of this function are $s = -1, -2 \pm i$. These correspond with the exponents of the quasi-polynomials in the function we will get, hinting that the solution will include $e^{-t}, e^{-2t}(sin(t) + cos(t))$
+
+$${s^2 + 5s + 5 \over (s + 1)(s^2 + 4s + 5)} = {A \over s + 1} + {Bs + C \over s^2 + 4s + 5}$$
+
+$$
+\begin{cases}
+  s^2 \to A + B = 1 \\
+  s \to 4A + B + C = 5 \\
+  s^0 \to 5A + C = 5
+\end{cases}
+$$
+
+$$
+\begin{cases}
+  A = \frac{1}{2} \\
+  B = \frac{1}{2} \\
+  C = \frac{5}{2}
+\end{cases}
+$$
+
+$$F(s) = {\frac{1}{2} \over s + 1} + {\frac{1}{2}s + \frac{5}{2} \over s^2 + 4s + 5}$$
+
+By completing the square on the bottom, we get:
+
+$$F(s) = {\frac{1}{2} \over s + 1} + {\frac{1}{2}s + \frac{5}{2} \over (s + 2)^2 + 1}$$
+
+Which coresponds to a similar rule. Now, we need to match on the top.
+
+$$F(s) = {\frac{1}{2} \over s + 1} + \frac{1}{2}{s + 2 + 3 \over (s + 2)^2 + 1}$$
+$$F(s) = {\frac{1}{2} \over s + 1} + \frac{1}{2}{s + 2\over (s + 2)^2 + 1} + \frac{3}{2}{1 \over (s + 2)^2 + 1}$$
+
+And now we can convert:
+
+$$y(t) = \frac{1}{2}e^{-t} + \frac{1}{2}e^{-2t}\cos(t) + \frac{3}{2}e^{-2t}\sin(t)$$
+
+Note that since we have already used the initial conditions, we do not need to solve for the constants. If we do not have initial conditions, we can just treat them as unknown constants to be solved for or used as parameters later.
+
+!!
+
+## Shift Rule
+
+This is another rule related to the Laplace treansform which is useful for these solutions, listed in the table as Rule 29.
+
+$$\mathcal{L}\{f(t)\} = F(s)$$
+$$\mathcal{L}\{e^{at}f(t)\} = F(s-a)$$
+
+This can be proved by:
+
+$$\mathcal{L}\{e^{at}f(t)\} = \int\limits_0^{\infty} e^{-st}e^{at}f(t)dt$$
+$$= \int\limits_0^{\infty} e^{-(s-a)t}f(t)dt = F(s-a)$$
+
+!!Example 5
+
+Use Laplace to solve:
+
+$$y''' - y' = t, y(0) = 1, y'(0) = 0, y''(0) = 0$$
+
+Note that using the characteristic equation $re^t$ would help here, leading to roots of $0, 1, -1$. This hints at a complimentary solution of $c_1 + c_2e^t + c_3e^{-t}$. The method of undetermined coefficients could then be applied. The other portion would be of the form $t(At + B)$, as there is a needed resonance factor. However, usign Laplace, we start with:
+
+$$s^3Y(s) - s^2y(0) - sy'(0) - y''(0) - sY(s) - y(0) = \mathcal{L}\{t\}$$
+$$s^3Y(s) - s^2 - sY(s) = \frac{1}{s^2}$$
+$$(s^3 - s)Y(s) = s^2 + \frac{1}{s^2}$$
+$$Y(s) = {s^2 + \frac{1}{s^2} \over (s^3 - s)}$$
+$$Y(s) = {1\over s} + {1\over s^3(s^2 - 1)}$$
+
+The second portion will need five fractions to break apart, one for each power. Using this method, we get:
+
+$${\frac{1}{2}\over s - 1} + {\frac{1}{2} \over s + 1} - \frac{1}{s^3}- \frac{1}{s}$$
+
+Which can then be converted to find $y$.
+
+!!
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
