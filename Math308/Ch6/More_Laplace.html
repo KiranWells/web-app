@@ -148,5 +148,29 @@ Which can then be converted to find $y$.
 
 !!
 
+!!Example 6
+
+Find the Laplace transform of the sinc function: $\sin t \over t$. The use that to find $\int\limits_0^{\infty} {\sin t \over t} dt$
+
+We start using the normal Laplace Transform:
+
+$$F(s) = \int\limits_0^{\infty} e^{-st}{\sin t \over t} dt$$
+
+Even just now, we can see that this will be the same as the integral that we want if we take the $\lim\limits_{s \to 0} F(s)$.
+
+Using the Laplace table (Rule 31), we see that:
+
+$$F(s) = \int\limits_0^{\infty} \mathcal{L}\{\sin(t)\}du$$
+$$= \int\limits_0^{\infty} {1 \over u^2 + 1}du$$
+$$= \arctan(\infty) - \arctan(s) = \frac{pi}{2} - \arctan(s)$$
+
+Now taking $\lim\limits_{s \to 0} F(s)$:
+
+$$F(0^+) = \int\limits_0^{\infty} {\sin t \over t} dt = \frac{pi}{2} - \arctan(0) = \frac{pi}{2}$$
+
+Now you can see the extent of the usefulness of the Laplace transform.
+
+!!
+
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">

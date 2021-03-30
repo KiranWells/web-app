@@ -1,0 +1,119 @@
+# Step Functions
+
+A step function is some function that has a discontinuity, making it look like a step.
+
+When working with step functions and the Laplace transform, it is often useful to have a standard function to work with. This standard is the **Heaviside function**.
+
+$$
+u_c(t) = 
+\begin{cases}
+  0 && t \lt c \\
+  1 && t \ge c
+\end{cases}
+$$
+
+Taking the Laplace of this is easy, as from $(0, \infty)$ the function $=1$.
+
+$$\mathcal{L}\{u_0\} = \int\limits_0^{\infty} e^{-st} * 1 dt$$
+$$= \frac{1}{s}$$
+
+(The 0 in subscript represents the place where the jump is.)
+
+!!Example 1
+
+Sketch the graph of the following functions:
+
+1. $f(t) = u_1(t) - u_{\pi}(t)$
+
+![There is a jump up at 1 and back to 0 at pi](function1.svg)
+
+2. $f(t) = (t - 5)u_2(t) - (t-2)u_5(t)$
+
+We can convert this to a piecewise function to get a range of functions.
+
+![The function changes based on the region](function2.svg)
+
+!!
+
+!!Example 2
+
+Convert the following to an equation using unit step functions.
+
+$$
+f(t) = 
+\begin{cases}
+  t - 1 && 0 \le t \lt 2\\
+  -4  && 2 \le t \lt 3\\
+  10 - t^2 && t \ge 3 \\
+\end{cases}
+$$
+
+We can start with the first section and define functions multiplied by the $u_c(t)$ functions.
+
+$t - 1$ from 0 and up - $(t - 1)u_0(t)$  
+$(-4) - (t - 1)$ from 2 and up - $-(3 + t)u_2(t)$
+$(10 - t^2) - (-4)$ from 2 and up - $(14 + t^2)u_3(t)$
+
+$$(t - 1)u_0(t) - (3 + t)u_2(t) + (14 - t^2)u_3(t)$$
+
+!!
+
+!!Example 3
+
+Find the Laplace transform of the function $u_c(t)$.
+
+Because the function is 0 before $c$, we can just integrate for the rest of the region.
+
+$$\mathcal{L}\{u_0\} = \int\limits_c^{\infty} e^{-st} * 1 dt$$
+$$= {e^{-sc} \over c}$$
+
+This is Rule 25.
+
+!!
+
+For multiplying functions by unit steps, we use Rule 28. 
+
+!!Derivation/Proof
+
+$$\mathcal{L}\{g(t)u_c(t)\} = \int\limits_0^{\infty} e^{-st}g(t)u_c(t)dt$$
+
+Because the function is 0 before $c$:
+
+$$= \int\limits_c^{\infty} e^{-st}g(t)dt$$
+
+Then using a change of variables:
+
+$$=\int\limits_0^{\infty} e^{-s(\tau + c)}g(\tau + c)d\tau$$
+$$=e^{-sc}\int\limits_0^{\infty} e^{-s\tau}g(\tau + c)d\tau$$
+$$=e^{-sc}\mathcal{L}\{g(\tau + c)\}$$
+
+!!
+
+This will result in a "delayed" function.
+
+![The function is 0 until c](delay.jpg)
+
+!!Example 4
+
+Find Laplace of:
+
+$$
+f(t) = 
+\begin{cases}
+  0 && t \lt 3 \\
+  t^2 -6t + 12 && t \ge 3
+\end{cases}
+$$
+
+This as a unit function will be:
+
+$$(t^2 -6t + 12)u_3(t)$$
+
+And we can use the Rule to get the Laplace:
+
+$$e^{-3s}\mathcal{L}\{g(t+3)\} = e^{-3s}\mathcal{L}\{((t+3)^2 -6(t+3) + 12)\}$$
+
+!!
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
