@@ -1,0 +1,136 @@
+# Impulse Functions
+
+In physics, there will often be questions where there will be a large value over a very small time, such as the forces in a collision. To deal with these kinds of forces, physicists use the **Dirac delta function** ($\delta(t)$) (also called **unit impulse**)
+
+!!an explanation of impulse
+
+If a force is a function of time, the the impulse is the integral with respect to time. 
+
+$$I = \int\limits_a^b F(t)dt$$
+
+If we represent the force as mass times the delta velocity:
+
+$$I = \int\limits_a^b m\frac{dv}{dt}dt = mv(b) - mv(a)$$
+
+Impulse, therefore, is the change in momentum.
+!!
+
+Given a very large impulse occuring in a very small time, the $\delta(t)$ can be used to represent it. It is defined as the a function with area of 1 underneath and zero width:
+
+$$
+\delta(t) = 
+\begin{cases}
+  0 && t \ne 0 \\
+  \infty && t = 0
+\end{cases}
+$$
+
+This can be explained by taking a rectangle with area one and taking the limits as its width approaches infinity. 
+
+The main use is called its "sifting property". By multiplying the delta function by any other function, it removes all values aside from the one where $\delta(T) \to T = 0$.
+
+$$\int\limits_{-\infty}^{\infty} \delta(t - c)f(t)dt = f(c)*\frac{1}{\epsilon}*\epsilon f(c)$$
+
+Note that this uses a shift of $c$ to change where the value of $f(t)$ is taken. This is called "sifting" because it allows us to take the value of a function at only one point.
+
+This property makes it easy to compute the Laplace of $\delta(t)$:
+
+$$\mathcal{L}\{\delta(t - c)\} = \int\limits_0^{\infty} e^{-st}\delta(t - c)dt = e^{-sc}$$
+
+This gives us Rule 26. Another important feature is that when taking the Laplace of a function multiplied by the delta function, we can treat $e^{-st}$ and the other function itself as $f(t)$, meaning we just take its value at $c$:
+
+$$\mathcal{L}\{f(t)\delta(t)\}=e^{-sc}f(c)$$
+
+!!Example 1
+
+1. $\mathcal{L}\{\delta(t - \pi\} = e^{-\pi s}$
+2. $\mathcal{L}\{(t^3 - 2t)\delta(t - 3)\} = 21e^{-3s}$
+3. $\mathcal{L}^{-1}\left\{{s^2 \over s^2 + 1}\right\}$
+
+This one can be split into $1 - {1\over s^2 + 1}$ by long division, which results in:
+
+$$\delta(t) - \sin(t)$$
+
+!!
+
+## Impulsive Force Definition
+
+If a force is very large over a very short time, then we can model such forces as:
+
+$$F(t) = I*\delta(t-c)$$
+
+Notice that this gives the correct value for impulse, as integrating will result in $I$.
+
+!!Example 2 - Physics Example
+
+A bat hits a baseball with mass 0.15 kg at time t = 3 sec, when the baseball has a speed of 40 m/s. After the collision with the bat, with a contact time of 0.5 ms, the baseball has a speed of 50 m/s in the opposide direction. Estimate the average impulse and model the impulse with $\delta(t)$.
+
+Here we can use the change in momentum to find the impulse:
+
+$$I = \Delta P = m\Delta v = 0.15 * (50 - (-40)) = 13.5\ N s$$
+
+Then solving for the force:
+
+$$F_{avg} * \epsilon = I$$
+$$F_{avg} = 13.5/5\times 10^{-4}$$
+$$= 2.7\times 10^4\ N$$
+
+Modeling this with the Dirac delta function:
+
+$$F = I*\delta(t - 3) = 13.5*\delta(t-3)\ N$$
+
+!!
+
+!!Example 3
+
+A mass of 2kg is attached to a spring (k = 8 N/m) and damped with a constant of 4 N s/m. The mass is released from rest when the spring is stretched to 3 m. Then the mass is struck with a hammer at t = 2 sec, providing an impulst of 16 N s. Then it is struck again at t = 5, changing the velocity by -2 m/s. Determine the motion of the mass.
+
+Here, we are given a physical process and asked for the position with respect to time.
+
+Collecting all of the information we have:
+
+$$m = 2, k = 8, \gamma = 4$$
+
+The initial conditions are:
+
+$$y(0) = 3, y' (0) = 0$$
+
+Modeling the force using the delta function gives (using impulse):
+
+$$F_{ext} = 16\delta(t - 2) + 2(-2)\delta(t - 5)$$
+
+A model of a damped spring is:
+
+$$my'' + \gamma y' + ky = F_{ext}$$
+
+So out problem to solve is:
+
+$$2y'' + 4y' + 8y =  16\delta(t - 2) + 2(-2)\delta(t - 5), y(0) = 3, y'(0) = 0$$
+
+First, using Laplace:
+
+$$\mathcal{L}\{y(t)\} = Y(t)$$
+
+$$2(s^2 Y(s) - sy(0) - y'(0)) + 4(sY(s) - y(0)) + 8Y(s) = 16e^{-2s} - 4e^{-5s}$$
+$$(s^2 Y(s) - 3s) + 2(sY(s) - 3) + 4Y(s) = 8e^{-2s} - 2e^{-5s}$$
+$$(s^2 + 2s + 4)Y(s) = 3s+6+8e^{-2s} - 2e^{-5s}$$
+$$Y(s) = {3s+6+8e^{-2s} - 2e^{-5s} \over s^2 + 2s + 4}$$
+
+Now we do inverse Laplace. First, we can divide the fraction into separate pieces, then solve:
+
+$$F(s) = {3s+6 \over s^2 + 2s + 4} + (8e^{-2s} - 2e^{-5s}){1\over (s + 1)^2 + 3}$$
+
+One note is that the fraction multiplied by the e's is called the transfer fuction, as it always occurs when related to the impulse.
+
+$$F(s) = {3(s+1)+3 \over s^2 + 2s + 4} + (8e^{-2s} - 2e^{-5s}){1\over (s + 1)^2 + 3}$$
+
+$$f(t) = e^{-t}(3\cos(\sqrt{3}t) + \sqrt{3}\sin(\sqrt{3}t)) + \mathcal{L}\left\{ 8e^{-2s} - 2e^{-5s}\left(1\over (s + 1)^2 + 3\right) \right\}$$
+$$f(t) = e^{-t}(3\cos(\sqrt{3}t) + \sqrt{3}\sin(\sqrt{3}t))$$
+$$+8 u_2(t)e^{-(t-2)}\frac{1}{\sqrt{3}}\sin(\sqrt{3}(t - 2)) - 2u_5(t)e^{-(t-5)}\frac{1}{\sqrt{3}}\sin(\sqrt{3}(t - 5)) $$
+
+The explanation of this is as follows: the first portion is the movement of the function without any force. Then, after a time delay of 2 seconds, another function increases the velocityin the positive direction. Then, once t reaches 5 seconds, another function increases the velocity in the negative direction.
+
+!!
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">

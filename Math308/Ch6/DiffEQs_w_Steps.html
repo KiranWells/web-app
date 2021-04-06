@@ -1,0 +1,70 @@
+# Differential Equations with Discontinuous Forcing Functions
+
+Differential Equations are often used for representing physical problems, often in physics. 
+
+!!a spring example
+
+## Harmonic Oscillator
+
+With some spring, the force of the spring (normally) can be represented as some coefficient times the distance from the resting position. In addition, there will be some drag resisting motion. The forces can be represented as (given a coordinate system at the resting point of the spring):
+
+$$F_s = -ky$$
+
+Where k is Hooke's constant.
+
+$$F_d = -\gamma v$$
+
+Where $\gamma$ is the damping constant and v is $y'$, or the velocity.
+
+Then the sum of the forces is:
+
+$$F_s = -ky - \gamma y' + F_{ext}(t) = ma$$
+
+But a is just $y''$, so:
+
+$$my'' + \gamma y' + ky = F_ext(t)$$
+
+Which is a nonhomogenous linear second order equation.
+!!
+
+In electrical engineering, equations often have jumps in them, leading to differential equations where one of the functions is a step function. This means we need to use the previous rules to be able to solve.
+
+!!Example 1
+
+$$y'' + 3y = \begin{cases}\sin(t)&&0\le t\lt \pi \\ \cos(t)&&t \ge \pi\end{cases}, \ \ \ y(0)=1,y'(0)=0$$
+
+The problem with this is that you would have to solve this problem twice, and the second one would start at the end of the first, which takes quite a bit of time.
+
+Instead, we can use the unit step function:
+
+$$g(t)=u_0(t)\sin t + u_{\pi}(t)[\cos t - \sin t]$$
+
+Now we can take the Laplace of each side:
+
+$$s^2Y(s)-sy'(0)-y(0)+3Y(s) = \mathcal{L}\{g(t)\}$$
+
+Since we know how to take laplace with frequency, we can get:
+
+$$\mathcal{L}\{g(t)\} = {1\over s^2 + 1} + e^{-\pi s}\mathcal{L}\{\cos (t+\pi) - \sin (t+\pi)\}$$
+$$\mathcal{L}\{g(t)\} = {1\over s^2 + 1} + e^{-\pi s}\mathcal{L}\{-\cos (t) + \sin (t)\}$$
+$$\mathcal{L}\{g(t)\} = {1\over s^2 + 1} + e^{-\pi s}[-{s\over s^2 + 1}+{1 \over s^2 + 1}]$$
+
+$$s^2Y(s)-s+3Y(s) = {1\over s^2 + 1} + e^{-\pi s}[-{s\over s^2 + 1}+{1 \over s^2 + 1}]$$
+$$Y(s) = {1\over (s^2 + 3)(s^2 + 1)} + {s\over (s^2 + 3)} + e^{-\pi s}{1 - s \over (s^2 + 3)(s^2 + 1)}$$
+
+And now we take the inverse Laplace:
+
+$$y(t) = \frac{1}{2}\sin t - \frac{1}{2\sqrt{3}}\sin \sqrt{3}t
+ + u_{\pi}(t)\frac{1}{2}[\sin (t-\pi) - \cos (t -\pi)- \frac{1}{\sqrt{3}}\sin(\sqrt{3}(t-\pi)) + \cos(\sqrt{3}(t-\pi))]$$
+
+!!
+<!-- 
+!!Example 2
+
+$$y'' $$
+
+!!
+-->
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">

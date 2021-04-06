@@ -115,5 +115,79 @@ $$e^{-3s}\mathcal{L}\{g(t+3)\} = e^{-3s}\mathcal{L}\{((t+3)^2 -6(t+3) + 12)\}$$
 
 !!
 
+!!Example 5
+
+Find the inverse Laplace of the following:
+
+1. $$e^{-\pi s} \over s^2 + 5$$
+
+The $e^{-\pi s}$ indicates a jump at $\pi$, and the remainder is the Laplace of $\sin(\sqrt{5}t)$:
+
+$$u_{\pi}(t) * f(t - \pi) = \frac{1}{\sqrt{5}}u_{\pi}\sin(\sqrt{5}(t - \pi))$$
+
+Which is a sin function that does not start until $t = \pi$
+
+2. $$e^{-s} \over s^2 - 3$$
+
+Here, the delay is $1$ and the function is $\sinh$:
+
+$$u_1(t)\frac{1}{\sqrt{3}}\sinh(\sqrt{3}(t - 1))$$
+
+Note that you cannot do partial fraction decomposition with the $e^{at}$ on top, it must be factored out first.
+
+!!
+
+### Frequency Shift
+
+$$\mathcal{L}\{e^{ct}f(t)\} = F(s-c)$$
+
+(Rule 29)
+
+!!Example 6
+
+1. $$\mathcal{L}\{e^{3t}t^4\}$$
+
+The shift is 3, and the function is $4!\over s^5$
+
+$$4!\over (s-3)^5$$
+
+2. $$\mathcal{L}^{-1}\left\{{s \over s^2 + 4s + 1} \right\}$$
+
+If we complete the square, we get:
+
+$$s \over (s+2)^2 - 3$$
+
+Which can also be written as:
+
+$$(s + 2) - 2 \over (s+2)^2 - 3$$
+
+Which is a shift of -2
+
+And using the frequency shift, we can write this as:
+$$\mathcal{L}^{-1}\left\{{s \over s^2 + 4s + 1} \right\} = e^{-2t}\mathcal{L}^{-1}\left\{s - 2 \over s^2 - 3\right\}$$
+
+$$=e^{-2t}[\cosh(\sqrt{3}t) - \frac{2}{\sqrt{3}}\sinh(\sqrt{3}t)]$$
+
+3. $$\mathcal{L}^{-1}\left\{{e^-2s \over s^2 + 3s + 3}\right\}$$
+
+We can complete the square here to get:
+
+$$e^{-2s}\over (s+\frac{3}{2})^2 + (3 - \frac{9}{4})$$
+
+In this case, we have an exponential on both sides, as there is one in the frequency domain and one in the time domain, shown by the (s + a).
+
+First, since the $e^{-2s}$ is not shifted, we need to take that out first. Using Rule 27, we get:
+
+$$\mathcal{L}^{-1}\{e^{-ct}F(s)\} = u_c(t)\mathcal{L}^{-1}\{F(s)\}$$
+
+$$u_2(t)\mathcal{L}^{-1}\{{1\over (s+\frac{3}{2})^2 + (3 - \frac{9}{4})}\}$$
+
+And now we can use the shift to get:
+
+$$u_2(t)e^{-\frac{3}{2}t}\frac{1}{\sqrt{\frac{3}{4}}}\sin(\sqrt{\frac{3}{4}}t)$$
+$$u_2(t)e^{-\frac{3}{2}t}\frac{2}{\sqrt{3}}\sin(\frac{\sqrt{3}}{2}t)$$
+
+!!
+
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">
