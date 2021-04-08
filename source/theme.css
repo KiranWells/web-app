@@ -67,6 +67,19 @@
   --tp: #47c0b8;
 }
 
+:root.gruvbox {
+  /* Colors from the gruvbox theme: https://github.com/morhetz/gruvbox */
+  --fg: #fbf1c7;
+  --h1: #d65d0e;
+  --h2: #98971a;
+  --bg: #32302f;
+  --bg-dark: #282828;
+  --ac: #458588;
+  --al: #b16286;
+  --hl: #d79921;
+  --tp: #689d6a;
+}
+
 ::selection {
   background-color: var(--ac);
   color: var(--bg);
@@ -173,6 +186,7 @@ details {
   position: absolute;
   top: 0;
   right: 100%;
+  width: min-content;
   margin: 0em;
   border-radius: .3em;
   background-color: var(--bg, #2e3440);
@@ -183,10 +197,11 @@ details {
 }
 
 .themeitem {
+  white-space: pre;
   border: none;
   width: 100%;
   text-align: center;
-  padding: .2em .5em;
+  padding: .4em .75em;
   border-radius: .3em;
   background-color: var(--bg, #2e3440);
   color: var(--fg, #eceff4);

@@ -1,0 +1,193 @@
+# The Convolution Integral
+
+The Laplace transform has been shown to be linear, meaning:
+
+$$\mathcal{L}\{f(t) + g(t)\} = F(t) + G(t)$$
+
+But what happens when we multiply functions?
+
+$$\mathcal{L}\{f(t)g(t)\} \stackrel{?}{=} F(t)G(t)$$
+
+Let us find out. (Spoiler: it is not, the solution is a bit more complex)
+
+!!disproof
+
+This is disproven in only one line.
+
+$$\mathcal{L}\{2\cdot 3\} = \frac{2}{s}\cdot \frac{3}{s} = \frac{6}{s^2} \ne \mathcal{L}\{6\} = \frac{6}{s}$$
+
+!!
+
+## Convolution Theorem
+
+The actual result is:
+
+$$F(s)G(S) = \mathcal{L}\{(f * g)(t)\}$$
+
+where
+
+$$(f* g)(t) = \int_0^t f(t - \tau)g(\tau)d\tau = \int_0^t f(\tau)g(t - \tau)d\tau$$
+
+Where $f * g$ is the **convolution**  of $f$ and $g$. Notice that $(f * g)(0) = 0$.
+
+A quick formatting note: where convolution integrals are used in these notes, the $\cdot$ symbol will mean multiplication (not dot product), while $*$ will mean convolution.
+
+!!an example
+
+$$(f * g)(3) = \int_0^3 f(3 - \tau)g(\tau) d\tau$$
+
+!!
+
+Essentially, this is saying that the inverse Laplace of two multiplied functions is the integral of their products where one has been replaced with $t - \tau$.
+
+$$\mathcal{L}\{F(s)G(s)\} = \int_0^t f(\tau)g(t - \tau)d \tau$$
+
+Where $\tau$ is a dummy variable.
+
+## Properties of Convolution
+
+- $f * g = g * f$ - Commutatuive
+
+- $f * (g * h) = (f * g) * h$ - Associative
+
+- $f * (g + h) = f * g + f * h$ - Distributive (over addition)
+
+- $f * 0 = 0$
+
+<br> <!-- To fix a rendering issue -->
+
+!!Example 1
+
+$$(f * 1)(t) = \int_0^t f(t - \tau)d\tau = \int_0^t f(\tau_1)d\tau_1$$
+
+Note that if you substitute $\tau_1 = t - \tau$ into the first integral, it will result in the second version (the two $\tau$s are not the same).
+
+So, if you use $f(t) = 1$, we can show that:
+
+$$1 * 1 = \int_0^t 1d\tau = t$$
+$$1 * 1 * 1 = (1 * 1) * 1 = t * 1 = \int_0^t \tau d\tau = \frac{1}{2}t^2$$
+
+If you continue this pattern, you get:
+
+$$1 * 1 = t$$
+$$1 * 1 * 1 = \frac{1}{2}t^2$$
+$$1 * 1 * 1 * 1 = \frac{1}{6}t^3$$
+$$1 * 1 * 1 ... 1 = \frac{t^{n-1}}{(n-1)!}$$
+
+Which corresponds to the Laplace:
+
+$$\frac{1}{s} \cdot \frac{1}{s} ... = \frac{1}{s^n}$$
+
+$$\mathcal{L}^{-1}\left\{\frac{1}{s^n}\right\} = \frac{t^{n-1}}{(n-1)!}$$
+
+Continuing this logic, take the integral of $1 * f(t)$:
+
+$$\mathcal{L}\{\int_0^t f(v)dv\} = \mathcal{L}\{1 * f(t)\} = \mathcal{L}\{1\} \cdot \mathcal{L}\{f(t)\} = {F(s) \over s}$$
+
+!!
+
+!!More Examples
+
+Using the convolution theorem, solve:
+
+$$\mathcal{L}^{-1}\left\{{1 \over s^3 + s}\right\}$$
+
+If we write this as the laplace of multiplied functions, we can use the convolution theorem:
+
+$$\mathcal{L}^{-1}\left\{{\frac{1}{s^2 + 1} \over s}\right\}$$
+
+Here we have $\frac{F(s)}{s}$, so we can use that theorem.
+
+$$= \int_0^t \sin\tau d\tau = -\cos\tau$$
+
+More examples:
+
+$$\mathcal{L}^{-1}\left\{{F(s) \over s^2}\right\} = \int_0^t f(\tau)(t - \tau)d\tau$$
+$$\mathcal{L}^{-1}\left\{{F(s) \over s^2 + 1}\right\} = \int_0^t f(\tau)\sin(t - \tau)d\tau$$
+
+!!
+
+!!Example 2
+
+Find $t * t^2$ and $t^5 * t^9$:
+
+$$t * t^2 = \int_0^t \tau^2(t - \tau)d\tau = t\int_0^t \tau^2 d\tau - \int_0^t \tau^3$$
+
+The next one is a bit more complex, requiring either a long distribution, or a long integration by parts:
+
+$$t^5 * t^9 = \int_0^t \tau^9(t - \tau)^5d\tau$$
+
+Here, it would be quicker to use the Laplace:
+
+$$\mathcal{L}\{t^5 * t^9\} = \frac{5!}{s^6}\cdot\frac{9!}{s^10} = \frac{5!9!}{s^16}$$
+
+Then after the inverse Laplace:
+
+$${5!9! \over 15!}t^15$$
+
+!!
+
+!!Example 3
+
+Find the following integral:
+
+$$h(t) = \int_0^t e^{-2\tau}\cos(3t - 3\tau)d\tau$$
+
+As this is a convolution, this is simple using the Laplace transform:
+
+$$H(s) = {1 \over s + 2} \cdot {s \over s^2 + 9}$$
+
+$$h(t) = \mathcal{L}\{H(s)\}$$
+
+We can find partial fractions for the previous function, then use inverse Laplace.
+
+!!
+
+!!Example 4a
+
+Find inverse Laplace of the following:
+
+$${1 \over s^3(s^2 + 1)}$$
+
+You could simply split this into $s^3$ and $s^2 + 1$ in multiplication, but the integral is simpler if you split it into three $s$.
+
+$$\frac{1}{s}\cdot\frac{1}{s}\cdot\frac{1}{s}\cdot{1\over s^2 + 1}$$
+$$1 * 1 * 1 * \sin(t)$$
+
+Then integrate from $sin(t)$ backwards to get the final answer.
+
+!!
+
+!!Example 5
+
+Solve the inital value problem:
+
+$$y'' + 2y' + 5y = g(t),\ \ \ y(0) = 2, y'(0)=-2$$
+
+In this case, g(t) is not given, but we can still take Laplace:
+
+$$(s^2Y(s) - 2s + 2) + 2(sY(s) - 2) + 5Y(s) = G(s)$$
+
+And solve for Y(s):
+
+$$Y(s) = {G(s) + 2s + 2 \over s^2 + 2s + 5}$$
+
+And break apart the function to take inverse:
+
+$$Y(s) = {2s + 2 \over s^2 + 2s + 5} + {G(s) \over s^2 + 2s + 5}$$
+
+Complaeting the square underneath gives $(s + 1)^2 + 4$, so we can represent the function as:
+
+$$Y(s) = {2(s + 1) \over (s + 1)^2 + 4} + G(s){1 \over (s + 1)^2 + 4}$$
+
+And take the inverse:
+
+$$y(t) = e^{-t}\cos{2t} + g(t) * \frac{1}{2}e^{-t}\sin{2t}$$
+$$y(t) = e^{-t}\cos{2t} + \frac{1}{2}\int_0^t g(t - \tau)e^{-\tau}\sin(2\tau)d\tau$$
+
+Without using convolution or Laplace, we would have to use variation of parameters and the Lagrange formula.
+
+!!
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
