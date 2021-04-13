@@ -138,6 +138,13 @@ aside {
   font-size: smaller;
 }
 
+.caption {
+  font-style: italic;
+  font-size: smaller;
+  text-align: center;
+  width: 100%;
+}
+
 h1+aside {
   text-align: center;
 }
