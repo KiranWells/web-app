@@ -1,0 +1,141 @@
+# Chapter 6 Summary
+
+**Section 3.6 - Lagrange Formula is also on the Exam**
+
+## [Variation of Parameters - 3.6 Review](../Ch1-3/Variation_of_parameters.html)
+
+The variation of parameters strategy makes a system of equations from the homogenous equations and uses it to come up with the Lagrange formula:
+
+$$y'' + p(t)y' + q(t) = g(t)$$
+
+$$Y(t) = -y_1\int {g(t)y_2 \over W[y_1,y_2]} + y_2\int {g(t)y_1 \over W[y_1,y_2]}$$
+
+Where $W$ is the Wronskian, and $Y(t)$ is the non-homogeneous portion of the solution.
+
+!!Example 
+
+Solve:
+$$3y'' + 12ty' + 12y = \frac{3}{t}e^{-2t}$$
+
+Each of these equations will have three steps:
+
+1. Convert the equation to have no coefficient for $y''$
+2. Find the homogeneous solution
+3. Find the solution for Y(t)
+
+Divide by $3$:
+
+$$y'' + 4y' + 4y = \frac{1}{t}e^{-2t}$$
+
+<!-- Use [Liouville's formula](../Ch1-3/Repeated_Roots.html#liouville's-formula) for the homogeneous portion: -->
+
+Find the homogeneous portion:
+
+$$r^2 + 4r + 4 = 0$$
+
+<!-- $$r = -2 \pm i$$
+
+$$y_h = e^{-2t}(c_1\cos(t) + c_2\sin(t))$$
+$$y_h = c_1e^{-2t}\cos(t) + c_2e^{-2t}\sin(t)$$ -->
+
+$$r = -2$$
+
+$$y_h = c_1e^{-2t} + c_2te^{-2t}$$
+
+And use Lagrange:
+
+$$Y(t) = -y_1\int {g(t)y_2 \over W[y_1,y_2]} + y_2\int {g(t)y_1 \over W[y_1,y_2]}$$
+
+$$W[y_1,y_2] = y_1y_2' - y_2y_1' = e^{-2t}(-2te^{-2t} + e^{-2t}) - te^{-2t}(-2e^{-2t}) = e^{-4t}$$
+
+$$\int {g(t)y_2 \over W[y_1,y_2]} = \int {\frac{1}{t}e^{-2t}te^{-2t}\over e^{-4t}} = \int 1 = t$$
+$$\int {g(t)y_1 \over W[y_1,y_2]} = \int {\frac{1}{t}e^{-2t}e^{-2t}\over e^{-4t}} = \int \frac{1}{t} = \ln|t|$$
+
+$$Y(t) = -e^{-2t}t + te^{-2t}\ln|t|$$
+
+And plug into the main solution. (Note that the $-e^{-2t}t$ portion coincides with $y_2$, so it is combined into that term).
+
+$$y = c_1e^{-2t} + c_2te^{-2t} + te^{-2t}\ln|t|$$
+!!
+
+## [Introduction to Laplace](Laplace_Transform.html#the-definition-of-the-laplace-transform)
+
+The Laplace transformation is defined as:
+
+$$\mathcal{L}\{f(t)\} = \int\limits_0^{\infty} e^{-st}f(t)dt$$
+
+Using this formula will allow you to obtain any transformation if you forget the patterns, but here are the most common patterns to know:
+
+$$\mathcal{L}\{a\} = {a\over s}$$
+$$\mathcal{L}\{t^n\} = {n!\over s^{n+1}}$$
+$$\mathcal{L}\{e^{at}\} = {1\over s-a}$$
+$$\mathcal{L}\{\sin(at)\} = {a\over s^2+a^2}$$
+$$\mathcal{L}\{\cos(at)\} = {s\over s^2+a^2}$$
+$$\mathcal{L}\{\sinh(at)\} = {a\over s^2-a^2}$$
+$$\mathcal{L}\{\cosh(at)\} = {s\over s^2-a^2}$$
+
+Another basic property of the Laplace transformation is that it is linear:
+
+$$\mathcal{L}\{af(t) + bg(t)\} = a\mathcal{L}\{f(t)\} + b\mathcal{L}\{g(t)\}$$
+
+## [Derivatives and Laplace](Purpose_Laplace.html)
+
+The derivative of a function is represented as a multiplication by $s$ and a subtraction of the initial condition for the previous derivative:
+
+$$\mathcal{L}\{f^{(n)}(x)\} = s*\mathcal{L}\{f^{(n-1)}(x)\} - f^{(n-1)}(0)$$
+
+Which leads to the pattern:
+
+$$
+\begin{cases}
+  \mathcal{L}\{f(x)\} = F(x) \\
+  \mathcal{L}\{f'(x)\} = sF(x) - f(0) \\
+  \mathcal{L}\{f''(x)\} = s^2F(x) - sf(0) - f'(0) \\
+  ... \\
+  \mathcal{L}\{f^{(n)}(x)\} = s^nF(x) - s^{n-1}f(0) - s^{n-2}f'(0) ... -sf^{(n-2)}(0) - f^{(n-1)}(0)
+\end{cases}
+$$
+
+## Shifting Functions
+
+A shift in a function $f(t) \to f(t-c)$ is represented by a multiplication of $e^{ct}$ or $e^{cs}$. This results in two rules: one for Laplace and one for delay.
+
+### [Laplace Shift](More_Laplace.html#shift-rule)
+
+$$\mathcal{L}\{e^{ct}f(t)\}(s) = \mathcal{L}\{f(t)\}(s-c) = F(s-c)$$
+
+### [Delay Function](Step_Functions.html)
+
+The use of the Heaviside Function ($u_c(t) = u(t-c) or h(t-c)$) and a shift can act as a delay, causing a function to move horizontally with a zero value before it's start.
+
+$$\mathcal{L}{u_c(t)f(t-c)} = e^{-cs}F(s)$$
+
+## [Dirac Delta Function](Impulse_Functions.html)
+
+The delta function ($\delta(t)$) is an infinitely large, infinitely thin function centered at $t=0$. It allows for the physical modeling of impulse which is performed over an exceedingly small period of time. When used with the Laplace transformation, it can be shown to cause a delayed reaction in the function itself.
+
+Taking the integral of the delta function multiplied by some other function results in the value of the function at $t=0$, or if the function is shifted by c, at $t=c$.
+
+$$\mathcal{L}\{\delta(t-c)\} = e^{-cs}$$
+$$\mathcal{L}\{\delta(t-c)f(t)\} = e^{-cs}f(c)$$
+
+## [Convolution](Convolution_Integral.html)
+
+The convolution integral is defined as:
+
+$$f*g = \int\limits_0^t f(\tau)g(t-\tau)d\tau = \int\limits_0^t f(t-\tau)g(\tau)d\tau$$
+
+The Laplace transform of this is:
+
+$$\mathcal{L}\{f*g\} = F(s)G(s)$$
+
+Which can be used as:
+
+$$\mathcal{L}^{-1}\{F(s)G(s)\} = f*g = \int\limits_0^t f(\tau)g(t-\tau)d\tau$$
+
+Note that the convolution integral is commutative and associative, as well as distributive over addition. This means that the order the convolutions are calculated in is arbitrary, even if there is a third function.
+
+This can either be used to calculate complex integrals through Laplace, or solve Inverse Laplace through integrals.
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">

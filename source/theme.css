@@ -95,9 +95,10 @@ body {
   color: var(--fg, #d8dee9);
   font-size: 20px;
 }
+
 main {
   box-sizing: border-box;
-  width: 80vw;
+  width: 84vw;
   max-width: 50em;
   background: var(--bg, #3b4252);
   box-shadow: 2px 2px 4px 4px #0005;
@@ -186,6 +187,7 @@ details {
   color: var(--fg, #eceff4);
   border-radius: .3em;
   padding: .3em .4em .2em .4em;
+  box-shadow: 2px 2px 4px 1px #0004;
 }
 
 .themelist {
@@ -197,6 +199,7 @@ details {
   margin: 0em;
   border-radius: .3em;
   background-color: var(--bg, #2e3440);
+  box-shadow: 2px 2px 4px 1px #0004;
 }
 
 .themetoggle:hover .themelist {
@@ -228,7 +231,7 @@ a:visited {
   color:var(--al, #81a1c1) !important;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 950px) {
   body {
     padding: 0;
     margin: 0;

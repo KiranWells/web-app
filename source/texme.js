@@ -38,7 +38,7 @@ $2
   runtexme();
 
   // add theme button
-  let themes = ["Nord Dark", "Nord Light", "Tropical", "Summer", "Hyperlight", "Gruvbox"];
+  let themes = ["Dark", "Light", "Tropical", "Summer", "Hyperlight", "Gruvbox"];
 
   function changeTheme(name) {
     if (!themes.includes(name)) return -1;
