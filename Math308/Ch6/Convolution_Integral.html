@@ -10,13 +10,13 @@ $$\mathcal{L}\{f(t)g(t)\} \stackrel{?}{=} F(t)G(t)$$
 
 Let us find out. (Spoiler: it is not, the solution is a bit more complex)
 
-!!disproof
+~~disproof
 
 This is disproven in only one line.
 
 $$\mathcal{L}\{2\cdot 3\} = \frac{2}{s}\cdot \frac{3}{s} = \frac{6}{s^2} \ne \mathcal{L}\{6\} = \frac{6}{s}$$
 
-!!
+~~
 
 ## Convolution Theorem
 
@@ -32,11 +32,11 @@ Where $f * g$ is the **convolution**  of $f$ and $g$. Notice that $(f * g)(0) = 
 
 A quick formatting note: where convolution integrals are used in these notes, the $\cdot$ symbol will mean multiplication (not dot product), while $*$ will mean convolution.
 
-!!an example
+~~an example
 
 $$(f * g)(3) = \int_0^3 f(3 - \tau)g(\tau) d\tau$$
 
-!!
+~~
 
 Essentially, this is saying that the inverse Laplace of two multiplied functions is the integral of their products where one has been replaced with $t - \tau$.
 
@@ -56,7 +56,7 @@ Where $\tau$ is a dummy variable.
 
 <br> <!-- To fix a rendering issue -->
 
-!!Example 1
+~~Example 1
 
 $$(f * 1)(t) = \int_0^t f(t - \tau)d\tau = \int_0^t f(\tau_1)d\tau_1$$
 
@@ -84,9 +84,9 @@ Continuing this logic, take the integral of $1 * f(t)$:
 
 $$\mathcal{L}\{\int_0^t f(v)dv\} = \mathcal{L}\{1 * f(t)\} = \mathcal{L}\{1\} \cdot \mathcal{L}\{f(t)\} = {F(s) \over s}$$
 
-!!
+~~
 
-!!More Examples
+~~More Examples
 
 Using the convolution theorem, solve:
 
@@ -105,9 +105,9 @@ More examples:
 $$\mathcal{L}^{-1}\left\{{F(s) \over s^2}\right\} = \int_0^t f(\tau)(t - \tau)d\tau$$
 $$\mathcal{L}^{-1}\left\{{F(s) \over s^2 + 1}\right\} = \int_0^t f(\tau)\sin(t - \tau)d\tau$$
 
-!!
+~~
 
-!!Example 2
+~~Example 2
 
 Find $t * t^2$ and $t^5 * t^9$:
 
@@ -125,9 +125,9 @@ Then after the inverse Laplace:
 
 $${5!9! \over 15!}t^15$$
 
-!!
+~~
 
-!!Example 3
+~~Example 3
 
 Find the following integral:
 
@@ -141,9 +141,9 @@ $$h(t) = \mathcal{L}\{H(s)\}$$
 
 We can find partial fractions for the previous function, then use inverse Laplace.
 
-!!
+~~
 
-!!Example 4a
+~~Example 4a
 
 Find inverse Laplace of the following:
 
@@ -156,9 +156,9 @@ $$1 * 1 * 1 * \sin(t)$$
 
 Then integrate from $sin(t)$ backwards to get the final answer.
 
-!!
+~~
 
-!!Example 5
+~~Example 5
 
 Solve the inital value problem:
 
@@ -187,7 +187,7 @@ $$y(t) = e^{-t}\cos{2t} + \frac{1}{2}\int_0^t g(t - \tau)e^{-\tau}\sin(2\tau)d\t
 
 Without using convolution or Laplace, we would have to use variation of parameters and the Lagrange formula.
 
-!!
+~~
 
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">

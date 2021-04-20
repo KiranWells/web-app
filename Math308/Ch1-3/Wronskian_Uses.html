@@ -5,24 +5,24 @@ Remember that two constants are linearly dependent if they are proportional; mea
 $$c_1y_1 + c_2y_2 = 0$$
 $$c_1^2 + c_2^2 \ne 0$$
 
-!!Example
+~~Example
 $y_1 = t$ and $y_2 = 2t$ are linearly dependent, as are $y=0$ and any other function.
 
 However, $sin(t)$ and $cos(t)$ are not, because it can be shown that for the equation to be true, both constants must be zero, which is not allowed.
-!!
+~~
 
 Importantly, the Wronskian function will be identical to $0$ for any two linearly dependent functions. This means we can evaluate the Wronskian to prove that a function is **non-linear**. Note that the wronskian being $0$ does not prove that two functions are not linearly dependent, as a pair of functions can be non-linearly-dependent, but still having a zero wronskian.
 
-!!Example
+~~Example
 The functions $t^2$ and $t|t|$ have a $0$ wronskian, but are not linearly dependent as there is not one constant that will change one to the other.
 ![Graph](wronskt2.png)
-!!
+~~
 
 ## Abel's Theorem
 
-!!a note about Abel
+~~a note about Abel
 Abel was a brilliant mathematician who died very young, and in Norway, there is a mathematics award named after him. (Similar to the Nobel Prize for science.)
-!!
+~~
 
 If $y_1$ and $y_2$ are solutions of the diff EQ
 
@@ -38,7 +38,7 @@ The proof is just to show that the Wronskian satisfies the DE $W' + p(t)W = 0$, 
 
 *Make sure not to confuse this with the integrating factor; $\mu = e^{\int p}$.*
 
-!!Example 4
+~~Example 4
 
 Find the wronskian of any two solutions of the ODE:
 
@@ -57,9 +57,9 @@ The $c$ will depend on $y_1$ and $y_2$.
 
 From Example 3 in Homogeous Equations, we know that the $W$ of $1/t^4$ and $t^4$ is $6t$, so we can use those here.
 
-!!
+~~
 
-!!Example 5
+~~Example 5
 
 $$xy'' + 4y' + \sin(x^2)y = 0$$
 
@@ -69,7 +69,7 @@ $$=ce^{-\int p} = ce^{-4\ln x} = cx^{-4}$$
 
 This shows that even with an extremely hard-to solve problem, we can easily find a $W$. Given an IVP for the $W$ function, we can solve for $c$ as well.
 
-!!
+~~
 
 This ability to find the wronskian of a function is associated with the **Fundamental Set of Solutions** Theorem, as a non-zero wronskian will prove that there is a pair of solutions that can be combined linearly to get a solution.
 

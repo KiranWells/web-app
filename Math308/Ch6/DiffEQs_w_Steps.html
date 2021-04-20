@@ -2,7 +2,7 @@
 
 Differential Equations are often used for representing physical problems, often in physics. 
 
-!!a spring example
+~~a spring example
 
 ## Harmonic Oscillator
 
@@ -25,11 +25,11 @@ But a is just $y''$, so:
 $$my'' + \gamma y' + ky = F_ext(t)$$
 
 Which is a nonhomogenous linear second order equation.
-!!
+~~
 
 In electrical engineering, equations often have jumps in them, leading to differential equations where one of the functions is a step function. This means we need to use the previous rules to be able to solve.
 
-!!Example 1
+~~Example 1
 
 $$y'' + 3y = \begin{cases}\sin(t)&&0\le t\lt \pi \\ \cos(t)&&t \ge \pi\end{cases}, \ \ \ y(0)=1,y'(0)=0$$
 
@@ -57,13 +57,13 @@ And now we take the inverse Laplace:
 $$y(t) = \frac{1}{2}\sin t - \frac{1}{2\sqrt{3}}\sin \sqrt{3}t
  + u_{\pi}(t)\frac{1}{2}[\sin (t-\pi) - \cos (t -\pi)- \frac{1}{\sqrt{3}}\sin(\sqrt{3}(t-\pi)) + \cos(\sqrt{3}(t-\pi))]$$
 
-!!
+~~
 <!-- 
-!!Example 2
+~~Example 2
 
 $$y'' $$
 
-!!
+~~
 -->
 
 <script src="/source/texme.js"></script>

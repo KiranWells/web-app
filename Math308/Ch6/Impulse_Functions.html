@@ -2,7 +2,7 @@
 
 In physics, there will often be questions where there will be a large value over a very small time, such as the forces in a collision. To deal with these kinds of forces, physicists use the **Dirac delta function** ($\delta(t)$) (also called **unit impulse**)
 
-!!an explanation of impulse
+~~an explanation of impulse
 
 If a force is a function of time, the the impulse is the integral with respect to time. 
 
@@ -13,7 +13,7 @@ If we represent the force as mass times the delta velocity:
 $$I = \int\limits_a^b m\frac{dv}{dt}dt = mv(b) - mv(a)$$
 
 Impulse, therefore, is the change in momentum.
-!!
+~~
 
 Given a very large impulse occuring in a very small time, the $\delta(t)$ can be used to represent it. It is defined as the a function with area of 1 underneath and zero width:
 
@@ -41,7 +41,7 @@ This gives us Rule 26. Another important feature is that when taking the Laplace
 
 $$\mathcal{L}\{f(t)\delta(t)\}=e^{-sc}f(c)$$
 
-!!Example 1
+~~Example 1
 
 1. $\mathcal{L}\{\delta(t - \pi\} = e^{-\pi s}$
 2. $\mathcal{L}\{(t^3 - 2t)\delta(t - 3)\} = 21e^{-3s}$
@@ -51,7 +51,7 @@ This one can be split into $1 - {1\over s^2 + 1}$ by long division, which result
 
 $$\delta(t) - \sin(t)$$
 
-!!
+~~
 
 ## Impulsive Force Definition
 
@@ -61,7 +61,7 @@ $$F(t) = I*\delta(t-c)$$
 
 Notice that this gives the correct value for impulse, as integrating will result in $I$.
 
-!!Example 2 - Physics Example
+~~Example 2 - Physics Example
 
 A bat hits a baseball with mass 0.15 kg at time t = 3 sec, when the baseball has a speed of 40 m/s. After the collision with the bat, with a contact time of 0.5 ms, the baseball has a speed of 50 m/s in the opposide direction. Estimate the average impulse and model the impulse with $\delta(t)$.
 
@@ -79,9 +79,9 @@ Modeling this with the Dirac delta function:
 
 $$F = I*\delta(t - 3) = 13.5*\delta(t-3)\ N$$
 
-!!
+~~
 
-!!Example 3
+~~Example 3
 
 A mass of 2kg is attached to a spring (k = 8 N/m) and damped with a constant of 4 N s/m. The mass is released from rest when the spring is stretched to 3 m. Then the mass is struck with a hammer at t = 2 sec, providing an impulst of 16 N s. Then it is struck again at t = 5, changing the velocity by -2 m/s. Determine the motion of the mass.
 
@@ -130,7 +130,7 @@ $$+8 u_2(t)e^{-(t-2)}\frac{1}{\sqrt{3}}\sin(\sqrt{3}(t - 2)) - 2u_5(t)e^{-(t-5)}
 
 The explanation of this is as follows: the first portion is the movement of the function without any force. Then, after a time delay of 2 seconds, another function increases the velocityin the positive direction. Then, once t reaches 5 seconds, another function increases the velocity in the negative direction.
 
-!!
+~~
 
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">

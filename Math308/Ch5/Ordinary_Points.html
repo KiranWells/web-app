@@ -1,0 +1,165 @@
+# Series Solutions Near Ordinary Points
+
+With some linear homogeneous differential equation:
+
+$$P(x)y'' + Q(x)y' + R(x)y = 0$$
+
+If we want to solve it around a point $x_0$, and there is not factor $(x-c)$ which divides into all of $P$, $Q$, and $R$, we can call $x_0$ an **ordinary point** if $P(x_0)\ne 0$, and a **singular point** is $P(x_0)=0$.
+
+~~Example
+
+For the equation $(x^3+x) y'' - 2xy' + x^2y = 0$, find the singular and ordinary points.
+
+First, divide by the common factor $x$:
+
+$$(x^2+1) y'' - 2y' + xy = 0$$
+
+Now, find the roots of $P(x)$ to find the singular points:
+
+$$x^2 + 1 = 0 \to x = \pm i$$
+
+The ordinary points are simply all of the *other* points.
+
+~~
+
+With an ordinary point, then there is an interal containing $x_0$ in which $P(x) \ne 0$, and we can divide by $P(x)$.
+
+## Theorem
+
+If $x_0$ is an ordinary point for the DE:
+
+$$P(x)y'' + Q(x)y' + R(x)y = 0$$
+
+with no common linear factors, then we can always find a fundamental pair of solutons in the form $y = \sum\limits_{n=0}^{\infty} a_n(x-x_0)^n$. The radius of convergence of that power series is at least as large as the smallest distance between $x_0$ and the roots of $P(x)$ in the complex plane. In particular, if $P(x)$ is non-zero for all x in complex plane, the radius of convergence is infinite.
+
+Essentially, this means that we can use the series method for any equation with the above form, and the equation used to solve it must use a point $x_0$ where the first coefficient is not $0$. In addition, it shows how reliable those solutions will be (how large the radius of convergence is).
+
+~~Example 1
+
+Find the lower bound for the radius of convergence of the series solutions, centered at $x_0 = -3$ for the DE 
+$$(x^3-2x^2+5x)y'' - x^2y' + 2xy=0$$
+
+First, divide by the common factor:
+
+$$(x^2-2x+5)y'' - xy' + 2y=0$$
+
+Then, find the roots of $P(x)$ in the complex plane:
+
+$$x^2 - 2x + 5 = 0 \to x = 1 \pm 2i$$
+
+According to the theorem, the radius of convergence is at least the distance to the nearest root.
+
+$$\rho = dist(x_0, 1 + 2i)$$
+$$\rho = \sqrt{4^2 + 2^2} = 2\sqrt{5}$$
+
+~~
+
+~~Example 3
+
+Find a fundamental pair of solutions for the equation:
+
+$$y'' - xy' - 2y = 0$$
+
+in the form of the power series centered at $x_0 = 0$. Check this by evaluating the Wronskian at $x_0$.
+
+In this case, $x_0$ must be ordinary because $P(x) = 1$. In addition, the radius of convergence is infinite as there is no value of $x$, real or complex, that will result in $P(x) = 0$.
+
+Next, to solve te problem, we start with 
+
+$$y = \sum\limits_{n=0}^{\infty} a_n x^n$$
+$$y' = \sum\limits_{n=1}^{\infty} na_n x^{n-1}$$
+$$y'' = \sum\limits_{n=2}^{\infty} n(n-1)a_n x^{n-2}$$
+
+Which results in the eqation:
+
+$$
+\sum\limits_{n=2}^{\infty} n(n-1)a_n x^{n-2} - 
+x\sum\limits_{n=1}^{\infty} na_n x^{n-1} -
+2\sum\limits_{n=0}^{\infty} a_n x^n = 0
+$$
+
+Then, we change all of the x values to $x^n$ to allow them to be combined.
+
+$$
+\sum\limits_{n=0}^{\infty} (n+2)(n+1)a_{n+2} x^{n} - 
+\sum\limits_{n=1}^{\infty} na_n x^{n} -
+\sum\limits_{n=0}^{\infty} a_n x^n = 0
+$$
+
+Now we need to remove the first elements of some sums to get them all to start at the same point:
+
+$$
+2a_2 + \sum\limits_{n=1}^{\infty} (n+2)(n+1)a_{n+2} x^{n} - 
+\sum\limits_{n=1}^{\infty} na_n x^{n} -
+2a_0 - \sum\limits_{n=0}^{\infty} a_n x^n = 0
+$$
+
+And combine the series:
+
+$$
+(2a_2 -
+2a_0) + \sum\limits_{n=1}^{\infty} [(n+2)(n + 1)a_{n+2} - (n+2)a_n] x^n = 0
+$$
+
+Now, since we have a polynomial equals 0, we can set all of the coefficients equal to 0.
+
+$$2a_2 - 2a_0 = 0$$
+$$a_2 = a_0$$
+$$(n+2)(n + 1)a_{n+2} - (n+2)a_n = 0$$
+$$a_{n+2} = {(n+2)a_n \over (n+2)(n + 1)}$$
+$$a_{n+2} = {a_n \over (n + 1)}$$
+
+For all second-order differential equations, we are given $a_0$ and $a_1$:
+
+$$a_0 = y(0), a_1 = y'(0)$$
+
+Using the above associations, we can get a few of the first coefficeints:
+
+$$
+\begin{gathered}
+  a_2 = a_0 && a_3 = \frac{a_1}{2} \\
+  a_4 = \frac{a_0}{3} && a_5 = \frac{a_1}{(2)(4)} \\
+  a_6 = \frac{a_0}{(3)(5)} && a_7 = \frac{a_1}{(2)(4)(6)} \\
+\end{gathered}
+$$
+
+So the formula for evens is:
+
+$$a_{2k} = {a_0 \over (2k-1)(2k-3)...(5)(3)}$$
+$$a_{2k+1} = {a_1 \over (2k)(2k-2)...(4)(2)}$$
+
+The denominators are more simply written using a variant of factorials:
+
+$$7! = (7)(6)(5)...(2)(1)$$
+$$7!! = (7)(5)(3)(1)$$
+
+So we can write:
+
+$$a_{2k} = {a_0 \over (2k-1)!!}, k \ge 1$$
+$$a_{2k+1} = {a_1 \over (2k)!!}, k \ge 1$$
+
+Which results in a solution of:
+
+$$y = a_0 + a_1x + \sum\limits_{k=1}^{\infty} {a_0 \over (2k-1)!!}x^{2k} + \sum\limits_{k=1}^{\infty} {a_1 \over (2k)!!}x^{2k+1}$$
+
+Which can be rearranged as:
+
+$$y = a_0\left(1 + \sum\limits_{k=1}^{\infty} {1 \over (2k-1)!!}x^{2k}\right) + a_1\left(x + \sum\limits_{k=1}^{\infty} {1 \over (2k)!!}x^{2k+1}\right)$$
+
+To find the Wronskian, we simply need to separate $y_1$ and $y_2$ and solve:
+
+$$y_1 = 1 + \sum\limits_{k=1}^{\infty} {1 \over (2k-1)!!}x^{2k}$$
+$$y_1' = 0 + \sum\limits_{k=1}^{\infty} {2k \over (2k-1)!!}x^{2k-1}$$
+$$y_2 = x + \sum\limits_{k=1}^{\infty} {1 \over (2k)!!}x^{2k+1}$$
+$$y_2' = 1 + \sum\limits_{k=1}^{\infty} {2k+1 \over (2k)!!}x^{2k}$$
+
+Taking the value at 0:
+
+$$W = y_1y_2' - y_2y_1' = (1)(1) - (0)(0) = 1$$
+
+Which proves it would work. Similarly, taking the ratio test of the solutions will result in a radius of $\infty$, which agrees with the value predicted by the theorem.
+
+~~
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">

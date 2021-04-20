@@ -19,7 +19,7 @@ $$= \frac{1}{s}$$
 
 (The 0 in subscript represents the place where the jump is.)
 
-!!Example 1
+~~Example 1
 
 Sketch the graph of the following functions:
 
@@ -33,9 +33,9 @@ We can convert this to a piecewise function to get a range of functions.
 
 ![The function changes based on the region](function2.svg)
 
-!!
+~~
 
-!!Example 2
+~~Example 2
 
 Convert the following to an equation using unit step functions.
 
@@ -56,9 +56,9 @@ $(10 - t^2) - (-4)$ from 2 and up - $(14 + t^2)u_3(t)$
 
 $$(t - 1)u_0(t) - (3 + t)u_2(t) + (14 - t^2)u_3(t)$$
 
-!!
+~~
 
-!!Example 3
+~~Example 3
 
 Find the Laplace transform of the function $u_c(t)$.
 
@@ -69,11 +69,11 @@ $$= {e^{-sc} \over c}$$
 
 This is Rule 25.
 
-!!
+~~
 
 For multiplying functions by unit steps, we use Rule 28. 
 
-!!Derivation/Proof
+~~Derivation/Proof
 
 $$\mathcal{L}\{g(t)u_c(t)\} = \int\limits_0^{\infty} e^{-st}g(t)u_c(t)dt$$
 
@@ -87,13 +87,13 @@ $$=\int\limits_0^{\infty} e^{-s(\tau + c)}g(\tau + c)d\tau$$
 $$=e^{-sc}\int\limits_0^{\infty} e^{-s\tau}g(\tau + c)d\tau$$
 $$=e^{-sc}\mathcal{L}\{g(\tau + c)\}$$
 
-!!
+~~
 
 This will result in a "delayed" function.
 
 ![The function is 0 until c](delay.jpg)
 
-!!Example 4
+~~Example 4
 
 Find Laplace of:
 
@@ -113,9 +113,9 @@ And we can use the Rule to get the Laplace:
 
 $$e^{-3s}\mathcal{L}\{g(t+3)\} = e^{-3s}\mathcal{L}\{((t+3)^2 -6(t+3) + 12)\}$$
 
-!!
+~~
 
-!!Example 5
+~~Example 5
 
 Find the inverse Laplace of the following:
 
@@ -135,7 +135,7 @@ $$u_1(t)\frac{1}{\sqrt{3}}\sinh(\sqrt{3}(t - 1))$$
 
 Note that you cannot do partial fraction decomposition with the $e^{at}$ on top, it must be factored out first.
 
-!!
+~~
 
 ### Frequency Shift
 
@@ -143,7 +143,7 @@ $$\mathcal{L}\{e^{ct}f(t)\} = F(s-c)$$
 
 (Rule 29)
 
-!!Example 6
+~~Example 6
 
 1. $$\mathcal{L}\{e^{3t}t^4\}$$
 
@@ -187,7 +187,7 @@ And now we can use the shift to get:
 $$u_2(t)e^{-\frac{3}{2}t}\frac{1}{\sqrt{\frac{3}{4}}}\sin(\sqrt{\frac{3}{4}}t)$$
 $$u_2(t)e^{-\frac{3}{2}t}\frac{2}{\sqrt{3}}\sin(\frac{\sqrt{3}}{2}t)$$
 
-!!
+~~
 
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">

@@ -17,7 +17,7 @@ window.onload = () =>
   setTimeout(setCss, 1);
   let text = document.body.innerHTML;
   // support for custom details element
-  text = text.replace(/!!([^\n]+)\n(((?!!!).|\n)+)!!/mg, `
+  text = text.replace(/~~([^\n]+)\n(((?!~~).|\n)+)~~/mg, `
   <details id="__remove spaces__$1__end remove spaces__">
     <summary>Click to show $1</summary>
   

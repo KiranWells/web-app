@@ -6,7 +6,7 @@ $$\sum\limits_{n=0}^{\infty} f(x,n)$$
 
 To remind you about these concepts, here is an example:
 
-!!Example 1
+~~Example 1
 
 Find the radius of convergence and the interval of convergence of the power series:
 
@@ -23,7 +23,7 @@ If this is less than one, the series converges absolutely. If it is greater, the
 
 $$\rho = 2, x \in (1,5)$$
 
-!!
+~~
 
 ## Taylor Series
 
@@ -33,7 +33,7 @@ $$\sum\limits_{n=0}^{\infty} {f^{(n)}(x_0)\over n!}(x - x_0)^n$$
 
 The important idea is whether it converges, and whether it converges to the function. $f$ is said to be **analytic** at x = x_0 if the radius of convergence of its Taylor series is positive. Most of the familiar functions of calculus are analytic. In many cases, the most useful context for power series is the complex plane, but we will not usually involve it.
 
-!!Example 2
+~~Example 2
 
 Find the Taylor series for $f(x) = 1/x$ at $x_0 = 3$.
 
@@ -65,14 +65,14 @@ So we can finid the convergence as:
 
 $$\rho = 3, x\in (0,6)$$
 
-!!
+~~
 
 There are a few McLaurin (Taylor series when $x_0 = 0$) series that are useful to know:
 
 $$e^x = \sum\limits_{n=0}^{\infty} \frac{x^n}{n!}$$
 $$\sin x = \sum\limits_{n=0}^{\infty} {(-1)^nx^{2n+1}\over(2n+1)!}$$
 
-!!Example 3
+~~Example 3
 
 Use the McLaurin series for $e^x$ and $\sin x$ to find the McLaurin series for $e^x\sin x$.
 
@@ -96,7 +96,7 @@ $$e^x \sin x = x + x^2 + (\frac{1}{2!}-\frac{1}{3!})x^3 + (-\frac{1}{3!})x^4 ...
 
 So if we needed to find $f^{(4)}(0)$ we just need to take the coefficient of the element with $x^4$ because of the definition of the Taylor series.
 
-!!
+~~
 
 ## Index Shift
 
@@ -104,7 +104,7 @@ We can shift the start of a series simply by changing the n variable:
 
 $$\sum\limits_{n=0}^{\infty} f(x, n) = \sum\limits_{n=m}^{\infty} f(x, n-m) = \sum\limits_{n=m}^{\infty} g(x, n)$$
 
-!!Example 4
+~~Example 4
 
 Shift the series:
 
@@ -128,9 +128,9 @@ $$\sum\limits_{n=-10}^{\infty} {n + 13 \over (2(n+13) - 1)!}x^{n+11}$$
 
 Note that if you write out this series, you will get the same as the beginning. This is exactly what we wanted.
 
-!!
+~~
 
-!!Example 5
+~~Example 5
 
 
 $$\sum\limits_{n=2}^{\infty} n(n-1)a_nx^{n-2} - x\sum\limits_{n=0} a_nx^n$$
@@ -158,13 +158,13 @@ $$= 2a_2 + \sum\limits_{n=1}^{\infty} [(n+2)(n+1)a_{n+2} - a_{n-1}]x^n$$
 
 This can now be more simply solved.
 
-!!
+~~
 
 ## Solving Differential Equations as Series
 
 Many complex differential equations can be solved by changing them into power series and then solving for a general formula of $y$. As a preview example, please see the following example.
 
-!! extra example
+~~ extra example
 
 Solve the Airy equation by the series method:
 
@@ -256,7 +256,15 @@ $$y(x) = a_0Ai(x) + a_1Bi(x)$$
 
 Where $a_0 = y(0)$ and $a_1 = y'(0)$, which can be seen from the definition of series or writing out the solution of the initial sum for $y$.
 
-!!
+One other test we can do is to see when these series will converge. To start, let's try the ratio test:
+
+$$\lim\limits_{n \to \infty}\left| {x^{3n+3} \over (3n + 1)(3n)(3n-1)(3n-3)...(4)(3)} {(3n)(3n-1)(3n-3)(3n-4)...(3)(2) \over x^{3n} } \right| \lt 1$$
+
+This will equal 0, so it is true for all x.
+
+In addition, we can take the wronskian at 0 with some simplification, and it will result in 1. This proves that they are a fundmental pair of solutions.
+
+~~
 
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">
