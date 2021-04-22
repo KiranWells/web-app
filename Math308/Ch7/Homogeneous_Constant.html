@@ -1,0 +1,86 @@
+# Homogeneous Linear Systems with Constant Coefficients
+
+For a system of equations:
+
+$$x' = F(x,y)$$
+$$y' = G(x,y)$$
+
+Equilibrium points are defines as the locations where both functions are zero:
+
+$$F(x,y) = 0$$
+$$G(x,y) = 0$$
+
+This requires solving a normal (non-differential) system of equations.
+
+For homogeneous systems, there will always be at only one equilibrium (0,0) if they are not coinciding. This will happen when the slopes of the lines to be solved are identical, as there is never an added constant in homogeneous equations. This is also represented by the determinant of the matrix:
+
+### Definition
+
+A linear system of Equations:
+
+$$A\vec{x} = \vec{0}$$
+
+with a square matrix $A$, has no solutions except for $(0,0)$ unless the determinant of $A$ is 0.
+
+## The Matrix Method - Eigenvalues and Eigenvectors
+
+Finding the general solution of the linear, homogeneous system:
+
+$$A\vec{x} = \vec{0}$$
+ 
+We can follow Eulers trial method, using a function $\vec{x} = e^{rt}\vec{v}$. This introduces two unknows, $r$ and $\vec v$.
+
+Next, we can do substitution:
+
+$$\frac{d}{dt}(e^{rt}\vec v) = A(e^{rt}\vec v)$$
+
+Taking the derivative of a vector function requires taking the derivative of its components:
+
+$$\frac{d}{dt}(e^{rt}\vec v) = \frac{d}{dt}(e^{rt}v_1\hat i + e^{rt}v_2\hat j) = re^{rt}v_1\hat i + re^{rt}v_1\hat j = re^{rt}\vec v$$
+
+So we get:
+
+$$r\vec v e^{rt} = A\vec v e^{rt}$$
+$$r\vec v = A\vec v$$
+
+Since $r$ is not a vector, we need to represent it as one, which is possible using an identity matrix $I$:
+
+$$= (A - rI)\vec v = 0$$
+
+And multiplying and subtracting:
+
+$$
+\begin{bmatrix}
+  a-r && b \\
+  c && d-r \\
+\end{bmatrix}
+\begin{bmatrix}
+  v_1 \\
+  v_2 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+  0 \\
+  0\\
+\end{bmatrix}
+$$
+
+The problem of finding $r$ and $\vec v$ is the famous **Eigenvalue problem**. The value $r$ is called an **eigenvalue** and $\vec v$ is called an **eigenvector**.
+
+The problem has a solution iff:
+
+$$det(A - rI) = 0$$
+
+$$
+\begin{vmatrix}
+  a - r && b \\
+  c && d-r
+\end{vmatrix}
+= (a-r)(d-r) - bc = 0
+$$
+$$r^2 - (a+d)r + (ad-bc) = 0$$
+
+This is sometimes called the trace-determinant equation, as the coefficients of $r$ are the trace and the determinant of the matrix. Notice that here we have another fundamental equation.
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
