@@ -82,5 +82,368 @@ $$r^2 - (a+d)r + (ad-bc) = 0$$
 
 This is sometimes called the trace-determinant equation, as the coefficients of $r$ are the trace and the determinant of the matrix. Notice that here we have another fundamental equation.
 
+Essentially, this means that a system of equations like this will transfer completely to an eigenvalue problem. 
+
+~~Example 3
+
+Solve the problem using the matrix method:
+
+$$
+\vec x' = 
+\begin{bmatrix}
+  1 && -1 \\
+  -4 && 1
+\end{bmatrix}
+\vec x
+$$
+
+First, we find the eigenvalues, meaning:
+
+$$det(A - rI) = 0$$
+
+$$
+\left|
+\begin{bmatrix}
+  1 && -1 \\
+  -4 && 1
+\end{bmatrix}
+- r
+\begin{bmatrix}
+  1 && 0 \\
+  0 && 1
+\end{bmatrix}
+\right|
+=0
+$$
+$$
+\left|
+\begin{bmatrix}
+  1-r && -1 \\
+  -4 && 1-r
+\end{bmatrix}
+\right|
+=0
+$$
+$$(1-r)(1-r)-(-1)(-4)=0$$
+$$r^2 - 2r - 3 = 0$$
+
+This could also be set up by just using the trace-determinant equation:
+
+$$tr(A) = 2$$
+$$det(A) = 1-(-1)(-4)=-3$$
+$$r^2 - tr(A)r + det(A) = 0$$
+$$r^2 - 2r - 3 = 0$$
+
+We can solve to get $r = 3, -1$. These are the eigenvalues of the problem. Note that because of the properties of quadratics, the sum of the eigenvalues gives the trace, and their product the determinant.
+
+To validate this, we can plug the given values into the original equation. However, we are more interested in getting $\vec v$:
+
+$$A\vec v = r_1\vec v_1$$
+$$A\vec v = -\vec v_1$$
+$$(A + I)\vec v_1 = 0$$
+$$
+\begin{bmatrix}
+  2 && -1 \\
+  -4 && 2
+\end{bmatrix}
+\begin{bmatrix}
+  \alpha_1 \\ \beta_1
+\end{bmatrix}
+=
+\begin{bmatrix}
+  0 \\ 0
+\end{bmatrix}
+$$
+
+$$
+\begin{cases}
+  2\alpha_1 - \beta_1 = 0 \\
+  -4\alpha_1 + 2\beta_1 = 0
+\end{cases}
+$$
+
+So one possible solution is:
+
+$$
+\vec v_1 =
+\begin{bmatrix}
+  1 \\ 2
+\end{bmatrix}
+$$
+
+Notice that rescaling this vector will also be a solution, but that doesn't matter as this will be part of a linear combination, with a couple constants multiplied:
+
+$$\vec x = c_1 e^{r_1t}\vec v_1 + c_2 e^{r_2t}\vec v_2$$
+
+Now we can find the second vector:
+
+$$
+\begin{bmatrix}
+  -2 && -1 \\
+  -4 && -2
+\end{bmatrix}
+\begin{bmatrix}
+  \alpha_2 \\ \beta_2
+\end{bmatrix}
+=
+\begin{bmatrix}
+  0 \\ 0
+\end{bmatrix}
+$$
+
+$$
+\begin{cases}
+  -2\alpha_1 - \beta_1 = 0 \\
+  -4\alpha_1 - 2\beta_1 = 0
+\end{cases}
+$$
+
+$$
+\vec v_2 =
+\begin{bmatrix}
+  -1 \\ 2
+\end{bmatrix}
+$$
+
+So the solution is:
+
+$$
+\vec x = c_1 e^{-t}
+\begin{bmatrix}
+  1 \\ 2
+\end{bmatrix}
++ c_2 e^{3t}
+\begin{bmatrix}
+  -1 \\ 2
+\end{bmatrix}
+$$
+
+Because one portion goes to 0 as $t \to \infty$, and the other goes to infinity, the graph will have a bending shape.
+
+~~
+
+~~Example 4
+
+Find the general solution of the system:
+
+$$x' = -3x +\sqrt{2}y$$
+$$y' = \sqrt{2}x - 2y$$
+
+using the matrix method.
+
+Solving the trace-determinant equation will give: 
+
+$$r_1 = -1, r_2 = -4$$
+
+Note that because both values are negative you will get *sink* behavior, where the motion spirals into the center.
+
+For $\vec v_1$:
+
+$$
+\begin{cases}
+  -2a_1 + \sqrt{2}b_1 = 0 \\
+  \sqrt{2}a_1 - b_1 = 0 \\
+\end{cases}
+$$
+
+One solution is $\vec v_1 = \begin{bmatrix} \sqrt{2} \\ 2 \end{bmatrix}$.
+
+Then follow the same process for $\vec v_2$:
+
+$$
+\begin{cases}
+  a_2 + \sqrt{2}b_2 = 0 \\
+  \sqrt{2}a_2 + 2b_2 = 0 \\
+\end{cases}
+$$
+
+One solution is $\vec v_1 = \begin{bmatrix} -\sqrt{2} \\ 1 \end{bmatrix}$.
+
+So the solution is:
+
+$$
+\vec x = c_1 e^{-t}
+\begin{bmatrix}
+  \sqrt{2} \\ 2
+\end{bmatrix}
++ c_2 e^{-4t}
+\begin{bmatrix}
+  -\sqrt{2} \\ 1
+\end{bmatrix}
+$$
+
+and translating back to the system of equations by using the top coordinate as x and the bottom as y:
+
+$$
+\begin{cases}
+  x(t) = \sqrt{2}c_1e^{-t} - \sqrt{2}c_2e^{-4t} \\
+  y(t) = 2c_1e^{-t} + c_2e^{-4t} \\
+\end{cases}
+$$
+
+as $t \to \infty$, the point will travel to the origin, which is why it is labeled a *sink*. (As opposed to a *source*, where all trajectories go out from the origin. This could be found by making the $A$ with opposite signs.)
+
+Also, notice that this matrix is symmetric (about the diagonal). These types of matrices always have real eigenvalues.
+
+~~
+
+## Wronskian of systems
+
+For 2x2 linear systems of differential equations $x_1(t)$ and $x_2(t)$, the Wronskian is:
+
+$$W[x_1,x_2] = det(x_1(t)|x_2(t))$$
+
+If the eigenvalues are real and different, then we have:
+
+$$
+x_1 = e^{r_1t}
+\begin{bmatrix}
+  a_1 \\ b_1
+\end{bmatrix}
+,
+x_2 = e^{r_2t}
+\begin{bmatrix}
+  a_2 \\ b_2
+\end{bmatrix}
+$$
+
+then the Wronskian is:
+
+$$
+\begin{vmatrix}
+  e^{r_1t}a_1 && e^{r_2t}a_2 \\
+  e^{r_1t}b_1 && e^{r_2t}b_2 \\
+\end{vmatrix}
+=
+e^{(r_1 + r_2)t}
+\begin{vmatrix}
+  a_1 && a_2 \\
+  b_1 && b_2 \\
+\end{vmatrix}
+$$
+
+~~Example 5
+
+Taking the previous example, with its solution:
+
+$$
+\vec x = c_1 e^{-t}
+\begin{bmatrix}
+  \sqrt{2} \\ 2
+\end{bmatrix}
++ c_2 e^{-4t}
+\begin{bmatrix}
+  -\sqrt{2} \\ 1
+\end{bmatrix}
+$$
+
+The pair of solutions is:
+
+$$\vec x = c_1\vec x_1 + c_2\vec x_2$$
+$$
+\vec x_1 = e^{-t}
+\begin{bmatrix}
+  \sqrt{2} \\ 2
+\end{bmatrix}
+$$
+$$
+\vec x_2 = e^{-4t}
+\begin{bmatrix}
+  -\sqrt{2} \\ 1
+\end{bmatrix}
+$$
+
+To prove that they are a fundamental pair by finding the Wronskian:
+
+$$W[x_1,x_2] = det(x_1(t)|x_2(t))$$
+
+$$
+= 
+\begin{vmatrix}
+  \sqrt{2}e^{-t} && -\sqrt{2}e^{-4t} \\ 
+  2e^{-t} && 1e^{-4t}
+\end{vmatrix}
+= \sqrt{2}e^{-5t} + 2\sqrt{2}e^{-5t}
+= e^{-5t}
+\begin{vmatrix}
+  \sqrt{2} && -\sqrt{2} \\ 
+  2 && 1
+\end{vmatrix}
+= 3\sqrt{2}e^{-5t}
+$$
+~~
+
+Now consider the case where one of the eigenvalues is $r_1 = 0$. This will lead to the determinant being 0, and the trace to simply be $r_2$. Then the general solution is given by:
+
+$$
+\vec{x} = c_1 \vec v_1 + c_2 e^{r_2t}\vec v_2
+$$
+
+$$
+\vec x_1 = c_1 \vec v_1
+$$
+
+~~Example 6
+
+Solve the system:
+
+$$x' = x + 2y$$
+$$y' = 3x + 6y$$
+
+The trace is 7, and the determinant is $6-2(3)=0$. So the roots are:
+
+$$r^2 - 7r = 0$$
+$$r = 0, 7$$
+
+So solving for $\vec v_1$:
+
+$$
+\begin{cases}
+  a_1 + 2b_1 = 0 \\
+  3a_1 + 6b_1 =0
+\end{cases}
+$$
+
+$$
+\vec v_1
+\begin{bmatrix}
+  2 \\ -1
+\end{bmatrix}
+$$
+
+And $\vec v_2$
+$$
+\begin{cases}
+  -6a_1 + 2b_1 = 0 \\
+  3a_1 - b_1 =0
+\end{cases}
+$$
+
+$$
+\vec v_1
+\begin{bmatrix}
+  1 \\ 3
+\end{bmatrix}
+$$
+
+And the solution is:
+
+$$
+\vec x = c_1
+\begin{bmatrix}
+  2 \\ -1
+\end{bmatrix}
++ c_2 e^{-7t}
+\begin{bmatrix}
+  1 \\ 3
+\end{bmatrix}
+$$
+
+Graphing this equation will show that there is a line of equilibrium along the vector $\langle 2, -1\rangle$. The particles will also be traveling away from this line, as the $e$ is added and will increase as $t$ increases. The directions could be changed to approach the line if the matrix A was negated.
+
+Any starting point on the line of equilibrium will be stationary, but slightly off the line will move away from the line parallel to $v_2$
+
+~~
+
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">
