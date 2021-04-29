@@ -240,5 +240,52 @@ Note that the columns of the second matrix contains the fundamental pairs of sol
 
 This method is not always the preferred method, and the main way to solve these matrix equations, called the matrix method, is the topic of this chapter.
 
+If, for some reason, we needed to go from a set of two vector solutions and find the homogeneous equation related to it, we can use the property that each vector alone will be a solution to the equation.
+
+Given:
+
+$$\vec x_1, \vec x_2$$
+
+Find $P$:
+
+$$\vec x' = P\vec x$$
+
+So, we can either plug in $\vec x_1$ and $\vec x_2$ to the equation, as they are solutions:
+
+$$\vec x_1' = P\vec x_1$$
+$$\vec x_2' = P\vec x_2$$
+
+Or, we can use the fundemental matrix $\Psi(t) = (\vec x_1 | \vec x_2)$. Note, we can only do this if the determinant of it, or the Wronskian of $x_1$ and $x_2$, are non-zero.
+
+$$\Psi = (\vec x_1 | \vec x_2)$$
+$$\Psi' = (\vec x_1' | \vec x_2')$$
+$$\Psi' = (P(t)\vec x_1 | P(t)\vec x_2)$$
+$$\Psi' = P(t)(\vec x_1 | \vec x_2)$$
+$$\Psi' = P(t)\Psi$$
+
+This shows that $\Psi$ is also a solution to the equation, and we can solve for $P(t)$ by multiplying by the inverse of $\Psi$ (which cancels it out on the right side):
+
+$$\Psi' = P(t)\Psi$$
+$$\Psi^{-1}\Psi' = P(t)\Psi\Psi^{-1}$$
+$$\Psi^{-1}\Psi' = P(t)$$
+
+Note that the inverse of $\Psi$, $\Psi^{-1}$ is:
+
+$$
+\Psi = 
+\begin{bmatrix}
+  a && b \\
+  c && d
+\end{bmatrix}
+$$
+$$
+\Psi^{-1} = 
+{1 \over ad - bc}
+\begin{bmatrix}
+  d && -b \\
+  -c && a
+\end{bmatrix}
+$$
+
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">

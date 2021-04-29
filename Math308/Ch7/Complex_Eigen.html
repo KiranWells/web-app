@@ -1,0 +1,390 @@
+# Complex and Repeated Roots/Eigenvalues
+
+## Complex Eigenvalues
+
+Remember that a matrix equation
+
+$$\vec x' = A\vec x$$
+
+Will have a characteristic equation:
+
+$$r^2 - Tr + D = 0$$
+
+Where T is the trace and D is the determinant. If the solutions (eigenvalues) will be complex.
+
+~~Example 1
+
+Solve the system:
+
+$$x' = 3x-3y$$
+$$y' = 3x-y$$
+
+Here the trace and determinant are:
+
+$$T = 3+(-1)=2$$
+$$D = -3+9=6$$
+
+The characteristic equation is:
+
+$$r^2 - 2r + 6 = 0$$
+
+$$r = 1 \pm i\sqrt{5}$$
+
+For $r_1 = 1 + i\sqrt{5}$, we can find the corresponding vector by plugging it into the eigenvalue equation:
+
+$$
+\begin{bmatrix}
+  3 - r_1 && -3 \\
+  3 && -1-r_1
+\end{bmatrix}
+\begin{bmatrix}
+  a_1 \\
+  b_1
+\end{bmatrix}
+=
+\begin{bmatrix}
+  0 \\
+  0
+\end{bmatrix}
+$$
+$$
+\begin{bmatrix}
+  2-i\sqrt{5} && -3 \\
+  3 && -2-i\sqrt{5}
+\end{bmatrix}
+\begin{bmatrix}
+  a_1 \\
+  b_1
+\end{bmatrix}
+=
+\begin{bmatrix}
+  0 \\
+  0
+\end{bmatrix}
+$$
+$$
+\vec v = 
+\begin{bmatrix}
+  a_1 \\
+  b_1
+\end{bmatrix}
+= 
+\begin{bmatrix}
+  3 \\
+  2-i\sqrt{5}
+\end{bmatrix}
+$$
+
+Now we can take the solution for this r and v:
+
+$$
+e^{r_1t}\vec v = e^{( 1 + i\sqrt{5})t}
+\begin{bmatrix}
+  3 \\
+  2-i\sqrt{5}
+\end{bmatrix}
+$$
+
+Then we can separate the complex e with Euler's Identity:
+
+$$
+e^t(\cos(\sqrt{5}t)+i\sin(\sqrt{5}t))
+\begin{bmatrix}
+  3 \\
+  2-i\sqrt{5}
+\end{bmatrix}
+$$
+
+And multiplying through the vector:
+
+$$
+e^t
+\begin{bmatrix}
+  3\cos(\sqrt{5}t)+3i\sin(\sqrt{5}t) \\
+  (2-i\sqrt{5})(\cos(\sqrt{5}t)+i\sin(\sqrt{5}t))
+\end{bmatrix}
+$$
+$$
+\vec z = e^t
+\begin{bmatrix}
+  3\cos(\sqrt{5}t)+3i\sin(\sqrt{5}t) \\
+  2\cos(\sqrt{5}t)+\sqrt{5}\sin(\sqrt{5}t)+i(\sin(\sqrt{5}t)-\sqrt{5}\cos(\sqrt{5}t))
+\end{bmatrix}
+$$
+
+Here, $\vec x_1$ will be the real part of this solution, and $\vec x_2$ is the imaginary part:
+
+$$
+\begin{cases}
+  \vec x_1 = Re(\vec z(t)) \\
+  \vec x_2 = Im(\vec z(t)) \\
+\end{cases}
+$$
+
+So we can write the solution as:
+
+$$\vec x = c_1\vec x_1 + c_2\vec x_2$$
+$$
+= e^t\left[c_1
+\begin{bmatrix}
+  3\cos(\sqrt{5}t) \\
+  2\cos(\sqrt{5}t)+\sqrt{5}\sin(\sqrt{5}t)
+\end{bmatrix}
++ c_2
+\begin{bmatrix}
+  3\sin(\sqrt{5}t) \\
+  \sin(\sqrt{5}t)-\sqrt{5}\cos(\sqrt{5}t)
+\end{bmatrix}
+\right]
+$$
+
+This is the solution.
+
+~~
+
+A note about the behavior of these functions: If there is no real part of $r$, then the solution will be periodic, creating ellipses. This is because there will be no $e^t$ portion. If there is a real part, the solution will spiral into the center if it is negative exponent, and spiral out if the exponent is positive. So, by looking at the roots of the characterstic equation, we can predict the orbit of the solution.
+
+~~Example 2
+
+Solve the system:
+
+$$x' = x - 2y$$
+$$y' = 5x - y$$
+
+Here, the trace is 0, and the determinant is 9. This means it is a purely imaginary case, meaning it will be a periodic ellipse. In addition, we can take the matrix $A$ and use it to predict the motion of the solution, which will be counterclockwise and stretched in the +xy direction. This can be seen by comparing the velocities at the axes, which are seen in the columns of the matrix.
+
+$$r^2 + 9 = 0$$
+$$r =pm 3i$$
+
+Solving for $v$ using the positive $r$:
+
+$$
+\begin{cases}
+  (1-3i)a - 2b = 0 \\
+  5a + (-1-3i)b = 0
+\end{cases}
+$$
+
+$$a = 2, b = 1 - 3i$$
+$$
+\vec v = 
+\begin{bmatrix}
+  2 \\ 1 - 3i
+\end{bmatrix}
+$$
+
+$$\vec z = e^{rt}\vec v$$
+$$
+= [\cos 3t + i\sin 3t]
+\begin{bmatrix}
+  2 \\ 1 - 3i
+\end{bmatrix}
+$$
+
+So the real and imaginary parts are:
+
+$$
+=
+\begin{bmatrix}
+  2\cos 3t \\ 
+  \cos 3t + 3\sin 3t
+\end{bmatrix}
++ i
+\begin{bmatrix}
+  2\sin 3t \\ 
+  -3\sin 3t - 3\cos 3t
+\end{bmatrix}
+$$
+
+And the solution can be written as the real and imaginary parts:
+
+$$
+\vec x = c_1
+\begin{bmatrix}
+  2\cos 3t \\ 
+  \cos 3t + 3\sin 3t
+\end{bmatrix}
++ c_2
+\begin{bmatrix}
+  2\sin 3t \\ 
+  -3\sin 3t - 3\cos 3t
+\end{bmatrix}
+$$
+
+~~
+
+## Repeated Eigenvalues
+
+If, with the characteristic equation
+
+$$r^2 - Tr + D = 0$$
+
+If the roots are the same, namely if $T^2 - 4D = 0$, then we need to separate the two solutions somehow, similar to how we multiply by $t$ for second-order equations (that doesn't work here).
+
+Instead, lets multiply $\vec v$ by $t$, *and* add a vector $\vec u$.
+
+Substituting in the equation $\vec x' = A\vec x$:
+
+$$\vec x_2 = e^{rt}\vec v + re^rt{t\vec v + u} = Ax_2$$
+$$Ax_2 = e^{rt}A(t\vec v + \vec u)$$
+
+### Theorem
+
+In teh case of repeated roots, and if $A$ is not a scalar matrix, the general solution of the system is of the form:
+
+$$x = c_1e^{rt} + c_2e^{rt}(t\vec v + \vec u)$$
+
+~~Example 1
+
+Solve the system:
+
+$$
+\vec x' = 
+\begin{bmatrix}
+  1 && -1 \\
+  1 && 3
+\end{bmatrix}
+\vec x
+$$
+
+Let's get right to $r$:
+
+$$r^2 - 4r + 4 = 0$$
+$$r = 2$$
+
+And solving for $\vec v$:
+
+$$
+\vec v = 
+\begin{bmatrix}
+  a \\ b
+\end{bmatrix} \to
+\begin{cases}
+  (1-2)a - b = 0 \\
+  a + (3-2)b = 0
+\end{cases}
+$$
+
+One solution is:
+
+$$
+\vec v = 
+\begin{bmatrix}
+  1 \\ -1
+\end{bmatrix}
+$$
+
+So we have $\vec x_1$:
+
+$$
+\vec x_1 = e^{rt}\vec v = e^{2t}
+\begin{bmatrix}
+  1 \\ -1
+\end{bmatrix}
+$$
+
+Now, to find $\vec u$, we use the formula above for it:
+
+$$
+(A - rI)\vec u = \vec v
+$$
+
+$$
+\begin{cases}
+  (1-2)a - b = 1 \\
+  a + (3-2)b = -1
+\end{cases}
+$$
+
+$$
+\vec u = 
+\begin{bmatrix}
+  2 \\ -3
+\end{bmatrix}
+$$
+
+And now we can find $\vec x_2$:
+
+$$
+\vec x_2 = e^{rt}(t\vec v + \vec u)
+$$
+$$
+\vec x_2 = e^{2t}(t
+\begin{bmatrix}
+  1 \\ -1
+\end{bmatrix}
++
+\begin{bmatrix}
+  2 \\ -3
+\end{bmatrix}
+)
+$$
+
+So, we can create the final solution $x$:
+
+$$
+\vec x = c_1e^{rt}\vec v = e^{2t}
+\begin{bmatrix}
+  1 \\ -1
+\end{bmatrix}
++ c_2e^{2t}(t
+\begin{bmatrix}
+  1 \\ -1
+\end{bmatrix}
++
+\begin{bmatrix}
+  2 \\ -3
+\end{bmatrix}
+)
+$$
+
+And the system of equations would be:
+
+$$
+\begin{cases}
+  x(t) = e^{2t}[c_1 + c_2t + 2c_2] \\
+  y(t) = e^{2t}[-c_1 - c_2t - 3c_2]
+\end{cases}
+$$
+
+If this were an initial value problem, we could just use these systems to solve for $c_1$ and $c_2$.
+
+~~
+
+Note: there will never be a repeated, complex root.
+
+### Scalar Matrices
+
+Sometimes, there will be a matrix $A$ which will be **scalar**, or have only the same value down the center diagonal:
+
+$$
+A = 
+\begin{bmatrix}
+  k && 0 \\
+  0 && k
+\end{bmatrix}
+$$
+
+In this case, *all* vectors are eigenvectors, with an eigenvalue of $r = k$, because (as is understood with an understanding of matrices and their effects) this matrix will only *scale* all vectors by $k$, meaning that they maintain their direction, which is the definition of an eigenvector.
+
+An equation of this form is called a **proper node**. For these equations, the system is not coupled, meaning that the equations for x and y do not rely on eachother, so they can be solved separately.
+
+$$
+\begin{cases}
+  x' = kx \\
+  y' = ky
+\end{cases}
+$$
+
+The solution will be:
+
+$$
+\vec x = e^{kt}\vec v =
+\begin{cases}
+  x = c_1e^{kt} \\
+  y = c_2e^{kt}
+\end{cases}
+$$
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
