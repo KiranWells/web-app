@@ -1,0 +1,268 @@
+# ENGR 216 Study Guide
+
+<aside>Spring 2020, Dr. Natela Ostrovskaya, Texas A&M University</aside>
+
+This guide attempts to summarize the most important points in Dr. O's lecture notes to help you study for the final. I also tried to make sure it covers all exam topics as detailed in the community multi section.
+
+One good thing is that *most* equations you will need on the test are given in the reference material. Just make sure to print it! So, this guide focuses on how to use the equations and the concepts behind them.
+
+## Lecture 1 - Errors
+
+When making measurements, there will always be some amount of error. To ensure that we are making correct calculations, we need to know or be able to predict what these errors are. The two main types of error are **systematic** and **random** errors.
+
+<aside>
+
+The definitions of the mathematical representations of error are different:
+
+- **True Error** - the difference between the measured value and true value.
+- **Fractional Error** - the true error over the true value
+- **Percent Error** - same as fractional, but as a percent
+
+</aside>
+
+### Systematic Error
+
+Systematic errors are the same or related for *all* measurements. These cannot be removed with repeated measurements and their magnitude must be known to account for and remove them from calculations.
+
+> Ex: Measuring a collection of powders in a bowl will have an error associated with the weight of the bowl, but it can be accounted for by subtracting the weight of an empty bowl.
+
+### Random Error
+
+Random errors are not related, and can be accounted for by taking several measurements. Because they are not related, the more measurements that are taken, the more they will cancel out with more measurements.
+
+> Ex: During the labs, the small errors due to lack of precision in the tracking cameras was assumed to be random, so the longer that the movement was recorded, and the more measurements that were used, the lower the error associated was.
+
+### Many Measurements
+
+Using many data points, we can use statistics to understand the real value better. A group of data points which represents *all possible values* is called a population. A group of data points which is a *sample* of the population is called a *sample*.
+
+### Equations:
+
+- Mean (average): $$\bar x = \frac{1}{n}\sum\limits_{i}x_i$$
+- Population Standard Deviation (change): $$\sigma = \sqrt{\frac{1}{n}\sum\limits_{i}(x_i - \bar x)^2}$$
+- Sample Standard Deviation (change): $$standard deviation = s = \sqrt{\frac{1}{n-1}\sum\limits_{i}(x_i - \bar x)^2}$$
+- Error: $$std err = \frac{s}{\sqrt{n}}$$
+
+<aside>
+
+The difference between population and sample deviation is just the $n-1$ in the denominator. This is experimentally helpful to get it more accurate. This helps to prevent underestimates in the uncertainty.
+
+</aside>
+
+
+Measurements are taken as: $x = \bar x \pm std err$.
+
+## Lecture 2 - Error Propagation
+
+When math is done on some measurement with an uncertainty, we need to figure out how the uncertainty will change. In general, this is done using the following formula:
+
+$$q = f(x)$$
+$$\delta q = \frac{df}{dx}\delta x$$
+
+Where $\delta [value]$ is the error in the value. For formulas with more than one uncertain value, use *partial derivatives*, which are derivatives where all variables except for the one in question are considered to be constant:
+
+$$q = f(x,y,z...)$$
+$$\delta q = \sqrt{(\frac{\partial f}{\partial x}\delta x)^2 + (\frac{\partial f}{\partial y}\delta y)^2 + (\frac{\partial f}{\partial z}\delta z)^2 ...}$$
+
+Where $\partial$ is the partial derivative with respect to the variable in the denominator, just like a normal derivative.
+
+> Ex: The partial derivative of the volume formula for a cylinder: $V = \pi r^2h$ is:  
+> $$\frac{\partial V}{\partial r} = 2\pi rh$$  
+> $$\frac{\partial V}{\partial h} = \pi r^2$$  
+> These new values can be calculated and used in the previous formula to find the error in the volume.  
+
+## Lecture 3 - Finite Derivatives (*not on the formula sheet!*)
+
+In physics, on of the essential details is that derivatives can be used to find the velocity and acceleration of an object which has a known position. When taking measurements, however, we will only have discrete points instead of a smooth function curve. To find the derivative of these data sets, finite derivatives are used.
+
+### First-order 
+
+Finite derivatives use the definition for derivatives, or more easily understood, the formula for slope:
+
+$$m = {rise \over run} = {x_2 - x_1 \over \Delta t}$$
+
+Essentially, take the change in the position over the change in time.
+
+First-order means that it is the first derivative. There are three types:
+  - forward - the next and current data point are used
+$$ f(x + a) - f(x) \over a $$
+  - backward - the current and previous data point are used
+$$ f(x) - f(x - a) \over a $$
+  - forward - the next and previous data point are used
+$$ f(x + a) - f(x - a) \over 2a $$
+
+<aside>Note the $2a$ in the denominator for centered. This is because we are taking the change over two time steps, not one.</aside>
+
+### Second-order
+
+These are second derivatives. They require the use of Taylor series to derive. The main formula used is this:
+
+$$f(x + a) - 2f(x) + f(x - a) \over a^2$$
+
+> Ex: Taking finite derivative with a list of x and time values:
+> The velocity would be:
+> $v_i = {x_{i + 1} - x_i \over \Delta t}$
+> And acceleration:
+> $a_i = {x_{i + 1} + 2x_i - x_{i-1} \over \Delta t}$
+
+## Lecture 4 - Normal Distribution
+
+### Vocab (May not be on exam - not included in Exam Topics)
+
+- **descriptive statistics**: using statistics to describe a collection of data
+- **inferential statistics**: using statistics to draw conclusions about the process/population being studied
+- **statistical population**: the complete set of all possible or actual data points
+- **sample**: a part of the population
+- **frequency**: number of data points in each interval of a histogram
+  - **relative**: divided by the total number of data points
+  - **cumulative**: sum from this point to the left
+
+(See [Many Measurements](#many-measurements) above for more info on stats)
+
+### Normal Distribution
+
+Normal distributions are a useful way to describe most random things: they follow a bell-shaped curve with a peak at the mean.
+
+The 68-95-99.7 rule: given a normal distribution, about 68% of results are within 1 standard deviation of the mean, 95% within 2, and 99.7% within 3
+
+### Using Z-tables
+
+Standard normal distributions, or $z$, are used because, by definition, the standard deviation is 1 and the mean is 0. ($\sigma = 1, \mu = 0$). This means to convert from any distribution to $z$, you subtract the mean and divide by standard deviation:
+
+$$z = {x - \mu  \over \sigma}$$
+
+Then, to get the probability of a value falling within a range, the probability of it being under the minimum is subtracted from the probability of being under the maximum:
+
+$$P(min \le z \le max) = \int\limits_{-\infty}^{max} f(z)dz - \int\limits_{-\infty}^{min} f(z)dz$$
+
+The integrals are easily found using a z-table, which has the min/max values across the top and sides (tenths and hundredths) and the intersection gives the result of the integral.
+
+So essentially, the formula is:
+
+$$P(min \le z \le max) = z-table(max) - z-table(min)$$
+
+Note that these must be converted to z-space first using the above forumla.
+
+## Lecture 5 - Central Limit Theorem/Confidence Intervals
+
+Essentially, this theorem says that if the population distribution is normal, then the sample distribution sill be normal with small data sizes. If the population distribution is far from normal, many more data points are needed.
+
+To apply this: given the mean and stdev of a population and its sample size, the probability that the sample mean will be between two numbers can be found as:
+
+$$P(\bar x - z_{\alpha/2}{\sigma \over \sqrt{n}} \le \mu \le \bar x + z_{\alpha/2}{\sigma \over \sqrt{n}}) = 1 - \alpha$$
+
+Where $\bar x$ is the mean of the sample, $\mu$ is the mean of the population, $\sigma$ is the stdev of the population, $\alpha$ is the probability of failure (for a 95% confidence, $\alpha$ would be 0.05), and $z_{\alpha/2}$ is the z-table *input* (in standard deviations) that results in a value of $\alpha / 2$. 
+
+See the slides for an example.
+
+## Lecture 6/6.2 - Universal Accounting Equation
+
+The universal accounting equation is simply a way to account for the total amount of some value. For any system, the changing amounts of any attribute can be described as:
+
+$$FINAL - INITIAL = INPUT - OUTPUT + GENERATION - CONSUMPTION$$
+
+For systems where the attribute, such as mass, is conserved (meaning it is neither created or destroyed), the equation simplifies to:
+
+$$FINAL - INITIAL = INPUT - OUTPUT$$
+
+If their is no input or output, as in some physics problems relating to motion and collisions, the equation further simplifies to:
+
+$$FINAL - INITIAL = 0$$
+
+Or:
+
+$$FINAL = INITIAL$$
+
+It would be a good idea to make sure you are comfortable with setting up systems like this: define the system, determine the initial amounts, the inputs/outputs, and generation or cunsumption, and set up to determine unknowns.
+
+### Batch vs. Rate-Flow
+
+In **batch processes**, materials are put in before process begins and removed after the process ends. Inputs/outpus will be masses. 
+
+In **rate-flow processes**, materials are continuously input, and inputs and outputs will be rates (mass per time).
+
+## Lecture 7&9 - Particle and Rigid Body Statics
+
+I will combine these two as there are only a few differences in the strategy when solving these kinds of problems.
+
+The main detail to take from these lectures is how to make a free-body diagram. Here are the main steps:
+
+1. Isolate the body
+2. Identify other bodies which act on the isolated body
+3. Identify the forces the interactions create, and determine where they act
+4. Mark the forces down and their assumed directions
+5. Determine a coordinate system
+6. Mark dimensions/angle/magnitudes of forces which are known
+
+If all forces act along a line which intersects at the same point (they are **concurrent**), then the system can be treated like a particle. If this is not the case, however, then the system must be treated as a rigid body.
+
+### Equilibrium
+
+For a particle to be in equilibrium, all forces must sum to $\vec 0$. For a rigid body to be in equilibrium, all forces *and torques* must sum to $\vec 0$. 
+
+If you are given that a body is in equilibrium, you can take each component of the net force, and each torque around each point and set them equal to 0. Then, solve for unknowns.
+
+### Moment (Torque)
+
+In engineering, torque is called moment, and it is calculated using the same formula:
+
+$$M = \vec r \times \vec F = d_{\perp} * |\vec F|$$
+
+Essentially, it is the amount of force which is perpendicular to the vector to the pivot. It can be more reliably calculated using components:
+
+$$M = r_xF_y - r_yF_x\ (CCW)$$
+
+By convention, counter-clockwise is positive, and clockwise is negative.
+
+### Supports
+
+Supports each have a different type of force:
+
+- Roller - only perpendicular to the surface
+- Pin - force in any direction 
+- Cable - force only in the direction of the cable
+
+## Lecture 8 - Conservation of Momentum
+
+These problems are quite simple. If there is no outside force acting on an object, then the final momentum is the same as the initial momentum (note that this is an accounting equation).
+
+So for collisions, conservation of momentum can *always* be used to solve for unknown final velocities.
+
+Conservation of *energy* is only preserved in perfectly elastic collisions, where there is no deformation and each body bounces off (does not stick together). Inelastic collisions involve deformation, *perfectly* inelastic collisions involve the bodies sticking together afterwards. 
+
+<aside>Note: momentum is always conserved, regardless of the collision (given there are no outside forces). Energy is only conserved in elastic collisions.</aside>
+
+## Lecture 10 - Angular momentum and Center of Mass
+
+The center of mass can be found as:
+
+$$\vec r_{cm} = {\sum m_i\vec r_i \over \sum m_i}$$
+
+Which is the weighted sum of the position vectors.
+
+Moment of inertia is a useful concept, defined as:
+
+$$I = \sum m_ir_i^2$$
+
+### Parallel axis theorem
+
+This theorem provides a way to get from one moment of inertia to another, as long as they are along the same axis of motion:
+
+$$I_a = I_{cm} + md^2$$
+
+Where $d$ is the distance from the axis to the center of mass and $I_{cm}$ is the moment of inertia about the center of mass.
+
+### Angular momentum
+
+Angular momentum is defined as:
+
+$$\vec L = \vec r \times \vec p$$
+
+It can be simplified to:
+
+$$\vec L = I\vec \omega$$
+
+If the net torque is 0, then angular momentum is conserved, allowing us to set final equal to initial. This is the main way to solve these problems.
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">

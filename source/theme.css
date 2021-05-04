@@ -139,6 +139,13 @@ aside {
   font-size: smaller;
 }
 
+blockquote {
+  background: var(--bg-dark);
+  border-left: .5em solid var(--ac) !important;
+  padding-right: .5em;
+  border: none;
+}
+
 .caption {
   font-style: italic;
   font-size: smaller;

@@ -33,6 +33,14 @@ $2
     inner = inner.replace(/ /g, "-").toLowerCase();
     text = text.replace(/__remove spaces__[^_]*__end remove spaces__/, inner);
   }
+  // support for block quote element
+  for (let i = 0; i < 10000; i++) {
+    let match = text.match(/(^ *&gt;[^\n]+\n)+/m);
+    if (match === null) {break;}
+    let inner = match[0];
+    inner = "\n\n<blockquote>\n\n" + inner.replace(/^ *&gt;/gm, "") + "\n\n</blockquote>\n\n";
+    text = text.replace(/(^ *&gt;[^\n]+\n)+/m, inner);
+  }
   document.body.innerHTML = text;
   // change to HTML
   runtexme();
