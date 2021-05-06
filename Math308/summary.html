@@ -1,0 +1,189 @@
+# Final Exam Summary
+
+## First-order Differential equations
+
+### Separable Equations
+
+$$f(y) = g(x)$$
+
+If you can get an equation in this form, it can be solved by integrating both sides.
+
+### Standard Form
+
+$$y' + p(t)y = g(t)$$
+
+Solvable by integrating factor. This uses a function $\mu$ that changes the left side into a chain rule, which can be integrated.
+
+$$\mu = e^{\int p(t)}$$
+
+### Differential form
+
+$$f(x,y)dx + g(x,y)dy = 0$$
+
+These can be solved by integrating with respect to each variable and finding the common factor.
+
+The formulas for the integrating factor are:
+
+$$\mu(x) = e^{\int {M_y-N_x \over N}}$$
+$$\mu(y) = e^{\int {N_x-M_y \over M}}$$
+
+Remember: **My** **N**e**x**t **N**etflix series is **X**-files **only**.
+
+### Uniqueness
+
+If $p$ and $g$ are continuous in the form:
+
+$$y' + p(t)y + g(t) = 0$$
+
+Then the solutions exists and is unique.
+
+For non-linear equations, it is a bit more complex. If the function $f(t,y)$ and $f_y$ are continuous in some area around the initial conditions, there is a solution on an interval of $t$ defined by:
+
+$$t_0 - h \lt t \lt t_0 + h$$
+$$h = min\left(a,{b\over M}\right)$$
+
+Where $M = max(|f|)$ on the rectangle around the initial conditions.
+
+## Second Order
+
+### Homogeneous Form
+
+$$y'' + p(t)y' + q(t)y = 0$$
+
+These can easily be solved through solving the characteristic equation.
+
+#### Wronskian
+
+The wronskian is given by:
+
+$$W[y_1, y_2] = y_1y_2' - y_2y_1'$$
+
+Or
+
+$$W[y_1, y_2] = ce^{-\int p(t)}$$
+
+### Standard Form
+
+$$y'' + p(t)y' + q(t)y = g(t)$$
+
+These can be solved by method of unknown coefficients or by Lagrange Equation.
+
+$$Y(t) = -y_1\int {g(t)y_2 \over W[y_1, y_2]} + y_2\int {g(t)y_1 \over W[y_1, y_2]}$$
+
+### Existence and Uniqueness
+
+If $p$, $q$, and $g$ are continuous in the form:
+
+$$y'' + p(t)y' + q(t)y = g(t)$$
+
+Then the solutions exists and is unique.
+
+## Laplace Transform
+
+This makes second (and possibly higher) order equations easier to solve.
+
+$$\mathcal{L}\{f(t)\} = \int\limits_0^{\infty} e^{-st}f(t)dt$$
+
+A few important rules know:
+
+$$\mathcal{L}\{a\} = {a\over s}$$
+$$\mathcal{L}\{t^n\} = {n!\over s^{n+1}}$$
+$$\mathcal{L}\{e^{at}\} = {1\over s-a}$$
+$$\mathcal{L}\{\sin(at)\} = {a\over s^2+a^2}$$
+$$\mathcal{L}\{\cos(at)\} = {s\over s^2+a^2}$$
+$$\mathcal{L}\{\sinh(at)\} = {a\over s^2-a^2}$$
+$$\mathcal{L}\{\cosh(at)\} = {s\over s^2-a^2}$$
+$$\mathcal{L}\{t^nf(t)\} = {(-1)^nF^{(n)}(s)}$$
+$$\mathcal{L}\left\{\frac{1}{t}f(t)\right\} = \int\limits_s^{\infty} F(u)du$$
+
+Properties of Laplace to remember:
+
+- it is linear
+- derivatives are multiplied by s and the initial conditions are subtracted
+- shifting is a multiplication by $e^{at}$
+- the Laplace of the Dirac function just takes the function at that value multiplied by $e^{cs}$
+
+### Convolution Integral
+
+It is defined as:
+
+$$f*g = \int_0^{t} f(\tau)g(t-\tau)d\tau$$
+
+$$\mathcal{L}\{f*g\} = F(s)G(s)$$
+
+## Series
+
+### Singular Points
+
+Singular points are defined as when $P(x)$ is 0 in:
+
+$$P(x)y'' + Q(x)y' + R(x)y = 0$$
+
+If there is not a singular point, then we can divide by $P(x)$ and solve using the series method. The solution will converge at least on the interval as large as the distance between the initial x and the nearest singular points.
+
+To solve an equation with the series method, take the assumption:
+
+$$y = \sum\limits_{n=0}^{\infty} a_n (x - x_0)^n$$
+
+Or usually (if $x_0 = 0$):
+
+$$y = \sum\limits_{n=0}^{\infty} a_n x^n$$
+
+Then take the derivatives as:
+
+$$y' = \sum\limits_{n=1}^{\infty} a_n nx^{n-1}$$
+$$y'' = \sum\limits_{n=2}^{\infty} a_nn(n-1) x^{n-2}$$
+
+Then, plug then into the equation and simplify down to a single sum. This should allow you to solve for the coefficients as a series formula.
+
+## System of Linear Equations
+
+Homogeneous linear equations can be solved by:
+
+1. Finding the eigenvalues
+2. Finding the corresponding eigenvectors
+3. Use these in the solution:
+
+$$
+\vec x = c_1e^{r_1t}
+\begin{bmatrix}
+  \alpha_1 \\
+  \beta_1
+\end{bmatrix}
++ c_2e^{r_2t}
+\begin{bmatrix}
+  \alpha_2 \\
+  \beta_2
+\end{bmatrix}
+$$
+
+If there is an imaginary eigenvector, you only need to take one pair of eigenvalue and eigenvector and then multiply through to separate the imaginary and real portions. These are the two solutions needed.
+
+If there is a single eigenvector, then the equation will be of the form:
+
+$$
+\vec x = c_1e^{r_1t}
+\begin{bmatrix}
+  \alpha_1 \\
+  \beta_1
+\end{bmatrix}
++ c_2e^{r_1t}
+\left(
+\begin{bmatrix}
+  \alpha_1 \\
+  \beta_1
+\end{bmatrix}
+t + 
+\begin{bmatrix}
+  \alpha_2 \\
+  \beta_2
+\end{bmatrix}
+\right)
+$$
+
+Where the third vector is found by:
+
+$$(A - r_1I)\vec u = \vec v_1$$
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
