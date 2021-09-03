@@ -1,0 +1,257 @@
+# Systems of linear equations
+
+## Introduction to Linear Algebra
+
+Linear Algebra is the theory and methods to solve systems of linear equations. This is important for many other branches of math and science, including weather prediction, 3D graphics, and machine learning.
+
+~~definitions:
+
+> **Definition:** Linear Equation  
+> A linear equation of $n$ varibles is of the form:
+> $$a_1x_1 + a_2x_2 + ... + a_nx_n = b$$
+> Where $a_1, a_n$ are real-number coefficients,
+> $b$ is a real number,
+> and $x_1, x_n$ are variables
+
+> **Definition:** Linear System of Equations  
+> A linear system of size $m \times n$ varibles is of the form:
+$$
+\begin{cases}
+  a_11x_1 + a_12x_2 + ... + a_1nx_n = b_1 \\
+  a_21x_1 + a_22x_2 + ... + a_2nx_n = b_2 \\
+  ... \\
+  a_m1x_1 + a_m2x_2 + ... + a_mnx_n = b_m
+\end{cases}
+$$
+> With $m$ equations and $n$ variables
+
+> **Definition:** Solution  
+> A solution of a linear $m \times n$ system is an array $x_1, x_2, ... x_n$$ that satisfies all $m$ equations.
+
+> **Definition:** Solution Set  
+> A solution set is the set of all solutions
+
+> **Definition:** Consistent  
+> A linear system is **consistent** if it has solutions, otherwise it is **inconsistent**
+
+~~
+
+### A geometric view
+
+From a more visual sense, a solution to a set of equations is where the lines (of the linear equations) intersect. For example, lets take a two-dimensional system:
+
+$$
+\begin{cases}
+a_11x_1 + a_12x_2 = b_1 \\
+a_21x_1 + a_22x_2 = b_2 
+\end{cases}
+$$
+
+There are three major possibilities: The lines may intersect, (being consistent and having one solution), the lines may be paralell (being inconsistent and having no solution), or they may be the same line (being consistent with infinitely many solutions).
+
+This happens to be true of all systems, even in higher dimensions.
+
+## Methods of solving linear systems
+
+The main methodology for solving linear systems is to convert the system into something which is "**Equivalent** but easier to solve", repeating until it is "easy enough to solve".
+
+> **Definition:** 2 systems are **equivalent** if they have the same solution set.
+
+A solution becomes "easy enough to solve" when it is a **strict triangular system**
+
+~~Example 1
+
+The following is a **strict triangular system**. Notice that the shape of the equations is roughly triangular.
+
+$$
+\begin{cases}
+\begin{aligned}
+  x_1 + 2x_2 - x_3 = 1 \\
+  x_2 + x_3 = 4 \\
+  3x_3 = 6
+\end{aligned}
+\end{cases}
+$$
+
+We can solve one equation because it has only one variable, and use that equation to make the next equation have only one variable, and so on, allowing us to find $(-1, 2,2)$ as the only solution.
+
+~~
+
+> **Definition:** Strict triangular system
+> For a $k^{th}$ equation, all first $k - 1$ coefficients are $0$, and the $k^{th}$ coefficient is not $0$.
+
+$$
+\begin{cases}
+\begin{aligned}
+  a_11x_1 + a_12x_2 + ... + a_1nx_n = b_1 \\
+  a_22x_2 + ... + a_2nx_n = b_2 \\
+  ... \\
+  a_mnx_n = b_m
+\end{aligned}
+\end{cases}
+$$
+
+### Main transformations
+
+1. Swapping 2 equations
+  - this does not affect the system, and thus they are equivalent
+2. Multiply by a non-zero number (on both sides)
+3. *Add or subtract (a multiple) of an equation to another equation*
+  - since this is adding something which is equivalent to both sides, it does not affect the equation
+  - this is the elimination method which you are likely familiar with from algebra
+
+~~Example 2
+
+$$
+\begin{cases}
+  x_1 + x_2 + x_3 = 4 \\
+  x_1 + 2x_2 - x_3 = 3 \\
+  2x_1 + x_2 - 3x_3 = 2
+\end{cases}
+$$
+
+To solve this, we will attempt to eliminate enough of the variables to create a triangular system. First, we can subtract the second equation from the first to eliminate $x_1$:
+
+$$
+  x_1 + 2x_2 - x_3 = 3 \\
+- x_1 + x_2 + x_3 = 4 \\
+= x2 - 2x_3 = -1
+$$
+
+And we can repeat with the third and 2 times the first to get:
+
+$$
+\begin{cases}
+  x_1 + x_2 + x_3 = 4 \\
+  x_2 - 2x_3 = -1 \\
+  - x_2 - 5x_3 = -6
+\end{cases}
+$$
+
+And again adding the second and third to get:
+
+$$
+\begin{cases}
+  x_1 + x_2 + x_3 = 4 \\
+  x_2 - 2x_3 = -1 \\
+  -7x_3 = -7
+\end{cases}
+$$
+
+Which is triangular and solvable.
+
+~~
+
+### Where are the matrices?
+
+If you look at the previous example, you may notice that we never change the variables ($x_n$) themselves, always working with the coefficients. So, kwhy not remove the variables, since we never use them anyway? For example, the **coefficient matrix** for the previous example is:
+
+$$
+\begin{bmatrix}
+  1 & 1 & 1 \\
+  1 & 2 & -1 \\
+  2 & 1 & -3
+\end{bmatrix}
+$$
+
+And adding in the $b$ values makes an **augmented matrix**:
+
+$$
+\left[
+\begin{array}{ccc|c}
+  1 & 1 & 1  & 4\\
+  1 & 2 & -1 & 3 \\
+  2 & 1 & -3 & 2
+\end{array}
+\right]
+$$
+
+From here we can simply apply the same transformations as before to get closer to a triangular version:
+
+$$
+\left[
+\begin{array}{ccc|c}
+  1 & 1 & 1  & 4\\
+  0 & 1 & -2 & 3 \\
+  0 & -1 & -5& -6
+\end{array}
+\right]
+$$
+
+And so forth.
+
+### Solving 2 (or more)
+
+If multiple systems have the same coefficient matrix, then we can represent them in the same problem, with two columns for the augmented matrix on the right side:
+
+~~Example 3
+
+$$
+\begin{cases}
+  x + y = 3 \\
+  2x - 3y = 4
+\end{cases}
+$$
+$$
+\begin{cases}
+  x + y = 5 \\
+  2x - 3y = 7
+\end{cases}
+$$
+
+Will be:
+
+$$
+\left[
+\begin{array}{cc|cc}
+  1 & 1 & 3 & 5 \\
+  2 & -3 & 4 & 7
+\end{array}
+\right]
+$$
+
+Then we can solve this as a single problem (subtracting twice the first from the second):
+
+$$
+\left[
+\begin{array}{cc|cc}
+1& 1 & 3 & 5 \\
+0& -5 & -2 & -3
+\end{array}
+\right]
+$$
+
+And once we reach this form, we can then recreate the equations and solve each system:
+
+$$
+\begin{cases}
+  x + y = 3 \\
+  -5y = -2
+\end{cases}
+$$
+$$
+\begin{cases}
+  x + y = 5 \\
+  -5y = -3
+\end{cases}
+$$
+
+~~
+
+Occasionally, solving this way will eliminate too many variables, which may cause the equations to be invalid. This means that the solution will have no solutions, whereas if the equation remains valid, it will have infinitely many solutions.
+
+~~Example 4
+
+$$
+\begin{cases}
+  x + 2y = 4 \\
+  3x + 6y = 12
+\end{cases}
+$$
+
+Solving this shows that all values of x and y which satisfy the first equation will solve the second.
+
+~~
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">

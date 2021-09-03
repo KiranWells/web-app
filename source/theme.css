@@ -105,6 +105,33 @@ main {
   padding: 2em;
 }
 
+/* h1:hover::before, */
+h2:hover::before,
+h3:hover::before,
+h4:hover::before,
+h5:hover::before,
+h6:hover::before 
+{
+  content: "COPY LINK";
+  text-align: center;
+  position: absolute;
+  transform: rotate(-90deg) translate(-2.5em, -3em);
+  font-size: 0.3em;
+  width: 1em;
+  height: 1em;
+}
+
+.notify {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  margin: 3em;
+  padding: 1em;
+  background-color: var(--bg, #3b4252);
+  border-left: .3em solid var(--ac, #5e81ac);
+  transition: 1s;
+}
+
 h1 {
   color: var(--h1, #d8dee9);
   width: 60%;

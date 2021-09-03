@@ -14,7 +14,7 @@ async function setCss() {
 
 window.onload = () =>
 {
-  setTimeout(setCss, 1);
+  setTimeout(setCss, 0);
   let text = document.body.innerHTML;
   // support for custom details element
   text = text.replace(/~~([^\n]+)\n(((?!~~).|\n)+)~~/mg, `
@@ -68,7 +68,7 @@ $2
     themeHTML.appendChild(div);
   }
   themeToggle.innerHTML = `
-  ⚙
+  Theme
   `;
   // temporary dark/light toggle
   // themeToggle.onclick = () => {
@@ -92,7 +92,8 @@ $2
     <a href="/index.html">Home</a>
     <a href="/Math251">Math 251</a>
     <a href="/Math308">Math 308</a>
-    <a href="/Phys206">Phys 206</a>
+    <a href="/Math311">Math 311</a>
+    <a href="/Phys206">Phys 206/7</a>
   </div>
   <div class="disclaimer">
     <p>If you see an error, please 
@@ -110,6 +111,21 @@ $2
   let hs = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
   for (let h of hs) {
     h.id = h.textContent.replace(/ /g, "-").toLowerCase();
+    // copy hash link to clipboard
+    h.onclick = () =>  {
+      let text;
+      try {
+        navigator.clipboard.writeText(window.location.origin + window.location.pathname + "#" + h.id);
+        text = "Copied link to clipboard!";
+      } catch {
+        text = "Failed to copy link :(";
+      }
+      const note = document.createElement('div');
+      note.classList.add("notify");
+      note.textContent = text;
+      document.body.appendChild(note);
+      setTimeout(() => { note.style.opacity = 0; setTimeout(() => document.body.removeChild(note), 1000) }, 1000);
+    }
   }
   document.body.firstChild.appendChild(footer);
 

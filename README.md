@@ -8,3 +8,20 @@ All files are created using Markdown and LaTex syntax, and rendered using [TeXMe
 <link rel="stylesheet" href="/source/theme.css">
 ```
 to the bottom.
+
+Note: a custom element for creating a details element is also available:
+
+```md
+~~some name
+Normal text or **markdown**
+~~
+```
+
+Will become:
+
+<details>
+  <summary>Click to show some name</summary>
+
+Normal text or **markdown**
+
+</details>
