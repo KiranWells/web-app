@@ -205,6 +205,8 @@ details {
 .links {
   margin: 1em;
   display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .links>a {
