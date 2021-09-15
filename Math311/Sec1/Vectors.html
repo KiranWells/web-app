@@ -1,0 +1,279 @@
+# Chapter 3 - Vector Spaces
+
+The next few weeks, we will be moving into more abstract concepts. First, we will deal with vector spaces, which are a collection of (mathematical) objects that behave similarly to vectors and matrices.
+
+## Vector Spaces
+
+~~motivating example
+
+> Definition: Euclidean space  
+> Denoted by $\mathbb{R}^n$
+> The Euclidean vector space $\mathbb{R}^n$ is the collection of all vectors
+> $x = \left(\begin{array}{c}x_1 \\ x_2 \\ ... \\ x_n \end{array}\right); x_i \in \mathbb{R}$
+
+### Vector addition:
+
+$$
+\left(\begin{array}{c}x_1 \\ x_2 \\ ... \\ x_n \end{array}\right) +
+\left(\begin{array}{c}y_1 \\ y_2 \\ ... \\ y_n \end{array}\right) =
+\left(\begin{array}{c}x_1 + y_1 \\ x_2 + y_2 \\ ... \\ x_n + y_n \end{array}\right)
+$$
+
+### Vector addition:
+
+$$
+\alpha
+\left(\begin{array}{c}x_1 \\ x_2 \\ ... \\ x_n \end{array}\right) +
+\left(\begin{array}{c}\alpha x_1\\ \alpha x_2 \\ ... \\ \alpha x_n \end{array}\right)
+$$
+
+These concepts can be further abstracted to create **vector spaces**.
+
+~~
+
+> Definition: (abstract) Vector Space  
+> let $V$ be a set equipped with 2 operations:
+> - addition: 
+> - scalar multiplication
+> Where, for any $x,y \in V$, $\alpha \in \mathbb{R}$, $x + y$ and $\alpha x$ are uniquely defined and $x + y, \alpha x \in V$.
+> 
+> Then $V$, together with the two operations, forms a vector space if 8 axioms are satisfied:
+> 1. $x + y = y + x$ (for any $x,y \in V$)
+> 2. $(x + y) + z = x + (y + z)$
+> 3. There exists a zero element $\bar 0$ or $\textbf{0}$ (not necissarily the number $0$), such that $x + \bar 0 = x$
+> 4. For any $x \in V$, there exists $-x$ such that $x + (-x) = \bar 0$
+> 5. $\alpha(x + y) = \alpha x + \alpha y, \alpha \in \mathbb{R}$
+> 6. $(\alpha + \beta)x = \alpha x + \beta x, \alpha, \beta \in \mathbb{R}$
+> 7. $(\alpha\beta)x = \alpha(\beta x)$
+> 8. $\\1(x) = x$ <!-- I have no idea why the \\ is necessary -->
+
+There are 4 main examples of vector space (at least for this course):
+
+1. vectors
+2. matrices
+3. polynomials
+4. continuous functions
+
+~~Non-example 1
+
+The following spaces are *not* vector space, as they violate one or more of the eight axioms.
+
+$\mathbb{R}$ with an unusual addition (normal scalar multiplication):
+
+- Addition: $x \oplus y = x^2 + y^2$
+- Scalar mult: $\cdot$
+
+**Claim: this is not a vector space.**
+
+It can be shown that axioms 1 and 2 are satisfied, but 3 is not:
+
+$$x \oplus \bar 0 = x^2 + \bar{0}^2 \ne x$$
+
+In addition, 4 is violated:
+
+$$x \oplus (-x) = x^2 + (-x)^2 = 2x^2 \ne \bar 0$$
+
+~~
+
+~~Non-example 2
+
+$\mathbb{R}$ with normal addition and unusual multiplication:
+
+- addition: $+$
+- multiplication: $\alpha \circ x = x^{\alpha}$
+
+**Claim: this is not a vector space.**
+
+Checking axiom 5:
+
+$$\alpha \circ (x + y) = (x + y)^{\alpha}$$
+$$\alpha \circ x + \alpha \circ y = x^{\alpha} + y^{\alpha}$$
+
+Checking axiom 6 also results in a violation.
+
+~~
+
+~~Example: Matrix
+
+Matrices can be defined as:
+
+$$\mathbb{R}^{m\times n}$$
+
+- Addition: $a_{ij} + b_{ij}$
+- Scalar multiplication: $\alpha a_{ij}$
+- Zero: $\bar 0 = \{0_{ij} = 0\}$
+
+Verifying the axioms:
+
+$$A + B = B + A$$
+$$(A + B) + C = A + (B + C)$$
+$$A + \bar 0 = A$$
+$$A + (-A) = \bar 0$$
+$$\alpha(A+B) = \alpha A + \alpha B$$
+$$(\alpha + \beta)A = \alpha A + \alpha B$$
+$$(\alpha\beta)A = \alpha(\beta A)$$
+$$1 (A) = A$$
+
+~~
+
+~~Example: Polynomials
+
+Polynomials can be defined as:
+
+$$P_n$$
+A set of polynomals of degree at most $n$.
+
+Let $p(x), q(x) \in P_n$
+
+- Addition: $(p + q)(x) = p(x) + q(x) \in P_n$
+- Scalar multiplication: $(\alpha p)(x) = \alpha p(x)\in P_n$
+- Zero: $\bar 0 = 0x^n + 0x^{n-1} + ... + 0x^0$
+
+~~
+
+~~Example: Continuous functions
+
+Continuous functions can be defined as:
+
+$$C[a,b]$$
+A set of continuous functions on [a,b].
+
+Let $f(x), g(x) \in C[a,b]$
+
+- Addition: $(f + g)(x) = f(x) + g(x)$
+- Scalar multiplication: $(\alpha f)(x) = \alpha f(x)$
+- Zero: $\bar 0 = \bar 0(x) = 0$
+
+~~
+
+### Properties of a vector space
+
+WIth any $x \in V$:
+
+1. $0 \cdot x = \bar 0$
+2. $x + y = \bar 0$, then $y = x$
+3. $(-1)x = -x$
+
+~~Proof 1
+
+Using axiom 8:
+$$x = 1 (x)$$
+$$x = (1+0) (x)$$
+Axiom 6
+$$x = 1x+0x$$
+Axiom 8:
+$$x = x + 0x$$
+$$x + (-x) = x + (-x) + 0x$$
+Axiom 4:
+$$\bar 0 = \bar 0 + x0$$
+Axiom 3:
+$$\bar 0 = x0$$
+
+~~
+
+~~Proof 2
+
+$$x + y = \bar 0$$
+$$(-x) + (x+y) = (-x) + \bar 0$$
+$$(-x + x) + y = -x$$
+$$\bar 0 + y = (-x)$$
+$$y = -x$$
+
+~~
+
+~~Proof 3
+
+$$\bar 0 = 0x$$
+$$\bar 0 = (1 + -1)x$$
+$$\bar 0 = 1x + (-1)x$$
+$$\bar 0 = x + (-1)x$$
+Using property 2: ($y = (-1)x$)
+$$(-1)x = (-x)$$
+
+~~
+
+## Subspaces
+
+> Definition: Vector Subspace  
+> Given a vector space $V$ and a subset $S$, $S\subset V$,
+> Then $S$ is a subspace of $V$ is it is **closed** under addition and scalar multiplication.
+
+> Definition: Closed under Addition/Scalar Mult  
+> if $x,y \in S$, then $x+y \in S$
+> if $x \in S$, $\alpha \in \mathbb{R}$, then $\alpha x \in S$
+
+Note that if $S$ is a subspace of $V$, the $\bar 0 \in S$, due to the fact that $x \in S$, $0x = \bar 0$, and $S$ is closed under multiplication. Also, for $V$, there are two trivial subspaces, $V$ and $\{\bar 0\}$. Other subspaces are called **proper subspaces**.
+
+~~an example of a subset
+
+$$V = \mathbb{R}^3 = \left\{\left(\begin{array}{c}x_1 \\ x_2 \\ x_3 \end{array}\right) ; x_i \in \mathbb{R} \right\}$$
+$$S = \left\{ \left(\begin{array}{c}x_1 \\ x_2 \\ x_3 \end{array}\right); x_1 = x_2 \right\}$$
+
+To prove that $S \subset V$, we need to check if it is closed under addition:
+
+$$
+\left(\begin{array}{c}x_1 \\ x_2 \\ x_3 \end{array}\right)+
+\left(\begin{array}{c}y_1 \\ y_2 \\ y_3 \end{array}\right)=
+\left(\begin{array}{c}y_1+x_1 \\ y_2+x_2 \\ y_3+x_3 \end{array}\right)
+$$
+
+This is still in $S$, because $x_1 = x_2, y_1 = y_2$.
+
+Next checking scalar multiplication:
+
+$$
+\alpha
+\left(\begin{array}{c}x_1 \\ x_2 \\ x_3 \end{array}\right)=
+\left(\begin{array}{c}\alpha x_1 \\ \alpha x_2 \\ y_3 \end{array}\right)
+$$
+
+This is still in $S$, as $\alpha = \alpha, x_1 = x_2$.
+
+~~
+
+~~a non-example of a subset
+
+Using the same $\mathbb{R}^3$ space as before:
+
+$$S = \left\{ \left(\begin{array}{c}x_1 \\ x_2 \\ x_3 \end{array}\right); x_1 + x_2 = 1 \right\}$$
+
+**Claim: $S$ is not a subset**
+
+First, we can show that it is not closed under addition:
+
+$$
+\left(\begin{array}{c}x_1 \\ x_2 \\ x_3 \end{array}\right)+
+\left(\begin{array}{c}y_1 \\ y_2 \\ y_3 \end{array}\right)=
+\left(\begin{array}{c}y_1+x_1 \\ y_2+x_2 \\ y_3+x_3 \end{array}\right)
+$$
+
+We know that $x_1 + x_2 = 1$, and $y_1 + y_2 = 1$
+
+$$(x_1 + y_1) + (x_2 + y_2) = (x_1 + x_2) + (y_1 + y_2) = 2 \ne 1$$
+
+This means that it is not in $S$, leaving it open under addition. This set also violated scalar multiplication.
+
+~~
+
+~~a final example
+
+$$S = \left\{ A \in \mathbb{R}^{n\times n}; A^{T} = A \right\}$$
+
+First, check if it is closed under addition:
+
+$$A,B \in S$$
+$$A^T = A, B^T = B$$
+$$(A + B)^T = A^T + B^T = A+B$$
+
+So $A + B \in S$.
+
+Next, scalar mult:
+
+$$(\alpha A)^T = \alpha A^T = \alpha A$$
+
+$$\alpha A \in S$$
+
+~~
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
