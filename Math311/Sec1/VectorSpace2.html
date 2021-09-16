@@ -1,0 +1,330 @@
+# Special categories of subspaces
+
+## Null Space of Matrices
+
+> Definition: Null Space  
+> Given an $m\times n$ matrix $\textbf{A}$, $N(\textbf{A})$ is 
+> the solution set of $\textbf{A}x = \bar 0$.
+> 
+> $$N(\textbf{A}) = \left\{ x \in \mathbb{R}^n | \textbf{A}x = \bar 0 \right\}$$
+> 
+> $N$ is a subspace of $\mathbb{R}^n$, called the **null space** of the matrix.
+
+~~a proof that null space is a subspace
+
+There are two things which need to be validated:
+
+1. Closed under addition:
+
+For $x, y \in N(A)$, meaning $Ax = \bar 0$ and $Ay = \bar 0$,
+
+$$A(x,y) = Ax + Ay = \bar 0 + \bar 0 = \bar 0$$
+
+So $x + y \in N(A)$.
+
+2. Closed under scalar multiplication
+
+For $x \in N(A)$, $\alpha \in \mathbb{R}$, meaning $Ax = \bar 0$,
+
+$$A(\alpha x) = \alpha (Ax) = \alpha \bar 0 = \bar 0$$
+
+So $\alpha x \in N(A)$.
+
+~~
+
+Null space can be found easily by solving the system
+
+$$Ax = \bar 0$$
+
+~~an example finding null space
+
+$$
+A = 
+\left[
+\begin{array}{cccc}
+1 & 1 & 2 & 3 \\
+2 & 1 & -1 & 0 \\
+\end{array}
+\right]
+$$
+
+Since $N(A)$ is defined by $Ax = \bar 0$, we need to solve that equation:
+
+$$
+\left[
+\begin{array}{cccc|c}
+1 & 1 & 2 & 3 & 0 \\
+2 & 1 & -1 & 0 & 0 \\
+\end{array}
+\right]
+$$
+
+Working to get a simplified form:
+
+$$
+\left[
+\begin{array}{cccc|c}
+1 & 1 & 2 & 3 & 0 \\
+0 & 1 & 5 & 6 & 0 \\
+\end{array}
+\right]
+$$
+
+Here the lead variables are $x_1$ and $x_2$, and the free variables are $x_3$ and $x_4$.
+
+Here we can solve for the variables (for example bu reduced RE form):
+
+$$
+\left[
+\begin{array}{cccc|c}
+1 & 0 & -3 & -3 & 0 \\
+0 & 1 & 5 & 6 & 0 \\
+\end{array}
+\right]
+$$
+
+So we get:
+
+$$
+\begin{cases}
+x_1 = 3a + 3b \\
+x_2 = -5a -6b \\
+x_3 = a \\
+x_4 = b
+\end{cases}
+(a, b \in \mathbb{R})
+$$
+
+And rearranging to define $N(A)$:
+
+$$
+N(A) = 
+\left\{
+\left(
+\begin{array}{c}
+3a+3b \\ -5a -6b \\ a \\ b
+\end{array}
+\right)
+| a, b \in \mathbb{R}
+\right\}
+$$
+
+Note that you can also separate out $a$ and $b$:
+
+$$
+N(A) = 
+a
+\left(
+\begin{array}{c}
+3 \\ -5 \\ 1 \\ 0
+\end{array}
+\right)
++
+b
+\left(
+\begin{array}{c}
+3 \\ -6 \\ 0 \\ 1
+\end{array}
+\right)
+$$
+
+We can also say that $N(A)$ is **spanned** by these vectors.
+
+~~
+
+## Span of Vectors
+
+> Definition: Span of Vectors  
+> If $V$ is a vector space, and $v_1, v_2, ... v_n \in V$, and $a_1v_1 + a_2v_2 + ... + a_nv_n$ where $a_n \in \mathbb{R}$ is a **linear combination** of the vectors.  
+> The set of all linear combinations of these vectors is the **span** of $v_1, v_2, ... v_n$
+
+~~proof that span is a subspace
+
+1. Addition
+
+Given $x,y \in V$, meaning $x = a_1v_1 + a_2v_2 ...$, $y = a_1v_1 + a_2v_2 ...$,
+
+$$x + y = (a_1 + b_1)v_1 + (a_2 + b_2)v_2 ...$$
+
+So $x+y \in V$
+
+2. Multiplication by a scalar
+
+Given $x \in V$, meaning $x = a_1v_1 + a_2v_2 ...$,
+
+$$\alpha x = \alpha(a_1)v_1 + \alpha(a_2)v_2 ...$$
+
+So $\alpha x \in V$
+
+~~
+
+> Definition: Spanning set  
+> Given $V$,  $v_1, ... v_n$ is *a* spanning set (there can be many) of $V$ if *any vector* $v \in V$ can be written as a linear combination of $v_1, ... v_n$.  
+> We also say these vectors **span** the space $V$
+
+To determine if a set is a spanning set, attempt to show that all vectors in that set can be represented as a linear combination of the spanning vectors.
+
+~~Example 1
+
+Claim 1: $\left\{ \left(\begin{array}{c}1 \\ 0\end{array}\right), \left(\begin{array}{c}0 \\ 1\end{array}\right) \right\}$ span $\mathbb{R}^2$
+
+Any vector $\left(\begin{array}{c}a \\ b\end{array}\right)$ can be written as:
+
+$$
+\left(\begin{array}{c}a \\ b\end{array}\right) = a
+\left(\begin{array}{c}1 \\ 0\end{array}\right) + b
+\left(\begin{array}{c}0 \\ 1\end{array}\right)
+$$
+
+Claim 2: $\left\{ \left(\begin{array}{c}1 \\ 0\end{array}\right), \left(\begin{array}{c}0 \\ 1\end{array}\right), \left(\begin{array}{c}1 \\ 2\end{array}\right) \right\}$ span $\mathbb{R}^2$
+
+Any vector $\left(\begin{array}{c}a \\ b\end{array}\right)$ can be written as:
+
+$$
+\left(\begin{array}{c}a \\ b\end{array}\right) = a
+\left(\begin{array}{c}1 \\ 0\end{array}\right) + b
+\left(\begin{array}{c}0 \\ 1\end{array}\right) + 0
+\left(\begin{array}{c}1 \\ 2\end{array}\right)
+$$
+
+~~
+
+If we have a spanning set $v_1, v_2 ... v_n$, then adding vectors will not change the fact that it is a spanning set. The extra vectors will simply be redundant. *This is not true if we remove vectors instead of adding them.*
+
+~~Example 2
+
+Is $\left\{ \left(\begin{array}{c}1 \\ 2\end{array}\right), \left(\begin{array}{c}3 \\ 6\end{array}\right) \right\}$ a spanning set of $\mathbb{R}^2$?
+
+Any vector $\left(\begin{array}{c}a \\ b\end{array}\right)$ written as:
+
+$$
+\left(\begin{array}{c}a \\ b\end{array}\right) = \alpha
+\left(\begin{array}{c}1 \\ 2\end{array}\right) + \beta
+\left(\begin{array}{c}3 \\ 6\end{array}\right)
+$$
+
+$$
+\left[\begin{array}{c}a \\ b\end{array}\right] =
+\left[\begin{array}{cc}1 & 3 \\ 2 & 6\end{array}\right]
+\left[\begin{array}{c}\alpha \\ \beta\end{array}\right]
+$$
+$$
+\left[\begin{array}{cc|c}
+1 & 3 & a \\ 
+2 & 6 & b
+\end{array}\right]
+$$
+
+And simplifying:
+
+$$
+\left[\begin{array}{cc|c}
+1 & 3 & a \\ 
+0 & 0 & b-2a
+\end{array}\right]
+$$
+
+This is only true for $b-2a = 0$, which means it is not true for all $a,b$, meaning $\left\{ \left(\begin{array}{c}1 \\ 2\end{array}\right), \left(\begin{array}{c}3 \\ 6\end{array}\right) \right\}$ is not a spanning set of $\mathbb{R}^2$
+
+~~
+
+## Minimum spanning sets
+
+Given some vector space $V$, what is the minimal spanning set of $V$?
+
+### Linear Dependence
+
+To find this, we need a definition for **linear independence** and **dependenece**:
+
+> Definition: Linear Dependence/Independence  
+> The set of vectors $v_1, v_2, ... v_n$ are **linearly dependent** if there are scalars $\alpha_1, \alpha_2,...$ which are not all zero such that $\alpha_1v_1 + \alpha_2v_2 ... = 0$  
+> The vectors are **linearly independent** if $\alpha_1v_1 + \alpha_2v_2 ... = 0$ requires all $\alpha_1, \alpha_2 ... = 0$
+
+To solve problems like this, we attempt to find the coefficients, and if they are all $0$, then the vectors are independent.
+
+~~Example 3
+
+Determine if the following are dependent or independent:
+
+$$
+\left(\begin{array}{c}1 \\ 2\end{array}\right),
+\left(\begin{array}{c}3 \\ -1\end{array}\right)
+$$
+
+To solve, we set the equation equal to 0:
+
+$$
+a\left(\begin{array}{c}1 \\ 2\end{array}\right) + 
+b\left(\begin{array}{c}3 \\ -1\end{array}\right) =
+\left(\begin{array}{c}0 \\ 0\end{array}\right)
+$$
+$$
+\left[\begin{array}{cc|c}
+1 & 3 & 0 \\ 
+2 & -1 & 0
+\end{array}\right]
+$$
+
+and simplifying:
+
+$$
+\left[\begin{array}{cc|c}
+1 & 3 & 0 \\ 
+0 & 1 & 0
+\end{array}\right]
+$$
+
+Here, both $a,b$ have to be $0$, so they are linearly independent.
+
+~~
+
+A shortcut for this is to see if there is some coefficient that can multply the other sets by to make them equal. Ex: $(1,2)$ and $(2,4)$ are dependent, as $2(1,2) - (2,4) = (0,0)$, or $2(1,2) = (2,4)$.
+
+~~Example 4
+
+Determine if the following are dependent or independent:
+
+$$
+(x^2 + 2, x^2 - 1, 1)
+$$
+
+To solve, we set the equation equal to 0:
+
+$$
+a(x^2 + 2) + 
+b(x^2 - 1) + c = 0(x^2 + 1)
+$$
+
+$$
+(a + b)x^2 + (2a - b + c) = 0x^2 + 0
+$$
+
+$$
+\begin{cases}
+a + b = 0 \\
+2a - b + c = 0 
+\end{cases}
+$$
+
+$$
+\left[\begin{array}{ccc|c}
+1 & 1 & 0 & 0 \\ 
+2 & -1 & 1 & 0
+\end{array}\right]
+$$
+
+and simplifying:
+
+$$
+\left[\begin{array}{ccc|c}
+1 & 1 & 0 & 0 \\ 
+0 & 1 & -\frac{1}{3} & 0
+\end{array}\right]
+$$
+
+And here we can show that there are infinitely many solutions, so the polynomials are linearly dependent.
+
+~~
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
