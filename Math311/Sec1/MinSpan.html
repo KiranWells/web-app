@@ -1,0 +1,229 @@
+# Vector Basis & Dimension
+
+## Independence and dependence (cont.)
+
+Remember that vectors are linearly dependent if (and only if) they can be combined with some set of scalars to result in $0$:
+
+$$\alpha_1v_1 + \alpha_2 v_2 + ... + \alpha_n v_n = 0$$
+
+> Theorem: Independence~non-singular ($det = 0$)  
+> Let $v_1, v_2, ... v_n \in \mathbb{R}^n$ and $A$ be the matrix where the columns are these vectors
+> Then:
+> 1. $v_1 ... v_n$ are independent if and only if $A$ is non-singular ($\iff det(A) \ne 0$)
+> 2. $v_1 ... v_n$ are dependent if and only if $A$ is singular ($\iff det(A) = 0$)
+
+~~Proof 1
+
+To check independence, we solve:
+
+$$\alpha_1v_1 + ... + \alpha_nv_n = \bar 0$$
+
+$$
+A
+\left[
+\begin{array}{c}
+\alpha_1 \\ ... \\ \alpha_n
+\end{array}  
+\right]
+= 
+\left[
+\begin{array}{c}
+0 \\ ... \\ 0
+\end{array}  
+\right]
+$$
+
+This is independent if there is exactly one solution ($det(A) \ne 0$)
+
+~~
+
+This means that we can use the determinant of the corresponding matrix to determine whether vectors are independent.
+
+### Properties of independence
+
+Given a set of independent vectors:
+
+1. If a vector is removed, are they all still independent?
+
+The vectors are independent, as if there was no relation to begin with, removing one will not introduce a relationship.
+
+2. If a vector is added, are they still independent?
+
+The vectors in this case may be independent or dependent, depending on whether the new vector is related to the previous ones.
+
+> Theorem: Independence $\iff$ Uniquely Spanned  
+> Let $v \in span\{v_1, ... v_n\}$ (meaning that $v$ is some linear combination of $v_1,...v_n$).
+> If the vectors are independent, there is only one linear combination for $v$
+
+~~Proof 2
+
+Given $v_1,...v_n$ are independent and $v$ can be written in 2 ways: proove that both ways must be identical.
+
+$v = a_1v_1 + ... a_nv_n$
+$v = b_1v_1 + ... b_nv_n$
+
+After subtracting, we get:
+
+$0 = (a_1-b_1)v_1 + ... + (a_n-b_n)v_n$
+
+Because the vectors are independent, the only solution to this is if all coefficients are $0$:
+
+$$
+\begin{cases}
+  a_1 - b_1 = 0 \\
+  ... \\
+  a_n - b_n = 0
+\end{cases}
+$$
+
+Therefore $a_n = b_n$ for all $n$. There is only one way to get a linear combination for $v$.
+
+~~
+
+This theorem leads into the next topic:
+
+## Basis
+
+> Definition: Basis
+> A spanning set which is also linearly independent. 
+> It is the optimal/minimal spanning set for a particular vector space.  
+> Vectors form a basis if:
+> 1. $v_1 ... v_n$ span $V$
+> 2. $v_1 ... v_n$ are independent
+
+It is often useful to ensure that a spanning set is minimal, or that it is the optimal set to span some vector space. To do this, we simply have to ensure that the vectors spanning the set are independent.
+
+~~Example 1
+
+Show $\left\{ \left(\begin{array}{c}1 \\ 0 \\ 0\end{array}\right), \left(\begin{array}{c}0 \\ 1 \\ 0\end{array}\right),\left(\begin{array}{c}0 \\ 0 \\ 1\end{array}\right) \right\}$ form a basis of $\mathbb{R}^3$.
+
+First, show that they span $\mathbb{R}^3$. Because there is a simple solution, this can be proved by siply demonstrating it:
+
+$$
+\left(\begin{array}{c}a \\ b \\ c\end{array}\right) =
+a\left(\begin{array}{c}1 \\ 0 \\ 0\end{array}\right) +
+b\left(\begin{array}{c}0 \\ 1 \\ 0\end{array}\right) +
+c\left(\begin{array}{c}0 \\ 0 \\ 1\end{array}\right)
+$$
+
+Second, we need to show the vectors are independent. So, we solve for $\bar 0$:
+
+$$
+\left(\begin{array}{c}0 \\ 0 \\ 0\end{array}\right) =
+a\left(\begin{array}{c}1 \\ 0 \\ 0\end{array}\right) +
+b\left(\begin{array}{c}0 \\ 1 \\ 0\end{array}\right) +
+c\left(\begin{array}{c}0 \\ 0 \\ 1\end{array}\right)
+$$
+
+Solving the system using matrices gives:
+
+$$
+\begin{cases}
+a = 0 \\ b = 0 \\ c = 0
+\end{cases}
+$$
+
+More simply, we can use the property from earlier and calculate the determinant.
+
+$$
+\left[
+\begin{array}{ccc}
+1 & 0 & 0 \\
+0 & 1 & 0 \\ 
+0 & 0 & 1
+\end{array}
+\right]
+$$
+
+Here the determinant is trivial, as the matrix is symmetrical, and the determinant is $1$. This proves independence, therefore it is a basis.
+~~
+
+~~Example 2
+
+Show $\left\{ \left[\begin{array}{cc}1 & 0 \\ 0 & 0\end{array}\right],\left[\begin{array}{cc}0 & 1 \\ 0 & 0\end{array}\right] ,\left[\begin{array}{cc}0 & 0 \\ 1 & 0\end{array}\right] ,\left[\begin{array}{cc}0 & 0 \\ 0 & 1\end{array}\right]  \right\}$ is a basis of $\mathbb{R}^{2\times 2}$
+
+1. That these are a spanning set is easy to prove, as the coefficients are the same as with the previous example:
+
+$$
+\left[\begin{array}{cc}a & b \\ c & d\end{array}\right] =
+a\left[\begin{array}{cc}1 & 0 \\ 0 & 0\end{array}\right]+ b\left[\begin{array}{cc}0 & 1 \\ 0 & 0\end{array}\right]+ c\left[\begin{array}{cc}0 & 0 \\ 1 & 0\end{array}\right]+ d\left[\begin{array}{cc}0 & 0 \\ 0 & 1\end{array}\right]
+$$
+
+2. Proving they are independent is a bit more complex, as we must solve the system:
+
+$$
+\left[\begin{array}{cc}0 & 0 \\ 0 & 0\end{array}\right] =
+a\left[\begin{array}{cc}1 & 0 \\ 0 & 0\end{array}\right]+ b\left[\begin{array}{cc}0 & 1 \\ 0 & 0\end{array}\right]+ c\left[\begin{array}{cc}0 & 0 \\ 1 & 0\end{array}\right]+ d\left[\begin{array}{cc}0 & 0 \\ 0 & 1\end{array}\right]
+$$
+$$
+\left[\begin{array}{cc}0 & 0 \\ 0 & 0\end{array}\right] =
+\left[\begin{array}{cc}a & 0 \\ 0 & 0\end{array}\right]+ \left[\begin{array}{cc}0 & b \\ 0 & 0\end{array}\right]+ \left[\begin{array}{cc}0 & 0 \\ c & 0\end{array}\right]+ \left[\begin{array}{cc}0 & 0 \\ 0 & d\end{array}\right]
+$$
+$$
+\left[\begin{array}{cc}0 & 0 \\ 0 & 0\end{array}\right] =
+\left[\begin{array}{cc}a & b \\ c & d\end{array}\right]
+$$
+
+So all variables must be $0$, and the set is independent.
+
+~~
+
+In general, given $\mathbb{R}^n$, the "standard basis" will be:
+
+$$
+\left\{
+\left(\begin{array}{c}1 \\ 0 \\ ... \\ 0\end{array}\right),
+\left(\begin{array}{c}0 \\ 1 \\ ... \\ 0\end{array}\right),
+\left(\begin{array}{c}\\ ... \\ \\ \\ \end{array}\right),
+\left(\begin{array}{c}0 \\ ... \\ 0 \\ 1\end{array}\right) 
+\right\}
+$$
+
+## Dimension
+
+> Theorem: Size of basis is unique  
+> If $\{v_1 ... v_n\}$ and $\{u_1 ... u_n\}$ are bases of $V$, then $n = m$
+
+> Definition: Dimension  
+> Let $V$ be a vector space. The dimension of $V$ is the number of vectors in the basis of $V$.
+
+In general, given $\mathbb{R}^n$, the "standard basis" will be:
+
+$$
+\left\{
+\left(\begin{array}{c}1 \\ 0 \\ ... \\ 0\end{array}\right),
+\left(\begin{array}{c}0 \\ 1 \\ ... \\ 0\end{array}\right),
+\left(\begin{array}{c}\\ ... \\ \\ \\ \end{array}\right),
+\left(\begin{array}{c}0 \\ ... \\ 0 \\ 1\end{array}\right) 
+\right\}
+$$
+
+And the dimension $\dim(\mathbb{R^n}) = n$.
+
+In general, given $\mathbb{R}^{m\times n}$, the dimension $\dim(\mathbb{R^{m\times n}}) = mn$.
+
+In general $\dim(P_n) = n + 1$.
+
+It is also possible that the dimension of a space is $\infty$. Therefore if $\dim(V)$ is finite, $V$ is finite dimensionsal, otherwise is is infinite dimensional.
+
+For example, $\dim(C[a,b]) = \infty$.
+
+> Theorem: 
+> Let $\dim(V) = n$
+> 1. If $v_1 ... v_n$ are independent, they form a basis
+> 2. If $v_1 ... v_n$ span $V$, they are a basis
+
+This means that if the number of dimensions in $V$ equals the number of vectors, then we only need to confim one of the two conditions to prove the vectors are a basis.
+
+~~Example 3
+
+Check if the following vectors form a basis of $\mathbb{R}^3$ given $\dim(\mathbb{R}^3) = 3$:
+
+$$\left\{ \left(\begin{array}{c}1 \\ 2 \\ 3\end{array}\right), \left(\begin{array}{c}2 \\ -1 \\ 0\end{array}\right),\left(\begin{array}{c}0 \\ 3 \\ 1\end{array}\right) \right\}$$
+
+Calculating the determinant of the corresponding matrix proves that these are independent, so these are a spanning set.
+
+~~
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
