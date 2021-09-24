@@ -484,7 +484,7 @@ The technique here is **cofactor expansion**,
 
 > Definition: Cofactor  
 > If $\textbf{A} = a_{ij}$ for $n\times n$, for each entry $a_{ij}$, let M_{ij} be the $(n - 1) \times (n - 1)$ matrix obtained by removing the $i^{th}$ row and $j^{th}$ column.
->
+> 
 > $det(\textbf{M}_{ij})$ is called the minor determinant of $a_{ij}$. 
 > The **cofactor** of $a_{ij}$ is $\textbf{A}_{ij} = (-1)^{i +j} det(\textbf{M}_{ij})$
 
@@ -492,7 +492,7 @@ The technique here is **cofactor expansion**,
 > Along any $i^{th}$ row, we can perform cof exp to compute the determinant:
 > $\textbf{A} = \left[\begin{array}{ccc}&...\\a_i1 & ... & a_in \\ & ...\end{array}\right]$  
 > $det(\textbf{A}) = a_{i1}\textbf{A}_{i1} + a_{i1}\textbf{A}_{i2} + ... + a_{in}\textbf{A}_{in}$
->
+> 
 > This can be done similarly for any column, multiplying the cofactor of each value in the row with that value.
 
 Note that this computation only needs to be done for one row or column, and that choosing a good row or column can decrease the umber of computations necessary.
@@ -731,7 +731,7 @@ Again, remember that the order of matrix operation matters:
 
 $$\textbf{AB} \ne \textbf{BA}$$
 
-### Rules for multiplication:
+### Rules for addition or multiplication:
 
 Note: bold face is not used for (my) convience.
 

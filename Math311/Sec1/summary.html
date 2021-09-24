@@ -1,0 +1,211 @@
+# Summary - Section 1
+
+## Material covered
+
+- 1.1-1.5 (only a portion of 1.5)
+- 2.1-2.2
+- 3.1-3.6
+
+## [Linear Systems](./Sys_eqns.html)
+
+Systems of linear equations can be solved through elimination, which is normally done by converting to a augmented matrix and then using three elementary operations which do not change the system itself:
+
+1. Changing the order of rows
+2. Multiplying a row by a scalar
+3. Adding a scalar multiple of one row to another
+
+The goal of these operations is to reach a **strict triangular matrix**, which allows for an equation to be easily solved through back substitution. Often, we will want to go further, reaching Row-Echelon form or Recuced-RE form:
+
+1. [Strict-triangular Form](./Sys_eqns.html#methods-of-solving-linear-systems)
+
+$$
+\left[
+\begin{array}{cccc|c}
+a & b & c & d & x \\
+0 & e & f & g & y \\
+0 & 0 & h & i & z 
+\end{array}
+\right]
+$$
+
+2. [Row-Echelon Form](./RE.html#row-echelon-form):
+
+$$
+\left[
+\begin{array}{cccc|c}
+1 & b & c & d & x \\
+0 & 1 & f & g & y \\
+0 & 0 & 0 & 1 & z 
+\end{array}
+\right]
+$$
+2. [Reduced Row-Echelon Form](./RE.html#reduced-re-form):
+
+$$
+\left[
+\begin{array}{cccc|c}
+1 & 0 & c & 0 & x \\
+0 & 1 & f & 0 & y \\
+0 & 0 & 0 & 1 & z 
+\end{array}
+\right]
+$$
+
+Here, the columns with the first non-zero coefficients are **lead variables**, which will be solved for, and the others are **free variables**, which can be any arbitrary constant.
+
+## [Matrices](./Matrices.html)
+
+Matrices are numbers arranged in a grid, generally notated as:
+
+$$
+\textbf{A}_{n\times m} = (a_ij) = 
+\left[
+\begin{array}{cccc}
+a_11 & a_12 & ... & a_1n \\
+a_21 & a_22 & ... & a_2n \\
+& ... & ... \\
+a_m1 & a_m2 & ... & a_mn 
+\end{array}
+\right]
+$$
+
+### [Operations](./Matrices.html#matrix-operations)
+
+In the following, $a_{ij}, b_{ij}$ mean each of the corresponding elements in matrices $\textbf{A}, \textbf{B}$. (Resulting in matrix $\textbf{C}$)
+
+- [Addition/Subtraction](./Matrices.html#addition/subtraction): $\textbf{A}+\textbf{B} = a_{ij} \pm b_{ij}$
+- [Scalar multiplication](./Matrices.html#scalar-multiplication): $\alpha \textbf{A} = \alpha a_{ij}$
+- [Multiplication](./Matrices.html#matrix-multiplication): $\textbf{A}*\textbf{B} =$
+  - for each item, do the dot product of B's columns and A's rows.
+  - power notation ($\textbf{A}^3$) just multiplies the matrix multiple times. Only valid on $n \times n$ matrices
+- [Transpose](./Matrices.html#transpose): $\textbf{A}^T = a_ji$
+- [Inverse](./Matrices.html#inverse): set up the augmented matrix $[\textbf{A}|\textbf{I}]$, and transform it into: $[\textbf{I}|\textbf{A}^{-1}]$
+  - **singular**: does not have an inverse
+- [Determinant](./Matrices.html#determinant): The determinant is found by taking a row or column, and for each element multiply by the determinant of the matrix made by removing the row and column of that element, along with $-1^{i+j}$.
+  - if there is a row or column of all zeros, the determinant is $0$
+  - if the matrix is triangular, the determinant is the product of the diagonal
+
+### [Rules](./Matrices.html#algebraic-rules-for-matrices)
+
+- addition is associative and commutative
+- multiplication is ***NOT*** commutative, but is associative and distributive
+- inverse
+  1. $(AB)^{-1} = B^{-1}A^{-1}$
+  2. $(ABC)^{-1} = C^{-1}B^{-1}A^{-1}$
+  3. $(A^T)^{-1} = (A^{-1})^T$
+- determinant
+  - $det(AB) = det(A)det(B)$
+  - $det(A+B) \ne det(A) + det(B)$
+  - $det(I) = 1$
+  - $det(A^{-1}) = \frac{a}{det(A)}$
+  - $det(\alpha A) = \alpha^n det(A)$
+  - $det(A^T) = det(A)$
+
+## [Vector Spaces](./Vectors.html#vector-spaces)
+
+Vector space is defined as an abstract set of numbers, with a definition for addition and multiplication by a scalar, that satisfies 8 main axioms:
+
+### Properties
+
+#### Addition
+1. $x + y = y + x$ (commutative)
+2. $(x + y) + z = x + ( y + z)$ (associative)
+3. $x + \bar 0 = x$ (identity)
+4. $x + (-x) = \bar 0$ (inverse)
+#### Scalar Multiplication
+5. $a(x + y) = ax + ay$ (distributive)
+6. $(a + b)x = ax + bx$ (reverse distributive)
+7. $a(bx) = (ab)x$ (associative)
+8. $1 \cdot x = x$ (identity)
+
+There are four main examples: Vectors, Matrices, Polynomials, and Continuous functions
+
+### Linear Independence
+
+Vectors are defined as linearly independent if there is no non-zero group of constant coefficients that will make the sum of the vectors equal zero:
+
+$$a_1v_1 + a_2v_2 + ... + a_nv_n = \bar 0$$
+
+One of the ways to determine independence is to test if the determinant made by the vectors is not zero. If the determinant is zero, the vectors are *dependent*.
+
+$$If\ |V| = 0, V = [v_1\ v_2 ... v_n],\ then\ \{v_1 ... v_n\}\ are\ dependent$$
+
+### [Subspace](./Vectors.html#subspaces)
+
+Subspaces are a subset of a vector space, which is closed under addition and scalar multiplication. Closed means that the result of either of these operations will still be inside the subspace.
+
+#### [Null Space](./VectorSpace2.html#null-space-of-matrices)
+
+Null space for $A$ ($N(A)$) is defined as all of the $x$s where:
+
+$$Ax = \bar 0$$
+
+### [Spanning Sets](./VectorSpace2.html#span-of-vectors)
+
+A group of vectors is a spanning set of a vector space $V$ if every vector in that space can be represented by the group. Mathematically:
+
+$$\{v_1 ... v_n\}\ spans\ V$$
+$$if$$
+$$v = a_1v_1 + a_2v_2 ... a_nv_n, v \in V$$
+
+#### [Basis](./VectorSpace2.html#minimum-spanning-sets)
+
+$v_1 ... v_n$ form a **basis** of $V$ if they span $V$ and they are linearly independent. The number of vectors in a basis is the same for all bases of a space $V$, and that number is called the **dimension**. E.x. $\dim(\mathbb{R^n}) = n$.
+
+#### [Change of Basis](./Basis2.html#change-of-basis)
+
+If you are using a basis other than the standard one, the transformation can be represented by:
+
+$$
+\left(
+\begin{array}{c}
+e_1 \\ e_2
+\end{array}
+\right)
+=
+\textbf{U}
+\left(
+\begin{array}{c}
+x_1 \\ x_2
+\end{array}
+\right)
+$$
+
+Where $U$ is the matrix made by the basis $u_1 ... u_n$, $(e_1, e_2)^T$ are the standard coordinates, and $(x_1, x_2)^T$ are the coordinates relative to $u_1 ... u_n$. Switching basis is therefore done in three ways:
+
+1. From $\vec u$ to $\vec e$:
+
+$$\vec e = U\vec u$$
+
+2. From $\vec e$ to $\vec u$:
+
+$$\vec u = U^{-1}\vec e$$
+
+3. From $\vec v$ to $\vec u$:
+
+$$\vec u = VU^{-1}\vec v$$
+
+### [Row space, Column space, and null space](./Basis2.html#row,-column,-and-null-spaces)
+
+Given $A$, first convert it to RE form.
+- The non-zero rows of RE form form a basis of $A$
+  - The dimension is the number of lead variables
+- The columns in A which are lead variables form the basis of the column space
+  - the dimension is also the number of lead variables
+- The basis of the null space can be found by using the RE form to solve $Ax = \bar 0$
+  - The dimension of $N(A)$ is the number of *free* variables
+
+The rank of $A$ is the dimension of the row or column space:
+
+$$Rank(A) = \dim(row\ space(A)) + \dim(col\ space(A))$$
+
+The nullity of $A$ is the dimension of the null space:
+
+$$Nullity(A) = \dim(N(A))$$
+
+#### Sum of Rank-Nullity Theorem
+
+This states that the rank of $A$ plus the nullity of $A$ ($\dim(N(A))$) is the same as the number of columns.
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
