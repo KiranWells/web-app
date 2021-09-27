@@ -24,6 +24,8 @@ Any vector can be written in coordinates as a linear combination of $e_1, e_2$. 
 
 If we change the basis, the coordinates of the vector will change. To change basis from $(e_1, e_2)$ (the standard basis) to $(u_1, u_2)$ (the new basis), we multiply the original coordinates by the inverse of $U = [u_1\ u_2]$
 
+$$v_{other\ basis} = U^{-1}v_{standard}$$
+
 ~~an example changing from standard to new
 
 $\left\{ \left(\begin{array}{c}1 \\ 0 \end{array}\right), \left(\begin{array}{c}1 \\ 1 \end{array}\right) \right\}$ form a basis of $\mathbb{R}^2$. Find coordinates of $\left(\begin{array}{c}2 \\ 7 \end{array}\right)$ relative to these vectors $u_1, u_2$.
@@ -55,6 +57,8 @@ $$
 ~~
 
 If we start from $(v_1, v_2)$ (any basis) to $(e_1, e_2)$ (the standard basis), the coordinates in the standard basis will be the original coordinates multiplied by the matrix $V = [v_1\ v_2]$.
+
+$$v_{standard} = Vv_{other\ basis}$$
 
 ~~an example from any basis to standard
 
@@ -88,8 +92,8 @@ $$v_{new} = U^{-1}Vv_{old}$$
 
 > Theorem:  
 > Given a basis $v_1 ... v_n$ in $\mathbb{R}^n$, a vector $v$ has coordinates $a_1 ... a_n$ relative to $v_1 ... v_n$. 
-> With a new basis $u_1 ... u_n$, the coordinates of $v$ can be computed as;
-> $$U^{-1}V\left(\begin{array}{c}a_1 \\ ... \\ a_n \end{array}\right)$$
+> With a new basis $u_1 ... u_n$, the coordinates of $v$ can be computed as:  
+> $$U^{-1}V\left(\begin{array}{c}a_1 \\ ... \\ a_n \end{array}\right)$$  
 > Where $U = [u_1 ... u_n]$ and $V = [v_1 ... v_n]$
 
 ~~an example for the general case
@@ -298,9 +302,9 @@ So the basis of the null space is $\left(\begin{array}{c}-13 \\  -5 \\ 1\end{arr
 
 > Theorem: Rank-Nullity
 > Given an $m \times n$ matrix $A$:
-> $$Rank(A) = \dim(row\ space(A)) = \dim(col\ space(A)) = # lead\ variables$$
-> $$Nullity(A) = \dim(N(A)) = # free\ variables$$
-> $$Rank(A) + Nullity(A) = # variables = n$$
+> - $$Rank(A) = \dim(row\ space(A)) = \dim(col\ space(A)) = \# lead\ variables$$
+> - $$Nullity(A) = \dim(N(A)) = \# free\ variables$$
+> - $$Rank(A) + Nullity(A) = \# variables = n$$
 
 ~~Example 2
 
