@@ -1,0 +1,233 @@
+# Practice Problems
+
+What follows is a summarization and paraphrasing of Dr. Nguyen's review lecture. For a more detailed summary, see [this page](summary.html).
+
+## First, a brief summary
+
+It is recommended to review the HW problems, as well as lecture notes (specifically examples and notes) and any practice problems available in the online classroom.
+
+## Chapter 1 - Linear Systems and Matrices
+
+The majority of computation in problems relies on using the three basic operations to trasform the matix to RE form, where lead and free vairables can be identified, and then reduce it more to reduced RE form or solve through bask substitution.
+
+The matrix operations were also defined, including $\pm$, scalar mult, matrix mult, and transpose. There were also many algrbra rules introduced for matrices, but most notably that $AB \ne BA$. Finally, matrix inverse, and the form of solving it through an augmented matrix ($[A|I] \to [I|A^{-1}]$). Non-singular matrices will have an inverse, meaning $Ax=b$ has a unique solution $x = A^{-1}b$ (note the order of mult here).
+
+## Chapter 2 - Determinant
+
+Here, the method to compute the determinant was shown, where we expand on one row or one column. Determinant properties were mentioned, for example the easy matrices for determinants and the effects of elementary operations, as well as algebraic rules for it.
+
+The most important rule is that $det(A) \ne 0$ if the matrix $A$ is non-singular.
+
+## Chapter 3 - Vector Spaces
+
+Here we get into a more abstract setting.
+
+First, we defined a vector space: it has addition and scalar multiplication, and they satisfy 8 axioms. You will need to know how to prove/disprove if a space is a vector space. In addition, subspaces were defined: they are a subset of a vector space which is closed under addition and scalar multiplication.
+
+Linear independence was also introduced, defined as when a linear combination of the vectors cannot be 0 unless all coefficients are 0. A way to test this was shown where if the determinant is non-zero, the vectors are independent.
+
+Basis was defined as a spanning set which is independent, and dimension as the number of vectors in a basis. Three different situations for changing basis were introduced, where a transition matrix transforms vectors from one space to another.
+
+Row, column, and null spaces were introduced, where the $Rank(A)$ is the dimension of the row or column space, or the number of lead variables, and $Nullity(A)$ is the number of free variables or the dimension of the null space. The $Rank + Nullity =$ the number of variables (columns in the matrix).
+
+> Note: to disprove something, you can simply use a counter-example.
+
+## Practice Problems/Examples
+
+### True of False
+
+> Note: true or false will not require an explanation; the other questions will (they should ask you to explain or give reasoning).
+
+1. If $Ax = b$ has 2 solutions, there are $\infty$ solutions.
+
+~~Solution 1
+
+True.
+
+There are only three possibilities for this solution: 
+
+- 0 solutions: there is a row of zeros equal to non-zero
+- 1 solution: triangular form
+- $\infty$ solutions: a row of all zeros
+
+In the case where there are 2 solutions, there must be $\infty$
+
+~~
+
+2. $det(A^TA) = (det(A))^2$
+
+~~Solution 2
+
+True
+
+$$det(A^TA) det(A^t)det(A) = det(A)det(A) = (det(A))^2$$
+
+~~
+
+3. $\mathbb{R}^+: \{x \in \mathbb{R}, x > 0\}$ is a subspace
+
+~~Solution 3
+
+False
+
+This is not closed under scalar multiplication, as you can simply multiply by $-1$.
+
+~~
+
+4. Given $\{v_1 ... v_7\}$ is independent, $\{v_1 ... v_8\}$ is independent.
+
+~~Solution 4
+
+False, as the vector could cause dependence
+
+~~
+
+5. Given $\{v_1 ... v_7\}$ is independent, $\{v_1 ... v_8\}$ is dependent.
+
+~~Solution 4
+
+False, as the vector may not cause dependence
+
+~~
+
+6. If $v_1, v_2, v_3$ are dependent, they can span $\mathbb{R}^3$
+
+~~Solution 6
+
+False. Since the number of vectors matches the dimension of the space, then only one condition of being a basis is necessary to prove they are a basis. Since these would be a basis if they spanned, which would require independence, they cannot span $\mathbb{R}^3$
+
+6.5: If $v_1, v_2, v_3$ are independent, they span $\mathbb{R}^3$
+
+True. Since the number of vectors matches the dimension of the space, then only one condition of being a basis is necessary to prove they are a basis. Since these are a basis, they span $\mathbb{R}^3$
+
+~~
+
+7. If $v_1, v_2, v_3$ are dependent, they can span $\mathbb{R}^2$
+
+~~Solution 7
+
+True. 
+
+If there are 2 independent vectors in this set, they will be a basis of $\mathbb{R}^2$, and this set will span it. Otherwise they will not.
+
+~~
+
+### Short Proofs
+
+#### Proof 1
+
+Is $\mathbb{R}^2$, with addition $\oplus$ and normal scalar multiplication a vetor space?
+
+$$(x_1, x_2) \oplus (y_1, y_2) = (0, x_2 + y_2)$$
+
+~~Solution to Proof 1
+
+No, it is not.
+
+To determine if this is a vector space, you simply need to check the 8 axioms. Since the addition is what is changed, let's start with the first 4 axioms (the rest should hold true, as it is normal scalar multiplication).
+
+In this case, the likely culprit will be the identity axiom: $x + 0 = x$. A short test gives a proof by counterexample:
+
+(Note the use of an unknown $\bar 0 = (0_1, 0_2)$. $\bar 0$ is not given.)
+
+$$(x_1, x_2) + (0_1,0_2) = (0, x_2 + 0_2) \ne (x_1, x_2)$$
+
+Because $0 \ne x_1$.
+
+The other axioms may still hold true:
+
+$$(x_1, x_2) + (y_1, y_2) = (0, x_2 + y_2)$$
+$$(y_1, y_2) + (x_1, x_2) = (0, y_2 + x_2)$$
+
+This is valid. $x + y = y + x$.
+
+The second axiom almost always holds true, so it is recommended to leav that till last.
+
+The third and fourth are the most easily broken, and the above counterexample shows this is true for this example.
+
+You will not need to check all 8 axioms if one is proven false.
+
+~~
+
+#### Proof 2
+
+$$B = \{(x_1, x_2, x_3) \in \mathbb{R}^3: 2x_1 = x_2 + x_3 \}$$
+
+Is $B$ a subspace of $\mathbb{R}^3$
+
+Note that there is normal addition and subtraction if they are not mentioned.
+
+~~Solution to Proof 2
+
+Yes, it is.
+
+To prove this, we need to show that the subspace is closed under addition and scalar multiplication.
+
+$$(x_1, x_2, x_3) + (y_1, y_2, y_3) = (x_1 + y_1, x_2 + y_2, x_3 + y_3)$$
+$$2(x_1 + y_1) = x_2 + y_2 + x_3 + y_3$$
+$$2x_1 + 2y_1 = x_2 + x_3 + y_2 + y_3$$
+$$2x_1 = x_2 + x_3$$
+$$2y_1 = y_2 + y_3$$
+
+This is true.
+
+$$\alpha (x_1, x_2, x_3) = (\alpha x_1, \alpha x_2, \alpha x_3)$$
+$$2\alpha x_1 = \alpha x_2 + \alpha x_3$$
+$$2x_1 = x_2 + x_3$$
+
+This is also true.
+
+Therefore, this is a subspace.
+
+~~
+
+#### Proof 3
+
+$$D = \{(x_1, x_2, x_3): x_1x_2 = 0\}$$
+
+If $D$ a subspace?
+
+~~Solution to Proof 3
+
+No, it is not.
+
+There are two methods for this:
+
+Method 1: Check if it is closed under addition
+
+$$(x_1, x_2, x_3) + (y_1, y_2, y_3) = (x_1 + y_1, x_2 + y_2, x_3 + y_3)$$
+
+$$(x_1 + y_1)(x_2 + y_2) \stackrel{?}{=} 0$$
+$$x_1x_2 + y_1x_2 + y_1y_2 + x_1y_2 \stackrel{?}{=} 0$$
+$$y_1x_2 + x_1y_2 \ne 0$$
+
+Method 2: Find a counter-example
+
+With this set, either $x_1 = 0$ or $x_2 = 0$. The most likely time for it to fail addition is when the first vector has $x_1 = 0$ and the second has $x_2 = 0$.
+
+$$(1,0,0) + (0,1,0) = (1,1,0)$$
+
+Here, the resulting vector does not satisfy $x_1x_2 = 0$, so $D$ is not closed under addition.
+
+~~
+
+### Normal Problems
+
+#### Problem 1
+
+$A$ is $6\times 7$, with $Rank(A) = 5$.
+
+How many solutions does the system $Ax = b$ have?
+
+~~Solution to Problem 1
+
+Remember there are three possibilities: $0, 1, \infty$.
+
+Rank is the number of lead variables, so when reduced to RE form, there are 5 non-zero rows. There are 6 in the matrix, so there is one 0 row. If the last element of $b$ in RE form is not 0, there is no solution, as the last row is inconsistent. 
+
+Additionally, there are 7 columns, and therefore 7 variables. Since $Rank + Nullity = Columns$, There will be 2 dimensions in the Null space and therefore 2 free variables. So if the last element is 0, there are an infinite number of solutions, as there will be at least one free variable in the solution.
+
+~~
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
