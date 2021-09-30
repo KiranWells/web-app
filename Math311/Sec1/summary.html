@@ -173,19 +173,23 @@ x_1 \\ x_2
 \right)
 $$
 
-Where $U$ is the matrix made by the basis $u_1 ... u_n$, $(e_1, e_2)^T$ are the standard coordinates, and $(x_1, x_2)^T$ are the coordinates relative to $u_1 ... u_n$. Switching basis is therefore done in three ways:
+Where $U$ is the matrix made by the basis $u_1 ... u_n$, $\vec e = (e_1, e_2)^T$ are the standard coordinates, and $\vec x_u = (x_1, x_2)^T$ are the coordinates relative to $u_1 ... u_n$. Switching basis is therefore done in three ways:
 
-1. From $\vec u$ to $\vec e$:
+1. From $\vec x_u$ to $\vec e$:
 
-$$\vec e = U\vec u$$
+$$\vec e = U\vec x_u$$
 
-2. From $\vec e$ to $\vec u$:
+2. From $\vec e$ to $\vec x_u$:
 
-$$\vec u = U^{-1}\vec e$$
+$$\vec x_u = U^{-1}\vec e$$
 
-3. From $\vec v$ to $\vec u$:
+3. From $\vec x_v$ to $\vec x_u$:
 
-$$\vec u = VU^{-1}\vec v$$
+$$\vec x_u = U^{-1}V\vec x_v$$
+
+Where $V$ is the matrix formed by the basis $v_1 ... v_n$: $[v_1 ... v_n]$. Note that this is the same as transforming from $x_v$ to $e$, then from $e$ to $x_u$:
+
+$$\vec x_u = U^{-1}\vec e = U^{-1}(V\vec x_v)$$
 
 ### [Row space, Column space, and null space](./Basis2.html#row,-column,-and-null-spaces)
 
