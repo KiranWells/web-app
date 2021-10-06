@@ -61,10 +61,10 @@ $$
 \textbf{A}_{n\times m} = (a_ij) = 
 \left[
 \begin{array}{cccc}
-a_11 & a_12 & ... & a_1n \\
-a_21 & a_22 & ... & a_2n \\
+a_{11} & a_{12} & ... & a_{1n} \\
+a_{21} & a_{22} & ... & a_{2n} \\
 & ... & ... \\
-a_m1 & a_m2 & ... & a_mn 
+a_{m1} & a_{m2} & ... & a_{mn} 
 \end{array}
 \right]
 $$
@@ -78,7 +78,7 @@ In the following, $a_{ij}, b_{ij}$ mean each of the corresponding elements in ma
 - [Multiplication](./Matrices.html#matrix-multiplication): $\textbf{A}*\textbf{B} =$
   - for each item, do the dot product of B's columns and A's rows.
   - power notation ($\textbf{A}^3$) just multiplies the matrix multiple times. Only valid on $n \times n$ matrices
-- [Transpose](./Matrices.html#transpose): $\textbf{A}^T = a_ji$
+- [Transpose](./Matrices.html#transpose): $\textbf{A}^T = a_{ji}$
 - [Inverse](./Matrices.html#inverse): set up the augmented matrix $[\textbf{A}|\textbf{I}]$, and transform it into: $[\textbf{I}|\textbf{A}^{-1}]$
   - **singular**: does not have an inverse
 - [Determinant](./Matrices.html#determinant): The determinant is found by taking a row or column, and for each element multiply by the determinant of the matrix made by removing the row and column of that element, along with $-1^{i+j}$.

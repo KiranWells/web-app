@@ -1,0 +1,256 @@
+# Linear Transformations
+
+## Introduction
+
+For some context for transformations, remember that you can consider functions as transformations from one set of numbers to another. The same can be said for matrix multiplication: it transforms one set of numbers into another.
+
+The important thing about matrix multiplication is that any linear transformation (See definition below) can be represented as a matrix multiplication.
+
+## Defining Linear Transformtions
+
+> Definition: Linear Transformation  
+> A mapping $L$ from a vector space $V$ into a vector space $W$ is a **linear transformation** if:
+> $$L(\alpha x + \beta y) = \alpha L(x) + \beta L(y)$$
+> Where $\alpha, \beta$ are real scalar values and $x, y \in V$
+
+> Definition: Linear Operator  
+> If $L: V \to V$ is a linear transformation from $V$ to itself, 
+> $L$ is also called a **linear operator**.
+
+We can also check if $L$ is a linear transformation by testing two properties:
+
+1. $L(x + y) = L(x) + L(y)$
+2. $L(\alpha x) = \alpha L(x)$
+
+These can be thought of as similar to testing subspaces, where we test it being closed under addition and scalar multiplication.
+
+~~ Example 1
+
+Given $x = \left(\begin{array}{c} x_1\\x_2 \end{array}\right) \in \mathbb{R}^2$ and $L(x) = x_1 + x_2$, check if $L$ is a linear transformation.
+
+1. Addition:
+$$L(x + y) = x_1 + y_1 + x_2 + y_2$$
+$$L(x) + L(y) = x_1 + x_2 + y_1 + y_2$$
+
+This is true, as these are equal.
+
+2. Scalar multiplication
+
+$$L(\alpha x) = \alpha x_1 + \alpha x_2$$
+$$\alpha L(x) = \alpha (x_1 + x_2) = \alpha x_2 + \alpha x_2$$
+
+This is also true, and therefore $L$ is a linear transformation.
+
+~~
+
+~~ Example 2: a non-example
+
+Given $x = \left(\begin{array}{c} x_1\\x_2 \end{array}\right) \in \mathbb{R}^2$ and $L(x) = \left(\begin{array}{c} x_1x_2 \\ x_1 \end{array}\right)$, check if $L$ is a linear transformation.
+
+Note here that $L$ is a transformation: $\mathbb{R}^2 \to \mathbb{R}^2$. This does not necessarily mean it is non-linear, but the multiplication in the top element likely means it is.
+
+1. Addition:
+
+$$
+L(x + y) = 
+\left(\begin{array}{c} (x_1 + y_1)(x_2 + y_2) \\ x_1 + y_1 \end{array}\right) =
+\left(\begin{array}{c} x_1x_2 + y_1x_2 + x_1y_2 + y_1y_2) \\ x_1 + y_1 \end{array}\right)
+$$
+$$
+L(x) + L(y) = 
+\left(\begin{array}{c} x_1x_2 \\ x_1 \end{array}\right) +
+\left(\begin{array}{c} y_1y_2 \\ y_1 \end{array}\right)
+$$
+
+This is false, as these are not equal. Therefore, $L$ is not a linear transformation.
+
+We also could have used a counter-example to show this is false.
+
+~~
+
+~~ Example 3
+
+Note: this transformation represents a reflection
+
+Given $x = \left(\begin{array}{c} x_1\\x_2 \end{array}\right) \in \mathbb{R}^2$ and $L(x) = \left(\begin{array}{c} x_1 \\ -x_2 \end{array}\right)$, check if $L$ is a linear transformation.
+
+To see how this is a reflection, try imagining the movement of a point $x$ as it is transformed. It would flip over the x-axis, reflecting the point over that axis.
+
+Let's check this through the definition:
+
+$$
+L(\alpha x + \beta y) = 
+\left(\begin{array}{c} \alpha x_1 + \beta y_2 \\ -(\alpha x_2 + \beta y_2) \end{array}\right) =
+\left(\begin{array}{c} \alpha x_1 + \beta y_2 \\ -\alpha x_2 - \beta y_2 \end{array}\right)
+$$
+
+$$
+\alpha L(x) + \beta L(y) = 
+\alpha \left(\begin{array}{c} x_1 \\ -x_2 \end{array}\right) + 
+\beta \left(\begin{array}{c} y_1 \\ -y_2 \end{array}\right) =
+\left(\begin{array}{c} \alpha x_1 + \beta y_2 \\ -\alpha x_2 - \beta y_2 \end{array}\right)
+$$
+
+Since these are the same, the transformation $L$ is a linear transformation.
+
+~~
+
+### Using matrices
+
+First, let's start with an example of how matrixes can be a linear transformation.
+
+~~ Example 4: matrix multiplication
+
+Given $x = \left(\begin{array}{c} x_1\\x_2 \end{array}\right) \in \mathbb{R}^2$ and $A$ is a $2 \times 2$ matrix, then $L(x) = Ax$ is a linear transformation.
+
+To check, we use the definition:
+
+
+$$
+L(\alpha x + \beta y) = A (\alpha x + \beta y) = \alpha A x + \beta A y
+$$
+
+$$
+\alpha L(x) + \beta L(y) = \alpha A x + \beta A y
+$$
+
+~~
+
+As shown by the previous example, any transformation $L(x) = Ax$ is linear. Later, we will show that any linear transformation can be written as a transformation of this form (matrix multiplication).
+
+### Properties of Linear Transformations
+
+1. $L(0_v) = 0_w$, where $0_v$ is the $0$ vector of $V$, and $0_w$ is the $0$ vector for $W$.
+
+~~ Proof
+
+$$L(\alpha v) = \alpha L(v)$$
+
+With $\alpha = 0$:
+
+$$L(0 v) = 0 L(v)$$
+$$L(0_v) = 0_w$$
+
+~~
+
+2. $L(\alpha_1 v_1 + \alpha_2 v_2 ... \alpha_n v_n) = \alpha_1 L(v_1) + \alpha 2 L(v_2) ... \alpha_n L(v_n)$
+3. $L(-v) = -L(v)$
+
+## Kernel and Image
+
+> Definition: Kernel  
+> The **kernel** is all of the vectors in $V$ which map to the $0$ vector in $W$, $0_w$.
+> Formal definiton: Given $L: V \to W$ is a linear transformation, the **kernel** of $L$, denoted $ker(L)$ is found by:  
+> $$ker(L) = \{x \in V | L(x) = 0\}$$
+
+If we consider the transformation as a matrix $A$, the kernel is the null space of $A$. The kernel can be found by finding this null space, but it can also be found with out the matrix, using the definition.
+
+~~ Example 5: finding kernel
+
+Given: 
+$$L_1(x) = \left(\begin{array}{c} x_1 + x_2 \\ x_1 - x_2 \end{array}\right)$$
+$$L_2(x) = x_1 + x_2$$
+
+Find the kernel for each.
+
+$$ker(L_1) = \{x \in \mathbb{R}^2 | L_1(x) = \bar 0\}$$
+
+So we have to solve $L_1(x) = \bar 0$:
+
+$$
+\begin{cases}
+x_1 + x_2 = 0 \\
+x_1 - x_2 = 0
+\end{cases}
+$$
+
+This can easily be solved as $x_1 = x_2 = 0$. So, the $ker(L_1) = \left\{\left(\begin{array}{c} 0 \\ 0 \end{array}\right)\right\}$.
+
+$$ker(L_2) = \{x \in \mathbb{R}^2 | L_2(x) = 0\}$$
+
+So we find: $L_2(x) = 0$
+
+$$x_1 + x_2 = 0$$
+$$
+\begin{cases}
+  x_1 = \alpha \\
+  x_2 = -\alpha
+\end{cases}
+$$
+
+$$ker(L_2) = span\left\{\left(\begin{array}{c} 1 \\ -1 \end{array}\right)\right\}$$
+
+~~
+
+> Definition: Image  
+> The **image** of a subspace $S$ is the portion of the resulting vector space $W$, $L(S)$.  
+> Formal defnition: Given $L: V \to W$ is a linear transformation and $S$ is a subspace of $W$,
+> the **image** of $S$, $L(S)$ is given by:  
+> $$L(S) = \{w \in W: w = L(v) for\ all\ v \in S\}$$
+
+> Definition: Range  
+> The image of the entire space, $V$ is called the **range** of $L$ (this may not encompass all of $W$).
+
+If $L$ is represented with a matrix $A$, $Range(L) = col\ space(A)$.
+
+Again, the image can be found with this matrix definition, but the definition can also be used without the matrix:
+
+~~ Example 6: Finding the image
+
+Given $x \in \mathbb{R}^3$, $L(x) = \left(\begin{array}{c} x_1 + x_2 \\ x_1 + x_3 \end{array}\right)$, find $L(S_1)$ and $L(S_2)$ where:
+
+$$
+S_1 = span\{e_1\} = span\left\{
+  \left(\begin{array}{c} 1 \\ 0 \\ 0 \end{array}\right)
+  \right\} =
+  \left\{
+    \alpha
+  \left(\begin{array}{c} 1 \\ 0 \\ 0 \end{array}\right)
+  \right\}
+$$
+
+So, we compute $L$ for all $S_1$:
+
+$$
+L(S_1) = \left(\begin{array}{c} \alpha + 0 \\ \alpha + 0 \end{array}\right) = 
+\alpha\left(\begin{array}{c} 1 \\ 1 \end{array}\right) = span\left\{
+  \left(\begin{array}{c} 1 \\ 1 \end{array}\right)
+  \right\}
+$$
+
+$$
+S_1 = span\{e_1, e_2\} = span\left\{
+  \left(\begin{array}{c} 1 \\ 0 \\ 0 \end{array}\right)
+  \left(\begin{array}{c} 0 \\ 1 \\ 0 \end{array}\right)
+  \right\} =
+  \left\{
+    \alpha
+  \left(\begin{array}{c} 1 \\ 0 \\ 0 \end{array}\right) + 
+  \beta
+  \left(\begin{array}{c} 0 \\ 1 \\ 0 \end{array}\right)
+  \right\} = 
+  \left\{
+  \left(\begin{array}{c} \alpha \\ \beta \\ 0 \end{array}\right)
+  \right\}
+$$
+
+$$
+L(S_2) = 
+\left(\begin{array}{c} \alpha + \beta \\ \alpha + 0 \end{array}\right) =
+\left(\begin{array}{c} \alpha + \beta \\ \alpha \end{array}\right) =
+\alpha 
+\left(\begin{array}{c} 1 \\ 1 \end{array}\right) +
+\beta 
+\left(\begin{array}{c} 1 \\ 0 \end{array}\right) =
+span\left\{
+\left(\begin{array}{c} 1 \\ 1 \end{array}\right)
+\left(\begin{array}{c} 1 \\ 0 \end{array}\right)
+  \right\}
+$$
+
+Note that this is just the entire $\mathbb{R}^2$, as these vectors form a basis of $\mathbb{R}^2$.
+
+~~
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
