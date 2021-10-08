@@ -1,0 +1,292 @@
+# Linear Transformations Using Matrices
+
+Remember that we mentioned earlier that ant linear transformation can be represented as a matrix multiplication.
+
+$$L(x) = Ax$$
+
+Note: you can extract the columns of a matrix by multiplying by a vector of all zeros and one 1.
+
+~~Example
+
+Given:
+
+$$
+A = 
+\left[
+\begin{array}{ccc}
+  1 & 2 & 3 \\
+  1 & 0 & 1 \\
+  2 & 1 & 0
+\end{array}
+\right]
+$$
+
+$$
+Ae_1 = 
+\left[
+\begin{array}{ccc}
+  1 & 2 & 3 \\
+  1 & 0 & 1 \\
+  2 & 1 & 0
+\end{array}
+\right]
+\left[
+\begin{array}{c}
+  1 \\ 0 \\ 0 
+\end{array}
+\right] =
+\left[
+\begin{array}{c}
+  1 \\ 2 \\ 3 
+\end{array}
+\right]
+$$
+
+~~
+
+## Finding the matrix
+
+> Theorem  
+> Let $L: \mathbb{R}^n to \mathbb{R}^m$ be a linear transformation. There is a matrix $A$ ($m \times n$) such that $L(x) = Ax$.
+
+To find $A$, the $i^{th}$ column of $A$ is given by $a_i = L(e_i)$. $A$ is called the matrix representing $L$.
+
+~~Example 1
+
+$$
+L(x) = 
+\left(
+\begin{array}{c}
+  x_1 + x_2 \\ x_1 + x_3
+\end{array}
+\right)
+$$
+
+Find a matrix representing $L$.
+
+Using the method above, we find each column:
+
+1. $$
+a_1 = L(e_1) = 
+\left(
+\begin{array}{c}
+  1 + 0 \\ 1 + 0
+\end{array}
+\right) = 
+\left(
+\begin{array}{c}
+  1 \\ 1
+\end{array}
+\right)
+$$
+2. $$
+a_2 = L(e_2) = 
+\left(
+\begin{array}{c}
+  0 + 1 \\ 0 + 0
+\end{array}
+\right) = 
+\left(
+\begin{array}{c}
+  1 \\ 0
+\end{array}
+\right)
+$$
+1. $$
+a_3 = L(e_3) = 
+\left(
+\begin{array}{c}
+  0 + 0 \\ 0 + 1
+\end{array}
+\right) = 
+\left(
+\begin{array}{c}
+  0 \\ 1
+\end{array}
+\right)
+$$ <!-- -->
+
+So we have:
+
+$$
+A = 
+\left[
+\begin{array}{ccc}
+  1 & 1 & 0 \\
+  1 & 0 & 1 
+\end{array}
+\right]
+$$
+
+~~
+
+Another way to find $A$ if we know $L(x)$ explicitly is to just write the matrix a as the coefficient matrix that gives the resulting vector of $L$:
+
+~~Example 2
+
+$$
+L(x) = 
+\left(
+\begin{array}{c}
+  x_1 + x_2 \\ x_1 + x_3
+\end{array}
+\right) =
+\left(
+\begin{array}{c}
+  x_1 * 1 + x_2 * 1 + x_3 * 0 \\ 
+  x_1 * 1 + x_2 * 0 + x_3 * 1
+\end{array}
+\right)
+$$
+
+$$
+A = 
+\left[
+\begin{array}{ccc}
+  1 & 1 & 0 \\
+  1 & 0 & 1 
+\end{array}
+\right]
+$$
+
+$$
+L = Ax = 
+\left[
+\begin{array}{ccc}
+  1 & 1 & 0 \\
+  1 & 0 & 1 
+\end{array}
+\right]
+\left[
+\begin{array}{c}
+  x_1 \\ x_2 \\ x_3 
+\end{array}
+\right]
+$$
+
+~~
+
+> Corollary  
+> Given a linear transformation $L$, and the matrix $A$ representing $L$ where $L = Ax$, the kernel, range, and image of $L$ can be found as:
+> $$ker(L) = \{x \in V | L(x) = 0\}$$
+> $$ker(L) = \{x \in V | Ax = 0\} = N(A)$$
+> $$L(x) = \{L(x) | x \in V\} = \{Ax | x \in V\} = col\ space(A)$$
+> Given a subspace $S$ with basis $[v_1, v_2,...v_n]$, the image is:
+> $$L(S) = \{L(x) | x \in S\} = span\{L(v_1), L(v_2),...L(v_n)\}$$
+
+## General matrix representation
+
+Given some transformation which is not explicitly or simply defined, we can still find a matrix. For example, take the transformation:
+
+$$L(\alpha_1v_1 + \alpha_2 v_2 + \alpha_3 v_3) = (\alpha_1 + \alpha_2)v_1 + (3\alpha_1 + \alpha_2)v_2$$
+
+Where $v_1, v_2, v_3$ are given as some basis of $\mathbb{R}^3$.
+
+Remember that the coordinates relative to a basis of some vector space (denoted as $[v]_E$ for a vector space $E$) are the coefficients multiplied by its basis vectors to get that vector.
+
+> Theorem  
+> Given $L: V \to W$ is a linear transformation, $E = [v_1 ... v_n]$$ is a basis of $V$, and $F = [w_1 ... w_n]$ is a basis of $W$, there is a matrix $A_{EF}$ ($m \times n$) representing $L$ relative to $E$ and $F$.  
+> $$[L(v)]_F = A_{EF}[v]_E$$
+
+Note that $A_{EF}$ above is not the same $A$ in $L(x) = Ax$. 
+
+While this sounds confusing, this essentially means that we can find the matrix which represents the transformation of a coordinate in the starting basis to a coordinate of $L(x)$ in another basis. Some transformations are easier to represent in this way than a simple $L(x) = Ax$.
+
+This adds another layer of calculation, as you need to get the coordinates of the vector, transform them with $A_{EF}$, and then use those coordinates in the new space to get the resulting vector.
+
+Note: if $V=W$, and $E=F$, then we say $A$ is a matrix representing $L$ relative to $E$: $A_E$. This may appear in the homework.
+
+~~Example similar to homework
+
+Given:
+
+$$
+E = \left\{
+\left(
+\begin{array}{c}
+  1 \\ 0
+\end{array}
+\right),
+\left(
+\begin{array}{c}
+  1 \\ 2
+\end{array}
+\right)
+\right\}
+$$
+as a basis of $\mathbb{R}^2$, and 
+$$
+L(a_1v_1 + a_2 v_2) = (a_1 + a_2)v_1 + (3a_1 - a_2)v_2
+$$
+
+1. Find $A_E$ representing $L$ relative to $E$
+2. Find $L(x)$ if $x = \left(\begin{array}{c}  4 \\ 1\end{array}\right)$
+
+First, to find $A_{EF}$, the $i^{th}$ column of $A_{EF}$ is:
+
+$$a_i = [L(v_i)]_F$$
+
+So,
+
+$$a_1 = [L(v_1)]_E \to L(1v_1 + 0v_2) = (1 + 0)v_1 + (3*1-0)v_2 = 1v_1 + 3v_2$$
+$$[L(v_1)]_E = [1, 3]$$
+$$a_2 = [L(v_2)]_E \to L(0v_1 + 1v_2) = (0 + 1)v_1 + (3*1-1)v_2 = 1v_1 + -1v_2$$
+$$[L(v_1)]_E = [1, -1]$$
+
+So $A_{E}$ is:
+
+$$
+A_E = 
+\left[
+\begin{array}{cc}
+  1 &  1 \\
+  3 & -1 
+\end{array}
+\right]
+$$
+
+Now that we have this matrix, we can find the coordinates of the input and transform them into the coordinates of the output.
+
+The coordinates in the new basis are found, using the formula from last section:
+
+$$[x]_E = E^{-1}x$$
+
+$$
+E = 
+\left[
+\begin{array}{cc}
+  1 & 1 \\
+  0 & 2 
+\end{array}
+\right]
+$$
+
+Which are:
+
+$$[x]_E = \left(\begin{array}{c} \frac{7}{2} \\ \frac{1}{2} \end{array}\right)$$
+
+$$[L(x)]_E = A_E[x]_E$$
+$$
+[L(x)]_E = 
+\left[
+\begin{array}{cc}
+  1 &  1 \\
+  3 & -1 
+\end{array}
+\right]
+\left[\begin{array}{c} \frac{7}{2} \\ \frac{1}{2} \end{array}\right]
+=
+\left[\begin{array}{c} 4 \\ 10 \end{array}\right]
+$$
+
+And we can find the new vector as:
+
+$$
+4 v_1 + 10v_2 = 
+\left[\begin{array}{c} 14 \\ 20 \end{array}\right]
+$$
+
+~~
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
