@@ -1,0 +1,201 @@
+# Orthogonality for Vectors
+
+## Introduction
+
+In a 2D space, such as a graph, two lines can be said to be "perpendicular" when they are at $90°$ angle. This is used to define distance, particularly between a line and a point.
+
+In larger degrees of space, or in more generalized vector spaces, we use **orthogonality** to serve a similar purpose; it is the analog of being perpendicular in $\mathbb{R}^2$ or $\mathbb{R}^3$.
+
+## Definition for vectors
+
+First, let us define an operation called **scalar product**, which will let us define what it means to be orthagonal in $\mathbb{R}^n$. If the scalar product (sometimes called dot product in calculus) is 0, two vectors are orthagonal.
+
+### Scalar Product
+
+> Definition: Scalar Product  
+> Given two vectors $x = \left(\begin{array}{c}x_1 \\ x_2 \end{array}\right)$, $y = \left(\begin{array}{c}y_1 \\ y_2 \end{array}\right)$, the scalar product of $x$ and $y$ is:  
+> $$x \cdot y = x^Ty = x_1y_1 + x_2y_2$$
+
+For the scalar product, it is important to note that it is commutative, meaning you ca swap the order of the vectors:
+
+$$x^Ty = y^Tx$$
+
+> Definition: Orthogonal  
+> Two vectors are orthagonal ($x \perp y$) if $x^Ty = 0$.
+
+Now that we have these definitions, it will be useful to define length and distance.
+
+> Definition: Euclidean Length  
+> Let $x = \left(\begin{array}{c}x_1 \\ x_2 \end{array}\right)$, the Euclidean length of $x$ is:  
+> $$||x|| = \sqrt{x^Tx} = \sqrt{x_1^2 + x_2^2}$$
+
+> Definition: Distance  
+> Given $x, y \in \mathbb{R}^2$, the distance between $x$ and $y$ is:  
+> $$||x - y|| = \sqrt{(x_1 - y_1)^2 + (x_2 - y_2)^2}$$
+
+One more important thing to note is a property of the scalar product (given $x, y \in \mathbb{R}^2$):
+
+$$x^Ty = ||x|| * ||y|| * cos(\theta)$$
+
+Where $\theta$ is the angle between the vectors.
+
+## Uses
+
+The first use is to define a property analagous to perpendicularity. In $\mathbb{R}^2$ and $\mathbb{R}^3$, the two terms are equavalent, but orthagonality extends to all dimensions of vector. This has some interesting properties:
+
+1. If $x$ and $y$ are orthagonal, then we have:
+
+$$x^Ty = 0$$
+$$||x|| ||y||\cos(\theta) = 0$$
+$$cos(\theta) = 0$$
+$$\theta = 90° = \pi/2$$
+
+2. If $x,y$ are orthagonal:
+
+$$||x+y||^2 = ||x||^2 + ||y||^2$$
+
+~~Proof of 2
+
+$$||x+y||^2 = (x^T + y^T)(x + y)$$
+$$x^Tx + x^Ty + y^Tx + y^Ty$$
+$$||x||^2 + 0 + 0 + ||y||^2$$
+$$||x||^2 + ||y||^2$$
+
+~~
+
+Note that this proof is valid for all dimensions.
+
+3. Cauchy-Schwartz inequality
+
+$$|x^Ty| = ||x|| ||y|| \cos(\theta)$$
+$$|x^Ty| <= ||x|| ||y||$$
+
+## Applications
+
+Because we have the $\cos(\theta)$ in the forumla for scalar product, we can get the angle between the two vectors as:
+
+$$\cos(\theta) = {x^Ty \over ||x|| ||y||}$$
+
+~~Example 1
+
+Find the angle between $x = (3, 4)^T$ and $y = (-1, 7)^T$
+
+$$\cos(\theta) = {x^Ty \over ||x|| ||y||}$$
+$$\cos(\theta) = {3(-1) + 4(7) \over \sqrt{3^2 + 4^2} \sqrt{(-1)^2 + 7^2}}$$
+$$\cos(\theta) = {25 \over \sqrt{25} \sqrt{50}}$$
+$$\cos(\theta) = \sqrt{1 \over 2}$$
+$$\theta = \arccos\left(\sqrt{1 \over 2}\right) = \cos^{-1}\left(\sqrt{{1 \over 2}}\right) = 45° $$
+
+~~
+
+The other property of the scalar product is that it represents a projection of one vector onto the other. [See this video by 3Blue1Brown for a better intuition about scalar product](https://www.3blue1brown.com/lessons/dot-products).
+
+This means that we can break any vector into two components; one which is in the direction of the other vector (the projection) and one which is perpendicular. This is especially useful when finding distances or coordinates of a vector, for example.
+
+The formula for the scalar projection is:
+
+$$\alpha = {x^Ty \over ||y||}$$
+
+~~Derivation
+
+$$\alpha = ||x||\cos(\theta)$$
+$$\alpha = ||x||{x^Ty \over ||x|| ||y||}$$
+$$\alpha = {x^Ty \over ||y||}$$
+
+~~
+
+This projection will be in the direction of the vector $y$, which is denoted by the **unit vector**, defined as follows:
+
+$$\hat i_y = {y \over ||y||}$$
+
+So, the vector projection $p$ for a vector $x$ is:
+
+$$p = {x^Ty \over ||y||}{y \over ||y||}$$
+$$p = {x^Ty \over ||y||^2}y$$
+
+~~Example 2
+
+Find the distance between a point and a line.
+
+$$x = (1, 2)^T$$
+$$y = \frac{3}{4}x$$
+
+We can define the direction of the line as:
+
+$$y = (4, 3)^T$$
+
+So, we find the vector projection of $x$ on $y$, then subtract that from the original vector to find the perpendicular part between $x$ and $y$:
+
+$$p = {x^Ty \over ||y||^2}y$$
+$$p = {1(4) + 2(3) \over 4^2 + 3^2}(4, 3)^T$$
+$$p = {10 \over 25}(4, 3)^T$$
+$$p = \left(\frac{8}{5}, \frac{6}{5}\right)^T$$
+
+Now we can find the distance as the length of the perpendicular part:
+
+$$x = p + z$$
+$$z = x - p = (1, 2)^T - \left(\frac{8}{5}, \frac{6}{5}\right)^T = \left(\frac{-3}{5}, \frac{4}{5}\right)^T$$
+
+Distance is the length of $z$:
+
+$$||z|| = \sqrt{\frac{3}{5}^2 + \frac{4}{5}^2} = 1$$
+
+~~
+
+~~Example 3
+
+Find the distance between: $(1,4)$ and $y = x + 1$.
+
+Since the line is not at the origin, we shift everything down by $1$ to make it fit our process in the previous example.
+
+So we now have: $(1,3)$ and $y = x$, and we can use $(1,1)$ for $y$
+
+~~
+
+The final application is finding the distance between a point and a plane in 3D space. This seems more complex at first, because there is not a single line defining it, but a whole surface. Instead, we will use **normal vectors** to represent the direction of the plane.
+
+> Definition: Normal vector  
+> The normal $N$ is a vector that is orthagonal to a plane.
+
+~~Example 4
+
+Write the equation of a plane with normal vector $N = (1, 2, -1)^T$ and (1) passing through the origin, (2) the same plane if it passed through $(2,3,5)$, and (3) the distance between the first plane and the point $(3,1,1)$.
+
+1. Any vector on the plane will be orthagonal with the normal and pass through the origin, so we have:
+
+$$
+\left(\begin{array}{c}x \\ y \\ z\end{array}\right)^T
+\left(\begin{array}{c}1 \\ 2 \\ -1\end{array}\right)= 0
+$$
+
+$$x + 2y - z = 0$$
+
+2. Any vector on the plane will be orthagonal with the normal and pass through $(2,3,5)$, so we have:
+
+$$
+\left(\begin{array}{c}x - 2 \\ y - 3 \\ z - 5\end{array}\right)^T
+\left(\begin{array}{c}1 \\ 2 \\ -1\end{array}\right)= 0
+$$
+
+$$(x-2) + 3(y-3) - (z-5)=0$$
+$$x + 3y - z = 3$$
+
+3. Using the equation from (1), we have:
+
+$$P = (3,1,1)$$
+$$x + 2y - z = 0$$
+
+Here, the distance is the part of the vector orthogonal to the plane, or parallel (projected onto) to normal.
+
+So, we simply take the length of the vector projected onto $N$:
+
+$$|\alpha| = \left|{x^Ty \over ||y||}\right|$$
+$$|\alpha| = \left|{3(1)+1(2)+1(-1) \over \sqrt{1^2 + 2^2 + (-1)^2}}\right|$$
+$$|\alpha| = \left|\frac{4}{\sqrt{6}}\right|$$
+
+To find the distance with the plane in (2), we would have to shift the plane and point so that the plane passes through the origin.
+
+~~
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
