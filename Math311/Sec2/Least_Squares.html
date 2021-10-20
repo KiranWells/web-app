@@ -1,0 +1,382 @@
+# Least Square Method
+
+The goal of this method is to match a linear equation to a series of points. For most groups of points, there is no straight line that passes through all of them, but we can work to find the closest approximation. This is very useful for creating linear regression models for measured data, where there is no exact solution, but the data points do closely follow some trend.
+
+## Introduction and Definition
+
+> Definition: Least Square Solution  
+> Given an overdetermined system (meaning there is no exact solution),
+> $Ax = b$, where $A$ is $m\times n$ where $m > n$,
+> For each vector $x$, we define the error (formally the **residual**) as:  
+> $$r(x) = b - Ax$$  
+> We want to find $\hat x$ such that the Euclidean length of $r(x)$ is minimized.  
+> $$\hat x : r(x) = b - Ax, ||r(\hat x)|| \to 0$$  
+> $\hat x$ is the **Least Square Solution** of $Ax = b$.
+
+For example, given a set of data points, $||r(x)||$ is the square root of the sum of the squared distances from the linear representation, representing how far all of the points are from the possible solution. For an exact solution, $r(x)=0$, but we will only try to get it as small as possible.
+
+### Method
+
+There are a few review points before we get to the actual method:
+
+1. If $S$ is a subspace of $\mathbb{R}^n$, then we can decompose $\mathbb{R}^n$ into $S \oplus S^{\perp}$, and any vector in $\mathbb{R}^n$ can be decomposed into to components in $S$ and $S^{\perp}$.
+2. For the matrix $A$, the column space $R(A)$ is the collection of all vectors that can be written as $Ax$, where $x \in \mathbb{R}^n$.
+3. $R(A)^{\perp} = N(A^T)$. Since $R(A)$ is a subspace of $\mathbb{R}^m$, so $\mathbb{R}^m = R(A) \oplus N(A^T)$.
+
+Essentially, because we are trying to minimize the formula
+
+$$||b - Ax||$$
+
+We are going to find the component of $b$ which can be found as $Ax$, or in other words is in the column space of $A$. From there, we can decompose $b$ into the part in $R(A)$ and the part outside of it, which will be the error $r(\hat x)$, which is also in the null space of $A$. So we have:
+
+$$A^Tr(\hat x) = 0$$
+
+Which we can then simplify:
+
+$$A^T(b - A\hat x) = 0$$
+$$A^Tb - A^TA\hat x = 0$$
+$$A^TA\hat x = A^Tb$$
+
+If all of that was confusing, it basically means that we are finding the part of $b$ which is perpendicular to $Ax$, and using that to solve for $\hat x$.
+
+> Theorem:  
+> When $rank(A) = n$, where $A$ is $m\times n$, meaning that $dim(N(A)) = 0$ and the columns of $A$
+> are independent, we have:
+> 1. $A^TA$ is non-singular, and therefore
+> 2. $A^TA\hat x = A^Tb$ has exactly one solution: $\hat x = (A^TA)^{-1}A^Tb$
+
+Importantly, for line or curve fitting, $rank(A) = n$ is always satisfied. This is difficult, but possible to prove.
+
+Note: The projection of $b$ onto $R(A)$ is given by:
+
+$$A\hat x = A(A^TA)^{-1}A^Tb$$
+
+Which is structually very similar to the projection for vectors:
+
+$$p = {x^Ty \over y^Ty}y = y(y^Ty)^{-1}x^Ty$$
+
+Also, the matrix:
+
+$$P = A(A^TA)^{-1}A^T$$
+
+is called the **projection matrix**.
+
+## Application: Line fitting
+
+~~Example 1: line fitting
+
+Given a set of data for the september max temp in College Station from 2018-21,
+
+$$
+\begin{array}{c|cccc}
+x (year) & 0 & 1 & 2 & 3 \\
+y (temp) & 90 & 96 & 94 & 98
+\end{array}
+$$
+
+find a line of best fit $y = c_0 + c_1x$.
+
+To start, we can convert this into a matrix problem:
+
+$$
+\begin{cases}
+c_0 + c_1(0) = 90 \\
+c_0 + c_1(1) = 96 \\
+c_0 + c_1(2) = 94 \\
+c_0 + c_1(3) = 98 \\
+\end{cases}
+$$
+
+$$
+\left[
+\begin{array}{cc}
+1 & 0 \\
+1 & 1 \\
+1 & 2 \\
+1 & 3 \\
+\end{array}
+\right]
+\left[
+\begin{array}{c}
+c_0 \\
+c_1 \\
+\end{array}
+\right] = 
+\left[
+\begin{array}{c}
+90 \\
+96 \\
+94 \\
+98 \\
+\end{array}
+\right]
+$$
+
+So, using the formula:
+
+$$A^TA\hat x = A^Tb$$
+
+$$
+\left[
+\begin{array}{cccc}
+1 & 1 & 1 & 1 \\
+0 & 1 & 2 & 3 \\
+\end{array}
+\right]
+\left[
+\begin{array}{cc}
+1 & 0 \\
+1 & 1 \\
+1 & 2 \\
+1 & 3 \\
+\end{array}
+\right]
+\left[
+\begin{array}{c}
+c_0 \\
+c_1 \\
+\end{array}
+\right] = 
+\left[
+\begin{array}{cccc}
+1 & 1 & 1 & 1 \\
+0 & 1 & 2 & 3 \\
+\end{array}
+\right]
+\left[
+\begin{array}{c}
+90 \\
+96 \\
+94 \\
+98 \\
+\end{array}
+\right]
+$$
+
+Which simplifies to:
+
+$$
+\left[
+\begin{array}{cc}
+4 & 6 \\
+6 & 14 \\
+\end{array}
+\right]
+\left[
+\begin{array}{c}
+c_0 \\
+c_1 \\
+\end{array}
+\right] = 
+\left[
+\begin{array}{c}
+378 \\
+578
+\end{array}
+\right]
+$$
+
+$$
+\left[
+\begin{array}{c}
+c_0 \\
+c_1 \\
+\end{array}
+\right] = 
+\left[
+\begin{array}{c}
+91.2 \\
+2.2
+\end{array}
+\right]
+$$
+
+So the equation is:
+
+$$y = 91.2 + 2.2x$$
+
+Which can be interpreted as "The temperature increased by 2.2 degrees every year, starting at 91.2 degrees". However, with this imperfect of a fit, it is not necessarily right.
+
+~~
+
+### Summary: Line fitting
+
+Given a data table:
+
+$$
+\begin{array}{c|cccc}
+x & x_0 & x_1 & x_2 & x_3 ... x_n \\
+y & y_0 & y_1 & y_2 & y_3 ... y_n \\
+\end{array}
+$$
+
+We can rewrite it as a series of equations of best fit:
+
+$$
+\begin{cases}
+  c_0 + c_1x_0 = y_0 \\
+  c_0 + c_1x_1 = y_1 \\
+  c_0 + c_1x_2 = y_2 \\
+  ...\\
+  c_0 + c_1x_n = y_n \\
+\end{cases}
+$$
+
+And then as a system:
+
+$$
+\left[
+\begin{array}{cc}
+1 & x_0 \\
+1 & x_1 \\
+1 & x_2 \\
+...\\
+1 & x_n \\
+\end{array}
+\right]
+\left[
+\begin{array}{c}
+c_0 \\
+c_1 \\
+\end{array}
+\right] = 
+\left[
+\begin{array}{c}
+y_0 \\ y_1 \\ y_2 \\ ... \\ y_n
+\end{array}
+\right]
+$$
+
+Which can be used to find the solution with 
+
+$$
+(A^TA)
+\left[
+  \begin{array}{c}
+  c_0 \\ c_1
+  \end{array}
+  \right]
+= A^T b
+$$
+
+## Application: Curve fitting
+
+Often, a straight line does not closely fit the given data, so a curve, such as a quadratic or exponential, is more appropriate.
+
+~~Example 2: Curve fitting
+
+Given a set of data for the september max temp in College Station from 2018-21,
+
+$$
+\begin{array}{c|cccc}
+x (year) & 0 & 1 & 2 & 3 \\
+y (temp) & 1 & 2 & 5 & 9
+\end{array}
+$$
+
+find a line of best fit $y = c_0 + c_1x + c_2x^2$.
+
+Again, we can use a set of equations:
+
+$$
+\begin{cases}
+c_0 + c_1(0) + c_1(0)^2 = 1 \\
+c_0 + c_1(1) + c_1(1)^2 = 2 \\
+c_0 + c_1(2) + c_1(2)^2 = 5 \\
+c_0 + c_1(3) + c_1(3)^2 = 9 \\
+\end{cases}
+$$
+
+And the matrix equation:
+
+
+$$
+\left[
+\begin{array}{cc}
+1 & 0 & 0^2 \\
+1 & 1 & 1^2 \\
+1 & 2 & 2^2 \\
+1 & 3 & 3^2 \\
+\end{array}
+\right]
+\left[
+\begin{array}{c}
+c_0 \\
+c_1 \\
+c_2 \\
+\end{array}
+\right] = 
+\left[
+\begin{array}{c}
+1 \\
+2 \\
+5 \\
+9 \\
+\end{array}
+\right]
+$$
+
+Which can then be solved in the same way.
+
+~~
+
+### Summary: Curve fitting
+
+If we have a data table:
+
+$$
+\begin{array}{c|cccc}
+x & x_0 & x_1 & x_2 & x_3 ... x_n \\
+y & y_0 & y_1 & y_2 & y_3 ... y_n \\
+\end{array}
+$$
+
+We can rewrite it as a series of equations of best fit for some polynomial:
+
+$$
+  y = c_0 + c_1x + c_2x^2 ... c_n x^n
+$$
+
+And then as a system:
+
+$$
+\left[
+\begin{array}{cc}
+1 & x_0 + x_0^2 ... x_0^n \\
+1 & x_1 + x_1^2 ... x_1^n \\
+1 & x_2 + x_2^2 ... x_2^n \\
+...\\
+1 & x_m + x_m^2 ... x_n^n \\
+\end{array}
+\right]
+\left[
+\begin{array}{c}
+c_0 \\
+c_1 \\
+...\\
+c_n \\
+\end{array}
+\right] = 
+\left[
+\begin{array}{c}
+y_0 \\ y_1 \\ y_2 \\ ... \\ y_m
+\end{array}
+\right]
+$$
+
+Note: the columns of this matrix are independent, and there will be one solution.
+
+Which can be used to find the solution with 
+
+$$
+(A^TA)
+\left[
+  \begin{array}{c}
+  c_0 \\ c_1
+  \end{array}
+  \right]
+= A^T b
+$$
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
