@@ -1,0 +1,199 @@
+# Inner Product and Norm
+
+## Review
+
+For Euclidean vector spaces, e.g. $\mathbb{R}^n$, orthogonality is defined using the vector product:
+
+$$x\perp y\ iff\ x^Ty = 0$$
+
+To define orthogonality for other vector spaces, such as polynomials and continuous functions, we need another, more general, product. In addition, we will define a version of the Euclidean length function called **norm**.
+
+## Inner Product
+
+> Definition: Inner Product  
+> $\langle a, b \rangle$ on a vector space $V$ is an operation which assigns the two vectors $a$ and $b$ with a real number, following these rules:
+> 1. $\langle a, a \rangle \ge 0$
+>   1. $\langle a, a \rangle = 0\ iff\ x = \bar 0$
+> 2. $\langle a, b \rangle = \langle b, a \rangle$
+> 3. $\langle \alpha a + \beta b, c \rangle = \langle \alpha a, c \rangle + \langle \beta b, c \rangle = \alpha \langle a, c\rangle + \beta \langle b, c\rangle$
+
+~~Example 1
+
+The scalar product $x^Ty$ is an inner product:
+
+1. 
+
+$$x^Ty = x_1y_1 + x_2y_2 ... x_ny_n$$
+
+Testing each rule:
+
+$$x^Tx = x_1^2 + x_2^2 ... x_n^2 \ge 0$$
+
+and the following is true only if $x = \bar 0$
+
+$$x^Tx = x_1^2 + x_2^2 ... x_n^2 = 0$$
+
+2. 
+
+$$x^Ty = y^Tx$$
+
+3.
+
+$$(\alpha x + \beta y)^Tz = ((\alpha x)^T + (\beta y)^T)z$$
+
+$$=(\alpha x^T + \beta y^T)z = \alpha x^Tz + \beta y^Tz$$
+
+~~
+
+~~Example 2
+
+A weighted scalar product $\langle x, y\rangle_w$ where $w$ is an all-positive vector is also an inner product.
+
+$$\langle x, y\rangle_w = x_1y_1w_1 + x_2y_2w_2 ... x_ny_nw_n$$
+
+However, if any element of $w$ is negative, then it is not:
+
+$$\langle x, x \rangle_w = x_1^2w_1 + ... + x_n^2w_n$$
+
+In this case, if the weight is negative, then the resulting value could be negative. For example, with $x = (1,2)$ and $w = (-5, 1)$
+
+$$\langle x, x \rangle_w  = 1^2*(-5) + 2^2*(1) = -1$$
+
+~~
+
+### Matrices
+
+> Definition:  
+> Given matrices $A = (a_{ij})_{m\times n}$ and $B = (b_{ij})_{m\times n}$, their inner product is defined as:
+> 
+> $$\langle A,B\rangle = \sum_{i=1}^m \sum_{j=1}^n a_{ij}b_{ij}$$
+
+Note that this is again simply an element-wise multiplication and sum.
+
+A weighted matrix product can also be defined, with an all-positive matrix $W$:
+
+$$\langle A,B\rangle_W = \sum_{i=1}^m \sum_{j=1}^n a_{ij}b_{ij}w_{ij}$$
+
+### Continuous functions
+
+> Defintion:  
+> Given the continuous functions $f,g \in C[a,b]$ (where $a,b$ are the limits of the range on which they are continuous), the inner product is defined as:
+> 
+> $$\langle f,g\rangle = \int_a^b f(x)g(x)dx$$
+
+### Polynomials
+
+> Definition:  
+> Given polynomials $p,q \in P_n$ (where $n$ is the degree of the poynomial), the inner product is defined as:
+> 
+> $$\langle p,q \rangle = p(x_0)q(x_0) + p(x_1)q(x_1) ... p(x_n)q(x_n)$$
+> which is defined using a list of numbers $x_0 ... x_n \in \mathbb{R}$.
+
+~~Example 3
+
+Note that we need $n+1$ numbers to define an inner product for a polynomial of degree $n$.
+
+For example, take $P_1 = \{p(x) = a_0 + a_1x\}$
+
+If we only choose $1$ value, $x_0 = 0$ we get:
+
+$$\langle p,p\rangle = a_0^2$$
+
+This means that it is $0$ if $p(x) = 0 + a_1x$. This is not the 0 poynomial, so the condition is not satisfied.
+
+~~
+
+## Norm
+
+Remember the least square method from last time? To define it, we needed to take the length of vectors to find how far points were from a line. However, there is not a definition for length for matrices, polynomials, and continuous functions. Therefore, we are going to need a function called **norm**, which represents the magnitude of a generalized vector.
+
+Also note that there could be more than one way to define the magnitude of a vector in $\mathbb{R}^n$:
+
+$$||r(x)|| = \sqrt{r_1^2 + r_2^2 + r_3^2}$$
+$$||r(x)||_\infty = max\{r_1, r_2, r_3\}$$
+$$||r(x)||_1 = |r_1| + |r_2| + |r_3|$$
+
+> Definition: Norm  
+> $||v||$ on a vector space $V$ is a mapping which assigns a vector $v$ to  a real number following these rules:
+> 1. $||v|| \ge 0$, $||v|| = 0\ iff\ v = \bar 0$ (length is positive)
+> 2. $||\alpha v|| = |\alpha|*||v||$ (preserve scaling)
+> 3. $||v + w|| \le ||v|| + ||w||$ (triangle inequality)
+
+> Notation:  
+> A vector space $V$, with a defined norm $||.||$ is called a **normalized vector space**.  
+> A vector space $V$, with an inner product $\langle .,.\rangle$, is called an **inner product space**.
+
+### Theorem
+
+If $V$ is an inner product space, then $||v||$ can be defined as:
+
+$$||v|| = \sqrt{\langle v , v\rangle}$$
+
+Note that this is not the *only* norm, but it is an easily definable one. This also holds true for Euclidean vector spaces and lengths:
+
+$$||x|| = \sqrt{x^Tx}$$
+
+~~a norm example for matrices
+
+Given the inner product:
+$$\langle A,B\rangle = \sum_{i=1}^m\sum_{j=1}^n a_{ij}b_{ij}$$
+
+We can define the norm (called the Frobenius norm) to be:
+
+$$||A||_F = \sqrt{\langle A,A\rangle} = \sqrt{\sum_{i=1}^m\sum_{j=1}^n a_{ij}^2}$$
+
+~~
+
+### Properties of $||x|| = \sqrt{\langle x,x\rangle}$
+
+Note: These are the same as the properties of scalar product and Euclidean length, and are only valid for norms defined in the $\sqrt{\langle x,x\rangle}$ fashion.
+
+1. $x,y\in V$ are orthogonal ($x\perp y$) if $\langle x,y\rangle = 0$
+2. Pythagorean law: if $x\perp y$, then $||x + y||^2 = ||x||^2 + ||y||^2$
+3. $|\langle x,y\rangle| \le ||x||*||y||$
+4. Projection
+  1. $\alpha = {\langle x, y \rangle \over ||y||}$
+  2. $p = {\langle x, y \rangle \over \langle y, y\rangle}y$
+
+### Other types of norm for Euclidean vectors ($\mathbb{R}^n$)
+
+**Taxicab/Manhattan norm:**
+
+$$||x||_1 = |x_1| + |x_2| ... |x_n|$$
+
+The name taxicab or manhattan comes from the fact that this is the distance if you had to follow the grid lines, for example in a taxi in a city, where all of the blocks are squares.
+
+~~the proof for taxicab norm
+
+Let's prove it for $\mathbb{R}^2$:
+
+1. $$||x||_1 \ge 0$$
+
+$$||x||_1 = |x_1| + |x_2| ... |x_n| \ge 0$$
+
+and $||x||_1 = 0$ only if $x = \bar 0$.
+
+2. $$||\alpha x||_1 = |\alpha x_1| + |\alpha x_2| = |\alpha||x_1| + |\alpha||x_2| = |\alpha|(||x||_1)$$
+
+3. We need to prove $||v + w|| \le ||v|| + ||w||$:
+
+$$||x||_1 + ||y||_1$$
+$$|x_1| + |x_2| + |y_1| + |y_2|$$
+$$|x_1| + |y_1| + |x_2| + |y_2| \ge |x_1 + y_1| + |x_2 + y_2| = ||x+y||_1$$
+
+~~
+
+**Infinity norm:**
+
+$$||x||_\infty = max\{x_1, x_2 ... x_n\}$$
+
+**P-norm:**
+
+$$||x||_p = \sqrt[p]{|x_1|^p + |x_2|^p ... |x_n|^p}$$
+
+Note that this is the taxicab, Euclidean, and infinity norm for $p = 1, 2,$ or $\infty$ (although the latter is more confusing).
+
+Also, given different norms, you may come out with a different "best fit" when doing the least square method.
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
