@@ -12,6 +12,14 @@ async function setCss() {
   document.body.parentElement.classList.add(currentTheme.toLowerCase());
 }
 
+function notify(text) {  
+  const note = document.createElement('div');
+  note.classList.add("notify");
+  note.textContent = text;
+  document.body.appendChild(note);
+  setTimeout(() => { note.style.opacity = 0; setTimeout(() => document.body.removeChild(note), 1000) }, 1000);
+}
+
 window.onload = () =>
 {
   setTimeout(setCss, 0);
@@ -43,7 +51,16 @@ $2
   }
   document.body.innerHTML = text;
   // change to HTML
-  runtexme();
+  try {
+    // this should be sync, so this will not error in a promise
+    runtexme();
+  } catch {
+    notify("Math rendering failed, retrying. This will only take a second...");
+    setTimeout(() => {
+      document.body.innerHTML = text;
+      runtexme();
+    }, 1001);
+  }
 
   // add theme button
   let themes = ["Dark", "Light", "Tropical", "Summer", "Hyperlight", "Gruvbox"];
@@ -120,11 +137,7 @@ $2
       } catch {
         text = "Failed to copy link :(";
       }
-      const note = document.createElement('div');
-      note.classList.add("notify");
-      note.textContent = text;
-      document.body.appendChild(note);
-      setTimeout(() => { note.style.opacity = 0; setTimeout(() => document.body.removeChild(note), 1000) }, 1000);
+      notify(text);
     }
   }
   document.body.firstChild.appendChild(footer);
