@@ -1,0 +1,356 @@
+# Orthogonal Matrices
+
+## Review
+
+In the last section, we mentioned that if a matrix $A$ has columns forming an orthonormal set, then $A^TA = I$, so computing the least square solution is drastically simplified:
+
+$$\hat x = (A^TA)^{-1}A^Tb$$
+$$\hat x = (I)^{-1}A^Tb$$
+$$\hat x = A^Tb$$
+
+> Definition: Orthogonal Matrix  
+> Given an $n \times n$ matrix $Q$, if the columns of $Q$ form an orthonormal aet, then
+> $Q$ is called an orthogonal matrix.
+
+However, it takes a lot of work to prove that the columns of $Q$ form an orthonormal set, as it requires many dot products. So instead, we can work backwards from a property of orthonormal sets:
+
+$Q$ is an orthogonal matrix if and only if $Q^TQ = I$.
+
+~~Proof of orthogonal property:
+
+Given an orthonormal matrix, taking the product:
+
+$$Q^TQ$$
+
+will result in the dot products of the $i^{th}$ row of $Q^T$ and $j^{th}$ column of $Q$, there are two possible results:
+
+If $i = j$, the the result will be $||q_i||^2$, which is 1 for orthonormal matrices. Otherwise, the result will be 0, as all of the other vectors are orthogonal.
+
+~~
+
+~~Example: rotation matrix
+
+The matrix:
+
+$$
+Q = 
+\left[
+  \begin{array}{cc}
+    \cos\theta & -\sin\theta \\ 
+    \sin\theta & \cos\theta
+  \end{array}
+\right]
+$$
+
+Represents a linear transformation which will rotate the vector $\theta$ degrees around the y-axis.
+
+~~
+
+### Properties
+
+1. $$Q^TQ = I$$
+2. $$Q^T = Q^{-1}$$
+3. $$\langle x, r\rangle = \langle Qx, Qy \rangle$$
+4. $$||x||^2 = ||Qx||^2$$
+5. If $A, B$ are orthogonal, then so is $AB$
+
+An orthogonal matrix preserves inner product (and therefore the angle between two vectors, as well as length since it is the inner product of a vector and itself).
+
+## Computing an Orthonormal Basis
+
+Because these types of matrices are so useful, it would be nice to be able to convert other bases to orthonormal bases. To do that, we are going to construct the basis one vector at a time, first creating a single vector in the orthonormal basis, then using that to create a second, and so on.
+
+Given a generic basis $\{x_1 ... x_n\}$ and looking for the corresponding orthonormal basis $\{u_1 ... u_n\}$:
+
+We can find the first vector by creating the normalized version of $x_1$:
+
+$$u_1 = \frac{1}{||x_1||}x_1$$
+
+To get the second vector, we calculate the projection of $x_2$ onto $u_1$ and take the corresponding perpendicular component.
+
+$$u_2 = norm(z), x_2 = p + z, p = x_2 \perp u_1$$
+
+To get further vectors, we calculate the projection of the next vector onto the span of the current normalized basis.
+
+$$x_n \perp span\{U\} => p$$
+$$x_n = z + p$$
+$$u_n = norm(z)$$
+
+This process is called the Gram-Schmidt orthogonalization process.
+
+### Projection formula
+
+Luckily, there is a simplified formula for finding a projection with an orthonormal basis:
+
+Given $x \in V$, where $S = \{u_1...u_n\}$ is a subspace of $V$, the projection can be found as:
+
+$$p = \langle x, u_1 \rangle u_1 + ... + \langle x, u_n\rangle u_n$$
+
+With this, the above steps can be simplified to:
+
+1. $$u_1 = \frac{x_1}{||x_1||}$$
+2. $$u_2 = norm(x_2 - (\langle x_2, u_1\rangle u_1))$$
+3. $$u_3 = norm(x_3 - (\langle x_3, u_1\rangle u_1 + \langle x_3, u_2\rangle u_2))$$
+...
+4. $$u_n = norm(x_n - (\langle x_n, u_1\rangle u_1 + ... + \langle x_n, u_{n - 1}\rangle u_{n - 1}))$$
+
+Where $norm(x)$ is the normalization of vector $x$.
+
+~~Example 1
+
+Given a basis:
+
+$$
+\left\{
+  \left(
+    \begin{array}{c}
+    3 \\ 4
+    \end{array}
+  \right),
+  \left(
+    \begin{array}{c}
+    2 \\ 1
+    \end{array}
+  \right)
+\right\}
+$$
+
+Construct an orthonormal basis $\{u_1, u_2\}$.
+
+With this example, we can just do the first two steps, since there are only two vectors:
+
+1. Normalize $x_1$:
+
+$$
+u_1 = {1 \over \sqrt{3^2 + 4^2}}
+\left(
+  \begin{array}{c}
+  3 \\ 4
+  \end{array}
+\right) = 
+\left(
+  \begin{array}{c}
+  \frac{3}{5} \\ \frac{4}{5}
+  \end{array}
+\right)
+$$
+
+2. Project $x_2$:
+
+$$p = \langle x_2, u_1 \rangle u_1$$
+
+$$
+p = 
+(2*\frac{3}{5} + 1*\frac{4}{5})u_1 = 2u_1 = 
+\left(
+  \begin{array}{c}
+  \frac{6}{5} \\ \frac{8}{5}
+  \end{array}
+\right)
+$$
+
+$$
+z = x - p = 
+  \left(
+    \begin{array}{c}
+    2 \\ 1
+    \end{array}
+  \right) - 
+\left(
+  \begin{array}{c}
+  \frac{6}{5} \\ \frac{8}{5}
+  \end{array}
+\right) = 
+\left(
+  \begin{array}{c}
+  \frac{4}{5} \\ -\frac{3}{5}
+  \end{array}
+\right)
+$$
+
+$$
+u_2 = norm(z) = 
+{1 \over \sqrt{(\frac{4}{5})^2 + (-\frac{3}{5})^2}}
+\left(
+  \begin{array}{c}
+  \frac{4}{5} \\ -\frac{3}{5}
+  \end{array}
+\right) = 
+1 *
+\left(
+  \begin{array}{c}
+  \frac{4}{5} \\ -\frac{3}{5}
+  \end{array}
+\right) = 
+\left(
+  \begin{array}{c}
+  \frac{4}{5} \\ -\frac{3}{5}
+  \end{array}
+\right)
+$$
+
+So the orthonormal basis is:
+
+$$
+\left\{
+\left(
+  \begin{array}{c}
+  \frac{3}{5} \\ \frac{4}{5}
+  \end{array}
+\right),
+\left(
+  \begin{array}{c}
+  \frac{4}{5} \\ -\frac{3}{5}
+  \end{array}
+\right)
+\right\}
+$$
+
+~~
+
+Note that we can find equations for $x_1$ and $x_2$ in terms of $u_1$ and $u_2$, using the formulas we used above:
+
+$$x_1 = 5u_1$$
+$$x_2 = 2u_1 + 1u_2$$
+
+This allows us to write an elegant matrix equation to represent the original one:
+
+$$
+[x_1, x_2] = [u_1, u_2]
+\left[
+  \begin{array}{cc}
+  5 & 2 \\
+  0 & 1
+  \end{array}
+\right]
+$$
+
+This is useful in application of a least square problem, expecially because the matrix on the right is upper triangular. First, we can factor the original matrix $A = [x_1, x_2]$ into the above equation:
+
+$$A = QR$$
+
+Where $R$ is an upper triangular matrix. Now, given a least-square problem $Ax = b$, we can simplify (since $Q^T = Q^{-1}$, as it is orthogonal):
+
+$$QRx = b$$
+$$Rx = Q^Tb$$
+
+Which makes it easier to solve for $\hat x$ since $R$ is already in upper triangular form, allowing us to just back-substitute to find $\hat x$.
+
+### Simplified Least-Square process
+
+Using simplifications listed above, the least-square process can be simplified to:
+
+Given a matrix $A$ and a least-square problem $Ax = b$, we can follow the GS process to obtain $Q$, and also get $R$:
+
+1. Normalize $a_1$:
+
+$$q_1 = \frac{a_1}{||a_1||}$$
+$$r_{11} = ||a_1||$$
+
+2. Project onto $q_1$
+
+$$z_1 = a_2 - (\langle a_2, q_1\rangle q_1)$$
+$$q_2 = \frac{z_1}{||z_1||}$$
+$$r_{12} = \langle a_2, q_1 \rangle$$
+$$r_{22} = ||z_1||$$
+
+Notice that we are getting the values of $r$ while computing $q$
+
+3. Repeat
+
+$$z_{n - 1} = a_n - (\langle a_n, q_1 \rangle + ... + \langle a_n, q_{n - 1})\rangle $$
+$$q_n = \frac{z_{n-1}}{||z_{n-1}||}$$
+
+$$r_{1n} = \langle a_n, q_1 \rangle$$
+$$r_{2n} = \langle a_n, q_2 \rangle$$
+...
+$$r_{(n-1)n} = \langle a_n, q_{n-1} \rangle$$
+$$r_{nn} = ||z_{n-1}||$$
+
+So the general formula for the entries of $R$ will be:
+
+$$r_{kk} = ||z_{k-1}||$$
+$$r_{ik} = \langle a_k, q_i \rangle$$
+
+~~Example 2
+
+$$
+A = 
+\left[
+  \begin{array}{cc}
+  1 & 1 & 0 \\
+  2 & 0 & 1 \\
+  2 & 1 & -1
+  \end{array}
+\right]
+$$
+
+Find $Q$ and $R$:
+
+1. $$q_1 = \frac{1}{||a_1||}a_1 = \frac{1}{3}a_1$$
+
+$$
+q_1 = 
+\left(
+  \begin{array}{c}
+  \frac{1}{3} \\ \frac{2}{3} \\ \frac{2}{3}
+  \end{array}
+\right)
+$$
+
+$$r_{11} = ||a_1|| = 3$$
+
+2. $$q_2 = \frac{z_1}{||z_1||}$$
+
+$$
+p_1 = \langle a_2, q_1 \rangle q_1 = 1 * q_1 = 
+\left(
+  \begin{array}{c}
+  \frac{1}{3} \\ \frac{2}{3} \\ \frac{2}{3}
+  \end{array}
+\right)
+$$
+
+$$r_{12} = \langle a_2, q_1 \rangle = 1$$
+
+$$
+q_2 = norm(a_2 - p_1) = 
+\frac{1}{1}\left(
+\left(
+  \begin{array}{c}
+  1 \\ 0 \\ 1
+  \end{array}
+\right) - 
+\left(
+  \begin{array}{c}
+  \frac{1}{3} \\ \frac{2}{3} \\ \frac{2}{3}
+  \end{array}
+\right)\right) = 
+\left(
+  \begin{array}{c}
+  \frac{2}{3} \\ -\frac{2}{3} \\ \frac{1}{3}
+  \end{array}
+\right)
+$$
+
+$$r_{22} = ||z_1|| = 1$$
+
+And so on for the third step:
+
+$$r_{13} = 0$$
+$$r_{23} = -1$$
+$$r_{33} = 1$$
+
+$$
+q_3 = 
+\left(
+  \begin{array}{c}
+  \frac{2}{3} \\ \frac{1}{3} \\ -\frac{2}{3}
+  \end{array}
+\right)
+$$
+
+~~
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
