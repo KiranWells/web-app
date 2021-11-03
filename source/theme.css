@@ -80,6 +80,19 @@
   --tp: #689d6a;
 }
 
+:root.everforest {
+  /* Colors from the everforest theme: https://github.com/sainnhe/everforest */
+  --fg: #d3c6aa;
+  --h1: #e67e80;
+  --h2: #dbbc7f;
+  --bg: #323d43;
+  --bg-dark: #2b3339;
+  --ac: #a7c080;
+  --al: #7fbbb3;
+  --hl: #83c092;
+  --tp: #d699b6;
+}
+
 ::selection {
   background-color: var(--ac);
   color: var(--bg);
