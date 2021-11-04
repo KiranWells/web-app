@@ -1,0 +1,455 @@
+# Eigenvalues and Diagonalization
+
+## Diagonal Matrices
+
+> Definition: Diagonal Matrix  
+> A diagonal matrix only has non-zero entries on the diagonal.
+> $$A = \left[\begin{array}{ccc}d_1&0&0\\0&d_2&0\\0&0&d_3\end{array}\right]$$
+
+### Properties
+
+Given the matrix:
+
+$$
+D = 
+\left[
+\begin{array}{ccc}
+d_1 & ... & 0 \\
+... & ... & ... \\
+0 & ... & d_n \\
+\end{array}
+\right]
+$$
+
+1. $$D^k = [d_i^k]$$
+
+Diagonal matrix to a power is just all of the diagonal entries to a power.
+
+2. $$D^{-1} = [\frac{1}{d_i}]$$
+
+### Diagonalization
+
+Because of these useful properties, it would be useful to make a matrix diagonal, specifically by factoring out matrices from it to get a diagonal matrix. Essentially, we want:
+
+$$A = XDX^{-1}$$
+
+Where $D$ is a diagonal matrix, and $X$ is a remaining matrix.
+The reason we want this particlar matrix is because it makes calculating the power of a matrix very simple:
+
+$$A^2 = AA = XDX^{-1}XDX^{-1} = XD^2X^{-1}$$
+$$A^k = XD^kX^{-1}$$
+
+> Definition: Diagonalizable Matrix  
+> A matrix can be diagonalized if there is a nonsingular $X$ which satisfies $A=XDX^{-1}$. We say that $X$ diagonalizes $A$.
+
+Note: this can also be written as: $X^{-1}AX = D$.
+
+So, how do we factorize $A$?
+
+> Theorem:  
+> Given $A$ as an $n\times n$ matrix, and $\lambda_1 ... \lambda_n$ as the eigenvalues:
+> If we have $n$ independent eigenvectors $x_1 ... x_n$, then we can do the factorization:  
+> $$A = XDX^{-1}$$  
+> $$X = [x_1, x_2, ... x_n]$$  
+> $$D = [\lambda_1, \lambda_2, ... \lambda_n]$$  
+> If there are fewer than $n$ independent eigenvectors, then $A$ is not diagonalizable. This is called a **defective** matrix. 
+
+~~Proof
+
+By the definition of eigenvalues, we have:
+
+$$
+\begin{cases}
+Ax_1 = \lambda_1x_1 \\
+Ax_2 = \lambda_2x_2 \\
+... \\
+Ax_n = \lambda_nx_n \\
+\end{cases}
+$$
+
+$$AX = A[x_1, x_2, ... x_n] = [Ax_1, Ax_2, ... Ax_n]$$
+$$=[\lambda_1x_1, \lambda_2x_2, ... \lambda_nx_n] = XD$$
+
+So we have:
+
+$$AX = XD$$
+
+if $X$ is non-singular, meaning that all $x_1 ... x_n$ are independent, then it has an inverse $X^{-1}$, so we can write:
+
+$$A = XDX^{-1}$$
+
+~~
+
+~~Example 1
+
+Diagonalize:
+
+$$
+A = 
+\left[
+\begin{array}{cc}
+1 & 1 \\
+-2 & 4
+\end{array}
+\right]
+$$
+
+Using the determinant method, the eigenvalues can be found as:
+
+$$\lambda_1 = 2, \lambda_2 = 3$$
+
+The eigenvectors can then be found using the null space:
+
+$$
+\left[
+\begin{array}{cc|c}
+1 - \lambda_1 & 1 & 0 \\
+-2 & 4 - \lambda_1 & 0
+\end{array}
+\right]
+$$
+$$
+\left[
+\begin{array}{cc|c}
+-1 & 1 & 0 \\
+-2 & 2 & 0
+\end{array}
+\right]
+$$
+$$
+\left[
+\begin{array}{cc|c}
+-1 & 1 & 0 \\
+0 & 0 & 0
+\end{array}
+\right]
+$$
+
+$$
+x_1 = 
+\left(
+\begin{array}{c}
+1 \\ 1
+\end{array}
+\right)
+$$
+
+Similarly, $x_2$ is:
+
+$$
+x_2 = 
+\left(
+\begin{array}{c}
+\frac{1}{2} \\ 1
+\end{array}
+\right)
+$$
+
+These happen to be independent (this can be tested separately), so we get:
+
+$$
+X = 
+\left[
+\begin{array}{cc}
+1  & \frac{1}{2}\\ 1 &1
+\end{array}
+\right]
+$$
+$$
+D = 
+\left[
+\begin{array}{cc}
+2  & 0 \\ 0 & 3
+\end{array}
+\right]
+$$
+
+~~
+
+Note: The only way you would not have enough independent vectors is if you had duplicate eigenvalues and they did not have more than one corresponding eigenvector.
+
+
+~~Example 2 (non-diagonalizable)
+
+
+$$
+A = 
+\left[
+\begin{array}{cc}
+1 & 1 \\ 0 & 1
+\end{array}
+\right]
+$$
+
+Here, solving for the eigenvalues gives:
+
+$$
+\lambda_1 = \lambda_2 = 1
+$$
+
+Solving the null space for eigenvectors gives:
+
+$$
+\left[
+\begin{array}{cc|c}
+0 & 1 & 0 \\ 0 & 0 & 0
+\end{array}
+\right]
+$$
+$$
+x_1 = x_2 = 
+\left(
+\begin{array}{c}
+1 \\ 0
+\end{array}
+\right)
+$$
+
+Since we only have one independent eigenvector, $A$ is defective and it is not diagonalizable.
+
+~~
+
+Note: for $2\times2$ matrices, the only way that the matrix will be diagonalizable with repreated eigenvalues is if $A$ is a multiple of the $I$ matrix. For higher order matrices, it is more complex.
+
+### Application: Systems of Linear Equations
+
+From differential equations, if we have an initial value problem:
+
+$$y' = ay, y(0) = y_0$$
+
+The solution will have the form:
+
+$$y(t) = e^{at}y_0$$
+
+However, if we are in two or three dimensional spaces, we may have several equations, not just one. This is common in real applicaions. For example, in two dimensional space, we can have the system:
+
+$$
+\begin{cases}
+  y_1' = a_{11}y_1 + a_{12}y_2 \\ 
+  y_2' = a_{21}y_1 + a_{22}y_2 \\
+  y_1(0) = y_{10} \\
+  y_2(0) = y_{20}
+\end{cases}
+$$
+
+We can rewrite this system as a matrix equation:
+
+$$Y' = AY$$
+
+Where:
+
+$$
+Y(t) = 
+\left(
+\begin{array}{c}
+y_1 \\ y_2
+\end{array}
+\right)
+$$
+$$
+Y(0) = 
+\left(
+\begin{array}{c}
+y_{10} \\ y_{20}
+\end{array}
+\right)
+$$
+
+$$
+A = 
+\left[
+\begin{array}{cc}
+a_{11} & a_{12} \\
+a_{21} & a_{22}
+\end{array}
+\right]
+$$
+
+It turns out that we will get the same solution:
+
+$$Y(t) = e^{At}Y_0$$
+
+However, doesn't make much sense. We are raising $e$ to a matrix! (3Blue1Brown has a video on that...) To make this make sense, we need to use the power series for $e$, which is:
+
+$$e^x = 1 + x + \frac{1}{2!}x^2 + \frac{1}{3!}x^3 ...$$
+
+So with a matrix this is:
+
+$$e^A = I + A + \frac{1}{2!}A^2 + \frac{1}{3!}A^3 ...$$
+
+Because there are so many $A^k$ matrices, it is useful to be able to use the formula above: $A=XDX^{-1}$.
+
+$$e^A = XIX^{-1} + XDX^{-1} + \frac{1}{2!}XD^2X^{-1} + \frac{1}{3!}XD^3X^{-1} ...$$
+
+Note: we rewrote $I$ as $XIX^{-1}$ because that is equivalent.
+
+$$e^A = X(I + D + \frac{1}{2!}D^2 + \frac{1}{3!}D^3 ...)X^{-1}$$
+
+Here, we can break up the diagonal matrix into its entries, and end up with the matrix:
+
+$$
+e^A = 
+X
+\left[
+\begin{array}{ccc}
+(1 + \lambda_1 + \frac{1}{2!}\lambda_1^2 ...) & ... & 0 \\
+& ... \\
+0 & ... & (1 + \lambda_n + \frac{1}{2!}\lambda_n^2 ...) \\
+\end{array}
+\right]
+X^{-1}
+$$
+
+An the inner part simplifies to $e^{\lambda_i}$:
+
+$$
+e^A = 
+X
+\left[
+\begin{array}{ccc}
+e^{\lambda_1} & ... & 0 \\
+& ... \\
+0 & ... & e^{\lambda_n} \\
+\end{array}
+\right]
+X^{-1}
+$$
+
+~~Example 3
+
+Solve the inital value problem:
+
+$$
+Y'(t) = 
+\left[
+\begin{array}{cc}
+1 & 1 \\
+-2 & 4\\
+\end{array}
+\right]Y(t)
+$$
+
+$$
+Y(0) = 
+\left(
+\begin{array}{c}
+3 \\ -1
+\end{array}
+\right)
+$$
+
+We already found the matrices $X$ and $D$, so we have:
+
+$$
+\left[
+\begin{array}{cc}
+1 & 1 \\
+-2 & 4\\
+\end{array}
+\right] = 
+\left[
+\begin{array}{cc}
+1 & \frac{1}{2} \\
+1 & 1\\
+\end{array}
+\right]
+\left[
+\begin{array}{cc}
+2 & 0 \\
+0 & 3\\
+\end{array}
+\right]
+\left[
+\begin{array}{cc}
+2 & -1 \\
+-2 & 2\\
+\end{array}
+\right]
+$$
+
+So the solution $Y(t) = e^{At}Y(0)$ becomes:
+
+$$
+At = 
+\left[
+\begin{array}{cc}
+1 & \frac{1}{2} \\
+1 & 1\\
+\end{array}
+\right]
+\left[
+\begin{array}{cc}
+2t & 0 \\
+0 & 3t\\
+\end{array}
+\right]
+\left[
+\begin{array}{cc}
+2 & -1 \\
+-2 & 2\\
+\end{array}
+\right]
+$$
+
+$$e^{At} = 
+\left[
+\begin{array}{cc}
+1 & \frac{1}{2} \\
+1 & 1\\
+\end{array}
+\right]
+\left[
+\begin{array}{cc}
+e^{2t} & 0 \\
+0 & e^{3t} \\
+\end{array}
+\right]
+\left[
+\begin{array}{cc}
+2 & -1 \\
+-2 & 2\\
+\end{array}
+\right]
+$$
+
+$$
+e^{At} = 
+\left[
+\begin{array}{cc}
+2e^{2t}-e^{3t} & -e^{2t}+e^{3t} \\
+2e^{2t}-2e^{3t} & -e^{3t}+2e^{3t}\\
+\end{array}
+\right]
+$$
+
+And we have:
+
+$$
+Y(t) = 
+\left[
+\begin{array}{cc}
+2e^{2t}-e^{3t} & -e^{2t}+e^{3t} \\
+2e^{2t}-2e^{3t} & -e^{3t}+2e^{3t}\\
+\end{array}
+\right]
+\left[
+\begin{array}{c}
+3 \\ -1
+\end{array}
+\right]
+$$
+
+$$
+Y(t) = 
+\left[
+\begin{array}{cc}
+7e^{2t}-4e^{3t} \\
+7e^{2t}-8e^{3t} \\
+\end{array}
+\right]
+$$
+
+~~
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
