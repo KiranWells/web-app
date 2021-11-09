@@ -1,0 +1,386 @@
+# Review and Practice Problems
+
+This section covers chapters 4, 5, and 6. Also see my [summary](summary.html).
+
+## Linear Transformations - Ch 4
+
+A linear transformation is one which satisfies:
+
+$$L(ax + by) = aL(x) + bL(y)$$
+
+although it can be checked with scalar multiplication and addition separately.
+
+Every transformation $L$ can be written as a matrix multiplication:
+
+$$L(x) = Ax$$
+
+Which is another way to check if it is a linear transformation. To find this matrix, we evaluate the transformation for each vector of the standard basis.
+
+### Kernel
+
+The kernel just all the vectors where $L(x) = \bar 0$, or the null space of the associated matrix: $N(A)$.
+
+### Image
+
+The image is the set of all results from a set of inputs $L(S)$.
+
+### Range
+
+The range is the set of all results from the set of all possible inputs $L(V)$.
+
+~~Example: Linear Transformations
+
+$$L: \mathbb{R}^3 \to \mathbb{R}^2$$
+$$L(x) = \left(\begin{array}{c}x_1 + x_2 \\ x_1\end{array}\right)$$
+
+To evaluate if this is linear, try testing scalar multiplicaiton and addition:
+
+$$L(x + y) = \left(\begin{array}{c}x_1 + y_1 + x_2 + y_2 \\ x_1 + y_1\end{array}\right)$$
+$$L(x) + L(y) = \left(\begin{array}{c}x_1 + x_2 \\ x_1\end{array}\right) +  \left(\begin{array}{c}y_1 + y_2 \\ y_1\end{array}\right)$$
+
+These are equal, so this first test passes.
+
+$$L(ax) = \left(\begin{array}{c}ax_1 + ax_2 \\ ax_1\end{array}\right)$$
+$$aL(x) = a\left(\begin{array}{c}x_1 + x_2 \\ x_1\end{array}\right)$$
+
+These are again equal, so this is a linear transformation.
+
+We can also find the matrix which represents this:
+
+$$L(e_1) = (1, 1)$$
+$$L(e_2) = (1, 0)$$
+$$L(e_3) = (0, 0)$$
+
+So we have the matrix:
+
+$$
+L(x) = 
+\left[\begin{array}{ccc}
+1 & 1 & 0 \\
+1 & 0 & 0
+\end{array}\right]
+\left[\begin{array}{c}x_1 \\ x_2 \\ x_3\end{array}\right]
+$$
+
+~~
+
+~~Example: Non-Linear Transformation
+
+$$L:\mathbb{R}^3 \to \mathbb{R}^3$$
+$$L(x) = \left(\begin{array}{c}x_1 + 1 \\ x_2 \\ x_3\end{array}\right)$$
+
+Testing scalar multiplication will give:
+
+$$L(ax) = \left(\begin{array}{c}ax_1 + 1 \\ ax_2 \\ ax_3\end{array}\right)$$
+$$aL(x) = a\left(\begin{array}{c}x_1 + 1 \\ x_2 \\ x_3\end{array}\right)$$
+$$aL(x) = \left(\begin{array}{c}ax_1 + a \\ ax_2 \\ ax_3\end{array}\right)$$
+
+These are not equal. This can also be proved by a counter-example.
+
+If we attempted to write this as a matrix:
+
+$$L(e_1) = \left(\begin{array}{c}2 \\ 0 \\ 0\end{array}\right)$$
+$$L(e_2) = \left(\begin{array}{c}1 \\ 1 \\ 0\end{array}\right)$$
+$$L(e_3) = \left(\begin{array}{c}1 \\ 0 \\ 1\end{array}\right)$$
+
+However, this does not give the right answer:
+
+$$
+L(x) \ne
+\left[\begin{array}{ccc}
+2 & 0 & 0 \\
+1 & 1 & 0 \\
+0 & 0 & 1
+\end{array}\right]
+\left[\begin{array}{c}x_1 \\ x_2 \\ x_3\end{array}\right]
+$$
+
+Since this would be:
+
+$$
+\left(\begin{array}{c}2x_1 + x_2 \\ x_2 \\ x_3\end{array}\right)
+$$
+
+~~
+
+## Orthogonality - Ch 5
+
+Two vectors are orthogonal if their inner product is $0$:
+
+$$\langle x, y \rangle = 0$$
+
+This is defined as $x^Ty$ for Euclidean vectors.
+
+Another operation is the norm:
+
+$$||x||$$
+
+defined as $\sqrt{x_1^2 ... x_n^2}$ for Euclidean vectors.
+
+### Projection
+
+Scalar projection is:
+
+$$\alpha = ||p|| = \frac{x^Ty}{||y||}$$
+
+Vector projection is:
+
+$$p = \alpha\frac{y}{||y||} = \frac{x^Ty}{||y||^2}y$$
+
+This can be used to find the length of the perpendicular portion $||z||$ of the vector by subtracting from $x$:
+
+$$x = p + z$$
+$$z = x - p$$
+
+This is the calculation for the distance from a vector to a point. For a plane to a point, the distance is the length of $p$, or $\alpha$.
+
+### Subspaces
+
+We say that two subspaces $S$ and $U$ are perpendicular if every vector of $U$ is perpendicular to every vector in $S$.
+
+$$U \perp S\ iff\ u \perp s | u \in U, s\in S$$
+
+#### Orthogonal Complement
+
+The orthogonal complement is every vector which is parallel to all vectors in a subspace:
+
+$$S^{\perp} = {v: v \perp S}$$
+
+There are a few useful properties:
+
+$$dim(S) + dim(S^{\perp}) = dim(V)$$
+
+For a matrix $A$:
+
+$$R(A)^{\perp} = N(A^T)$$
+$$R(A^T)^{\perp} = N(A)$$
+
+### Least Square
+
+Least square problem: find the vector $x$ where:
+
+$$Ax = b$$
+
+is the most accurate. To find it, solve:
+
+$$A^TA\hat x = A^Tb$$
+
+### Generalized Inner Product
+
+$$\langle x, y \rangle$$
+
+Where:
+
+1. $\langle x,x \rangle \ge 0$
+2. $\langle x,x \rangle = 0, x = 0$ - *important! Easily violated*
+3. $\langle x, y \rangle = \langle y, x \rangle$
+4. $\langle ax + by, z \rangle = a\langle x, z\rangle + b\langle y, z\rangle$
+
+### Generalized Norm
+
+$$||x||$$
+
+Where:
+
+1. $||x|| \ge 0$
+2. $||ax|| = |a|||x||$
+3. $||x + y|| \le ||x|| + ||y||$ - *triangle inequality*
+
+3 common norms:
+
+1. Euclidean norm: $||x||_2 = \sqrt{\langle x, x \rangle}$
+2. Infinity/uniform norm: $||x||_{\infty} = max\{|x_1|, ... |x_2|\}$
+3. Manhattan/Taxicab norm: $||x||_1 = |x_1| + ... + |x_n|$
+
+### Orthogonal/Orthonormal Sets
+
+Orthogonal: vectors are each orthogonal to eachother. Orthonormal: orthogonal set where all vectors are of length 1.
+
+#### Properties
+
+With a basis $\{v_1 ... v_n\}$:
+
+1. The coordinates of $x$ relative to this basis is:
+
+$$x = c_1v_1 + ... c_nv_n$$
+$$c_i = \langle x, v_1\rangle$$
+
+2. Parseval formula for the length of $x$:
+
+$$||x||^2 = c_1^2 + c_2^2 + ... c_n^2$$
+
+This is important for projection:
+
+3. Projection of $x$ onto a subspace $S$ with an orthonormal basis $\{v_1 ... v_k\}$ is:
+
+$$p = \langle x,v_1\rangle v_1 + \langle x, v_2\rangle v_2 + ... \langle x, v_k\rangle v_k$$
+
+4. An orthonormal matrix $Q$ is a matrix who's columns form an orthonormal basis. It has the property:
+
+$$Q^TQ = I$$
+
+#### Gram-Schmidt Process
+
+This is the process for making an orthonormal basis from a matrix $A$. See [this section](https://math-251-notes.vercel.app/Math311/Sec2/Ortho_2.html#computing-an-orthonormal-basis) for more detail.
+
+~~Example: Inner Product
+
+$$A, B \in \mathbb{R}^{2 \times 2}$$
+
+Given an inner product:
+
+$$\langle A,B \rangle = a_{11}b_{11}$$
+
+First, we check product with itself:
+
+$$\langle A, A \rangle = a_{11}^2$$
+
+Next, we check the zero condition:
+
+$$\langle A, A \rangle = 0$$
+
+$$
+A = 
+\left[
+  \begin{array}{cc}
+  0 & a_{12} \\
+  a_{21} & a_{22}
+  \end{array}
+\right]
+$$
+
+This is not the zero matrix, so this fails.
+
+However, with the inner product:
+
+$$
+\langle A,B \rangle = a_{11}b_{11} + a_{12}b_{12} + a_{21}b_{21} + a_{22}b_{22}
+$$
+
+This also satisfies the first condition, since it is $a_11^2 + a_12^2 ...$, and it also satisfies the second, since it requires all entries of $A$ to be 0 for the inner product to be 0.
+
+Next, check that order does not matter:
+
+$$
+\langle B, A \rangle = b_{11}a_{11} + b_{12}a_{12} + b_{21}a_{21} + b_{22}a_{22}
+$$
+
+This is equal to the original, as multiplicaiton is associative.
+
+The third condition is a bit more messy:
+
+$$\langle \alpha A + \beta B, C \rangle = (\alpha a_{11} + \beta b_{11})c_{11}) + ...$$
+
+Which can be rearranged as:
+
+$$\langle \alpha A + \beta B, C \rangle = \alpha (a_{11}c_{11}) + \beta (b_{11})c_{11}) + ...$$
+
+And this is equal to the required version:
+
+$$\alpha \langle A, C \rangle + \beta \langle B, C \rangle$$
+
+~~
+
+~~Example: Norm
+
+$$||x|| = |x_1|$$
+
+First, checking the zero conditions:
+
+$$||x|| = |x_1| \ge 0$$
+
+$$||x|| = 0$$
+
+$$x = (0, x_2) \ne \bar 0$$
+
+This fails, again because it does not include all of the components of $x$.
+
+$$||x|| = |x_1| - |x_2|$$
+
+This could easily be less than $0$, since it uses subtraction.
+
+~~
+
+~~Example: Orthogonality
+
+If $A$ and $B$ are orthogonal, (1) prove $A^T$ is an orthogonal matrix.
+
+We know that, for orthogonal matrices, $A^TA = I$.
+
+$$(A^T)^TA^T = I$$
+
+Since $A^T = A^{-1}$ for orthogonal matrices, we have:
+
+$$AA^{-1} = I$$
+
+Which is true.
+
+(2) Prove $AB$ and $BA$ are orthogonal.
+
+$$(AB)^TAB = I$$
+$$B^TA^TAB = I$$
+
+Since $A$ and $B$ are orthogonal:
+
+$$B^TIB = I$$
+$$B^TB = I$$
+$$I = I$$
+
+~~
+
+## Eigenvalues
+
+The eigenvalues are defined as:
+
+$$Ax = \lambda x$$
+
+and calculated with:
+
+$$det(A - \lambda I) = 0$$
+
+~~Example: Eigenvalues
+
+$$
+A = 
+\left[
+  \begin{array}{cc}
+  -1 & a \\
+  6 & 6
+  \end{array}
+\right]
+$$
+
+So the determinant is:
+
+$$
+\left|
+  \begin{array}{cc}
+  -1 - \lambda & a \\
+  6 & 6 - \lambda
+  \end{array}
+\right| = 
+\lambda^2 - 5\lambda - 6 - 6a = 0
+$$
+
+And using the quadratic formula, we can take the part under the square root to determine what the eigenvalues will act as depending on $\lambda$. If the descriminant is 0, there is a repeated root, if it is $\lt 0$, then it is complex, if it is $\gt 0$, then there are two real roots.
+
+$$desc = b^2 - 4ac = 25 - 4(1)(-6- 6a)$$
+
+~~
+
+~~Example: Eigenvectors
+
+Given $A$ has an eigenvalue $\lambda$, and $x$ is the corresponding eigenvector, show that $x$ is also an eigenvector of $C = A^2$.
+
+Using the definition of eigenvaues:
+
+$$Ax = \lambda x$$
+
+$$Cx = A^2x = A(A x) = A(\lambda x) = \lambda (Ax) = \lambda (\lambda x) = \lambda^2 x$$
+
+So $x$ is an eigenvector of $C$, with the corresponding eigenvalue $\lambda^2$
+
+~~
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">

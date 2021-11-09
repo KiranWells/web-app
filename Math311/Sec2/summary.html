@@ -1,0 +1,250 @@
+# Summary - Chapter 4-6
+
+Also see the in-class [review notes](practice.html).
+
+## [Linear Transformations](https://math-251-notes.vercel.app/Math311/Sec2/Lin_trans.html)
+
+Every linear transformation can be represented by a matrix multiplication.
+
+$$L(x) = Ax$$
+
+Where $A$ is considered the representative matrix for that linear transformation.
+
+Linear transformations are guaranteed to have the following properties:
+
+$$L(x + y) = L(x) + L(y)$$
+
+$$L(\alpha x) = \alpha L(x)$$
+
+To find the corresponding matrix for a transformation, we can plug in the corresponding basis vectors to the standard basis.
+
+$$a_i = L(e_i)$$
+
+Where $a_i$ is the $i^{th}$ column of the matrix $A$.
+
+### [Kernel](https://math-251-notes.vercel.app/Math311/Sec2/Lin_trans.html#kernel-and-image) 
+
+The kernel of $L(x)$ is defined as the inputs $x$ which result in a 0 vector. To find it, we can find the null space of the representative matrix.
+
+### [Image/range](https://math-251-notes.vercel.app/Math311/Sec2/Lin_trans.html#kernel-and-image)
+
+The Image of a subspace $S$ with $L$ or Range of $L$ is defined as the range of possible outputs ($Image = L(S)$, $Range = L(V)$, where $V$ is the full vector space of the inputs). It can be computed as the column space of the representative matrix.
+
+## [Orthogonality](https://math-251-notes.vercel.app/Math311/Sec2/Orthogonality.html)
+
+Orthogonality is a version of perpendicularity that can be applied in general to vectors and vector spaces, even if they are not just in $\mathbb{R}^n$. It uses a couple of different operations: inner product and norm
+
+### [Inner product](https://math-251-notes.vercel.app/Math311/Sec2/Orthogonality2.html)
+
+$$\langle x, y \rangle$$
+
+This is any conversion from two vectors to a scalar which satisfies:
+
+$$\langle x, x \rangle \ge 0$$
+$$\langle x, x \rangle = 0\ iff\ x = \bar 0$$
+$$\langle x, y \rangle = \langle y, x \rangle$$
+$$\langle \alpha x + \beta y, z \rangle = \alpha \langle x, z \rangle + \beta \langle y, z \rangle$$
+
+Two vectors are orthogonal if:
+
+$$x \perp y\ iff\ \langle x, y \rangle = 0$$
+
+There are many different inner products, but the most common is scalar product:
+
+$$x^Ty = x_1y_1 + x_2y_2 ... x_ny_n$$
+
+In addition, the inner product can be defined for matrices, polynomials, and continuous functions.
+
+### [Norm](https://math-251-notes.vercel.app/Math311/Sec2/Inner_prod.html#norm)
+
+$$||x||$$
+
+This is any conversion from a vector to a scalar which satisfies:
+
+$$||x|| \ge 0$$
+$$||x|| = 0\ iff\ x = \bar 0$$
+$$||\alpha x|| = |\alpha| * ||x||$$
+$$||x + y|| \le ||x|| + ||y||$$
+
+The most common is:
+
+$$||x|| = \sqrt{x_1 + x_2 + ... x_n}$$
+
+but it can be defined in many different ways.
+
+## [Orthogonality for vectors](https://math-251-notes.vercel.app/Math311/Sec2/Orthogonality.html)
+
+This uses the common defintions:
+
+$$x^Ty = x_1y_1 + x_2y_2 ... x_ny_n$$
+$$||x|| = \sqrt{x_1 + x_2 + ... x_n}$$
+
+### Uses
+
+The scalar product has a special property which allows us to find the angle between two vectors:
+
+$$x^Ty = ||x||||y||cos(\theta)$$
+
+Where $\theta$ is the angle between them.
+
+In addition, we can find the unit vector in the same direction as $x$, called the normal vector, by dividing by the length of $x$:
+
+$$\hat x = \frac{x}{||x||}$$
+
+Finally, we can calculate vector projections:
+
+The scalar projection of $x$ on $y$ is:
+
+$$\alpha = \frac{x^Ty}{||y||}$$
+
+The vector projection is:
+
+$$p = \frac{x^Ty}{||y||^2}y$$
+
+And we can decompose a vector into projected and perpendicular components with:
+
+$$x = p + z$$
+
+Where $z$ is the portion of the vector perpendicular to $y$ or $p$.
+
+## [Definition for spaces](https://math-251-notes.vercel.app/Math311/Sec2/Orthogonality2.html)
+
+For spaces, orthogonality is defined as the orthogonality of all of their vectors. Two subspaces are orthogonal if all of the vectors in one are orthogonal to all of the vectors in the other subspace. 
+
+The orthogonal complement ($X^{\perp}$) to a subspace is all of the vectors which are perpendicular to all of the vectors in the subspace. If $Y = X^{\perp}$, $X = Y^{\perp}$. In addition, the $dim(X) + dim(X^{\perp}) = dim(\mathbb{R}^{n})$, so if the vectors in the subspace are in three dimensions, and the subspace has a dimension of 2, then the dimension of the complement will be 1.
+
+To find an orthogonal complement, find the set of vectors which is perpendicular to the subspace. See [this example](https://math-251-notes.vercel.app/Math311/Sec2/Orthogonality2.html#example-1) for more detail.
+
+Finally, there is one useful property for calculating Null and Column/Row spaces:
+
+$$R(A)^{\perp} = N(A^T)$$
+$$R(A^T)^{\perp} = N(A)$$
+
+### [Least Square method](https://math-251-notes.vercel.app/Math311/Sec2/Least_Squares.html)
+
+This is a method of regression modeling which finds the coefficients to a model with the least error, where the error is calculated as the sum of the squares of the distances from the model to the points.
+
+Essentially, it finds the closest fit with the given line model, either a linear model or a higher power equation, or a more complex equation.
+
+To do this, just solve the formula:
+
+$$A^TA\hat x = A^Tb$$
+
+to find $\hat x$, which is the list of coefficients for the line/curve of best fit. Note: $A$ is the values of $x$ to their corresponding powers and $b$ is the values of $y$. See [this example](https://math-251-notes.vercel.app/Math311/Sec2/Least_Squares.html#example-1:-line-fitting) for more detail.
+
+## [Orthogonal and Orthonormal](https://math-251-notes.vercel.app/Math311/Sec2/Ortho_sets.html)
+
+Orthogonal means all of the vectors contained are orthogonal to each other, and orthonormal is the same with all of the vectors normalized (with unit length).
+
+### [Bases/Sets](https://math-251-notes.vercel.app/Math311/Sec2/Ortho_sets.html#orthonormal-bases)
+
+Orthonormal bases are useful because you can get coordinates relative to them with a simple equation:
+
+$$c_i = \langle v, u_i \rangle$$
+
+Where $c_i$ is the $i^{th}$ coordinate, $v$ is the vector in question, and $u_i$ is the $i^{th}$ basis vector.
+
+This also allows you to find a projection of $v$ onto a subspace with an orthonormal basis as:
+
+$$p = c_1u_1 + c_2u_2 + ... + c_nu_n$$
+
+### Matrices
+
+If the matrix $A$ is orthonormal, this will allow us to simplify the least square problem to:
+
+$$\hat x = A^Tb$$
+
+Since $A^TA$ can be shown to be $I$.
+
+In addition they have a few properties that make them similar to the standard basis:
+
+$$\langle Qx, Qy \rangle = \langle x, y\rangle$$
+$$||Qx||^2 = ||x||^2$$
+
+Where $Q$ is an orthonormal matrix.
+
+To compute an orthonormal basis or set, we start with normalizing the first vector, and then just find the portion of the other vectors perpendicular to the current set of normlaized vectors:
+
+$$u_1 = \frac{x}{||x||}$$
+$$u_n = x_n - p$$
+
+Where $p$ is the vector perpendicular to the previous $u_i$ vectors and can be calculated with the simpler formula from earlier:
+
+$$p = c_1u_1 + c_2u_2 + ... c_nu_n = \langle x, u_1 \rangle u_1 + ... \langle x, u_{n-1} \rangle$$
+
+### [Simplified Least Square](https://math-251-notes.vercel.app/Math311/Sec2/Ortho_sets.html#least-square-problem)
+
+Since the inverse of an orthonormal matrix is its transpose, we can factor a matrix to make it easier to invert:
+
+$$A = QR$$
+
+The important part here is that $R$ ends up being a triangular matrix. This allows us to use backsubstitution to solve:
+
+$$Ax = b$$
+$$QRx = b$$
+$$Rx = Q^Tb$$
+
+The elements of $R$ can be found as components of the normalization process:
+
+$$
+\begin{cases}
+  r_{kk} = ||z_{k-1}|| \\ 
+  r_{ik} = \langle a_k, q_i \rangle
+\end{cases}
+$$
+
+## [Eigenvalues and Eigenvectors](https://math-251-notes.vercel.app/Math311/Sec2/Eigenvalues.html)
+
+Eigenvalues are defined as the $\lambda$ where:
+
+$$Ax = \lambda x$$
+
+and Eigenvectors are the $x$.
+
+To find the Eigenvalues, solve:
+
+$$det(A - \lambda I) = 0$$
+
+And Find the Eigenvectors by solving:
+
+$$(A - \lambda I)x = 0$$
+
+For each found $\lambda$.
+
+Every matrix will have a number of eigenvalues equal to $n$, where $A$ is  $n \times n$, but some may end up being repeated:
+
+$$(\lambda - 2)^2(\lambda + 1) = 0$$
+$$\lambda = 2, 2, -1$$
+
+### [Diagonal Matrices](https://math-251-notes.vercel.app/Math311/Sec2/Diagonal.html)
+
+Diagonal matrices are matrices with only non-zero elements on their diagonal. They are easy to raise to a power:
+
+$$D^k = [d_i^k]$$
+
+Where $d_i$ is each diagonal element of $D$.
+
+Matrices can be factored into:
+
+$$A = XDX^{-1}$$
+
+To make their power easier to find:
+
+$$A^k = XD^kX^{-1}$$
+
+To do this, find $D$ as the diagonal matrix made of the eigenvalues of $A$, and $X$ as the matrix who's columns are the eigenvectors of $A$. Note that if there are not enough orthogonal eigenvectors, there will not be a square matrix $X$, so there is no factorization for those matrices.
+
+$$
+A = [x_1 ... x_n]
+\left[
+\begin{array}{ccc}
+d_1 & ... & 0 \\
+... & ... & ... \\
+0 & ... & d_n
+\end{array}
+\right]
+[x_1...x_n]^{-1}
+$$
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">

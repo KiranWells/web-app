@@ -143,6 +143,7 @@ h6:hover::before
   background-color: var(--bg, #3b4252);
   border-left: .3em solid var(--ac, #5e81ac);
   transition: 1s;
+  box-shadow: 2px 2px 4px 2px #0004;
 }
 
 h1 {
@@ -234,21 +235,26 @@ details {
   top:0;
   background-color: var(--bg, #2e3440);
   color: var(--fg, #eceff4);
-  border-radius: .3em;
-  padding: .3em .4em .2em .4em;
-  box-shadow: 2px 2px 4px 1px #0004;
+  /* border-radius: .3em; */
+  /* padding: .3em .4em .2em .4em; */
+  box-shadow: 2px 2px 4px 2px #0004;
+  padding: .5em;
+  border-left: 4px solid var(--ac, #5e81ac);
+  width: 5em;
+  text-align: center;
+  transition: right 0.5s ease;
 }
 
 .themelist {
   display: none;
   position: absolute;
-  top: 0;
-  right: 100%;
-  width: min-content;
+  top: 100%;
+  /* right: 0; */
+  width: 5em;
   margin: 0em;
-  border-radius: .3em;
+  /* border-radius: .3em; */
   background-color: var(--bg, #2e3440);
-  box-shadow: 2px 2px 4px 1px #0004;
+  box-shadow: 2px 2px 4px 2px #0004;
 }
 
 .themetoggle:hover .themelist {
@@ -266,6 +272,7 @@ details {
   color: var(--fg, #eceff4);
   font-size: small;
   font-family: serif;
+  font-weight: lighter;
 }
 
 .themeitem:hover {
@@ -290,6 +297,13 @@ a:visited {
     width: 100%;
     margin: 0;
     box-shadow: none;
+  }
+
+  .themetoggle {
+    right: -5.75em;
+  }
+  .themetoggle:hover, .themetoggle:active {
+    right: 0;
   }
 }
 
