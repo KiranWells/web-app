@@ -1,0 +1,324 @@
+# Vectors and Vector Fields
+
+The following sections cover vector calculus and are mostly focused on just vectors in $\mathbb{R}^2$ and $\mathbb{R}^3$. In addition, notation will change slightly:
+
+$$
+e_1 = 
+\left(
+\begin{array}{c}
+1 \\ 0 \\ 0
+\end{array}
+\right),
+e_2 = 
+\left(
+\begin{array}{c}
+0 \\ 1 \\ 0
+\end{array}
+\right),
+e_3 = 
+\left(
+\begin{array}{c}
+0 \\ 0 \\ 1
+\end{array}
+\right)
+$$
+
+Will become:
+
+$$\hat i, \hat j, \hat k$$
+
+This means that writing vectors will look like:
+
+$$\vec x = x_1 \hat i + x_2 \hat j + x_3 \hat k$$
+
+## Review - Dot Product
+
+In this section, we will need to make use of the dot/scalar product:
+
+$$x^Ty = x \cdot y = x_1y_1 + x_2 y_2 + x_3 y_3$$
+
+And we can tell if vectors are perpendicular by this:
+
+$$x \perp y \to x\cdot y = 0$$
+
+Or we can find the angle between them:
+
+$$x\cdot y = ||x||||y||\cos\theta$$
+
+And find the projection of $x$ on $y$:
+
+$$proj_y x = {x\cdot y \over ||y||^2}y$$
+
+## Cross Product
+
+In addition to the dot product, we will need the cross product, which represents the vector which is perpendicular to both vectors:
+
+$$a \times b = c\ |\ a \perp c, b \perp c$$
+
+The direction is determined by the right hand rule, where you can take your right hand, curl your fingers from $a$ to $b$, and the direction of your thumb will be the direction of $c$.
+
+The length of $a \times b$ is equal to the area of the parallelogram with sides $a$ and $b$. This comes out to be:
+
+$$|| a \times b || = ||a|| ||b|| \sin \theta$$
+
+Where $\theta$ is the angle between them.
+
+### Calculation
+
+To actually compute this vector, we use a determinant definition:
+
+$$a \times b = \begin{vmatrix} \hat i && \hat j && \hat k \\ a_1 && a_2 && a_3 \\ b_1 && b_2 && b_3 \end{vmatrix}$$
+
+$$=(a_2b_3 - b_2a_3)\hat i - (a_1b_3 - b_1a_3)\hat j + (a_1b_2 - a_2b_1)\hat k$$
+
+~~Example 1
+
+$$a = (1,3,-2)$$
+$$b = (2,0,2)$$
+
+$$a \times b = \begin{vmatrix} \hat i && \hat j && \hat k \\ 1 && 3 && -2 \\ 2 && 0 && 2 \end{vmatrix}$$
+
+$$=6\hat i - 6\hat j - 6\hat k$$
+
+$$=(6, -6, -6)$$
+
+~~
+
+### Properties
+
+1. $$\begin{cases} i \times j = k \\ j \times k = i \\ k \times i = j\end{cases}$$
+2. $$a\times b = -b\times a$$
+3. $$(a + b)\times c = a\times c + b\times c$$
+4. $$a\times (b+c) = a\times b + a\times c$$
+5. $$\alpha(a\times b) = (\alpha a)\times b = a\times (\alpha b)$$
+#### Warning:
+6. $$(a\times b)\times c \ne a\times(b\times c)$$
+
+### Application
+
+~~Example: Equation of a plane
+
+Write the equation of the plane going through the points $A(1,0,1)$, $B(2,3,4)$, $C(-1,-1,1)$.
+
+To do this, we need the normal of the plane, which is a vector perpendicular to the plane. Since we have three points, we can construct two vectors in the plane and take their cross product to get the nromal vector:
+
+$$\vec{AB} = (1,3,3), \vec{AC} = (-2,-1,0)$$
+
+$$N = (1,3,3)\times (-2,-1,0)$$
+
+$$=\begin{vmatrix} \hat i && \hat j && \hat k \\ 1 && 3 && 3 \\ -2 && -1 && 0 \end{vmatrix}$$
+
+$$N = (3,-6,5)$$
+
+Now, to get the equation, we express it as any point which is perpendicular to the normal. Then we translate it so the equation passes through a point on the plane:
+
+$$(3,-6,5)\perp (x-1, y-0, z-1)$$
+
+$$3(x-1)-6y+5(z-1)=0$$
+
+~~
+
+~~Example: Paths in vector space
+
+Given a line through the point $b$ and has the same direction as vector $a$, find an equation for the line.
+
+To do this, we consider $b$ as the start and describe every point on the line as a scalar offset in the direction of $a$.
+
+$$\vec x(t) = \vec b + t\vec a$$
+
+Note: vector symbols added here for clarity.
+
+~~
+
+### Paths in $\mathbb{R}^n$
+
+A path in $\mathbb{R}^n$ is a continuous function $\vec x$ over the interval $I$ contained in $\mathbb{R}^n$. In less mathematical terms, we can represent each of the coordinates of $\vec x$ at a parameterized location as a continuous function of those parameters.
+
+For example, a curve will look like this:
+
+$$
+\vec x(t) = 
+\left(
+\begin{array}{c}
+f(t) \\ g(t) \\ h(t)
+\end{array}
+\right)
+$$
+
+And a surface could look like:
+
+$$
+\vec S(u,v) = 
+\left(
+\begin{array}{c}
+f(u,v) \\ g(u,v) \\ h(u,v)
+\end{array}
+\right)
+$$
+
+~~Example: Circles and helixes
+
+A circle can be defined as a path by taking the coordinates for each point on the line:
+
+$$
+\vec p(t) = 
+\left(
+\begin{array}{c}
+x(t) \\ y(t)
+\end{array}
+\right)
+$$
+$$
+\vec p(t) = 
+\left(
+\begin{array}{c}
+R\cos t \\ R\sin t
+\end{array}
+\right)
+$$
+
+A similar path in 3D is a helix:
+
+$$
+\vec p(t) = 
+\left(
+\begin{array}{c}
+R\cos t \\ R\sin t \\ \alpha t
+\end{array}
+\right)
+$$
+
+~~
+
+#### Velocity and Acceleration
+
+> Definition: Path velocity and acceleration  
+> Given a path $x(t) = (x_1(t), x_2(t), x_3(t))$, the velocity is defined as:  
+> $$x'(t) = (x_1'(t), x_2'(t), x_3'(t))$$  
+> And the acceleration is defined as:  
+> $$x''(t) = (x_1''(t), x_2''(t), x_3''(t))$$
+
+Note that the velocity is in the direction of the tangent line. So, we can define the formula for the tangent line at $x_0 = x(t_0)$ as:
+
+$$\vec l(t) = \vec x_0 + \vec x'(t_0)(t-t_0)$$
+
+This is just the equation for a line starting at the point $x_0$ at the time $t_0$ and moving in the direction of $x'(t_0)$.
+
+#### Length
+
+> Definition: Arc Length  
+> The arc length of a path $x(t)$ on the interval $[a,b]$ is defined as:  
+> $$L(x) = \int_a^b ||x'(t)||dt$$
+
+This definition makes sense, as it is very similar to the formula for the length of a curve in normal calculus.
+
+~~Example: Path Length
+
+Given:
+
+$$x(t) = (R\cos t, R\sin t)$$
+
+$$t \in [0, 2\pi]$$
+
+Find the length of the arc.
+
+$$x'(t) = (-R\sin t, R\cos t)$$
+
+$$||x'(t)|| = \sqrt{R^2\sin^2 t + R^2\cos^2 t}$$
+$$=R$$
+
+$$L(x) = \int_0^{2\pi} Rdt$$
+$$=Rt|_0^{2\pi}$$
+$$=2\pi R$$
+
+Which is the circumference of a circle.
+
+~~
+
+## Vector Fields
+
+Vector fields are a group of vectors covering a space, where each point $r$ has a certain vector associated with it. For example, the gravitational force creates a vector field:
+
+$$\vec F = G{m_1m_2\over ||\vec r||^2}\hat r$$
+
+> Definition: Vector Fields  
+> A vector field on $\mathbb{R}^n$ is a mapping:
+> $$F: x\subseteq \mathbb{R}^n \to \mathbb{R}^n$$
+
+~~Example: Vector Fields
+
+1. $$F(x) = \hat j = (0,1)$$
+
+This is a field which has the same value for every point, similar to the flow of a fluid straight down a pipe.
+
+2. $$F(x) = x$$
+
+Here, the output is the same as the input. This could represent a force which is stronger the farther you get from it.
+
+~~
+
+### Scalar Fields
+
+This is the same as a vector field, but the output is a scalar:
+
+$$F(\vec x) \to \alpha (\mathbb{R}^n \to \mathbb{R}$$
+
+## Derivatives
+
+### Del operator
+
+To help define derivatives in vector fields, we use the **del operator**:
+
+$$\nabla = \hat i {\partial \over \partial x} + \hat j {\partial \over \partial y} + \hat k {\partial \over \partial z}$$
+
+This takes the partial derivative of a vector which is multiplied by it, and can be used to define three versions of differentiation:
+
+1. Gradient: $\nabla f$ - multiply a scalar field $f$ by $\nabla$
+2. Divergence: $\nabla \cdot F$ - dot product of a vector field $F$ by $\nabla$
+3. Curl: $\nabla \times F$ - cross product of a vector field $F$ by $\nabla$
+
+### Gradient
+
+> Definition:  
+> The gradient of a function is defined as:  
+> $$\nabla f = ({\partial f \over \partial x}, {\partial f \over \partial y}, {\partial f \over \partial z})$$
+
+Note that the gradient of a scalar function is a vector function. 
+
+~~Example: Gradient
+
+$$f(x,y,z) = xyz + 2x$$
+
+$$\nabla f = (yz + 2, xz, xy)$$
+
+~~
+
+### Divergence
+
+> Definition:  
+> The divergence of a vector field $F$ is defined as:  
+> $$F(x,y,z) = (F_1(x,y,z), F_2(...), F_3(...))$$  
+> $$\nabla \cdot F = ({\partial F_1 \over \partial x}, {\partial F_2 \over \partial y}, {\partial F_3 \over \partial z})$$
+
+Note that the divergence of a vector field is a scalar field. In addition, it represents the amount of "flow" into or out of a point.
+
+~~Example: Divergence
+
+$$F(x,y) =x\hat i + y\hat j$$
+
+$$\nabla \cdot F = {\partial \over \partial x}x + {\partial \over \partial y}y = 1 + 1 = 2$$
+
+If instead, we had:
+
+$$F(x,y) = y\hat i + x \hat j$$
+
+The divergence would be 0:
+
+$$\nabla \cdot F = {\partial \over \partial x}y + {\partial \over \partial y}x = 0 + 0 = 0$$
+
+If you graphed this, it would represent a radial field where there is no net in-flow or out-flow.
+
+~~
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
