@@ -1,0 +1,118 @@
+# Vector Integrals
+
+As a review, there are three main types of functions we are dealing with:
+
+- Paths - $\vec x(t): \mathbb{R} \to \mathbb{R}^n$
+- Scalar field - $f(x,y,...): \mathbb{R}^n \to \mathbb{R}$
+- Vector field - $\vec F(x,y,...): \mathbb{R}^n \to \mathbb{R}^n$
+
+In addition, there are three main differentiation-like operators:
+
+- Gradient - $\nabla f = \left({\partial f \over \partial x},{\partial f \over \partial y},{\partial f \over \partial z}\right)$
+- Divergence - $\nabla \cdot \vec F = \left({\partial F_1 \over \partial x},{\partial F_2 \over \partial y},{\partial F_3 \over \partial z}\right)$
+- Curl - $\nabla\times \vec F = \left(F_{3y}-F_{2z}\right)\hat i - \left(F_{3x}-F_{1z}\right) \hat j +\left(F_{2x}-F_{1y}\right)\hat k$
+
+## Line Integrals
+
+The definition of integrals is an infinite sum of infinitesmal parts, or in other words, splitting a range up as small as possible and adding up all of the parts:
+
+$$\int_a^b f(x)dx = \sum\limits_{n=1}^{(b-a)\over \Delta x} \lim\limits_{\Delta x \to 0} {f(x + n\Delta x) * \Delta x}$$
+
+This is important to keep in mind as we define integrals for various vector functions, starting with the line integral.
+
+Essentially, a line integral is summing up the value of a function along a path. For this integral, the value you are integrating is the function evaluated at each point, and the differential value is the change in the position along the path.
+
+This can be done for both scalar and vector fields.
+
+### Scalar Line Integral
+
+> Definition: Scalar Line Integral  
+> Given a path $\vec x(t)$ and a scalar field $f(\vec p)$, where $\vec p$ is a point, the line integral of $f$ along $\vec x$ is:  
+> $$\int\limits_{\vec x} f ds$$
+
+This is essentially adding up the value of $f$ at each point multiplied by the change in length along the path:
+
+$$
+\lim\limits_{\Delta s_i \to 0}
+\sum\limits_{i=1}^n f(\vec x_i^*(t))\Delta s_i
+$$
+
+If you notice, we integrate with respect to $s$, not $t$. This represents the *length* of the path, not the paramater $t$, so we need to get the length. To do this, we use the length function:
+
+$$
+L(\vec x) = \int_a^b ||\vec x'(t)||dt
+$$
+
+Getting the formula:
+
+$$\int_a^b f(\vec x(t))||x'(t)||dt$$
+
+~~Example 1
+
+Given:
+
+$$\vec x(t) = (3\cos t, 3\sin t, 4t)$$
+
+$$f = xy + x + \frac{z}{2}$$
+
+Calculate $\int\limits_{\vec x} fds$
+
+The first step is to convert $f(x,y,z)$ to $f(t)$:
+
+$$
+f(\vec x(t)) = 
+9\cos t\sin t + 3\cos t + 2t
+$$
+
+Now, we need the length of $\vec x$:
+
+$$||\vec x'(t)|| = \sqrt{9\sin^2 t + 9\cos^2 t + 16} = 5$$
+
+And we take the integral:
+
+$$\int (9\cos t\sin t + 3\cos t + 2t)5dt$$
+
+$$= 45\int \sin t\cos t dt + 15\int \cos t dt + 10 \int t dt$$
+
+And using the trig identity ${\sin 2t \over 2}$ (You could also use $u$-substitution with $u=\sin t$):
+
+$$= \frac{45}{2}\int \sin 2t dt + 15\int \cos t dt + 10 \int t dt$$
+
+$$= -\frac{45}{4}\cos 2t + 15\sin t + \frac{10}{2}t^2$$
+
+~~
+
+~~Example 2: Piecewise
+
+$$
+\vec x(t) = 
+\begin{cases}
+(t, 2t) && 0 \le t \le 1 \\
+(t, 3-t) && 1 \le t \le 3
+\end{cases}
+$$
+
+$$f(x,y) = x+y$$
+
+To integrate this from 0 to 3, we will need to integrate two separate portions.
+
+$$\int_0^3 fds = \int_0^1 fds + \int_1^3 fds$$
+
+So:
+
+$$f(\vec x_1(t)) = t + 2t = 3t$$
+
+$$||\vec x_1'(t)|| = \sqrt{1+4} = \sqrt{5}$$
+
+$$\int_0^1 fds = \int_0^1 3t\sqrt{5} dt = \frac{3\sqrt{5}}{2}$$
+
+$$f(\vec x_2(t)) = t + 3-t = 3$$
+
+$$||\vec x_2'(t)|| = \sqrt{1+1} = \sqrt{2}$$
+
+$$\int_1^3 fds = \int_1^3 3\sqrt{2} dt = 6\sqrt{2}$$
+
+~~
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">

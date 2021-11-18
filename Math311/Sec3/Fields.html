@@ -31,6 +31,8 @@ This means that writing vectors will look like:
 
 $$\vec x = x_1 \hat i + x_2 \hat j + x_3 \hat k$$
 
+And a final note on notation: vectors and vector-valued functions will usually be denoted with an arrow symbol on top: $\vec x(t)$ for $\vec F$. In addition, I will often use $f_x$ to represent $\partial f \over \partial x$.
+
 ## Review - Dot Product
 
 In this section, we will need to make use of the dot/scalar product:
@@ -317,6 +319,131 @@ The divergence would be 0:
 $$\nabla \cdot F = {\partial \over \partial x}y + {\partial \over \partial y}x = 0 + 0 = 0$$
 
 If you graphed this, it would represent a radial field where there is no net in-flow or out-flow.
+
+~~
+
+### Curl
+
+> Definition:  
+> The divergence of a vector field is given by:
+> $$curl\ \vec F = \nabla \times \vec F$$
+
+This simplifies down to:
+
+$$
+curl\ \vec F = 
+\begin{vmatrix}
+\hat i && \hat j && \hat k \\
+{\partial \over \partial x} && {\partial \over \partial y} && {\partial \over \partial z} \\
+F_1 && F_2 && F_3
+\end{vmatrix}
+$$
+$$
+curl\ \vec F = 
+\left({\partial F_3 \over \partial y}-{\partial F_2 \over \partial z}\right)\hat i - 
+\left({\partial F_3 \over \partial x}-{\partial F_1 \over \partial z}\right) \hat j +
+\left({\partial F_2 \over \partial x}-{\partial F_1 \over \partial y}\right)\hat k
+$$
+
+Which, written in simplified notation (${\partial F_1 \over \partial x} = F_{1x}$):
+
+$$
+curl\ \vec F = 
+\left(F_{3y}-F_{2z}\right)\hat i - 
+\left(F_{3x}-F_{1z}\right) \hat j +
+\left(F_{2x}-F_{1y}\right)\hat k
+$$
+
+Curl represents the "twisting" or rotation of the vector field; or the amount of movement not in a diverging or converging direction. If you think about it in polar coordinates, divergence is in the $\hat r$ direction, and curl is in the $\hat \theta$ direction.
+
+~~Example: Curl
+
+Given:
+
+$$\vec F = (2xy, y+z, x^2+y^2+z^2)$$
+
+Find the divergence and curl.
+
+$$div\ \vec F = ({\partial F_1 \over \partial x}, {\partial F_2 \over \partial y}, {\partial F_3 \over \partial z})$$
+$$div\ \vec F = (2y, 1, 2z)$$
+
+$$curl\ \vec F = (2y-1)\hat i - (2x)\hat j + (-2x)\hat k$$
+$$curl\ \vec F = (2y-1,-2x,-2x)$$
+
+~~
+
+Because of these properties of curl and divergence, we can use them to descibe fields:
+
+If curl is 0, $\vec F$ is **irrotational**.
+
+If divergence is 0, $\vec F$ is **incompressible**.
+
+## Interactions Between the Operators
+
+> Theorem 1:  
+> If $f$ is twice differentiable, then $curl(\nabla f) = 0$.
+
+~~Proof 1
+
+By definition:
+
+$$\nabla f = \left({\partial f \over \partial x},{\partial f \over \partial y},{\partial f \over \partial z}\right)$$
+
+$$
+curl(\nabla f) = 
+\begin{vmatrix}
+\hat i && \hat j && \hat k \\
+{\partial \over \partial x} && {\partial \over \partial y} && {\partial \over \partial z} \\
+f_x && f_y && f_z
+\end{vmatrix}
+$$
+
+$$=(f_{yz} - f_{zy})\hat i - (f_{xz} - f_{zx})\hat j + (f_{xy} - f_{yx})\hat j$$
+
+Because of the properties of partial differentiation, $f_{xy} = f_{yx}$. Therefore, all of these values are $0$.
+
+~~
+
+> Theorem 2:  
+> If $\vec F$ is a twice differentiable vector field, $div(curl(\vec F)) = 0$.
+
+~~Proof 2
+
+$$
+curl\vec F = 
+\begin{vmatrix}
+\hat i && \hat j && \hat k \\
+{\partial \over \partial x} && {\partial \over \partial y} && {\partial \over \partial z} \\
+F_1 && F_2 && F_3
+\end{vmatrix}
+$$
+
+$$=
+\left(F_{3y}-F_{2z}\right)\hat i - 
+\left(F_{3x}-F_{1z}\right) \hat j +
+\left(F_{2x}-F_{1y}\right)\hat k
+$$
+
+and taking the divergence:
+
+$$
+div(curl(\vec F)) = 
+{\partial \over \partial x}
+\left(F_{3y}-F_{2z}\right) - 
+{\partial \over \partial y}
+\left(F_{3x}-F_{1z}\right) +
+{\partial \over \partial z}
+\left(F_{2x}-F_{1y}\right)
+$$
+
+$$
+div(curl(\vec F)) = 
+F_{3yx}-F_{2zx} - 
+F_{3xy}+F_{1zy} +
+F_{2xz}-F_{1yz}
+$$
+
+Which again using the property that $F_{xy} = F_{yx}$, leads to $0$.
 
 ~~
 
