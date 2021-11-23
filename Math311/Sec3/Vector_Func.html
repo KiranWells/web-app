@@ -114,5 +114,84 @@ $$\int_1^3 fds = \int_1^3 3\sqrt{2} dt = 6\sqrt{2}$$
 
 ~~
 
+### Vector Line Integrals
+
+A vector line integral integrates a vector field along a path. Instead of using a scalar $ds$, being the length, we use a vector $d\vec s$, the *vector* change in the path.
+
+This has a useful physical application: work, along with many other physical quantities, are defined as the sum of the force along a displacement. This means we want to integrate a force vector field over a path traveled.
+
+> Definition: Vector Line Integrals  
+> The vector line integral is given by:  
+> $$\int\limits_{\vec x} \vec F \cdot d\vec s$$
+
+The formula for computing this also uses the path equation to convert the elements into terms of $t$:
+
+$$\int\limits_{\vec x} \vec F \cdot d\vec s = \int\limits_a^b \vec F(\vec x(t)) \cdot \vec x'(t)dt$$
+
+Notice how here we do not have to take the length of the $d\vec s$ vector to convert it to a scalar.
+
+~~Example: vector line integral
+
+Given:
+
+$$\vec F = (x, e^y, x +z)$$
+
+and $\vec x$ is the line segment from $(0,1,0)$ to $(2,3,4)$, calculate the line integral along the path.
+
+Since the question does not give a function for $\vec x$, we need to do it ourselves. This is called **parameterization**.
+
+In this case, it is just the line equation from the first point to the second point:
+
+$$\vec x = (0,1,0) + t((2,3,4) - (0,1,0))$$
+$$\vec x = (0,1,0) + t(2,2,4), t \in [0,1]$$
+$$\vec x' = (2,2,4)$$
+
+Then we can do the integral:
+
+$$\int \vec F \cdot d\vec s = \int_0^1 \vec F(\vec x) \cdot \vec x'$$
+$$= \int_0^1 (2t, e^{1+2t}, 2t + 4t) \cdot (2,2,4)dt$$
+$$= \int_0^1 4t + 2e^{1+2t} + 24t dt$$
+$$= \int_0^1 28t + 2e^{1+2t} dt$$
+$$= 14t^2 + e^{1+2t} |_0^1$$
+$$= 14 + e^3-e$$
+
+~~
+
+There is an alternate formula, called **differential form**. 
+
+Given:
+
+$$\vec F = (F_1, F_2, F_3)$$
+$$\vec x(t) = (x(t), y(t), z(t))$$
+
+$$\int \vec F \cdot \vec x'$$
+$$\int (F_1, F_2, F_3) \cdot (x'(t), y'(t), z'(t))$$
+$$\int F_1 x'(t) +  F_2 y'(t) + F_3 z'(t)$$
+$$= \int F_1dx + \int F_2 dy + \int F_3 dz$$
+
+From here, you will need to plug in the equation for $\vec x$ to convert to an integral in $t$.
+
+~~Example: alternate formula
+
+Given:
+
+$$\vec F = (x+y, y+z, z+x)$$
+
+$$\vec x = (t, t^2, t^3)$$
+
+$$\int \vec F \cdot d\vec s = \int F_1dx + \int F_2dy + \int F_3dz$$
+
+$$\int (x+y)dx + \int (y+z)dy + \int (x+z)dz$$
+
+This makes more sense once we plug in the equation for $\vec x$
+
+$$= \int_0^1 (t + t^2)dt + \int_0^1 (t^2 + t^3)2tdt + \int_0^1 (t + t^3)3t^2 dt$$
+
+Which after integration gives:
+
+$$\frac{17}{6}$$
+
+~~
+
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">

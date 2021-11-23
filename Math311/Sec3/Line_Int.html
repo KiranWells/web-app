@@ -1,0 +1,120 @@
+# Line Integrals, Continued
+
+## Green Theorem
+
+Integrating over a closed path leads to a specific special case where line integrals are easier to compute.
+
+Given a closed region $D$ in two dimensions bounded by a path $C = \partial D$, where $C$ is assumed to contain finitely many curves and does not self-intersect, along with a couple of other assumptions, the line integral can be given by:
+
+$$\oint\limits_C \vec F \cdot d\vec s = \iint\limits_D \left({\partial F_2 \over \partial x} - {\partial F_1 \over \partial y}\right)dA$$
+
+For this to work, $C$ must be oriented so that the direction of integration always keeps the enclosed region $D$ on the left. (Note: $\oint$ indicates the integral is over a closed path.)
+
+~~Example: Green Theorem
+
+Compute both sides of Green's Theorem for the area bounded by $y=x$ and $y=x^2$ for $\vec F = (xy, y^2)$.
+
+$$\oint\limits_C \vec F \cdot d\vec s = \iint\limits_D \left({\partial F_2 \over \partial x} - {\partial F_1 \over \partial y}\right)dA$$
+
+First, let's compute the line integral:
+
+$$\oint\limits_C \vec F \cdot d\vec s = \int\limits_{\vec x_1} \vec F\cdot d\vec s + \int\limits_{\vec x_2} \vec F\cdot d\vec s$$
+
+We also need to parameterize the paths. In the case of $y=x^2$ it is easy, as we can simply set $t=y$ and create the path that way:
+
+$$\vec x_1 = (t,t^2)$$
+
+For the other line we must make sure to follow the direction we need to integrate in, so instead of $(t,t)$, we move from $(1,1)$ to $(0,0)$, giving:
+
+$$\vec x_2 = (1-t, 1-t)$$
+
+$$\int\limits_{\vec x_1} \vec F\cdot d\vec s = \int_0^1 (t^3, t^4)\cdot (1,2t)dt$$
+$$\int\limits_{\vec x_2} \vec F\cdot d\vec s = \int_0^1 ((1-t)^2, (1-t)^2)\cdot (-1,-1)dt$$
+
+This gives $-\frac{1}{12}$.
+
+Next, we do the surface integral. We are integrating over the area between $y=x^2$ and $y=x$, and $x\in [0,1]$. So we get:
+
+$$\iint\limits_D \left({\partial F_2 \over \partial x} - {\partial F_1 \over \partial y}\right)dA = \int_0^1\int_{x^2}^{x} (0 - x)dydx$$
+$$=\int_0^1 (-xy |_{y=x^2}^{y=x}) dx$$
+$$=\int_0^1 -x(x - x^2) dx$$
+$$=-\frac{x^3}{3}|_0^1 + \frac{x^4}{4}|0^1 = -\frac{1}{12}$$
+
+This shows that the theorem holds for this example, and it can be shown to hold for all cases satisfying the assumptions above.
+
+~~
+
+### Applications
+
+#### Area
+
+If $\vec F$ satisfies $\left({\partial F_2 \over \partial x} - {\partial F_1 \over \partial y}\right) = 1$, then the integral becomes 
+
+$$\iint\limits_D 1dA = area(D)$$
+
+Some simple examples:
+
+$$
+\begin{aligned}
+\vec F = (0,x) \\
+\vec F = (-y,0) \\
+\vec F = \left(-\frac{y}{2}, \frac{x}{2}\right)
+\end{aligned}
+$$
+
+Note: this approach is used in a real-world tool to calculate areas.
+
+~~Example: Application of Green's Theorem
+
+Compute the area of the ellipse:
+
+$$\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1$$
+
+In this case, we are using the line integral to get the area, so we can select our $\vec F$, as long as it satisfies the above requirements. However, let's find the parameterization first.
+
+The parameterization of an ellipse is:
+
+$$
+\vec x(t) = (a\cos t, b\sin t), t\in [0,2\pi]
+$$
+
+In this case, it is easiest to use the third formula for $\vec F$ above:
+
+$$\vec F = \left(-\frac{y}{2}, \frac{x}{2}\right)$$
+
+And we can compute the line integral:
+
+$$\int_0^2\pi \left(\frac{ab}{2}\sin^2t + \frac{ab}{2}\cos^2 t\right)dt$$
+$$\int_0^2\pi \frac{ab}{2}dt$$
+$$=\pi ab$$
+
+~~
+
+#### Conservative Field
+
+Remember from calculus 3 that a conservative field is one who's line integral is $0$ over a closed loop.
+
+Using Green's Theorem, we can show that a field is conservative if $\iint\limits_D \left({\partial F_2 \over \partial x} - {\partial F_1 \over \partial y}\right)dA = 0$, then it is conservative. This means that if:
+
+$${\partial F_2 \over \partial x} = {\partial F_1 \over \partial y}$$
+
+Then the field is conservative. This makes sense, as a conservative field is one which is the gradient of another function $\Phi$, meaning:
+
+$$\vec F = \left({\partial \Phi \over \partial x} - {\partial \Phi \over \partial y}\right) = (\Phi_x, \Phi_y)$$
+
+So, if this is the case, the equation above would become:
+
+$${\partial F_2 \over \partial x} = {\partial F_1 \over \partial y}$$
+$${\partial \Phi_y \over \partial x} = {\partial \Phi_x \over \partial y}$$
+$$\Phi_{yx} = \Phi_{xy}$$
+
+Which is always true, due to the properties of partial derivatives.
+
+This is formalized in another theorem:
+
+> Theorem:  
+> $\vec F$ is conservative if and only if there is a continuously differentiable scalar field $f$ where:  
+> $$\vec F = \nabla f$$
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
