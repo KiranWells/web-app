@@ -1,0 +1,287 @@
+# Surface Integrals
+
+## Introduction
+
+Surface integrals are very similar to line integrals: we will be integrating a function over a parameterized equation for the surface. However, the parameterized funciton will have two arguments, normally denoted $S = \vec X(s, t)$ or $\vec X(u,v)$. 
+
+## Parameterization
+
+To be able to compute the surface integral, we will need a parameterization of the surface. This means some equation of the form:
+
+$$\vec X(s,t) = (x(s,t), y(s,t), z(s,t))$$
+
+There are many different methods for doing this.
+
+~~Example 1: Plane
+
+Create a parameterized equation for a plane in $\mathbb{R}^3$ going through the point $(1,2,1)$ and containing $(-1,-1,2)$ and $(-1,-1,0)$.
+
+In this case, we can use the vectors in the plane to define all of the points on the plane relative to the anchor point. Each point can be represented as a linear combination of the two vectors, displaced from the point (similar to coordinates):
+
+$$\vec X(s,t) = (1,2,1) + s(-1,-1,2) + t(-1, -1,0)$$
+
+In general, the parameterization of a plane passing through $\vec p$ and containing $\vec u$ and $\vec v$ is:
+
+$$\vec X(s,t) = \vec p + s\vec u + t\vec v$$
+
+~~
+
+~~Example 2: Sphere
+
+The equation for a sphere is often given as:
+
+$$x^2 + y^2 + z^2 = R^2$$
+
+But we need a parameterized function. One way to do this is to use polar coordinates:
+
+$$\vec X(\theta, \phi) = (R\cos \theta \sin \phi, R\sin \theta\sin\phi, R\cos\phi), \theta \in [0,2\pi], \phi \in [0,\pi]$$
+
+And for simplicity, $\theta, \phi$ can be renamed $s,t$, or $u,v$. This may be the reason that this type of sphere is named a "UV-Sphere" in 3D modeling.
+
+If we wanted only the top half of the sphere, we could restrict $\phi$ to $[0,\frac{\pi}{2}]$.
+
+~~
+
+~~Example 3: Open Cylinder
+
+Since we don't have to include the top and bottom, we only need to consider a circle extended to height $H$. Since a circle can be marked as $x = R\cos s, y=R\sin s$, we get:
+
+$$\vec X(s,t) = (R\cos s, R\sin s, t), s \in [0,2\pi], t\in [0,H]$$
+
+~~
+
+~~Example 4: Function
+
+If we have a surface with an equation $z = f(x,y)$, we can easily parameterize this surface as:
+
+$$\vec X(s,t) = (s,t,f(x=s,y=t))$$
+
+~~
+
+### Tangent Plane and Normal Vector
+
+Find the tangent plane at the point $\vec X(s_0,t_0)$ on a surface $S = \vec X(s,t)$.
+
+To get the plane, we need a point and two vectors. We already have a point, so the only thing missing is the vectors. To get these, we can get the tangent vectors at that point in the $s$ and $t$ direction by taking the partial derivative of the surface.
+
+$$\vec T_s = {\partial \vec X \over \partial s}(s_0, t_0)$$
+$$\vec T_t = {\partial \vec X \over \partial t}(s_0, t_0)$$
+
+Now that we have the vectors, we can find the plane as a parametric function:
+
+$$\vec P(u,v) = \vec X(s_0,t_0) + u\vec T_s + v\vec T_t$$
+
+or the standard equation:
+
+$$\vec N = \vec T_s \times \vec T_t$$
+
+$$N \cdot ((x,y,z) - \vec X(s_0, t_0)) = 0$$
+
+~~Example 5: Tangent Plane to Cylinder
+
+$$\vec X(s,t) = (2\cos(s), 2\sin(s),t)$$
+
+$$0\le s\le2\pi, 0\le t\le 4$$
+
+Find an equation for the tangent plane at $\vec X(0,2) = (2,0,2)$
+
+First, we need to find the partial derivatives:
+
+$${\partial \vec X \over \partial s} = (-2\sin s, 2\cos s, 0)$$
+$${\partial \vec X \over \partial t} = (0,0,1)$$
+
+Evaluated at $(s_0, t_0)$, we get:
+
+$$\vec T_s = (0, 2, 0)$$
+$$\vec T_t = (0, 0, 1)$$
+
+Then, taking the cross product to find the normal:
+
+$$\vec N = \vec T_s \times \vec T_t$$
+$$\vec N = (2-0)\hat i + (0)\hat j + (0)\hat k = 2\hat i$$
+
+The equation is:
+
+$$N \cdot ((x,y,z) - \vec X(s_0, t_0)) = 0$$
+$$(2,0,0) \cdot (x-2,y,z-2) = 0$$
+$$2(x-2) = 0$$
+
+Or
+
+$$x = 2$$
+
+~~
+
+## Surface Area
+
+Instead of using the arc length, like with line integrals, with a surface integral we are integrating over the area, which is given by:
+
+$$\iint\limits_D ||\vec N||dsdt$$
+
+Or
+
+$$\iint\limits_D ||\vec T_s \times \vec T_t||dsdt$$
+
+~~Example 6: Surface area of a sphere
+
+Given:
+
+$$\vec X(s,t) = (R\sin t\cos s, R\sin t \sin s, R\sin t)$$
+
+$$0 \le s \le 2\pi, 0 \le t \le \pi$$
+
+Find the surface area.
+
+First, taking the partial derivatives:
+
+$$\vec T_s = {\partial \vec X \over \partial s} = (-R\sin t\sin s, R\sin t\cos s, 0)$$
+$$\vec T_s = {\partial \vec X \over \partial t} = (R\cos t\cos s, R\cos t\sin s, -R\sin t)$$
+
+Then, the cross product (after a lot of simplification):
+
+$$\vec T_s \times\vec T_t = ... = (-R^2\sin^2 t\cos s, -R^2\sin^2 t \sin s, -R^2\sin t \cos t)$$
+
+And taking the length:
+
+$$||\vec N|| = ... = R^2\sin t$$
+
+And now we can take the integral over the whole surface:
+
+$$
+\int\limits_0^{\pi} \int\limits_0^{2\pi} R^2 \sin (t)dsdt
+$$
+$$
+\int\limits_0^{\pi} 2\pi R^2\sin (t)dt
+$$
+$$=4\pi R^2$$
+
+~~
+
+## Calculating the integral
+
+In the last section, we already demonstrated how to integrate a simple integral, where the function resulted in the surface area. To do a surface integral, we will just need to integrate a more complex function.
+
+### Scalar Surface Integral
+
+> Definition: Scalar Surface Integral
+> The integral of a function $f$ over a surface $S$ is:   
+> $$\iint\limits_{\vec X} fdS = \iint\limits_D f(\vec X) ||\vec T_s \times \vec T_t|| dsdt$$
+
+~~Example 7: Closed Cylinder
+
+Integrate the scalar function
+
+$$f(x,y,z) = z$$
+
+Over the closed cylinder with radius $3$ and height $5$.
+
+First, we need to get a parameterization of the surface. This will require splitting into three parts: the top, bottom, and side.
+
+For the top and bottom, we can take all of the circles from radius 0 to 3 at the top or at the bottom.
+
+$$
+S = 
+\begin{cases}
+  \vec X_{side} = (3\cos s, 3\sin s, t), s \in [0,2\pi], t\in [0,5] \\
+  \vec X_{top} = (s\cos t, s\sin t, 5), s \in [0,3], t\in [0, 2\pi] \\
+  \vec X_{bottom} = (s\cos t, s\sin t, 0), s \in [0,3], t\in [0, 2\pi] \\
+\end{cases}
+$$
+
+Now, we need to take the integral for each part, and sum them up. First, let's get the normal vector.
+
+$$
+\vec N_1 = (-3\sin s, 3\cos s, 0) \times (0,0,1)
+$$
+$$
+\vec N_1 = (3\cos s)\hat i + (3\sin s) \hat j
+$$
+
+$$||\vec N_1|| = 3$$
+
+Then take the integral:
+
+$$\int_0^5\int_0^{2\pi} f(\vec X) ||\vec N|| dsdt$$
+$$\int_0^5\int_0^{2\pi} t 3 dsdt$$
+$$\int_0^5 6\pi t dt$$
+$$75\pi$$
+
+And for the bottom:
+
+$$\iint f(\vec X)||\vec N||dsdt = \iint (0) ||\vec N||dsdt = 0$$
+
+And the top:
+
+$$\iint f(\vec X)||\vec N||dsdt = \int_0^{2\pi}int_0^3 (5) ||\vec N||dsdt$$
+
+$$\vec N = (\cos t, \sin t, 0) \times (-s\sin t, s\cos t, 0)$$
+$$= ... = (0,0,s)$$
+$$||\vec N|| = s$$
+
+And plug in:
+
+$$\int_0^{2\pi}int_0^3 (5) s dsdt$$
+$$= 45\pi$$
+
+So the total is:
+
+$$75\pi + 0 + 45\pi = 120\pi$$
+
+~~
+
+### Vector Surface Integral
+
+> Definition: Scalar Surface Integral
+> The integral of a function $f$ over a surface $S$ is:   
+> $$\iint\limits_{\vec X} \vec F\cdot d\vec S = \iint\limits_D \vec F(\vec X) \cdot (\vec T_s \times \vec T_t) dsdt$$
+
+~~Example 8: Vector Surface Integral
+
+Given:
+
+$$\vec S = \vec X(s,t) = (s\cos(t),s\sin(t),t)$$
+$$0\le s \le 1, 0\le t \le 2\pi$$
+
+$$\vec F = (x, y, z-2x)$$
+
+Compute $\iint\limits_{\vec X}\vec F \cdot d\vec S$.
+
+First, getting the normal vector:
+
+$$\vec T_s = (\cos(t), \sin(t), 0)$$
+$$\vec T_t = (-s\sin(t), s\cos(t), 1)$$
+
+$$\vec N = \vec T_s \times \vec T_t = (\sin(t), -\cos(t),s)$$
+
+Then plug in $\vec X$ too $\vec F$ and plug in:
+
+$$\int_0^1\int_0^{2\pi} (s\cos(t), s\sin(t),t-2s\sin(t)) \cdot (\sin(t),-\cos(t),s)dsdt$$
+$$\int_0^1\int_0^{2\pi} ts-2s^2\cos(t) dsdt$$
+
+Which after integrating gives $\pi^2$
+
+~~
+
+### Special Case: Function
+
+If we have a surface given by:
+
+$$z = g(x,y)$$
+
+Then we can parameterize this as normal with:
+
+$$\vec X(s,t) = (s,t,g(s,t))$$
+
+And the normal vector is:
+
+$$\vec T_s = (1,0,{\partial g \over \partial s})$$
+$$\vec T_t = (0,1,{\partial g \over \partial t})$$
+
+$$\vec N = (-{\partial g \over \partial s}, -{\partial g \over \partial t}, 1)$$
+
+And the integral becomes:
+
+$$\iint \vec F(s,t,g(s,t)) \cdot (-{\partial g \over \partial s}, -{\partial g \over \partial t}, 1) dsdt$$
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">

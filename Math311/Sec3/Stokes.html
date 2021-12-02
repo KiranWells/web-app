@@ -1,0 +1,138 @@
+# Stokes' and Gauss's Theorems
+
+## Introduction
+
+Before we get into the theorems, there are a couple of important topics to cover
+
+### Orientation
+
+Given some surface, the normal vector will be pointing perpendicular to the surface, normally up. However, if you use a different parameterization, sometimes the direction will flip.
+
+The direction that the normal vector faces with respect to the surface is the **orientaion**. It was not terribly important before, but for these two theorem, we will need to specify the orientation of the surfaces. If you get a normal which is in the opposite orientation, you just need to flip the sign of the integral.
+
+Generally, the **right-hand rule** is used to determine orientation, where the normal vector is pointed up and the direction of integration around a boundary is counter-clockwise.
+
+## Stokes' Theorem
+
+This connects a surface integral to a path integral.
+
+> Theorem:  
+> Given an oriented surface $\vec S$ (with some limitations which will not come into play in this course), and $\partial S$ as its boundary, oriented according to the right-hand rule, then:  
+> $$\iint\limits_S \nabla \times \vec F \cdot d\vec S = \oint\limits_{\partial S} \vec F \cdot d\vec s$$
+
+~~Example: Stokes Theorem
+
+Given the surface $S$ as the graph of $z = 9 - x^2 - y^2$ where $z \ge 0$ (oriented upward) and $\vec F = (2z - y, x+z, 3x-2y)$ find both sides of the Stokes' Theorem.
+
+First, we need $\partial S$, which is just the function when $z = 0$:
+
+$$\partial S = {z = 0, x^2 + y^2 = 9}$$
+
+Then, we can start from the left side of Stokes Theorem:
+
+$$\iint\limits_S \nabla \times \vec F \cdot d\vec S$$
+
+Which requires the curl of $\vec F$:
+
+$$\nabla \times \vec F = ... = (-3,-1,2)$$
+
+Next, we can use the formula for the special case to get $\vec N$:
+
+$$\vec N = \left(-{\partial g \over \partial s}, -{\partial g \over \partial t}, 1\right) = (2s,2t,1)$$
+
+Additionally, we need to specify the region of $(s,t)$ that $S$ is over. In this case, it is the circle of $x$ and $y$ that the function covers, meaning we can define it in polar coordinates:
+
+$$D = 0 \le r \le 3, 0\le\theta\le 2\pi$$
+
+And then plug in:
+
+$$\int_0^{2\pi}\int_0^3 (-3,-1,2) \cdot (2(r\cos\theta), 2(r\sin\theta), 1) rdrd\theta$$
+
+Note that we add an $r$ ($rdrd\theta$) when changing to polar coordinates.
+
+Which will give $18\pi$.
+
+Second, we can compute the line integral (right side):
+
+$$\oint\limits_{\partial S} \vec F \cdot d\vec s$$
+
+The path we have is:
+
+$$\partial S = {z = 0, x^2 + y^2 = 9}$$
+$$\vec x(t) = (3\cos t, 3\sin t, 0)$$
+
+So we have:
+
+$$\int_0^{2\pi} \vec F(\vec x(t))\cdot \vec x'(t) dt$$
+
+Which can be computed much more simply.
+
+~~
+
+### Another Application
+
+If we have two surfaces with the same boundary, we can use this equation to prove that the surface integrals (of the curl) will be equal.
+
+$$\partial S_1 = \partial S_2$$
+
+$$\iint\limits_{S_1} \nabla \times \vec F \cdot d\vec S_1 = \oint\limits_{\partial S_1} \vec F \cdot d\vec s =\oint\limits_{\partial S_2} \vec F \cdot d\vec s = \iint\limits_{S_2} \nabla \times \vec F \cdot d\vec S_2$$
+
+## Gauss's Theorem
+
+This connects a surface integral to a 3D integral.
+
+> Theorem:  
+> Given a solid region $D$, with $\partial D$ being the closed surface containing it (oriented outward), then:  
+> $$\oint\limits_{\partial D} \vec F\cdot d\vec S = \iiint\limits_D \nabla \cdot \vec F dV$$
+
+### Application: Volume
+
+If we select a vector field such that $\nabla \cdot \vec F = 1$, then the integral becomes:
+
+$$\oint\limits_{\partial D} \vec F\cdot d\vec S = \iiint\limits_D 1 dV$$
+
+Which will give the volume of the region. Choices of $\vec F$ which satisfy this include:
+
+$$
+\vec F = \begin{cases}
+(\frac{x}{3}, \frac{y}{3}, \frac{z}{3}) \\
+(x, 0 ,0) \\
+(0,y,0) \\
+(0,0,z)
+\end{cases}
+$$
+
+### Application: Zero Integrals
+
+If $\nabla \cdot \vec F = 0$, then the triple integral is $0$, so we have:
+
+$$\oint\limits_{\partial D} \vec F \cdot d\vec S = 0$$
+
+~~Example: Zero Integrals
+
+Given:
+
+$$S \to z = e^{4-x^2-y^2}, z\le 1$$
+
+(oriented upward)
+
+$$\vec F = (x,y,2,2z)$$
+
+Calculate $\iint\limits_S \vec F \cdot d\vec S$.
+
+In this case, if we take the divergence of $\vec F$, we get:
+
+$$\nabla \cdot \vec F = 1 + 1 - 2 = 0$$
+
+So, if we combine the surface we have with the base of the surface, we get:
+
+$$\iint\limits_S \vec F \cdot d\vec S + \iint\limits_{S_{base}} \vec F \cdot d\vec S_{base} = \iiint\limits_D 0dV$$
+
+Which allows us to compute the surface integral given as the negative integral of the base surface.
+
+Note in this case that this is an equivalent effect to noting that these surfaces have the same boundaries, as signs and orientation will cancel out.
+
+~~
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
