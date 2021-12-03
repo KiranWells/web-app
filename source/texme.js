@@ -100,6 +100,8 @@ function afterTexMe() {
     }
   }
   document.body.firstChild.appendChild(footer);
+
+  document.body.classList.add("loaded");
 }
 
 window.onload = () => {

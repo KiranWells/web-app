@@ -109,6 +109,20 @@ body {
   font-size: 20px;
 }
 
+body:not(.loaded) {
+  color: var(--bg-dark, #1f2228);
+}
+
+body:not(.loaded)::before {
+  color: var(--fg, #d8dee9);
+  content: "Loading...";
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 50%;
+}
+
 main {
   box-sizing: border-box;
   width: 84vw;

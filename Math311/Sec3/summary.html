@@ -1,0 +1,119 @@
+# Summary - Section 3
+
+## [Basics](Fields.html)
+
+### [Cross Product](Fields.html#cross-product)
+
+The cross product of two vectors is defined as:
+
+$$
+(a_1, a_2, a_3) \times (b_1, b_2, b_3) = 
+\begin{vmatrix}
+  \hat i && \hat j && \hat k \\
+  a_1 && a_2 && a_3 \\
+  b_1 && b_2 && b_3 \\
+\end{vmatrix} $$
+$$
+=
+(a_2b_3 - b_2a_3)\hat i - (a_1b_3 - b_1a_3)\hat j + (b_1a_2 - a_1b_2)\hat k
+$$
+
+### Scalar Fields
+
+Scalar fields are function which take in a point and produce a value:
+
+$$w = f(x,y,z)$$
+
+### [Vector Fields](Fields.html#vector-fields)
+
+Vector fields are functions which take in a point and produce a vector:
+
+$$\vec x = F(x,y,z)$$
+
+### [Del Operator](Fields.html#derivatives)
+
+The $\nabla$ operator is similar to differentiation for scalar and vector fields:
+
+$$\nabla = \left({\partial \over \partial x}, {\partial \over \partial y}, {\partial \over \partial z}\right)$$
+
+#### Gradient
+
+$$\nabla f = f\left({\partial \over \partial x}, {\partial \over \partial y}, {\partial \over \partial z}\right) = \left({\partial f \over \partial x}, {\partial f \over \partial y}, {\partial f \over \partial z}\right)$$
+
+#### Curl
+
+$$
+\nabla \times \vec F = 
+\begin{vmatrix}
+  \hat i && \hat j && \hat k \\
+  {\partial \over \partial x} && {\partial \over \partial y} && {\partial \over \partial z} \\
+  F_1 && F_2 && F_3 \\
+\end{vmatrix} 
+$$
+
+#### Divergence
+
+$$\nabla \cdot \vec F = {\partial F_1 \over \partial x} + {\partial F_2 \over \partial y} + {\partial F_3 \over \partial z}$$
+
+Notably, $div(curl(\vec F)) = 0$.
+
+## [Line Integrals](Vector_Func.html)
+
+Line integrals are the integral along a path. They are calculated by plugging in the parameterization for the path into the function, and taking the length for $ds$.
+
+Essentially, you just need to convert the standard forumal into an integral of $t$.
+
+Both line and surface integrals require a parameterization of the line or surface before it can be integrated over.
+
+### [Scalar Line Integrals](Vector_Func.html#scalar-line-integral)
+
+$$\int\limits_{\vec x} fds = \int_a^b f(\vec x) ||\vec x'||dt$$
+
+### [Vector Line Integrals](Vector_Func.html#vector-line-integrals)
+
+$$\int\limits_{\vec x} \vec F \cdot d\vec s = \int_a^b \vec F(\vec x) \cdot (\vec x') dt$$
+
+### [Green's Theorem](Line_Int.html)
+
+Green's Theorem connects path integrals to double integrals (of an area) in two dimensions. It states:
+
+$$\oint\limits_{\vec x} \vec F\cdot d\vec s = \iint\limits_{D} \left({\partial F_1 \over \partial x} - {\partial F_2 \over \partial y}\right)dydx$$
+
+If $\left({\partial F_1 \over \partial x} - {\partial F_2 \over \partial y}\right) = 1$, then it becomes an area integral (results in the area of $D$).
+
+## [Surface Integrals](Surface_Int.html)
+
+Surface integrals are similar to path integrals, except instead of a parameterization of $t$, it is a parameterization of both $t$ and $s$ that you are integrating over. Instead of path length, it uses normals and area. 
+
+So, you need to convert the integral into a double integral of $s$ and $t$.
+
+### [Normals](Surface_Int.html#surface-area)
+
+The normal is defined as:
+
+$$\vec N = \vec T_s \times \vec T_t = {\partial \vec S \over \partial s} \times {\partial \vec S \over \partial t}$$
+
+### [Scalar Surface Integrals](Surface_Int.html#scalar-surface-integral)
+
+$$\iint\limits_{\vec S} fdS = \iint_{s_0, t_0}^{s_1, t_1} f(\vec S) ||\vec N||dsdt$$
+
+### [Vector Surface Integrals](Surface_Int.html#vector-surface-integral)
+
+$$\iint\limits_{\vec S} \vec F \cdot d\vec S = \iint_{s_0, t_0}^{s_1, t_1} F(\vec S)\cdot \vec N dsdt$$
+
+### [Stokes' Theorem](Stokes.html#stokes'-theorem)
+
+Stokes' Theorem connects surface integrals to line integrals. It states that a surface integral of the curl of a vector field is the same as the integral around its boundary, with the surface and path oriented by the right-hand-rule.
+
+$$\iint\limits_{\vec S}(\nabla \times \vec F) \cdot d\vec S = \oint\limits_{\partial S} \vec F \cdot d\vec s$$
+
+### [Gauss's Theorem](Stokes.html#gauss's-theorem)
+
+Gauss's Theorem connects surface integrals to three dimensional integrals (volume integrals). It states that the integral of a vector field over a closed surface (oriented outward) is the same as the triple integral of the divergence of the field over the volume it encloses.
+
+$$\oint\limits_{\partial V} \vec F \cdot d\vec S = \iiint\limits_{\vec V} \nabla \cdot \vec F dxdydz$$
+
+If $\nabla \cdot \vec F = 1$, then this becomes just the volume of $V$.
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
