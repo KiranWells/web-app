@@ -58,7 +58,7 @@ Here, the columns with the first non-zero coefficients are **lead variables**, w
 Matrices are numbers arranged in a grid, generally notated as:
 
 $$
-\textbf{A}_{n\times m} = (a_ij) = 
+\textbf{A}_{n\times m} = (a_{ij}) = 
 \left[
 \begin{array}{cccc}
 a_{11} & a_{12} & ... & a_{1n} \\
@@ -97,7 +97,7 @@ In the following, $a_{ij}, b_{ij}$ mean each of the corresponding elements in ma
   - $det(AB) = det(A)det(B)$
   - $det(A+B) \ne det(A) + det(B)$
   - $det(I) = 1$
-  - $det(A^{-1}) = \frac{a}{det(A)}$
+  - $det(A^{-1}) = \frac{1}{det(A)}$
   - $det(\alpha A) = \alpha^n det(A)$
   - $det(A^T) = det(A)$
 
@@ -203,7 +203,7 @@ Given $A$, first convert it to RE form.
 
 The rank of $A$ is the dimension of the row or column space:
 
-$$Rank(A) = \dim(row\ space(A)) + \dim(col\ space(A))$$
+$$Rank(A) = \dim(row\ space(A)) = \dim(col\ space(A))$$
 
 The nullity of $A$ is the dimension of the null space:
 

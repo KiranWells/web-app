@@ -1,0 +1,338 @@
+# Math 311 Final Summary
+
+## [Matrices and Linear Systems](Sec1/Sys_eqns.html)
+
+Matrices are often used to represent and solve linear systems. To solve equations in this form, use the three basic operations to convert a matrix to triangular or row-echelon form:
+
+1. Changing order of rows
+2. Multiplying by a scalar
+3. Adding a scalar multiple of rows together
+
+### [Row-Echelon Form](Sec1/RE.html)
+
+This is normally the form which is most useful, where every row  starts with a 1 and is at least one shorter than the previous:
+
+$$
+\left[
+\begin{array}{cccc|c}
+  1 & a & b & c & x \\
+  0 & 1 & d & e & y \\
+  0 & 0 & 0 & 1 & z
+\end{array}
+\right]
+$$
+
+The columns with a start to a row are lead variables, and the others are free variables.
+
+From here, you can solve the corresponding equation either by back-substitution or by solving for the *reduced* row-echelon form, where all columns with lead variables have only one non-zero value: a 1.
+
+$$
+\left[
+\begin{array}{cccc|c}
+  1 & 0 & a & 0 & x \\
+  0 & 1 & b & 0 & y \\
+  0 & 0 & 0 & 1 & z
+\end{array}
+\right]
+$$
+
+This allows for very easy substitution and solving.
+
+### [Matrix Operations](Sec1/Matrices.html)
+
+- Addition: $A + B = a_{ij} + b_{ij}$ (piecewise addition)
+- Scalar multiplication: $\alpha A = \alpha a_{ij}$ (piecewise multiplication)
+- Multiplication: $AB = a_j \cdot b_i$ (dot product of rows of A and columns of B)
+- Transpose: $A^T = a_{ji}$ (reversal or rows/cols)
+- Inverse: $A^{-1}A = I$
+  - to find, use $[A|I]$ and solve for $[I|A^{-1}]$.
+- Determinant: $det(A)$
+  - Pick a row or column, and compute using the cofactor expansion matrix ($a_{i1}$)
+
+Important Rules:
+
+- $(AB)^{-1} = B^{-1}A^{-1}$
+- $(A^T)^{-1} = (A^{-1})^T$
+- $det(AB) = det(A)det(B)$
+- $det(I) = 1$
+- $det(A^{-1}) = {1\over det(A)}$
+- $det(A^T) = det(A)$
+
+## [Vector Spaces](Sec1/Vectors.html)
+
+Vector spaces are some set of numbers which satisfies the following conditions (given some $x, y$ in the space):
+
+### Addition
+
+1. $x + y = y + x$
+2. $(x + y) + z = x + (y + z)$
+3. $x + \bar 0 = x$
+4. $x + (-x) = \bar 0$
+
+### Scalar Multiplication
+
+5. $a(x + y) = ax + ay$
+6. $(a + b)x = ax + bx$
+7. $a(bx) = (ab)x$
+8. $1x = x$
+
+This generally includes vectors, matrices, continuous functions, and polynomials.
+
+### Linear Independence
+
+Vectors are independent if there is no linear combination of them which is 0:
+
+$$a_1v_1 + a_2v_2 + ... \ne \bar 0$$
+
+One way to test for this is to see if the matrix they make has a zero determinant. If the determinant is *not* zero, the vectors are *independent*.
+
+### Subspaces
+
+Subspaces are subsets of vector spaces, and must be closed under addition and scalar multiplication.
+
+### [Basis](Sec1/MinSpan.html)
+
+Bases are sets of vectors which can be linearly combined to create a set of other vectors.
+
+#### Spanning
+
+Bases are spanning if all vectors in a space can be made with a basis.
+
+#### [Change of Basis](Sec1/Basis2.html)
+
+Changing from one basis can be done with some version of this formula:
+
+$$\textbf{V}\left(\begin{array}{c}v_1 \\v_2\end{array}\right) = \textbf{U}\left(\begin{array}{c}u_1 \\u_2\end{array}\right)$$
+
+Where $U$ and $V$ are the matrices made of the basis for that coordinate system, and $u_1, u_2$ are the coordinates in those systems. Note that the standard basis's matrix is just $I$, so it can be ignored in this formula.
+
+### [Row/Col/Null Space](Sec1/VectorSpace2.html)
+
+Given a matrix $A$ converted to RE form:
+
+- The non-zero rows form a basis for the row space
+- The columns in the original matrix which correspond to the ones with lead variables make a basis of the col space
+- The solution to $Ax = \bar 0$ is the basis of the null space
+
+$$Rank(A) = dim(row\ space(A)) = dim(col\ space(A))$$
+$$Nullity(A) = dim(N(A))$$
+
+$$Rank(A) + Nullity(A) = dim(A)$$
+
+## [Linear Transformations](Sec2/Lin_trans.html)
+
+A linear transformation takes a vector and produces another vector. It must satisfy:
+
+$$L(x + y) = L(x) + L(y)$$
+$$L(ax) = aL(x)$$
+
+Every linear transformation can be represented by a matrix multiplication.
+
+$$L(x) = Ax$$
+
+### Kernel
+
+The kernel is the range of $x$ where $L(x) = \bar 0$. It is the null space of $A$.
+
+### Image
+
+The image of a subspace is the range of outputs from inputs in that subspace, computed as $L(S)$.
+
+### Range
+
+The range is the image of the whole space. It is the column space of $A$.
+
+## [Orthogonality](Sec2/Orthogonality.html)
+
+Orthogonality is perpendicularity, except it applies to all vector spaces.
+
+Two vectors are orthogonal if:
+
+$$\langle x, y \rangle 0$$
+
+### [Inner Product](Sec2/Inner_prod.html)
+
+$$\langle x, y \rangle$$
+
+The inner product is any operation which satisfies:
+
+1. $$\langle x, x \rangle \ge 0$$
+2. $$\langle x, x \rangle = 0\ iff\ x = \bar 0$$
+3. $$\langle x, y \rangle = \langle y, x \rangle$$
+4. $$\langle ax + by, z \rangle = a\langle x, z \rangle + b\langle y, z \rangle$$
+
+Normally, this is the dot product.
+
+### [Norm](Sec2/Inner_prod.html#norm)
+
+$$||x||$$
+
+The norm is any operation satisfying:
+
+1. $$||x|| \ge 0$$
+2. $$||x|| = 0\ iff\ x = \bar 0$$
+3. $$||ax|| = |a|||x||$$
+4. $$||x + y|| \le ||x|| + ||y||$$
+
+Normally, $$\sqrt{\langle x, x \rangle}$$
+
+### [Vectors](Sec2/Orthogonality.html)
+
+In this case, the inner product and norm are useful to compute projections:
+
+$$x^Ty = ||x||||y||\cos(\theta)$$
+Scalar projection:
+$$\alpha = {x^Ty \over ||y||}$$
+Vector projection:
+$$\vec p = {x^Ty \over ||y||^2} y$$
+
+### [Spaces](Sec2/Orthogonality2.html)
+
+Two spaces are orthogonal if all of their vectors are orthogonal. If a matrix contains all of the vectors perpendicular to a space, it is the orthogonal complement.
+
+This is useful for calculating column, row, and null spaces:
+
+$$R(A)^{\perp} = N(A^T)$$
+$$R(A^T)^{\perp} = N(A)$$
+
+## [Least Square Method](Sec2/Least_Squares.html)
+
+This is for computing the curve of best fit. First, use the x values and the curve to make $A$ (where the columns are the coefficients of $x$ in the curve), and use the y values to make $b$. Then use the following formula:
+
+$$A^TA\hat x = A^T b$$
+
+## [Orthogonal and Orthonormal Sets and Matrices](Sec2/Ortho_sets.html)
+
+Orthonormal bases are bases which have all orthogonal vectors (orthogonal set) and the length (norm) of all the vectors is 1.
+
+They are useful because you can easily get coordinates relative to them as:
+
+$$c_i = \langle v, v_i\rangle$$
+
+This also allows for an easy projection:
+
+$$p = c_1u_1 + c_2u_2 + ... c_n u_n$$
+
+### [Orthonormal matrices](Sec2/Ortho_2.html)
+
+Matrices which are orthonormal follow:
+
+$$A^TA = I$$
+
+Which allows a simpler least squares equation:
+
+$$\hat x = A^T b$$
+
+To compute an orthonormal set, for each vector get a perpendicular projection of it to the current set, then normalize:
+
+$$u_1 = {x_1\over ||x_1||}$$
+$$u_n = {x_n - p \over ||x_n - p||}$$
+
+Where $p$ is the vector projection of $x_n$ onto the previous $u$ vectors:
+
+$$p = c_1u_1 + c_2u_2+ ... c_{n-1}u_{n-1}$$
+
+### [Simplified Least Square](Sec2/Ortho_2.html#simplified-least-square-process)
+
+To simplify the least square process, $A$ can be factored into an orthonormal set and another matrix:
+
+$$A = QR$$
+
+Then the formula becomes:
+
+$$Ax = b$$
+
+$$Rx = Q^Tb$$
+
+The elements of $R$ can be found as a part of the normalization process:
+
+$$r_{kk} = ||x_{k} - p||$$
+$$r_{ik} = \langle x_k, u_i \rangle$$
+
+## [Eigenvalues and Eigenvectors](Sec2/Eigenvalues.html)
+
+Eigenvalues are defined by:
+
+$$Ax = \lambda x$$
+
+To find the eigenvalues, solve:
+
+$$det(A - \lambda I) = 0$$
+
+To find eigenvectors, solve:
+
+$$(A - \lambda I)x = 0$$
+
+### [Diagonal Matrices](Sec2/Diagonal.html)
+
+Diagonal matrices are matrices with elements only on the diagonal. They are easy to raise to a power, as it is just element-wise raising.
+
+A matrix can be factored into:
+
+$$A = XDX{-1}$$
+
+Where $D$ is a matrix of the eigenvalues along the diagonal, and $X$ is a matrix of the eigenvectors. *Make sure the eigenvalues and vectors are in the same order.*
+
+This is useful for solving systems of differential equations:
+
+$$Y' = AY$$
+$$Y_0 = b$$
+
+$$Y = e^{At}Y_0$$
+$$e^{At} = X [e^{d_i}] X^{-1}$$
+
+Where the $[e^{d_i}]$ is a diagonal matrix where each element is $e^{d_i}$.
+
+## [Vector Calculus](Sec3/summary.html)
+
+### [Cross Product](Sec3/Fields.html#cross-product)
+
+Cross product is defined by:
+
+$$
+(a_1, a_2, a_3) \times (b_1, b_2, b_3) = 
+\begin{vmatrix}
+  \hat i && \hat j && \hat k \\
+  a_1 && a_2 && a_3 \\
+  b_1 && b_2 && b_3 \\
+\end{vmatrix}
+$$
+$$
+=
+(a_2b_3 - b_2a_3)\hat i - (a_1b_3 - b_1a_3)\hat j + (b_1a_2 - a_1b_2)\hat k
+$$
+
+### Del Operator
+
+The $\nabla$ operator is differentiation:
+
+- Gradient: $\nabla f$
+- Curl: $\nabla \times \vec F$
+- Divergence: $\nabla \cdot \vec F$
+
+## [Line and Surface Integrals](Sec3/Vector_Func.html)
+
+Line integrals are integrals over a parameterized curve:
+
+$$\int\limits_{\vec x} fds = \int f(\vec x) ||\vec x'||dt$$
+$$\int\limits_{\vec x} \vec Fd\vec s = \int \vec F(\vec x) \cdot \vec x' dt$$
+
+Surface integrals are integrals of a two-dimensional parameterization of a surface:
+
+$$\int\limits_{\vec S} fdS = \int f(\vec S) ||\vec N||$$
+$$\int\limits_{\vec S} \vec F\cdot d\vec S = \int \vec F(\vec S) \cdot \vec N$$
+
+### [Green's Theorem](Sec3/Line_Int.html)
+
+$$\oint\limits_{\vec x} \vec F \cdot d\vec s = \iint\limits_{D} \left({\partial F_1 \over \partial x} - {\partial F_2 \over \partial y}\right)dydx$$
+
+### [Stokes' Theorem](Sec3/Stokes.html)
+
+$$\iint\limits_{\vec S} \nabla \times \vec F \cdot d\vec S = \oint\limits_{\partial S} \vec F\cdot d\vec s$$
+
+### Gauss's Theorem
+
+$$\oint\limits_{\vec S} \vec F\cdot d\vec S = \iiint\limits_V \nabla \cdot \vec F dxdydz$$
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">

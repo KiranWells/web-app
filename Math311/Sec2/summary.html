@@ -68,7 +68,7 @@ $$||x + y|| \le ||x|| + ||y||$$
 
 The most common is:
 
-$$||x|| = \sqrt{x_1 + x_2 + ... x_n}$$
+$$||x|| = \sqrt{x_1^2 + x_2^2 + ... x_n^2}$$
 
 but it can be defined in many different ways.
 
@@ -174,7 +174,7 @@ $$p = c_1u_1 + c_2u_2 + ... c_nu_n = \langle x, u_1 \rangle u_1 + ... \langle x,
 
 ### [Simplified Least Square](https://math-251-notes.vercel.app/Math311/Sec2/Ortho_sets.html#least-square-problem)
 
-Since the inverse of an orthonormal matrix is its transpose, we can factor a matrix to make it easier to invert:
+<!-- Since the inverse of an orthonormal matrix is its transpose, we can factor a matrix to make it easier to invert:
 
 $$A = QR$$
 
@@ -191,7 +191,22 @@ $$
   r_{kk} = ||z_{k-1}|| \\ 
   r_{ik} = \langle a_k, q_i \rangle
 \end{cases}
-$$
+$$ -->
+
+To simplify the least square process, $A$ can be factored into an orthonormal set and another matrix:
+
+$$A = QR$$
+
+Then the formula becomes:
+
+$$Ax = b$$
+
+$$Rx = Q^Tb$$
+
+The elements of $R$ can be found as a part of the normalization process:
+
+$$r_{kk} = ||x_{k} - p||$$
+$$r_{ik} = \langle x_k, u_i \rangle$$
 
 ## [Eigenvalues and Eigenvectors](https://math-251-notes.vercel.app/Math311/Sec2/Eigenvalues.html)
 

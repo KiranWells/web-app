@@ -4,8 +4,8 @@
 
 > **Definition:** Matrix  
 > If $A$ is an $m\times n$ matrix, then:  
-> $A = \begin{bmatrix}a_11 && ... && a_1n \\ ... \\ a_m1 && ... && a_mn\end{bmatrix}$  
-> Where $a_ij$ is the entry on the $i^{th}$ row and
+> $A = \begin{bmatrix}a_{11} && ... && a_{1n} \\ ... \\ a_{m1} && ... && a_{mn}\end{bmatrix}$  
+> Where $a_{ij}$ is the entry on the $i^{th}$ row and
 > $j^{th}$ column.  
 > They are normally denoted as $\textbf{A}$, or simply $A$.
 
@@ -58,7 +58,7 @@ $$\textbf{A} \pm \textbf{B}$$
 
 The final matrix is given by:
 
-$$a_{ij} \pm b_ij$$
+$$a_{ij} \pm b_{ij}$$
 
 Where $a_{ij}$ is each element in $\textbf{A}$, and the same for $b_{ij}$
 
@@ -149,9 +149,9 @@ Using this notation represents the corresponding system of equations:
 $$
 \left[
 \begin{array}{ccc}
-a_11 & ... & a_1n \\
+a_{11} & ... & a_{1n} \\
  &... 
-\\ a_m1 & ... & a_mn
+\\ a_{m1} & ... & a_{mn}
 \end{array}
 \right]
 \left[
@@ -171,9 +171,9 @@ Is the same as (doing the multiplication):
 
 $$
 \begin{cases}
-a_11x_1 + ... + a_1nx_n = b_1 \\
+a_{11}x_1 + ... + a_{1n}x_n = b_1 \\
 ... \\
-a_m1x_1 + ... + a_mnx_n = b_m \\
+a_{m1}x_1 + ... + a_{mn}x_n = b_m \\
 \end{cases}
 $$
 
@@ -458,9 +458,9 @@ det(\textbf{A}) =
 
 \left|
 \begin{array}{ccc}
-a_11 & ... & a_1n \\
+a_{11} & ... & a_{1n} \\
  &... 
-\\ a_m1 & ... & a_mn
+\\ a_{m1} & ... & a_{mn}
 \end{array}
 \right|
 $$
@@ -490,7 +490,7 @@ The technique here is **cofactor expansion**,
 
 > Definition: Cofactor expansion  
 > Along any $i^{th}$ row, we can perform cof exp to compute the determinant:
-> $\textbf{A} = \left[\begin{array}{ccc}&...\\a_i1 & ... & a_in \\ & ...\end{array}\right]$  
+> $\textbf{A} = \left[\begin{array}{ccc}&...\\a_{i1} & ... & a_in \\ & ...\end{array}\right]$  
 > $det(\textbf{A}) = a_{i1}\textbf{A}_{i1} + a_{i1}\textbf{A}_{i2} + ... + a_{in}\textbf{A}_{in}$
 > 
 > This can be done similarly for any column, multiplying the cofactor of each value in the row with that value.
