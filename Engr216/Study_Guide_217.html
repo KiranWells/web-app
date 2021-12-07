@@ -1,0 +1,463 @@
+# Final Exam Study Guide
+
+<aside>Fall 2021, Dr. Muhammad Ijaz, Texas A&M University</aside>
+
+This study guide is intended to be as comprehensive as possible. This summarizes all of the slides, and goes further where Dr. Ijaz mentions a topic but does not explain it. Areas where I believe I am presenting more material than is necessary I have labeled as unlikely to be on the Final Exam.
+
+With that said, this may not cover all material, and any additions are welcome.
+
+Finally, there is a formula sheet which contains most of the formulas mentioned here in the class material. Make sure to print it for the exam.
+
+## Measurements
+
+- measurement is the observation of a physical quantity
+- observed values are almost always different from true values
+  - error is the difference (and not known)
+- many measurements are recorded through changes in voltage (or other quantity) from changes in material properties
+  - sensors and transducers
+- to convert from voltages to numbers, we use analog to digital converters
+
+### Analog/Digital Conversion
+
+- Data Acquisition Systems (DAQ) are used to get measurements
+- ADC properties:
+  - Speed - samples per second (Hz)
+  - Input range - max and min voltage (outside of range is clipped)
+    - amplifiers can sometimes be used to better fit range
+  - resolution - smallest change in voltage that can be measured
+    - in bits, ex: a 10 bit ADC has $2^{10}$ possible voltages in its range
+  - sensitivity (of measuring device)
+    - for each change in input (temperature, pressure, etc.) the change of voltage is __
+  - differential or single-ended (may not be on exam)
+    - differential ADCs have both a Low and High input, and give readings based on the difference between the inputs. This can be useful to reduce noise, as both wires will receive some of the same noise and it can be canceled
+    - Single ended ADCs can have multiple measuring High lines with one Low ground line, so measure all in reference to the same ground. This can be cheaper and provide more inputs
+
+<!---->
+
+~~Example
+
+A measuring device has a sensitivity of 0.12 V / mm Hg. You have a 32 bit ADC with a range of 20 V. What is the smallest change in pressure that you can measure?
+
+**Solution:**
+
+The smallest voltage the ADC can measure is ${20 V \over (2^{32} slots)} = 4.657x10^{-9} V$. Then converted to pressure, it is: ${4.657x10^{-9} V \over \frac{0.12 V}{1 mmHg}} = 3.881x10^{-8} mmHg$.
+
+~~
+
+#### How ADCs Work
+
+ADCs often work using voltage comparators. Voltage comparators take two voltage inputs and returns whether the first is greater. This allows for an input voltage to be compared to a reference voltage, and the comparison to be taken as the output.
+
+These comparators can then be connected in chains to get more resolution, comparing a value to several reference voltages and producing outputs based on that. Alternatively, fewer comparisons can be used multiple times to get a slower but more accurate answer.
+
+- Flash ADCs - use $2^n$ comparators to get instant outputs.
+  - fast but expensive for high precision
+- Successive approximation - test against a known voltage, save output, then test again against another.
+  - slow but cheaper for more precision
+
+### Measurement Error
+
+- all measurements have errors, so we can plan to reduce them
+  - errors cause uncertainty, which has to be accounted for in designs
+- instruments have inherent accuracy and precision
+  - *graduations* - precision
+  - *zero error* - changes accuracy
+  - *least count* - minimum possible measurement (distance between graduations, or smallest count on digital)
+
+#### Accuracy vs. Precision
+
+- accuracy is how close a measurement is to the correct value
+- precision is how repeatable the measurement is
+  - in case of single measurement: $\frac{1}{2} *$ the *least count* of the gauge
+  - in case of multiple measurements, defined by standard error
+
+#### Error types:
+
+- *systematic errors* - effect on accuracy
+  - zero error, bias
+- *random errors* - effect precision
+  - unpredictable, uncorrelated errors
+  - can be reduced by taking more measurements and averaging
+
+#### Statistical Measurements
+
+When taking multiple measurements, the resulting measurement can be assigned a certainty related to the number and spread of measurements:
+
+- Standard deviation:
+
+$$s = \sqrt{{1 \over N - 1}\sum\limits_{i=1}^N (x_i - \bar x)^2}$$
+
+Where $\bar x$ is the average of the list. Note that the standard deviation has the same units as the measurements.
+
+- Standard error:
+
+$$err = {s \over \sqrt{N}}$$
+
+- Confidence interval:
+
+$$\bar x \pm z_{\frac{\alpha}{2}}{s\over \sqrt{N}}$$
+
+Where $\alpha = (1 - confidence)$ with confidence in percent and $z_{\frac{\alpha}{2}}$ is the value from the z-table at $\frac{\alpha}{2}$.
+
+### Noise
+
+Noise is random, uncorrelated errors centered around $0$ (zero-mean). This means that noise can be successfully reduced with many measurements.
+
+Types:
+- *Johnson-Nyquist* noise - random voltage variation in any object (depends on heat)
+  - $$v_{noise} = (4kTRB)^{1/2}$$
+  - Where $k = 1.38064852x10^{-23} J/K$
+  - $T$ is temp
+  - $R$ is resistance
+  - $B$ is bandwidth (in Hz)
+- *Shot noise* - variation in speed of electrons (current)
+  - $$i_{noise} = (2qIB)^{1/2}$$
+  - $q$ is the charge of an electron: $1.60x10^{-19}$
+  - $I$ is the DC current
+  - $B$ is bandwidth
+- Flicker nose - and burst can be reduced with choice of measurements
+- Burst noise
+- interference and random fluctuations can also cause errors
+
+### Error Propagation
+
+The general formula for a single-variable equation ($Q = f(x)$):
+
+$$\delta Q = \left|{dQ\over dx}\right|\delta x$$
+
+General formula for several variables ($q = f(x,y,...)$):
+
+$$\delta q = \sqrt{\left({\partial q\over \partial x}\delta x \right)^2 + \left({\partial q\over \partial y}\delta y \right)^2 + ...}$$
+
+## Charges, Forces, and Electric Fields
+
+### Columbus Law:
+
+This section is important, but it is essentially what you learned early in 207. If you know that well, don't worry about how many formulas are here; they are just different ways of saying the same thing.
+
+The force on one particle $q_0$ by another $q$ is:
+
+$$\vec F = k{q_0q \over r^2}\hat r$$
+$$k = 8.988x10^9$$
+
+The electric field created by $q$ is:
+
+$$\vec E = \frac{1}{q_0}\vec F = k{q\over r^2}\hat r$$
+$$\vec F = q_0\vec E$$
+
+The work done on a particle, or the change in potential energy due to $\vec F$ is:
+
+$$W_{a\to b} = \int_a^b \vec F = -k{q_0q\over r} = -U$$
+
+Voltage (change in electric potential of $q$) is:
+
+$$V = {U\over q_0} = k{q\over r}$$
+
+$$V = -\int \vec E$$
+
+$$\vec E = -\nabla V$$
+
+The units of voltage are Joules per Column, or a Volt. *Don't forget the negative!*
+
+- *equipotential surfaces* - an equipotential surface is a surface where the electric field is constant. This is the magical surface used in Gauss's law to find $\vec E$ in Physics.
+
+### How current works
+
+Charges move through conductors, either as electrons (metals, semiconductors), holes (semiconductors), or ions (solutions/gases). (Holes are the absence of an electron in semiconducting atoms, where the electron has moved to another atom. Electrons can move from an atom to a hole, creating a new hole and causing it to "move" as a positively charged particle.) In metals, electrons are *free* to move around a bit because they are not linked tightly to the atom.
+
+As charges flow through resistance (in real wires), their potential (voltage) decreases. Conventional current flow is the direction of *positively* charged particles. It is defined as the flow of charges per unit time.
+
+$$i = {dQ\over dt} = {nqv_{dA}}$$
+
+Where $n$ is charge density, $q$ is the charge on a single particle, $v_d$ is the drift speed, and $A$ is the area of a cross section.
+
+Current density is current per area:
+
+$$\vec j = \frac{I}{A}$$
+
+Ohms law is:
+
+$$\vec E = \rho \vec j\ (general)$$
+$$V = IR\ (simple)$$
+
+Where $\rho$ is the resistivity, which is the inverse of $\sigma$, conductivity.
+
+Resistance is:
+
+$$R = \rho {l \over A}$$
+
+Where $\rho$ is resistivity.
+
+Resistivity is dependent on temperature based on:
+
+$$\rho(T) = \rho_A\left[1 + \alpha(T - T_A)\right]$$
+
+Where $\alpha$ is the given temperature coefficient of the material, and $\rho_A$ is the reference resistivity at a reference temp $T_A$.
+
+~~Example
+
+Given a 1m wire of diameter 0.81mm with a resistivity of $1.56x10^{-8} \Omega m$ and $\alpha = 4.3x10^{-3}$ at $20^\circ$ C, what current will flow through if a voltage difference of $5 V$ is applied at $80^\circ$ C?
+
+**Solution:**
+
+First, convert the resistivity to the new temp:
+
+$$\rho(T) = \rho_A\left[1 + \alpha(T - T_A)\right]$$
+$$\rho(80) = 1.56x10^{-8}\left[1 + 4.3x10^{-3}(80 - 20)\right]$$
+$$\rho(80) = 1.96248e-8 \Omega m$$
+
+Then, use the resistance equation (don't forget to convert units and diameter to radius!):
+
+$$R = \rho {l \over A} = \rho {l \over \pi r^2}$$
+$$R = 1.96248e-8 \left({1 \over \pi (0.00081 / 2)^2}\right)$$
+$$R = 3.80842e-2 \Omega$$
+
+Then, use Ohm's law to get current:
+
+$$V = IR$$
+$$I = \frac{V}{R}$$
+$$I = \frac{5 V}{3.80842e-2 \Omega}$$
+$$I = 131.288 A$$
+
+~~
+
+### Electrical Energy and Power
+
+Electrical energy is (yes, the E is confusing, it is not the same as an E field):
+
+$$E = QV$$
+
+Units are Joules.
+
+electric power is:
+
+$$P = VI$$
+
+## Circuits
+
+Circuits are generally solved in similar ways. Essentially, you need to find enough equations to solve for unknown variables. The main equations to use are:
+
+1. Loop Equation: $$\int \vec E \cdot dr = 0$$
+2. Node equation: $$i_{in} = i_{out}$$
+
+For the loop equation, there are a few normal methods of integrating over $\vec E \cdot dr$:
+
+- Resistors: $V = IR$, or $\vec E = \rho \vec j$ for more complex ones
+- Capacitors: $V = \frac{Q}{C}$ or $Q = CV$, note that this may be variable if the circuit is not steady-state
+  - $C = \kappa \epsilon_0 \frac{A}{d}$
+  - for changing charge: $V(t) = \frac{1}{C}\int_0^t idt$
+  - for close plates: $E = \frac{V}{d}$
+  - for an RC circuit: $v_{capacitor} = V(1 - e^{-t/RC})$
+- Inductors: $V = L{di\over dt}$
+  - In a circuit with static geometry, $L$ is constant
+
+More complex circuits will result in differential equations (remember to convert everything to the same variable). To solve these, plug in $i (or\ Q) = ae^{rt}$, which will give some quadratic equation:
+
+$$V = L{di\over dt} + Ri + \frac{1}{C}\int_0^t idt$$
+
+Differentiating gives:
+
+$$0 = L{d^2i\over dt^2} + R{di\over dt} + \frac{1}{C}i$$
+
+And the quadratic:
+
+$$0 = Lr^2 + Rr + \frac{1}{C}$$
+
+Solving this quadratic equation shows there are multiple possibilities:
+
+1. Under-damped - imaginary roots
+  - this is an oscillating graph
+2. Critically damped - repeated roots
+  - this is the border between oscillating and not oscillating
+  - it gives: $V(t) = V_0(1 + \beta t)e^{-\beta t}$
+3. Over-damped - normal roots
+  - this is non-oscillating, where the resistance is slowing movement more than necessary to prevent oscillation
+
+Resistor color coding:
+
+Each band is a digit or multiplier:
+
+1. First Digit
+2. Second Digit
+3. Decimal Multiplier
+4. Tolerance
+  - Gold: 5%
+  - Silver: 10%
+
+~~Colors
+
+- 0: Black
+- 1: Brown
+- 2: Red
+- 3: Orange
+- 4: Yellow
+- 5: Green
+- 6: Blue
+- 7: Violet
+- 8: Gray
+- 9: White
+
+~~
+
+## Magnetic Fields
+
+### Forces:
+
+For charges:
+
+$$\vec F = q\vec v \times \vec B$$
+
+For wires:
+
+$$\vec F = i\vec dl \times \vec B$$
+
+### Loops
+
+There is no force on loops:
+
+$$\vec F = i\oint \vec dl \times \vec B = 0$$
+
+There is torque:
+
+$$\vec \mu = IA\hat n$$
+$$\vec \tau = \vec \mu \times \vec B$$
+
+### DC Motor
+
+Because of this torque, a DC motor can be made using a series of loops of wire rotating within a magnetic field. Generally, a DC motor has several portions:
+
+- stator (magnets): permanent or electromagnets which create the magnetic field
+- commutator: Central portion which holds windings and takes current from brushes
+- windings: series of wire looping around the commutator where current is passed through
+- brushes: because the torque depends on the direction of current and position of the loop of wire, the current needs to alternate for a wire to keep the torque in the same direction. Brushes stay in the same location while the commutator moves, alternating the current direction for each group of windings
+  - brushes have both a positive and negative terminal
+- armature: the rotating center of the motor, containing the commutators, a shaft core, and windings
+  - generally, the core is made of a material which has low resistance to flux for efficiency
+
+A DC generator works in the opposite way, where torque is applied to the commutator, producing a current through the windings as they move through the magnetic field of the stator.
+
+#### Various DC motor/generator details:
+
+- Motors convert electrical energy to rotational/mechanical, generators convert energy from mechanical to electrical
+- the interaction of the two magnetic fields (one made by the current/torque) produces the resultant current or torque
+- in a motor, a back-emf is induced in the opposite direction of the current as a result of magnetic forces on the charges in the rotor
+  - the direction is opposing movement as according to Lenz's law
+  - proportional to machine speed
+- Series machines have rotor and stator in series, shunt machines have rotor and stator in parallel
+- Voltage across terminals of a series motor is $V_{in} = \epsilon_{back} + Ir$ where $r$ is internal resistance.
+  - in a generator it is $V_{out}  = \epsilon_{back} - Ir$
+- for a DC motor/generator:
+  - Input power is $P = V_{in/out}I$
+  - Output power is $2\pi N \tau$ (N is RPM, $\tau$ is torque)
+  - Efficiency: $\nu = {Out\ Power \over In\ Power}$
+
+### AC Generator
+
+- an AC generator works the same way as a DC generator, but *without brushes*. This causes the current to oscillate, giving *alternating current*.
+
+### Flux
+
+Flux is defined as:
+
+$$\Phi = \int\vec B \cdot d\vec A = B * A * cos\theta$$
+
+Faraday's law:
+
+$$\epsilon = - {d\Phi\over dt}$$
+
+### EMF for DC motor/generator
+
+$$\epsilon = {\Phi * Poles * RPM * Num.\ Armature\ Conductors \over 60 * Num.\ Parallel\ Paths}$$
+
+## Hall Effect
+
+The Hall Effect is the voltage difference across a conductor which is created by the interference of a magnetic field with the current in the conductor. The effect is used in sensors to detect magnetic fields, allowing proximity detection, rotational speed detection, and other sensors. It can also be used in spacecraft engines, although they are currently experimental (I think).
+
+The Hall Voltage is given by:
+
+$$V_H = v_dB_{yh}$$
+
+Where $v_d$ is the drift velocity of the electrons, $\vec B_y$ is the component of the magnetic field in the y direction, and $h$ is the width of the strip in the $z$-direction.
+
+## Batteries
+
+Batteries store electrical energy physically, often inn the form of chemical energy. Their types include: Alkaline, Carbon-zinc, Nickel-Cadmium, Nickel-Metal Hydride, Lithium Ion, and Lead Acid. Rechargeable batteries work by pushing current backward through the battery, reversing the chemical process that releases electrical energy. They need to be replaced because these chemicals degrade over time.
+
+Capacity is measured in Ampere-Hours (Ah), although most applications use mAh for normal use. This corresponds with the number of amps and hours it can provide, meaning a usage of X Amps over Y Hours is $X*Y\ Ah$.
+
+### Supercapacitors
+
+Supercapacitors are also designed to store energy, but they store large amounts and charge and discharge over short periods.
+
+Energy stored in a capacitor is:
+
+$$E = \frac{1}{2}CV^2$$
+
+Since $C$ depends on area and inversely on distance, supercapacitors are designed with a rough surface to increase area and a small distance.
+
+In contrast to batteries, supercapacitors have a large amount of *power* (capacity to do work) but a low *energy* (low capacity to do work over a period of time).
+
+## Other topics (only mentioned in slides, likely not on exam)
+
+- Universalization of energy devices
+- Filters: low pass, high pass, Band pass (notch)
+  - filters are often used in circuits to select the frequency of a circuit
+  - low pass filters cut out all but the lower frequencies
+  - high pass filters cut out all but the higher frequencies
+  - band pass filters are both (select a band of frequencies)
+  - [reference](https://www.electronicsforu.com/technology-trends/learn-electronics/band-stop-high-low-pass-filter)
+- RLC low pass filter with subcritical damping
+- Applications and examples
+
+## Project Management
+
+Flow charts are often used to lay out schedules, to write out the timings you work forward and backwards, writing out the time taken for each task along with the earliest and latest starting and ending times. This is the Critical Path Method.
+
+![A flow chart (from Wikipedia)](https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Pert_chart_colored.svg/1024px-Pert_chart_colored.svg.png)
+
+Gantt Charts are used to graphically display a schedule, and show a possible start and end time for each task.
+
+![A Gantt Chart (from Wikipedia)](https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/GanttChartAnatomy.svg/1024px-GanttChartAnatomy.svg.png)
+
+### Project Management Process Groups
+
+- Initiating
+- Planning
+- Executing
+- Monitoring & Controlling
+- Closing
+
+### Knowledge areas
+
+- Integration
+- Scope
+- Schedule
+- Cost
+- Quality
+- Resources
+- Communication
+- Risk
+- Procurement
+- Stakeholders
+
+### Vocab (Paraphrased)
+
+- Activity - a task that is required by the project; uses resources and time
+- Event - the result of completing activities; occurs at a time, uses no resources
+- Network - arrangement of activities in a project by their dependence
+- Path - series of connected activities
+- Critical - activities/paths which cannot be delayed for the project to complete on time
+
+## Ethics
+
+In this course, we are focusing on the following two principles:
+
+ABET:
+
+2. an ability to apply engineering design to produce solutions that meet **specified needs** with consideration of public health, safety, and welfare, as well as global, cultural, social, environmental, and economic factors
+4. an ability to recognize ethical and professional responsibilities in engineering situations and make informed judgments, which must consider the **impact** of engineering solutions in global, economic, environmental, and societal contexts
+
+reference: [ABET](https://www.abet.org/accreditation/accreditation-criteria/criteria-for-accrediting-engineering-programs-2019-2020/#GC3)
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
