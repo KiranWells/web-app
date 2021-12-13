@@ -40,7 +40,7 @@ A measuring device has a sensitivity of 0.12 V / mm Hg. You have a 32 bit ADC wi
 
 **Solution:**
 
-The smallest voltage the ADC can measure is ${20 V \over (2^{32} slots)} = 4.657x10^{-9} V$. Then converted to pressure, it is: ${4.657x10^{-9} V \over \frac{0.12 V}{1 mmHg}} = 3.881x10^{-8} mmHg$.
+The smallest voltage the ADC can measure is ${20 V \over (2^{32} slots)} = 4.657\times 10^{-9} V$. Then converted to pressure, it is: ${4.657\times 10^{-9} V \over \frac{0.12 V}{1 mmHg}} = 3.881\times 10^{-8} mmHg$.
 
 ~~
 
@@ -106,13 +106,13 @@ Noise is random, uncorrelated errors centered around $0$ (zero-mean). This means
 Types:
 - *Johnson-Nyquist* noise - random voltage variation in any object (depends on heat)
   - $$v_{noise} = (4kTRB)^{1/2}$$
-  - Where $k = 1.38064852x10^{-23} J/K$
+  - Where $k = 1.38064852\times 10^{-23} J/K$
   - $T$ is temp
   - $R$ is resistance
   - $B$ is bandwidth (in Hz)
 - *Shot noise* - variation in speed of electrons (current)
   - $$i_{noise} = (2qIB)^{1/2}$$
-  - $q$ is the charge of an electron: $1.60x10^{-19}$
+  - $q$ is the charge of an electron: $1.60\times 10^{-19}$
   - $I$ is the DC current
   - $B$ is bandwidth
 - Flicker nose - and burst can be reduced with choice of measurements
@@ -138,7 +138,7 @@ This section is important, but it is essentially what you learned early in 207. 
 The force on one particle $q_0$ by another $q$ is:
 
 $$\vec F = k{q_0q \over r^2}\hat r$$
-$$k = 8.988x10^9$$
+$$k = 8.988\times 10^9$$
 
 The electric field created by $q$ is:
 
@@ -167,7 +167,7 @@ Charges move through conductors, either as electrons (metals, semiconductors), h
 
 As charges flow through resistance (in real wires), their potential (voltage) decreases. Conventional current flow is the direction of *positively* charged particles. It is defined as the flow of charges per unit time.
 
-$$i = {dQ\over dt} = {nqv_{dA}}$$
+$$i = {dQ\over dt} = {nqv_{d}A}$$
 
 Where $n$ is charge density, $q$ is the charge on a single particle, $v_d$ is the drift speed, and $A$ is the area of a cross section.
 
@@ -196,27 +196,27 @@ Where $\alpha$ is the given temperature coefficient of the material, and $\rho_A
 
 ~~Example
 
-Given a 1m wire of diameter 0.81mm with a resistivity of $1.56x10^{-8} \Omega m$ and $\alpha = 4.3x10^{-3}$ at $20^\circ$ C, what current will flow through if a voltage difference of $5 V$ is applied at $80^\circ$ C?
+Given a 1m wire of diameter 0.81mm with a resistivity of $1.56\times 10^{-8} \Omega m$ and $\alpha = 4.3\times 10^{-3}$ at $20^\circ$ C, what current will flow through if a voltage difference of $5 V$ is applied at $80^\circ$ C?
 
 **Solution:**
 
-First, convert the resistivity to the new temp:
+First, convert the resistivity to the new temp (in Kelvin):
 
 $$\rho(T) = \rho_A\left[1 + \alpha(T - T_A)\right]$$
-$$\rho(80) = 1.56x10^{-8}\left[1 + 4.3x10^{-3}(80 - 20)\right]$$
-$$\rho(80) = 1.96248e-8 \Omega m$$
+$$\rho(80) = 1.56\times 10^{-8}\left[1 + 4.3\times 10^{-3}(80 + 273 - (20 + 273))\right]$$
+$$\rho(80) = 1.96248\times 10^{-8} \Omega m$$
 
 Then, use the resistance equation (don't forget to convert units and diameter to radius!):
 
 $$R = \rho {l \over A} = \rho {l \over \pi r^2}$$
-$$R = 1.96248e-8 \left({1 \over \pi (0.00081 / 2)^2}\right)$$
-$$R = 3.80842e-2 \Omega$$
+$$R = 1.96248\times 10^{-8} \left({1 \over \pi (0.00081 / 2)^2}\right)$$
+$$R = 3.80842\times 10^{-2} \Omega$$
 
 Then, use Ohm's law to get current:
 
 $$V = IR$$
 $$I = \frac{V}{R}$$
-$$I = \frac{5 V}{3.80842e-2 \Omega}$$
+$$I = \frac{5 V}{3.80842\times 10^{-2} \Omega}$$
 $$I = 131.288 A$$
 
 ~~
@@ -375,7 +375,7 @@ The Hall Effect is the voltage difference across a conductor which is created by
 
 The Hall Voltage is given by:
 
-$$V_H = v_dB_{yh}$$
+$$V_H = v_dB_{y}h$$
 
 Where $v_d$ is the drift velocity of the electrons, $\vec B_y$ is the component of the magnetic field in the y direction, and $h$ is the width of the strip in the $z$-direction.
 
