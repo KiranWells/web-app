@@ -1,0 +1,163 @@
+# Introduction To Probability
+
+Probability is useful because, unlike mathematics, life is not perfectly certain. Instead, we can use mathematics to model the uncertainty of certain things. This helps us to make decisions by maximizing the chances of success.
+
+For example, in a course, you cannot be truly certain that you will achieve a certain grade, but taking particular actions such as studying will increase your likelihood of getting the grade you want.
+
+In more practical applications, machine learning makes very large use of probability. These applications model situations and 'learn' by optimizing the chances of success. And the trained models are then used in all sorts of applications, from Google Translate to your phone's camera.
+
+## How to Model Probability
+
+To be able to mathematically deal with probability, we need to clearly define randomness and uncertainty. The main way we will do this is through *axioms of probability* based on *set theory*. This allows us to reason about uncertainties in a certain way; we can specifically describe the random behavior.
+
+> Vocab: Probability  
+> The likelihood of an event happening, represented as a number from 0 to 1
+
+Probability can often be conditional, where the likelihood of one event depends in part on another. For example, if you get full points on the two midterm exams, you are more likely to get a high final grade in the course. Bayes' Theorem allows us to reason about these kinds of related probabilities.
+
+Random variables can be used to represent the uncertainty in a system, where the variable is an unknown value from 0-1. Distribution is the range of a random variable. Random variables can be related.
+
+Statistics allows you to summarize the past to analyze data so that you can determine the probabilities of the future. Think of statistics as telling a story. Clarity in reasoning (storytelling) will be important for homework and exam solutions, especially for partial credit.
+
+## Set Theory
+
+Set theory is important to be able to model probability. However, since rigorous set theory can be quite complex, we will be using a more naive definition of set theory for this course.
+
+> Definition: Set  
+> A set is an unordered collection of distinct objects. These objects are the **elements** of this set. They are abstract, meaning the objects can be anything, even other sets themselves.
+
+For example, $\{1,3,5,7,9\}$ is a set, and is identical to $\{3,7,1,5,9\}$. However, $\{1,1,3,5,7,9\}$ is not a set. In these examples, the elements (objects) of the set are numbers.
+
+> Definition: Special Sets
+> - Empty Set: $\emptyset$, does not include any element
+> - Universal Set: $\Omega$, includes every element in a particular context
+
+To denote an element $x$ in a set $S$, we write $x \in S$, and if it is not in, we write $x \notin S$. This syntax will often be used as it simplifies notation for expressing complex ideas.
+
+**Cardinality** is the number of elements in a set (its size), and is denoted $|S|$. Sets can be both finite and infinite, and both countably and uncountably infinite. Note that $|\emptyset| = 0$. Countably infinite means that you can map all elements to a natural numbers
+
+**Countably infinite:**
+
+- $\mathbb{N}$ - natural numbers
+- $\mathbb{Z}$ - integers
+- $\mathbb{Q}$ - rational numbers
+
+**Uncountably infinite:**
+
+- $\mathbb{R}$ - real numbers
+- $\mathbb{C}$ - complex numbers
+
+Sets (with there elements) can be written in two ways:
+
+1. Showing all elements in a set.
+$$S = \{1,2,3,4,5,6\}$$
+$$\mathbb{N} = \{1,2,3...\}$$
+
+2. Describe the properties of a set.
+$S$ is the set of all numbers $x$ where $x$ satisfies property $P$.
+$$S = \{x| x\ satisfies\ P\}$$
+$$\mathbb{C} = \{a + bi | a, b \in \mathbb{R}\}$$
+
+You can also use interval notation:
+
+$$(a,b] = \{x | a \lt x \le b\}$$
+
+### Subsets
+
+> Definition: Subset  
+> $A$ is a subset of $B$ if every element of $A$ is also in $B$.  
+> $$A \subseteq B$$
+> It is possible for $A$ and $B$ to be the same set; if they are not, $A$ is a **proper subset**.  
+> $$A \subset B$$
+
+We can tell if two sets are the same if and only if both $A \subseteq B$ and $B \subseteq A$. This means that they both contain the same elements, meaning $A = B$. Note that order is not important for sets to be equal.
+
+Given any set, the following is true:
+
+$$\emptyset \subseteq A \subseteq \Omega$$
+$$A \subseteq A$$
+
+The set of all subsets of $S$, called the **power set** of $S$, is denoted by $2^S$. It has a size of $|2^S| = 2^{|S|} = 2^n$. This is because, for each element, the element can either be included in the final set or not. This means you have two choices for each element, and all elements have that choice independently. This gives a number of possible choices as $2*2*2... = 2^n$, where $n$ is the size of the set $|S|$.
+
+## Set Operations
+
+**Union:**
+
+$$A \cup B := \{x | x \in A\ or\ x \in B\}$$
+
+This is both the elements in A or B, corresponding with a logical OR.
+
+**Intersection:**
+
+$$A \cap B := \{x | x \in A\ and\ x \in B\}$$
+
+This is only the elements in A and B, corresponding to a logical AND.
+
+**Difference:**
+
+$$A - B := \{x | x \in A\ and\ x \notin B\}$$
+
+This is the elements in A which are not in B. Combining both $A - B$ and $B - A$ gives a logical XOR.
+
+**Complement**
+
+$$A^c = \Omega - A$$
+
+The difference is every element which is not in A. This is comparable to logical NOT.
+
+### DeMorgan's Law
+
+This allows for the distribution of a complement inside of parentheses:
+
+$$(A\cup B)^c = A^c \cap B^c$$
+
+To do this, complement everything inside the parentheses, including the union and intersection operators, swapping them.
+
+### Order of Operations
+
+Set operations are often not associative or commutative, so using parentheses is necessary to show the order of operations:
+
+$$A \cup (B \cap C) \ne (A \cup B) \cap C$$
+
+### Properties
+
+- Identity: $A \cup \emptyset = A$ and $A \cap \Omega = A$
+- Domination: $A \cap \emptyset = \emptyset$ and $A \cup \Omega = \Omega$
+- Idempotent: $A \cup A = A$ and $A\cap A = A$
+- Commutative: $A \cup B = B \cup A$ and $A \cap B = B \cap A$
+- Associative: $(A \cup B) \cup C = A \cup (B \cup C)$
+- Distributive: $A \cup (B \cap C) = (A \cup B) \cap (A \cup C)$ and $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$
+- De Morgan's laws: $(A \cup B)^c = A^c\cap B^c$ and $(A \cap B)^c = A^c \cup B^c$
+
+To prove any of these laws, prove that both sides of the equation are subsets of each other, therefore proving they are identical. To do that, assume that one is true and prove that all elements must be in the other, and vice-versa.
+
+If $A$ and $B$ have no common elements, they are called **disjoint**, e.g. $A\cap B = \emptyset$. If several disjoint sets make up another set, they are called **partitions**. For example, if $A$ and $B$ are partitions of $S$:
+
+$$A \cap B = \emptyset, A\cup B = S$$
+
+## Cartesian Product
+
+$$A \times B = \{(a, b) | a \in A, b \in B\}$$
+
+Or more generally,
+
+$$A_1 \times A_2 \times A_3 ... \times A_n = \{(a_1, a_2, a_3, ... a_n)| a_i \in A_i, i \in \{1..n\} \}$$
+
+$$A^n := A \times A \times A ... \times A$$
+
+## Functions
+
+A function is a relationship between two sets, which can be represented as a structured cartesian product between the two sets, where each element is a pairing of one element in the source set (domain) to one element in the destination set (codomain).
+
+It maps each element in $X$, the domain, uniquely to an element in Y, the codomain.
+
+A functions image is the region of the codomain covered by the function given the entire input. The preimage is the region in the domain which corresponds to a region in the codomain.
+
+An **injective** function is one-to-one. Each element in X corresponds to a single element in Y, and vice-versa.
+
+A **surjective** function covers every element in the codomain, meaning that every element of Y has some element of X which will link to it.
+
+A function which is both is **bijective**.
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">

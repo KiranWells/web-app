@@ -107,6 +107,7 @@ body {
   background: var(--bg-dark, #1f2228);
   color: var(--fg, #d8dee9);
   font-size: 20px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 body:not(.loaded) {
@@ -285,7 +286,7 @@ details {
   background-color: var(--bg, #2e3440);
   color: var(--fg, #eceff4);
   font-size: small;
-  font-family: serif;
+  font-family: inherit;
   font-weight: lighter;
 }
 

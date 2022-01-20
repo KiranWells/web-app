@@ -95,6 +95,7 @@ function afterTexMe() {
     <a href="/Math251">Math 251</a>
     <a href="/Math308">Math 308</a>
     <a href="/Math311">Math 311</a>
+    <a href="/Ecen303">Ecen 303</a>
     <a href="/Phys206">Phys 206/7</a>
   </div>
   <div class="disclaimer">
