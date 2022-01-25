@@ -1,0 +1,87 @@
+# Basic Probability Concepts
+
+## Probabilistic Model
+
+A probabilistic model for a random experiment requires:
+- a sample space $\Omega$
+- the probability measure $P$
+- the measurable event space $\mathcal{F}$
+
+> Definition: Sample Space  
+> The sample space $\omega$ is the set of all possible outcomes from a random experiment.
+
+For example, a coin toss has two outcomes (ignoring the possibility of landing on edge) $\Omega = \{H,T\}$. Doing it twice is $\Omega = \{H,T\}^2 = \{HH, HT, TH, TT\}$
+
+A sample space of a deck of cards is the cartesian product of all of the ranks with all of the suits.
+
+$$\Omega = \{1..9, J, K, Q\} \times \{S,C,H,D\}$$
+
+> Definition: Event  
+> An event is a collection of outcomes, or in other words a subset of the sample space.
+
+The **event space** $\mathcal{F}$ is a collection of **events**.
+
+> Definition: Probability Measure  
+> $P$ is a function that gives a probability to each event. It assigns to each event $E$ in the event space $\mathcal{F}$ a number $P(E) \in [0,1]$.
+
+Assigning probabilities often involves intuition, assumptions, or common sense. As George Box said, "All models are wrong, but some are useful."
+
+~~Example 1
+
+Consider a jar with 4 blue balls, 3 red balls, and 3 green balls.
+
+Picking one ball randomly, the possible outcomes are blue, red and green. So the sample space is:
+
+$$S = \{B, R, G\}$$
+
+Picking two balls, the sample space is
+
+$$S = \{BB, BR, BG, RR, RG, GG\}$$
+
+Considering the **event** that you select two different colors, the event set is:
+
+$$E = \{BR, BG, RG\}$$
+
+and the complement is:
+
+$$E^c = \{BB, RR, GG\}$$
+
+The event that we get two different colors ($A$) *or* at least one blue ball ($B$), we have:
+
+$$A \cup B = \{BR, BG, RG, BB\}$$
+
+The complement of that is:
+
+$$(A \cup B)^c = A^c \cap B^c = \{RR, GG\}$$
+
+A function from this sample space to a set representing the number of blue balls is:
+
+$$S = \{BB, BR, BG, RR, RG, GG\}$$
+$$S^i = \{2,1,0\}$$
+
+$$f: S \to S^i = \{(BB, 2), (BR, 1), (BG, 1), (RR, 0), ...\}$$
+
+Now, assuming that each element of $S$ is equally likely (this is not true considering the number of balls in the jar), the probability that both balls are blue is the same as the probability of getting $n_b = 2$ from $S^i$, or $\frac{1}{6}$. The probability of $n_b =0$ is $\frac{1}{2}$.
+
+~~
+
+## Assigning Probabilities
+
+If the sample space is finite or countably infinite, you can create $P$ by:
+
+1. Assign a probability $P(\omega) \in [0,1]$ to each $\omega \in \Omega$ so that they sum to 1:
+
+$$\sum\limits_{\omega \in \Omega} P(\omega) = 1$$
+
+2. Expand to each subset $E$ of $\Omega$
+
+$$P(E) := \sum\limits_{\omega \in E} P(\omega)$$
+
+This means that the probability of an event which represents getting one of a few possible options is the sum of each individual option.
+
+In **naive probability**, every possible outcome is equally likely. For example, a die is supposed to be perfectly fair, where all numbers are equally likely.
+
+When you do something more than once, you need the cartesian product of the sample set. For events in this case, you need to find the product, find probabilities for each element in the product, and then sum up all outcomes in the event.
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">

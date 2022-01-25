@@ -149,15 +149,74 @@ $$A^n := A \times A \times A ... \times A$$
 
 A function is a relationship between two sets, which can be represented as a structured cartesian product between the two sets, where each element is a pairing of one element in the source set (domain) to one element in the destination set (codomain).
 
-It maps each element in $X$, the domain, uniquely to an element in Y, the codomain.
+It maps *every* element in $X$, the domain, *uniquely* to an element in Y, the codomain. A function cannot have two outputs for the same input.
 
-A functions image is the region of the codomain covered by the function given the entire input. The preimage is the region in the domain which corresponds to a region in the codomain.
+A functions **image** is the region of the codomain covered by the function given the entire input. The **preimage** is the region in the domain which corresponds to a region in the codomain.
 
 An **injective** function is one-to-one. Each element in X corresponds to a single element in Y, and vice-versa.
 
 A **surjective** function covers every element in the codomain, meaning that every element of Y has some element of X which will link to it.
 
 A function which is both is **bijective**.
+
+A **level set of y** is if all of the elements in the domain are assigned to one value $y$ in the codomain
+
+~~Example 1: set of grades
+
+For example, take a set of final grades:
+
+$$S = \{A, B, C, D, F\}$$
+
+and the set of all students in a class:
+
+$$T = \{Student_i | i \in [1..90]\}$$
+
+We can define a function from the set of students to the set of grades by pairing *every* element of the student set to one and only one element of the grade set.
+
+This set would not be injective, as it is impossible to create a one-to-one relationship. There are many more elements of $T$ than there are grades in $S$.
+
+The function could be surjective, but only if it has at least one student receiving each grade. However, if no D's are given out, then it would not be surjective.
+
+Because it is not injective, it cannot be bijective either.
+
+On the other hand, if we had defined the grade set as percentile:
+
+$$S = \{0..100\}$$
+
+Then the function *could* be injective (as there are more grades than students), but could *not* be surjective, as there are more grades than students. On the other hand, it is not likely to be either, as grades are most often given out in a less evenly-distributed manner.
+
+The only possible way to get a bijective function is if there were 101 students and each student got their own (integer) grade.
+
+If instead, you considered the possibility of some students dropping out of the class, then the function would be invalid, as those students would not be given a grade. This violates that a function must be defined for its whole domain, or every element in the domain must be paired with an element in the codomain.
+
+~~
+
+~~Example 2
+
+Are the following functions, and if so is it injective, surjective, or bijective?
+
+1. $f: \mathbb{R} \to \mathbb{R} by f(x) = x^2$
+This is a function, but is neither surjective or injective. If the domain restricted to positive numbers $\mathbb{R}^+$, then it is bijective.
+2. $f: \mathbb{R} \to \mathbb{R} \times \mathbb{R} by f(x) = [\sqrt{x}, -\sqrt{x}]$
+This is not a function unless the domain is restricted to positive numbers, in which case it is bijective.
+
+~~
+
+### Indicator Function
+
+The indicator function is a pairing of an element with whether that element is in a set.
+
+$$
+1(S) = 
+\begin{cases}
+x \in S \to 1
+x \notin S \to 1
+\end{cases}
+$$
+
+This is not injective, and is only surjective onto $\{0,1\}$.
+
+For example, if $S = \{x | x > 0\}$, $1(S)$ is 1 for all positive numbers and 0 for all other numbers.
 
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">
