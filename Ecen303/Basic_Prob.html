@@ -65,6 +65,17 @@ Now, assuming that each element of $S$ is equally likely (this is not true consi
 
 ~~
 
+If you are taking the union of two events, that is equal to the sum of each event, without duplicating common events. For example, if one Event has 4 outcomes, another Event has 6, and they have 1 element in common, the union is $(4 -1) + (6 - 1) + 1$, or $4 + 6 - 1$. This prevents counting the same element twice.
+
+Translating to English follows the following rules. Given events A, B, and C:
+
+- A occurring is just $A$
+- A not occurring is $A^c$
+- A or B occurring is $A \cup B$
+- A and B occurring is $A \cap B$
+- "but" has the same effect as "and". A but not B = A and not B
+- A only means $A \cap (B \cup C \cup ...)^c$
+
 ## Assigning Probabilities
 
 If the sample space is finite or countably infinite, you can create $P$ by:
@@ -82,6 +93,121 @@ This means that the probability of an event which represents getting one of a fe
 In **naive probability**, every possible outcome is equally likely. For example, a die is supposed to be perfectly fair, where all numbers are equally likely.
 
 When you do something more than once, you need the cartesian product of the sample set. For events in this case, you need to find the product, find probabilities for each element in the product, and then sum up all outcomes in the event.
+
+Note: Probability of empty set is $0$.
+
+$$P(\emptyset) = 0$$
+
+~~Example: Unbounded possibilities
+
+Take the experiment where you flip a coin until getting heads. The possible outcomes are:
+
+$$H, TH, TTH, ...$$
+
+Written more mathematically,
+
+$$E = \{(T \times n, H) | n \in \mathbb{N}\}$$
+
+which is a countably infinite set. This can also be represented as the set of natural numbers by just recording the number of attempts required to get $H$:
+
+$$\Omega = \mathbb{N}$$
+
+Note that the probability of all possible outcomes sums to one:
+
+$$P(\Omega) = 1$$
+
+The probability of one specific number is:
+
+$$E_n = (1/2)^n$$
+
+Since for each flip, there is a $\frac{1}{2}$ probability of getting an $H$. Another way to reason it is that for each number, the sample space of flipping the coin is the cartesian product of one coin flip $n$ times:
+
+$$S = \{T,H\}^n$$
+
+And the probability of getting $H$ on $n$ is all tails and a head, which is one of the possible outcomes. In this example set, the probabilities are equally likely, so the probability $E_n$ is one of $|S|$:
+
+$$P(E_n) = \frac{|E_n|}{|S|} = \frac{1}{2^n}$$
+
+And we can check that this sums to one:
+
+$$P(\Omega) = \sum\limits_{i=1}^{\infty} P(E_i) = \sum\limits_{i=1}^{\infty} (\frac{1}{2})^i$$
+
+This sum simplifies to:
+
+$${\frac{1}{2} \over 1 - \frac{1}{2}}$$
+
+The probability of an even number of attempts is:
+
+$$\sum\limits_{i=1}^{\infty} P(E_{2i}) = \sum\limits_{i=1}^{\infty} (\frac{1}{2})^{2i} = \sum\limits_{i=1}^{\infty} (\frac{1}{4})^i = {\frac{1}{4} \over 1 - \frac{1}{4}} = \frac{1}{3}$$
+
+The same problem, but swapping tails and heads will yield the same result, as we can just swap labels without affecting the logic.
+
+~~
+
+### Uncountably Infinite Sample Space
+
+When the sample space is uncountably infinite, you cannot assign a probability to each outcome and then add them to get event spaces.
+
+Instead each event must be assigned a probability, and the following axioms must be true:
+
+1. Range: $0 \le P(E) \le 1$ for and $E$
+2. Normalization: $P(\Omega) = 1$
+3. If events are disjoint (i.e. they have no outcomes in common), then:
+
+$$P\left(\bigcup\limits_{k=1}^{\infty} E_k\right) = \sum\limits_{k=1}^{\infty} P(E_k)$$
+
+It is important that they do not intersect. If they do, you must subtract the probability of the intersections to prevent double-counting.
+
+<!-- ~~Example 2
+
+Show that if $A \subset B$:
+
+$$P(A) = P(B) - P(B - A)$$
+
+Solution:
+
+$$B - A = B\cap A^c$$
+$$(B \cap A^c)$$
+
+~~ -->
+
+~~Example 2: Wheel of Fortune
+
+Because there are an unlimited number of points on the wheel which can be chosen, and they are uncountable, we must define the probability of each event. By intuition, the probability of getting within any specific range of the wheel is the length of the range divided by the total length. So, if we assign each point on the wheel a number from $[0,1]$, the probability of a range is:
+
+$$P(E_{a,b}) = (b - a) / 1 = (b - a)$$
+
+Using calculus, we can represent the sum of all possible points as an integral:
+
+$$\int_0^{1} cdx = 1$$
+
+So the *probability density* $c$ is equal to:
+
+$$cx |_{0}^1 = 1$$
+$$c = 1$$
+
+This is saying for any range, the probability is equal to the range itself, as $1 * r = r$. This agrees with what we assumed earlier.
+
+~~
+
+~~Example 3
+
+Given any $E_i$ (that may be intersecting), calculate:
+
+$$P\left( \bigcup\limits_{i = 1}^{\infty} E_i \right)$$
+
+Solution:
+
+To do this, we need to subtract all of the intersecting parts from the sum of each:
+
+$$\sum\limits_{i = 1}^{\infty} P(E_i) - \sum\limits_{i,j} P(E_i \cap E_j) + \sum\limits_{i,j,k} P(E_i \cap E_j \cap E_k) ... $$
+
+On the other hand, we can use the sum itself to limit the bounds of the sum:
+
+$$P\left( \bigcup\limits_{i = 1}^{\infty} E_i \right) 
+\le \sum\limits_{i = 1}^{\infty} P(E_i)$$
+
+~~
 
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">
