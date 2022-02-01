@@ -1,0 +1,192 @@
+# Counting
+
+Because for equally likely sets, the probability is based on the number of outcomes out of a sample space, we need to be able to count the number of outcomes in the event and sample space. Here are a few strategies for counting.
+
+## Cartesian Product
+
+Given two sets, we can express the set of combinations of those two sets as their cartesian product, where every element of one set is paired with every element of another:
+
+$$A \times B = \{(A_1, B_1), (A_1, B_2), ..., (A_2, B_1), (A_2, B_2), ..., ..., ... \}$$
+
+This multiplies the size of the sets. $$|A\times B| = |A| * |B|$$
+
+## Power Sets
+
+The set of all subsets of a set has $2^n$ values, where $n$ is the size of a set, because for each element you have two choices: to include or exclude that element.
+
+## Permutations
+
+If we take the number of different collections of different items, and care about the orders, that is a **permutation**. For example, the number of permutations of $3$ different balls is $6$, or $3!$. In general, the number of permutations of $n$ different items is $n!$, because as soon as you put down one, you have one less to select from. So, your number of choices keep decreasing, leading to $n * (n-1) * (n-2) * ...$
+
+~~Example: Permutations of Permutations
+
+Imagine you have 10 books, 4 of math, 3 literature, 2 science, and one history. What number of permutations of the books are there if the subjects are all in the same location?
+
+If the books could be in any order, then it would be ${10!}$. However, the subjects are all together. So they are each permutations, and we want a combination of those permutations. This gives:
+
+$$4!\times 3!\times 2!\times 1!$$
+
+However, we can also rearrange all the subjects on the shelf, giving four more objects to get permutations of. We then can have the books in any order inside of that permutation, so that is another multiplication:
+
+$$4!\times 4!\times 3!\times 2!\times 1!$$
+
+~~
+
+### K-Permutations
+
+If you select only $k$ elements out of the $n$ available, then you will have $n$ choices, then $(n-1)$, and so on to $(n - k + 1)$. So, we need to remove all multiplications after than from $n!$, giving:
+
+$${n! \over (n - k)!}$$
+
+## Combinations
+
+In combinations, we are selecting $k$ elements of a set, and the order does not matter.
+
+So, we can start by taking $n!$, and removing all of the elements after $k$, since we only want that many elements:
+
+$$
+{n! \over (n-k)!}
+$$
+
+Now, since order does not matter, we need to divide by $k$:
+
+$$
+{n! \over (n-k)!k!} = \left(\begin{array}{c}n \\ k\end{array}\right)
+$$
+
+This is the size of a k-combination of n elements.
+
+~~Example: Committees
+
+From a group of 5 women and 7 men, how many different committees consisting of 2 women and 3 men can be formed?
+
+Here, we can take each gender separately, taking a 2-combination of the women:
+
+$$\left(\begin{array}{c}5 \\ 2\end{array}\right)$$
+
+and a 3-combination of the men:
+
+$$\left(\begin{array}{c}7 \\ 3\end{array}\right)$$
+
+And then take the product of them:
+
+$$\left(\begin{array}{c}5 \\ 2\end{array}\right) \times \left(\begin{array}{c}7 \\ 3\end{array}\right)$$
+
+Now, if two of the men refuse to serve on a committee together, we need to remove all combinations where they are together.
+
+To find he number of combinations where they are together, we start with those two. There is only a single possibility where both of them are in a committee: selecting both of them. Then, we need to select the remainder of the committee, from the remaining people. That will look like this:
+
+$$
+1 *
+\left(\begin{array}{c}7 - 2 \\ 3 - 2\end{array}\right)
+$$
+
+That should be subtracted from the number of possibilities for the men on the committee:
+
+$$\left(\begin{array}{c}5 \\ 2\end{array}\right) \times \left[\left(\begin{array}{c}7 \\ 3\end{array}\right) - \left(\begin{array}{c}7 - 2 \\ 3 - 2\end{array}\right)\right]$$
+
+~~
+
+~~Example: Indistinguishable Balls
+
+Given a set of $n+m$ balls, where $n$ are red and $m$ are green. Assume the same color balls are indistinguishable from one another. How many linear orderings are there?
+
+Because the order is only based on the order of colors, we can consider this a combination of the positions of red balls, out of all of the balls. This gives:
+
+$$\left(\begin{array}{c}n + m \\ n\end{array}\right)$$
+
+Now, if there cannot be two adjacent red balls, then we can consider the spaces of the red balls to be $m+1$ different locations, where each location is a space between two green balls. This means we have $m+1$ spaces to choose from, as long as $n < m+1$. This gives:
+
+$$\left(\begin{array}{c}m + 1 \\ n\end{array}\right)$$
+
+~~
+
+### Binomial Theorem
+
+This is a theorem showing how a binomial expansion relates combinations (because of distribution):
+
+$$(x + y)^n = \sum\limits_{k=0}^n \left(\begin{array}{c}n \\ k\end{array}\right) x^ky^{n-k}$$
+
+This works because when you multiply out the power, each element will be combined with each other element. In each combination, there will be some xs and some ys, but the sum of both must be $n$, as they are multiplied together $n$ times.
+
+From this theorem, by setting $x = y = 1$, we can discover a property of combinations:
+
+$$2^n = \sum\limits_{k=0}^n \left(\begin{array}{c}n \\ k\end{array}\right)$$
+
+The Power Set, then is the set of all combinations of all number of elements from n to k.
+
+
+## Multinomial Partitioning
+
+With a set of $n$ elements, how many different ways can we partition the set into $k$ subsets that subset $i$ has $n_i$ elements with $\sum\limits_{i=1}^k n_i = n$
+
+So, first we select $n_1$ elements:
+
+$$\left(\begin{array}{c}n \\ n_1\end{array}\right)$$
+
+Then take $n_2$ from the remaining:
+
+$$\left(\begin{array}{c}n-n_1 \\ n_2\end{array}\right)$$
+
+Then take $n_3$ from the remaining:
+
+$$\left(\begin{array}{c}n-n_1-n_2 \\ n_3\end{array}\right)$$
+
+and so on, and then take the product of all of them:
+
+$$\left(\begin{array}{c}n \\ n_1\end{array}\right)\times\left(\begin{array}{c}n-n_1 \\ n_2\end{array}\right)\times\left(\begin{array}{c}n-n_1-n_2 \\ n_3\end{array}\right)\times ...$$
+
+Which simplifies to:
+
+$$
+\left(\begin{array}{c}n \\ n_1,n_2, n_3 ...\end{array}\right) = {n! \over n_1!n_2!n_3!...}
+$$
+
+This is the **multinomial coefficient**.
+
+~~Example: Card deck
+
+How many ways can a standard deck of 52 playing cards can be divided into four piles of 13 cards each?
+
+This is the same as the above explanation:
+
+$$
+\left(\begin{array}{c}52 \\ 13,13,13,13\end{array}\right)
+$$
+
+If all 13 spades are in one pile, then we have a combination of four spaces for the spade pile and then the remaining cards:
+
+$$
+\left(\begin{array}{c}4 \\ 1 \end{array}\right)
+\left(\begin{array}{c}39 \\ 13,13,13 \end{array}\right)
+$$
+
+What if each pile has exactly one ace?
+
+Here, we need the possible combinations of aces, and then the combinations of the remaining 12 in each pile:
+
+$$
+4!\times 
+\left(\begin{array}{c}48 \\ 12,12,12,12 \end{array}\right)
+$$
+
+What if all spades are in two of the piles and each of the piles contains at least one spade?
+
+To do this, we need to subtract the possibilities where there are 13 spades in one pile from the possible combination of spade piles, in addition to everything else.
+
+Combining it all: The number of combinations of where the spade piles are, a selection of 13 cards to make the rest of the two spade piles, the combination of the spade piles without the two combinations where there are 13 spades in one pile, and then the combination of the rest:
+
+$$
+\left(\begin{array}{c}4 \\ 2\end{array}\right)\times
+\left(\begin{array}{c}39 \\ 13\end{array}\right)\times
+\left[
+  \left(\begin{array}{c}26 \\ 13,13\end{array}\right) 
+  - 2
+\right]\times
+\left(\begin{array}{c}26 \\ 13,13\end{array}\right)
+$$
+
+~~
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">

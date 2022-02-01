@@ -153,6 +153,7 @@ function afterTexMe() {
 /**
  * Replaces all matches (up to 10,000) of the regular expression
  * in `text` with the result of calling `withFunc` on the match.
+ * This function automatically escapes '$' in the replacing text.
  * @param {String} text - the text to replace in
  * @param {RegEx} regex - the regular expression to replace
  * @param {Function(Match) => String} withFunc - the function to use to modify the matched text
@@ -163,7 +164,8 @@ function replaceWithGlobal(text, regex, withFunc) {
     let match = text.match(regex);
     if (match === null) { break; }
     let inner = withFunc(match);
-    text = text.replace(regex, inner);
+    // escape `$` in the replace text
+    text = text.replace(regex, inner.replace(/\$/g, '$$$$'));
   }
   return text;
 }
