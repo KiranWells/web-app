@@ -52,7 +52,7 @@ ${match[0].replace(/^ *&gt;(.*)$/gm, "$1")}
       document.body.innerHTML = text;
       runTexme();
       afterTexMe();
-    }, 100);
+    }, 1000);
   } finally {
     // run this anyway to make the page look right while waiting
     afterTexMe();

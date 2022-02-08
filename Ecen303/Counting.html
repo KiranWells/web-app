@@ -188,5 +188,101 @@ $$
 
 ~~
 
+### Binary Partitioning
+
+Imagine taking several items and deciding which out of a few bins to put them. This is a quite challenging problem, as we are selecting one box for each item, but the order that we place them in does not matter. 
+
+Instead, we can view it as elements and dividers: with $k$ boxes, we need $k-1$ dividers to separate the elements. When we lay the final elements and dividers out, there will be $n+k-1$ elements and dividers, or $n+k-1$ locations. From those locations, we want to select $k-1$ locations for the dividers. The rest will be filled with the elements, but we are not concerned with their order.
+
+Mathematically, it is equivalent to select the locations for the elements, leaving only a few for the dividers. This means the number of ways to partition is either selecting $k-1$ from $n+k-1$ locations, or selecting $n$ locations from $n+k-1$:
+
+$$
+\left(\begin{array}{c}
+n + k - 1 
+\\ 
+k - 1
+\end{array}\right)
+=
+\left(\begin{array}{c}
+n + k - 1 
+\\ 
+n
+\end{array}\right)
+$$
+
+## Sampling
+
+When taking multiple samples from a sample set, there are a few different cases to examine:
+
+- Replacement: can the same outcome be selected more than once?
+- Order: do you need to record the order in which the outcomes were selected, or are you only concerned with their combination?
+
+When selecting $k$ elements from a sample set of size $n$, the number of sets is:
+
+1. With Replacement, with order: $n^k$ possibilities
+2. Without Replacement, with order: ${n! \over (n - k)!}$ possibilities
+3. With Replacement, without order: ${\left(\begin{array}{c}n + k - 1 \\ k\end{array}\right)}$ possibilities
+4. Without Replacement, without order: $\left(\begin{array}{c}n \\ k\end{array}\right) = {n! \over (n - k)!k!}$ possibilities
+
+The third case is quite tricky to reason out, as you can select any item as many times as possible. This means we cannot just divide with replacement with order by the number of permutations of $k$, since some elements may be identical, meaning there are really less than $k$ unique objects. 
+
+Instead, we can notice that it is the same as **binary partitioning**, where we are selecting where to put $k$ choices out of $n$ bins.
+
+~~Practice 1: License Plates
+
+How many license plates are possible given the following rules:
+
+- the first three parts are letters
+- the last four are numbers
+- the letters cannot be the same
+
+Here we are sampling 3 letters without replacement with order, so ${26! \over (3 - 26)!} = 26 * 25 * 24$, and four digits with replacement and order, $10^4$.
+
+~~
+
+~~Practice 2: Arrangement of Identical Items
+
+If there are 4 blue, 3 red, and 3 green balls, how many arrangements are possible?
+
+Here, the best way to look at it is backwards: we are selecting places for each of the balls out of 10 locations, or partitioning 10 into 4, 3, and 3:
+
+$$
+\left(\begin{array}{c}
+10 
+\\ 
+4\ 3\ 3
+\end{array}\right)
+$$
+
+~~
+
+~~Practice 3: Math to Story
+
+In this case, take the following mathematical expression and use its probabilistic meaning to explain how it is true.
+
+$$
+\left(\begin{array}{c}
+m + n
+\\ 
+k
+\end{array}\right)
+=
+\sum\limits_{i=0}^k 
+\left(\begin{array}{c}
+m
+\\ 
+i
+\end{array}\right)
+\left(\begin{array}{c}
+n
+\\ 
+k-i
+\end{array}\right)
+$$
+
+In both cases, you are selecting $k$ values from $m+n$ elements. On the left side, you are directly selecting $k$ from $m+n$. On the right side, you are adding all the possible ways to divide $k$ choices between $m$ and $n$.
+
+~~
+
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">
