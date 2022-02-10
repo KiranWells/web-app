@@ -284,5 +284,52 @@ In both cases, you are selecting $k$ values from $m+n$ elements. On the left sid
 
 ~~
 
+~~Practice: Matching Problem
+
+Given 100 people and 100 hats, and that each person owns their own unique hat, what is the probability of no person matching their hat if all of them are distributed randomly?
+
+Here, to make the problem simpler, we are going to find the opposite probability: The probability of at least one person matching their hat.
+
+$$P(E) = 1 - P(E^c)$$
+
+So, the probability of the $i^{th}$ person getting their own hat is:
+
+$$P(A_i) = {(n-1)! \over n!}$$
+
+This is because one person matched, but all other people can be permuted freely.
+
+The probability that two people got their hat is:
+
+$$P(A_i \cap A_j) = {(n-2)! \over n!}$$
+
+And the probability of $k$ people getting their hat is:
+
+$$P(A_i \cap ...) = {(n- k) \over n!}$$
+
+To get the probability of at least one person getting their hat, so:
+
+$$P(\bigcup\limits_{i=1}^n A_i)$$
+
+Which requires using the inclusion-exclusion principle to determine the union of all of the probabilities:
+
+$$= \sum\limits_{i=1}^n P(A_i) - \sum\limits_{i,j}^n P(A_i\cap A_j) + \sum\limits_{i,j,k}^n P(A_i\cap A_j \cap A_k) ... + (-1)^{n-1} Pr\left(\bigcap\limits_{i=1}^n A_i\right)$$
+
+And each of the summations can be summarized as selecting $k$ people from $n$ to be matched, which can then be multiplied by the probability of that many people matching:
+
+$$= \sum\limits_{i=1}^n \left(\begin{array}{c}n \\ i\end{array}\right) \left((-1)^{i-1}{(n-i)\over n!}\right)$$
+
+$$\sum\limits_{i=1}^n {(-1)^{i-1} \over i}$$
+
+Interestingly, this turns out to be the same as the Taylor series expansion of $1 - e^x$ where $x = -1$. This means that the probability of no match is $\approxeq \frac{1}{e}$.
+
+<!-- Extra problem: what is the probability of only one person matching?
+
+Here, we need the probability of one person matching *and* no other person matching. 
+In this case it is easier to compute the probability 
+
+The probability of at least one person matching alone is the sum of the probability of each matching alone. So we can add the probabilities of each person matching alone. -->
+
+~~
+
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">
