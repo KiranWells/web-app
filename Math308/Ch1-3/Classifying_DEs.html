@@ -18,7 +18,7 @@ Classify each DE:
 1. ${x^2y'' + y\over y'} = \cos x$
   this is linear and homogenous
 2. $y'' + (y^2 - 1)y' - t^3y = \tan t$
-  This is nonlinead=r, and even if it was, it would be non-homogenous because $\tan t$ has no $y$ attached to it, so it is $g(t) \ne 0$.
+  This is nonlinear, and even if it was, it would be non-homogenous because $\tan t$ has no $y$ attached to it, so it is $g(t) \ne 0$.
 3. $u_{xxx} - 3u_{xy} + (x^2 + y^3)u_x = 1 - u$
   In this case, it is linear, since any function of $x$ and $y$ can be in it, and any partial derivative of $u$. However it is non-homogenous as $g(x,y) = 1$
 4. $u_{xx} + uu_y = 0$
@@ -34,7 +34,7 @@ A DE that describes some physical process is often called a **mathematical model
 
 Example 6:
 
-A bullet enters a board of thickness h with a velocity v_0 and goes out with a velocity v_1. Considering the resistance force of the board to the movement of the bullet is prroportional to the square of the velocity, find the time required for the bullet to pass through the board.
+A bullet enters a board of thickness h with a velocity v_0 and goes out with a velocity v_1. Considering the resistance force of the board to the movement of the bullet is proportional to the square of the velocity, find the time required for the bullet to pass through the board.
 
 So, we can write down the rule we are told:
 
@@ -42,7 +42,7 @@ $$F = -kv^2$$
 
 Where $k$ is some constant that represents how the velocity squared is proportional to F.
 
-Since Distance is the average velocity multiblied by time, we can solve for time by dividing $h$ by the average velocity. However, we do not know the average velocity. But, we can estimate from our data and assuming a linear change (which is clearly false).
+Since Distance is the average velocity multiplied by time, we can solve for time by dividing $h$ by the average velocity. However, we do not know the average velocity. But, we can estimate from our data and assuming a linear change (which is clearly false).
 
 $$T \approxeq {h\over \frac{v_0 + v_1}{2}} $$
 
@@ -107,7 +107,7 @@ After simplifying, we get:
 
 $$v(x) = v_0 e^{-\alpha x}$$
 
-Now we can use the initial conitions to find $\alpha$:
+Now we can use the initial conditions to find $\alpha$:
 
 $$v(h) = v_1 = v_0 e^{-\alpha h}$$
 $$\alpha  = -({\ln(\frac{v_1}{v_0}) \over h})$$
@@ -181,9 +181,9 @@ All solutions in this class will be real, but imaginary values can be used as in
 
 Question:
 Draw a direction field for $y' = y^2 - y^4$ and find the equilibrium solutions.
-Then use that to determine the behavios of $y$ as $t \to \inf$
+Then use that to determine the behavior of $y$ as $t \to \inf$
 
-We can see from the equation that the eqilibrium solutions are $0, 1, -1$.
+We can see from the equation that the equilibrium solutions are $0, 1, -1$.
 From there, we can draw som conclusions from the behavior of $y'$.
 
 ![The direction Field](DirecField.jpeg)
@@ -225,7 +225,7 @@ $$y = Ce^x$$
 
 ## Behavior of a function
 
-We can use direction fields to visualize an equation, and combined with the asymptotes, we can undestand the behavior of a function.
+We can use direction fields to visualize an equation, and combined with the asymptotes, we can understand the behavior of a function.
 
 <details>
   <summary>Click to show Example 11</summary>

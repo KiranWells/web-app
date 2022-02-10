@@ -65,9 +65,9 @@ The slanted line is slightly more complex. Since it is $y = x$, we can substitut
 
 ### Theorem
 
-If $T$ is a transformation of (x,y)-coorinate system to the (u,v)-coordinate system given by $x = g(u,v)$, $y(u,v)$, then
+If $T$ is a transformation of (x,y)-coordinate system to the (u,v)-coordinate system given by $x = g(u,v)$, $y(u,v)$, then
 
-$$\iint\limits_R f(x,y)dxdy = \iint\limits_S f(g(u,v), h(u,v)) \left|{\delta(x,y)\over\delta(u,v)}\right| dudv$$
+$$\iint\limits_R f(x,y)dx dy = \iint\limits_S f(g(u,v), h(u,v)) \left|{\delta(x,y)\over\delta(u,v)}\right| du dv$$
 
 Where $\left|{\delta(x,y)\over\delta(u,v)}\right|$ is called a Jacobian and $R$ and $S$ are the regions in the respective systems, following a similar transformation to the one above.
 
@@ -93,7 +93,7 @@ $$
 
 So, as an example:
 
-$$\iint\limits_D f(x,y)dxdy = \iint\limits_{[a,b]\times[\alpha,\beta]} f(r\cos\theta, r\sin\theta)r\ drd\theta$$
+$$\iint\limits_D f(x,y)dx dy = \iint\limits_{[a,b]\times[\alpha,\beta]} f(r\cos\theta, r\sin\theta)r\ drd\theta$$
 
 $$
 \begin{aligned}
@@ -156,15 +156,15 @@ $$
 
 $$R = \Box (-1,3),(1,-3),(1,5),(3,-1)$$
 
-Compute $\iint\limits_R(4x + 8y)dxdy$ by going to (u,v)-coords
+Compute $\iint\limits_R(4x + 8y)dx dy$ by going to (u,v)-coords
 
 Computing this straightforward will require much more effort.
 
 #### Solution
 
-Using the main formual:
+Using the main formula:
 
-$$\iint\limits_R (4x + 8y)dxdy = \iint\limits_S (4 \frac{1}{4}(v + u) + 8 \frac{1}{4}(v - 3u))\left|{\delta(x,y)\over\delta(u,v)}\right|dudv$$
+$$\iint\limits_R (4x + 8y)dx dy = \iint\limits_S (4 \frac{1}{4}(v + u) + 8 \frac{1}{4}(v - 3u))\left|{\delta(x,y)\over\delta(u,v)}\right|du dv$$
 
 The Jacobian is
 

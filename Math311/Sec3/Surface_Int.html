@@ -116,11 +116,11 @@ $$x = 2$$
 
 Instead of using the arc length, like with line integrals, with a surface integral we are integrating over the area, which is given by:
 
-$$\iint\limits_D ||\vec N||dsdt$$
+$$\iint\limits_D ||\vec N||ds dt$$
 
 Or
 
-$$\iint\limits_D ||\vec T_s \times \vec T_t||dsdt$$
+$$\iint\limits_D ||\vec T_s \times \vec T_t||ds dt$$
 
 ~~Example 6: Surface area of a sphere
 
@@ -148,7 +148,7 @@ $$||\vec N|| = ... = R^2\sin t$$
 And now we can take the integral over the whole surface:
 
 $$
-\int\limits_0^{\pi} \int\limits_0^{2\pi} R^2 \sin (t)dsdt
+\int\limits_0^{\pi} \int\limits_0^{2\pi} R^2 \sin (t)ds dt
 $$
 $$
 \int\limits_0^{\pi} 2\pi R^2\sin (t)dt
@@ -165,7 +165,7 @@ In the last section, we already demonstrated how to integrate a simple integral,
 
 > Definition: Scalar Surface Integral
 > The integral of a function $f$ over a surface $S$ is:   
-> $$\iint\limits_{\vec X} fdS = \iint\limits_D f(\vec X) ||\vec T_s \times \vec T_t|| dsdt$$
+> $$\iint\limits_{\vec X} fdS = \iint\limits_D f(\vec X) ||\vec T_s \times \vec T_t|| ds dt$$
 
 ~~Example 7: Closed Cylinder
 
@@ -201,18 +201,18 @@ $$||\vec N_1|| = 3$$
 
 Then take the integral:
 
-$$\int_0^5\int_0^{2\pi} f(\vec X) ||\vec N|| dsdt$$
-$$\int_0^5\int_0^{2\pi} t 3 dsdt$$
+$$\int_0^5\int_0^{2\pi} f(\vec X) ||\vec N|| ds dt$$
+$$\int_0^5\int_0^{2\pi} t 3 ds dt$$
 $$\int_0^5 6\pi t dt$$
 $$75\pi$$
 
 And for the bottom:
 
-$$\iint f(\vec X)||\vec N||dsdt = \iint (0) ||\vec N||dsdt = 0$$
+$$\iint f(\vec X)||\vec N||ds dt = \iint (0) ||\vec N||ds dt = 0$$
 
 And the top:
 
-$$\iint f(\vec X)||\vec N||dsdt = \int_0^{2\pi}int_0^3 (5) ||\vec N||dsdt$$
+$$\iint f(\vec X)||\vec N||ds dt = \int_0^{2\pi}int_0^3 (5) ||\vec N||ds dt$$
 
 $$\vec N = (\cos t, \sin t, 0) \times (-s\sin t, s\cos t, 0)$$
 $$= ... = (0,0,s)$$
@@ -220,7 +220,7 @@ $$||\vec N|| = s$$
 
 And plug in:
 
-$$\int_0^{2\pi}int_0^3 (5) s dsdt$$
+$$\int_0^{2\pi}int_0^3 (5) s ds dt$$
 $$= 45\pi$$
 
 So the total is:
@@ -233,7 +233,7 @@ $$75\pi + 0 + 45\pi = 120\pi$$
 
 > Definition: Scalar Surface Integral
 > The integral of a function $f$ over a surface $S$ is:   
-> $$\iint\limits_{\vec X} \vec F\cdot d\vec S = \iint\limits_D \vec F(\vec X) \cdot (\vec T_s \times \vec T_t) dsdt$$
+> $$\iint\limits_{\vec X} \vec F\cdot d\vec S = \iint\limits_D \vec F(\vec X) \cdot (\vec T_s \times \vec T_t) ds dt$$
 
 ~~Example 8: Vector Surface Integral
 
@@ -255,8 +255,8 @@ $$\vec N = \vec T_s \times \vec T_t = (\sin(t), -\cos(t),s)$$
 
 Then plug in $\vec X$ too $\vec F$ and plug in:
 
-$$\int_0^1\int_0^{2\pi} (s\cos(t), s\sin(t),t-2s\sin(t)) \cdot (\sin(t),-\cos(t),s)dsdt$$
-$$\int_0^1\int_0^{2\pi} ts-2s^2\cos(t) dsdt$$
+$$\int_0^1\int_0^{2\pi} (s\cos(t), s\sin(t),t-2s\sin(t)) \cdot (\sin(t),-\cos(t),s)ds dt$$
+$$\int_0^1\int_0^{2\pi} ts-2s^2\cos(t) ds dt$$
 
 Which after integrating gives $\pi^2$
 
@@ -281,7 +281,7 @@ $$\vec N = (-{\partial g \over \partial s}, -{\partial g \over \partial t}, 1)$$
 
 And the integral becomes:
 
-$$\iint \vec F(s,t,g(s,t)) \cdot (-{\partial g \over \partial s}, -{\partial g \over \partial t}, 1) dsdt$$
+$$\iint \vec F(s,t,g(s,t)) \cdot (-{\partial g \over \partial s}, -{\partial g \over \partial t}, 1) ds dt$$
 
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">

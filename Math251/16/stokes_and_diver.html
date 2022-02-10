@@ -10,11 +10,11 @@ Stokes theorem is similar, allowing us to use a surface that is not flat, or a s
 
 $$\int\limits_C \vec F \cdot dr = \iint\limits_S curl \vec F \cdot dS$$
 
-So for a curve $C$, the integral over it is equal to the suface integral over the surface it borders. Also, if we simplify this further, we get:
+So for a curve $C$, the integral over it is equal to the surface integral over the surface it borders. Also, if we simplify this further, we get:
 
 $$\iint\limits_D curl \vec F \cdot dS$$
 
-Where $D$ is the parametric domain of S. We can also say this means the work done in oving a particle through a vector field along a closed curve is mathematically equivalent to the flux of the curl of $\vec F$ over any surface the curve encloses.
+Where $D$ is the parametric domain of S. We can also say this means the work done in moving a particle through a vector field along a closed curve is mathematically equivalent to the flux of the curl of $\vec F$ over any surface the curve encloses.
 
 <details>
   <summary>Click to show Example 1</summary>
@@ -64,7 +64,7 @@ This is what you need to check the orientation of. Since it has a positive $z$, 
 
 $$\int\limits_C \vec F\cdot dr = \iint\limits_S curl \vec F \cdot ds = \iint\limits_D curl \vec F(r(x,y))\cdot (r_x \times r_y) dA$$
 
-Where $D$ is the parametirc domain, or $x^2 + y^2 \le 1$. So we plug in the parametric into $C$:
+Where $D$ is the parametric domain, or $x^2 + y^2 \le 1$. So we plug in the parametric into $C$:
 
 $$\iint\langle 2y, 2(y-2), 2 \rangle \cdot \langle 0,-1,1\rangle dA$$
 
@@ -78,7 +78,7 @@ $$\int\limits_0^{2\pi}\int\limits_0^1 (6r - 2r^2\sin\theta)drd\theta$$
 $$\int\limits_0^{2\pi}(3r^2 - 2/3r^3\sin\theta)|_0^1d\theta$$
 $$=6\pi$$
 
-So, to summarize, Stokes converts a line integral to a double integral over the surface it encloses of the curl of $F$. Step 1, find the curl. Step 2, find the surface C encloses (here the plane). Step 3, find the cross of the partial derivatives to make sure the orientation is positive. Step 4, do the double integral over the paramaterized domain.
+So, to summarize, Stokes converts a line integral to a double integral over the surface it encloses of the curl of $F$. Step 1, find the curl. Step 2, find the surface C encloses (here the plane). Step 3, find the cross of the partial derivatives to make sure the orientation is positive. Step 4, do the double integral over the parameterized domain.
 
 </details>
 
@@ -175,7 +175,7 @@ Use divergence theorem to evaluate $\iint\limits_S \vec F \cdot dS$ where $\vec 
 
 $$\iint\limits_S \vec F \cdot dS = \iiint\limits_E div\vec F dV$$
 
-Where $E$ is the sphere $x^2 + y^2 + z^2 = 4$. Since speres are closed, we are able to use this theorem. 
+Where $E$ is the sphere $x^2 + y^2 + z^2 = 4$. Since spheres are closed, we are able to use this theorem. 
 
 #### Step 1: Find div $\vec F$
 

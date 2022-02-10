@@ -21,7 +21,7 @@ For the scalar product, it is important to note that it is commutative, meaning 
 $$x^Ty = y^Tx$$
 
 > Definition: Orthogonal  
-> Two vectors are orthagonal ($x \perp y$) if $x^Ty = 0$.
+> Two vectors are orthogonal ($x \perp y$) if $x^Ty = 0$.
 
 Now that we have these definitions, it will be useful to define length and distance.
 
@@ -41,16 +41,16 @@ Where $\theta$ is the angle between the vectors.
 
 ## Uses
 
-The first use is to define a property analagous to perpendicularity. In $\mathbb{R}^2$ and $\mathbb{R}^3$, the two terms are equavalent, but orthagonality extends to all dimensions of vector. This has some interesting properties:
+The first use is to define a property analogous to perpendicularity. In $\mathbb{R}^2$ and $\mathbb{R}^3$, the two terms are equivalent, but orthogonality extends to all dimensions of vector. This has some interesting properties:
 
-1. If $x$ and $y$ are orthagonal, then we have:
+1. If $x$ and $y$ are orthogonal, then we have:
 
 $$x^Ty = 0$$
 $$||x|| ||y||\cos(\theta) = 0$$
 $$cos(\theta) = 0$$
 $$\theta = 90° = \pi/2$$
 
-2. If $x,y$ are orthagonal:
+2. If $x,y$ are orthogonal:
 
 $$||x+y||^2 = ||x||^2 + ||y||^2$$
 
@@ -72,7 +72,7 @@ $$|x^Ty| <= ||x|| ||y||$$
 
 ## Applications
 
-Because we have the $\cos(\theta)$ in the forumla for scalar product, we can get the angle between the two vectors as:
+Because we have the $\cos(\theta)$ in the formula for scalar product, we can get the angle between the two vectors as:
 
 $$\cos(\theta) = {x^Ty \over ||x|| ||y||}$$
 
@@ -155,13 +155,13 @@ So we now have: $(1,3)$ and $y = x$, and we can use $(1,1)$ for $y$
 The final application is finding the distance between a point and a plane in 3D space. This seems more complex at first, because there is not a single line defining it, but a whole surface. Instead, we will use **normal vectors** to represent the direction of the plane.
 
 > Definition: Normal vector  
-> The normal $N$ is a vector that is orthagonal to a plane.
+> The normal $N$ is a vector that is orthogonal to a plane.
 
 ~~Example 4
 
 Write the equation of a plane with normal vector $N = (1, 2, -1)^T$ and (1) passing through the origin, (2) the same plane if it passed through $(2,3,5)$, and (3) the distance between the first plane and the point $(3,1,1)$.
 
-1. Any vector on the plane will be orthagonal with the normal and pass through the origin, so we have:
+1. Any vector on the plane will be orthogonal with the normal and pass through the origin, so we have:
 
 $$
 \left(\begin{array}{c}x \\ y \\ z\end{array}\right)^T
@@ -170,7 +170,7 @@ $$
 
 $$x + 2y - z = 0$$
 
-2. Any vector on the plane will be orthagonal with the normal and pass through $(2,3,5)$, so we have:
+2. Any vector on the plane will be orthogonal with the normal and pass through $(2,3,5)$, so we have:
 
 $$
 \left(\begin{array}{c}x - 2 \\ y - 3 \\ z - 5\end{array}\right)^T

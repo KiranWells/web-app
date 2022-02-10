@@ -26,7 +26,7 @@ $$t^2 \le e^t\ for\ t\ge100$$
 
 Any polynomial will eventually be outgrown by an exponential function, as long as $a \gt 0$
 
-Functions which are not of exponential order exceed the exponential. For example, any function which has a vartical asymptote which repeats, such as $tan(t)$ will eventually exceed the exponential, regardless of what $M$ you choose. Another example woould be $e^{t^2}$.
+Functions which are not of exponential order exceed the exponential. For example, any function which has a vertical asymptote which repeats, such as $tan(t)$ will eventually exceed the exponential, regardless of what $M$ you choose. Another example would be $e^{t^2}$.
 
 ## The definition of the Laplace Transform
 
@@ -36,7 +36,7 @@ This improper integral multiplies by $e^{-st}$, which is called the kernel of th
 
 The Laplace transform will result in a function of $s$, which is usually denoted the *frequency*. One important note is that $s$ is considered fixed during integration. Also, $s$ is a complex number, which may only have a real component.
 
-This allows to transform the function from the time domain $t$ to the frequency domain $s$. However, we need to know when the Laplace tranform converges.
+This allows to transform the function from the time domain $t$ to the frequency domain $s$. However, we need to know when the Laplace transform converges.
 
 ### Theorem (Existence of Laplace Transform)
 
@@ -72,13 +72,13 @@ $$= {1\over \lambda - s}\lim\limits_{A \to \infty} [e^{(a - s)A}(\cos(Ab) + i\si
 
 Here, the complex number $\cos(Ab) + i\sin(Ab)$ is just a point on the unit circle that rotates around the origin; it is bounded.
 
-In this case, if $s \gt a$, then the first term will be divied by an infinite value, which since the top is bounded, will result in 0. (If you plotted it with respect to time, it would spiral to 0). So, even though it is an imaginary result, it will tend toward $0 + 0i$, which is the same as normal $0$ and can be used as such our equation.
+In this case, if $s \gt a$, then the first term will be divided by an infinite value, which since the top is bounded, will result in 0. (If you plotted it with respect to time, it would spiral to 0). So, even though it is an imaginary result, it will tend toward $0 + 0i$, which is the same as normal $0$ and can be used as such our equation.
 
 So, we have proved that if $s \gt a$, then the Laplace transform will equal $1\over \lambda - s$. If $s = a$, then the limits will not exist, as it will be periodic. If $s \lt a$, the answer will spiral outwards to infinity.
 
 Note that $s = \lambda$ is a "pole", where there is an asymptote in the frequency function.
 
-Also, note that the original function is a quasi-polynomial, with degree 0 and exponent $\lambda$, which is an important as it defines the "pole" location. This shows that the Laplace tranform will detect the exponent.
+Also, note that the original function is a quasi-polynomial, with degree 0 and exponent $\lambda$, which is an important as it defines the "pole" location. This shows that the Laplace transform will detect the exponent.
 
 Answer:
 

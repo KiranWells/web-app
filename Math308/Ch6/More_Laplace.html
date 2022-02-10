@@ -61,7 +61,7 @@ $$f(t) = 3 + 5\cos(2t) - 2\sin(2t)$$
 
 $$y'' + 4y' + 5y = e^{-t}$$
 
-This could be solved using other strategies we have found in earlier chapters, such as th emethod of undetermined coefficients or Lagrange. However, lets do it with Laplace. First, we take the laplace of both sides:
+This could be solved using other strategies we have found in earlier chapters, such as the method of undetermined coefficients or Lagrange. However, lets do it with Laplace. First, we take the laplace of both sides:
 
 $$F(s) = \mathcal{L}\{y(t)\}$$
 
@@ -101,7 +101,7 @@ By completing the square on the bottom, we get:
 
 $$F(s) = {\frac{1}{2} \over s + 1} + {\frac{1}{2}s + \frac{5}{2} \over (s + 2)^2 + 1}$$
 
-Which coresponds to a similar rule. Now, we need to match on the top.
+Which corresponds to a similar rule. Now, we need to match on the top.
 
 $$F(s) = {\frac{1}{2} \over s + 1} + \frac{1}{2}{s + 2 + 3 \over (s + 2)^2 + 1}$$
 $$F(s) = {\frac{1}{2} \over s + 1} + \frac{1}{2}{s + 2\over (s + 2)^2 + 1} + \frac{3}{2}{1 \over (s + 2)^2 + 1}$$
@@ -116,7 +116,7 @@ Note that since we have already used the initial conditions, we do not need to s
 
 ## Shift Rule
 
-This is another rule related to the Laplace treansform which is useful for these solutions, listed in the table as Rule 29.
+This is another rule related to the Laplace transform which is useful for these solutions, listed in the table as Rule 29.
 
 $$\mathcal{L}\{f(t)\} = F(s)$$
 $$\mathcal{L}\{e^{at}f(t)\} = F(s-a)$$
@@ -132,7 +132,7 @@ Use Laplace to solve:
 
 $$y''' - y' = t, y(0) = 1, y'(0) = 0, y''(0) = 0$$
 
-Note that using the characteristic equation $re^t$ would help here, leading to roots of $0, 1, -1$. This hints at a complimentary solution of $c_1 + c_2e^t + c_3e^{-t}$. The method of undetermined coefficients could then be applied. The other portion would be of the form $t(At + B)$, as there is a needed resonance factor. However, usign Laplace, we start with:
+Note that using the characteristic equation $re^t$ would help here, leading to roots of $0, 1, -1$. This hints at a complimentary solution of $c_1 + c_2e^t + c_3e^{-t}$. The method of undetermined coefficients could then be applied. The other portion would be of the form $t(At + B)$, as there is a needed resonance factor. However, using Laplace, we start with:
 
 $$s^3Y(s) - s^2y(0) - sy'(0) - y''(0) - sY(s) - y(0) = \mathcal{L}\{t\}$$
 $$s^3Y(s) - s^2 - sY(s) = \frac{1}{s^2}$$
@@ -150,7 +150,7 @@ Which can then be converted to find $y$.
 
 ~~Example 6
 
-Find the Laplace transform of the sinc function: $\sin t \over t$. The use that to find $\int\limits_0^{\infty} {\sin t \over t} dt$
+Find the Laplace transform of the since function: $\sin t \over t$. The use that to find $\int\limits_0^{\infty} {\sin t \over t} dt$
 
 We start using the normal Laplace Transform:
 

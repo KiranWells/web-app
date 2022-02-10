@@ -35,7 +35,7 @@ $$y = e^{-3t}(c_1 + c_2 t)$$
 
 $$y' = -3e^{-3t}(c_1 + c_2t) + e^{-3t}(c_2)$$
 
-And solcing the IVP:
+And solving the IVP:
 
 $$2 = e^{-3}(c_1 + c_2)$$
 
@@ -61,7 +61,7 @@ We can find a second solution
 
 Reduction of order searches for a second solution $y_2$ by finding some equation for it.
 
-One way to do this is using Abel's Theorem, as the Wronskian is a function of $y_1$ and $y_2$. This maeans we can manipluate the formula to solve for y_2 as follows:
+One way to do this is using Abel's Theorem, as the Wronskian is a function of $y_1$ and $y_2$. This means we can manipulate the formula to solve for y_2 as follows:
 
 $$W[y_1, y_2] = y_1y_2' - y_1'y_2 = c e^{-\int p(t)dt}$$
 
@@ -79,7 +79,7 @@ $${y_2} = y_1 \int {e^{-\int p(t)dt}\over y_1^2}$$
 
 This formula is called the **Liouville formula**.
 
-This works beacuse $y_1$ is already known, allowing us to find a known function of $t$ and integrating it.
+This works because $y_1$ is already known, allowing us to find a known function of $t$ and integrating it.
 
 This also guarantees that the new function will be linearly independent, as the Wronskian is not zero.
 

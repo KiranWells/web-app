@@ -106,7 +106,7 @@ Do the path integral over the path with two line segments from $(0,1,1)$ to $(1,
 
 **Solution:**
 
-First, take the integral over the first segment. We need to paramerterize this, so using the formula:
+First, take the integral over the first segment. We need to parameterize this, so using the formula:
 
 $$\vec x(t) = (0,1,1) + t((1,2,2) - (0,1,1))$$
 $$\vec x(t) = (0,1,1) + t(1,1,1)$$
@@ -139,7 +139,7 @@ The intersection point is $(2\pi a, 0)$, so we can use the normal line function:
 
 $$\vec x_1 = (t2\pi a, 0)$$
 
-Next, to get the area, we need a vector field where ${\partial F_2 \over \partial x} - {\partial F_1\over \partial y} = 1$. In this case, it makes the most sense to choose $\vec F = (-y, 0)$ to cencel out the $x$ part of the line.
+Next, to get the area, we need a vector field where ${\partial F_2 \over \partial x} - {\partial F_1\over \partial y} = 1$. In this case, it makes the most sense to choose $\vec F = (-y, 0)$ to cancel out the $x$ part of the line.
 
 So, we now need the line integral:
 
@@ -189,11 +189,11 @@ $$\vec N (s,t) = \vec T_s \times \vec T_t$$
 
 ### Scalar Surface Integrals
 
-$$\iint\limits_{\vec X} fdS = \iint f(\vec x) ||\vec N|| dsdt$$
+$$\iint\limits_{\vec X} fdS = \iint f(\vec x) ||\vec N|| ds dt$$
 
 ### Vector Surface Integrals
 
-$$\iint\limits_{\vec X} \vec F \cdot d\vec S = \iint \vec F(\vec X) \cdot \vec N dsdt$$
+$$\iint\limits_{\vec X} \vec F \cdot d\vec S = \iint \vec F(\vec X) \cdot \vec N ds dt$$
 
 ### Stoke's + Gauss's Theorem
 
@@ -248,8 +248,8 @@ $$||\vec N|| = \sqrt{4\sin^2 + 4\cos^2} = 2$$
 
 And plug into the integral:
 
-$$\int\limits_0^3\int\limits_0^{2\pi} (4\cos ^2 + 4\sin^2)2dsdt$$
-$$\int\limits_0^3\int\limits_0^{2\pi} (4)2dsdt$$
+$$\int\limits_0^3\int\limits_0^{2\pi} (4\cos ^2 + 4\sin^2)2ds dt$$
+$$\int\limits_0^3\int\limits_0^{2\pi} (4)2ds dt$$
 $$=48\pi$$
 
 ~~
