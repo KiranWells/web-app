@@ -6,7 +6,7 @@ For example, if we roll a die, there are six possible outcomes. However, if we a
 
 Unconditional Probability:
 
-$$P(A[|\Omega]) = {P(A\cap \Omega) \over P(\Omega)}$$
+$$P(A|\Omega) = {P(A\cap \Omega) \over P(\Omega)}$$
 
 Conditional Probability:
 
@@ -22,21 +22,421 @@ In addition, the probability given by $P(\cdot | B)$ is a valid measure, and sat
 
 One important note is that $P(A|B)$ is "the probability of A given B", whereas $P(A,B)$ is "the probability of A and B".
 
+~~Example: At least
+
+Given two rolls of a fair die, what is the probability of at least one 1?
+
+The simplest way to solve this is to count all of the possible outcomes. There are 36 possible outcomes total ($6*6$), and there are 11 outcomes where there is at least one 1.
+
+$$P(E) = \frac{11}{36}$$
+
+The other way to solve this is through logic. If we want at least one 1, that is the same as the probability of no 1. This has only 5 possibilities for each die, so:
+
+$$|E^c| = 5*5 = 25$$
+$$P(E^c) = \frac{25}{36}$$
+
+The conditional probability way to do it is to use the inclusion-exclusion principle:
+
+$$P(A\cup B) = P(A) + P(B) - P(A \cap B)$$
+
+$$P(A_1 \cup B_1) = \frac{1}{6} + \frac{1}{6} + \frac{1}{36}$$
+
+What is this probability given the first die is even?
+
+Here, we use conditional probability rules:
+
+$$P(A|B) = {P(A\cap B) \over P(B)}$$
+
+The probability of at least one 1 given the first die is even requires finding the number of times where both is true, and dividing it by the number of times even is true.
+
+$$A\cap B = \{(2,1),(4,1),(6,1)\}$$
+$$B = \{(2,x),(4,x),(6,x) | x \in [1,6]\}$$
+
+$$|A\cap B| = 3$$
+
+$$|B| = 3*6 = 18$$
+
+$$P(A|B) = \frac{3}{18} = \frac{1}{6}$$
+
+~~
+
+Note: the most important idea from the previous example is that "at least one A" is the same as saying "not (none are A)".
+
+$$P(at\ least\ one\ A) = 1 - (all\ P(A^c))$$
+
+## Intersection
+
 This idea can be used in reverse to convert normal equations into conditional statements:
 
 $$P(A\cap B \cap C) = P(C\cap (B \cap A))$$
 $$=P(A\cap B) P(C|B \cap A)$$
 $$=P(A)P(B|A)P(C|B \cap A)$$
 
-~~Example
+This can be thought of as a series of decisions. If you want the probability of several events happening one after the other, that is the same as saying the probability of the first event happening, then the second event happening if the first happens, and so on.
+
+~~Example: Birthdays
 
 What is the probability that no two students in a class of size n have the same birthday? Assume birthdays are evenly distributed through the 365 days of the year.
 
-To do this, we add up the probabilities that, given one student has one day as their birthday, another student does not have the same birthday:
+To do this, we add up the probabilities that, given one student has one day as their birthday, another student does not have the same birthday, and given those students do not have the same birthday, another student does not have the same birthday, and so on:
+
+$$P(A_1 \cap A_2 \cap A_3 ...) = P(A_1)*P(A_2|A_1)*P(A_3|A_1\cap A_2)*...$$
 
 $${365 \over 365} * {365-1 \over 365} * {365-2 \over 365} * {365-3 \over 365} * {365-4 \over 365} * ...$$
 
+Which simplifies to:
+
+$${365! \over (365 - n)! 365^n}$$
+
 Interestingly, this probability goes down very quickly as the number of people increases.
+
+~~
+
+## Total Probability Theorem
+
+Given two events, A and B, the probability of A can be partitioned as:
+
+$$P(A) = P(A\cap B) + P(A\cap B^c)$$
+
+In a diagram, this is equivalent to saying we can break A up into the part which intersects with B and does not intersect with B. It is a useful tool to be able to divide and conquer in proofs, since we can break the problem up into smaller pieces.
+
+~~Example: Texas Hold-Em
+
+With a random deck of cards, what is the probability that the first card dealt to you is an ace?
+
+$$P(A) = \frac{4}{52}$$
+
+What is the probability that the second card dealt to you is an ace?
+
+Here, we can divide the problem into two parts: the event where the first card dealt was an ace, and the event where it was not, and add those together:
+
+$$P(A_2) = P(A_2 \cap A_1) + P(A_2 \cap A_1^c)$$
+
+$$P(A_2) = P(A_2|A_1)P(A_1) + P(A_2|A_1^c)P(A_1^c)$$
+
+$$P(A_2) = \frac{3}{51}\frac{4}{52} + \frac{4}{51}\frac{48}{52}$$
+
+If we wanted to get even smaller, we could divide the problem into the possibilities of getting a specific ace, giving four even smaller chunks to add together.
+
+~~
+
+<!-- ~~Side example
+
+What is the probability of the second being an ace given at least one is an ace, compared to the probability of the second being an ace given the first one is an ace.
+
+If we write out the formula for the first option:
+
+$$P(A_2|at\ least\ one\ A) = {P(A_2 \cap at\ least\ one\ A) \over P(at\ least\ one\ A)}$$
+
+$$= {}$$
+
+~~ -->
+
+This property can be extended to several events, so long as all of them are disjoint. If we can define some way of dividing all outcomes into $k$ separate portions $B_1 .. B_k$, we can divide $A$ the same way:
+
+$$P(A) = \sum\limits_{i=1}^k P(A\cap B_i)$$
+
+~~Example: Gambler's Ruin
+
+Imagine a game where two players start with some money, and then flip a coin. If it is heads, the first player gives the second a dollar. If it is tails, the second gives the first a dollar. What is the probability that player 1 wins \$n?
+
+Lets define the probability of player one having $i$ dollars as:
+
+$$P(W_i)$$
+
+This is very difficult to determine, so we can divide and conquer. If the last flip is a head, then player one has one less dollar than they did before, if it is tails, then player one has one more dollar.
+
+$$P(W_i) = P(W_i|H)P(H) + P(W_i|T)P(T)$$
+$$P(W_i) = P(W_{i+1})P(H) + P(W_{i-1})P(T)$$
+
+and rearranged:
+
+$$P(W_i)(P(H) + P(T)) = P(W_{i+1})P(H) + P(W_{i-1})P(T)$$
+$$(P(W_{i+1}) - P(W_i))P(H) = (P(W_i) - P(W_{i-1}))P(T)$$
+$$P(W_{i+1}) - P(W_i) = \frac{P(T)}{P(H)}(P(W_i) - P(W_{i-1}))$$
+
+We now have a recursive formula, which we can use to find the possibility of a specific $i$. Recursively plugging in the formula will give:
+
+$$P(W_{i+1}) - P(W_i) = \frac{P(T)}{P(H)}(\frac{P(T)}{P(H)}(P(W_{i-1}) - P(W_{i-2})))$$
+$$P(W_{i+1}) - P(W_i) = \frac{P(T)}{P(H)}(\frac{P(T)}{P(H)}(\frac{P(T)}{P(H)}(...)))$$
+
+Until we reach $P(W_0)$. If this happens, you have already lost, so it does not make sense for that to be the *previous* turn of the game. Therefore, the probability of it is $0$. So we have:
+
+$$P(W_2) - P(W_1) = \frac{P(T)}{P(H)}(P(W_1) - P(W_0))$$
+$$P(W_2) - P(W_1) = \frac{P(T)}{P(H)}P(W_1)$$
+
+And as we work back up, the fraction at front just keeps getting multiplied in. So we have the general formula:
+
+$$P(W_{i+1}) - P(W_i) = \left(\frac{P(T)}{P(H)}\right)^i P(W_1)$$
+
+Now, we can add up all the elements from $P(W_2) - P(W_1)$ to $P(W_{i+1}) - P(W_i)$. The subtracted elements will cancel out with the elements from previous iterations, leaving only 
+
+$$P(W_{i+1}) - P(W_1) = \sum\limits_{k=1}^i \left(\frac{P(T)}{P(H)}\right)^k P(W_1)$$
+
+Which can be simplified:
+
+$$P(W_{i+1}) - P(W_1) = P(W_1) \sum\limits_{k=1}^i \left(\frac{P(T)}{P(H)}\right)^k$$
+
+Assuming a fair coin, this gives
+
+$$P(W_{i+1}) - P(W_1) = iP(W_1)$$
+$$P(W_{i+1}) = (i + 1)P(W_1)$$
+
+Which rewriting to use $i$:
+
+$$P(W_{i}) = (i)P(W_1)$$
+
+At this point, I lost track of the example, and I am not entirely sure the above few steps are correct. However, the final answer is:
+
+$$
+P(W_i) = \begin{cases}
+\frac{i}{n} && P(T) == P(H) \\
+{1 - \left(\frac{P(T)}{P(H)}\right)^i \over 1 - \frac{P(T)}{P(H)}^n} && P(T) != P(H) \\
+\end{cases}
+$$
+
+$$
+P(L_i) = \begin{cases}
+1-\frac{i}{n} && P(T) == P(H) \\
+1-{1 - \left(\frac{P(T)}{P(H)}\right)^i \over 1 - \frac{P(T)}{P(H)}} && P(T) != P(H) \\
+\end{cases}
+$$
+
+<!-- $$P(W_{i+1}) = (i + 1)P(W_1)$$
+
+$$P(W_{i+1}) - P(W_1) = P(W_1) {1 - \left(\frac{P(T)}{P(H)}\right)^i \over 1 - \frac{P(T)}{P(H)}}$$
+$$P(W_{i+1}) = P(W_1)\left(1 + {1 - \left(\frac{P(T)}{P(H)}\right)^i \over 1 - \frac{P(T)}{P(H)}}\right)$$ -->
+
+<!-- Assuming we may have an unfair coin, let us define the possibility of a head or tail as:
+
+$$P(H) = h$$
+$$P(T) = 1 - h = t$$
+ -->
+
+~~
+
+### Total Probability for Conditional Probability
+
+$$P(A|C) = \sum P(A\cap B_i|C) = \sum P(B_i|C)P(A|B_i\cap C)$$
+
+## Bayes' Theorem
+
+Bayes' Theorem describes how to compute one conditional probability given its inverse. It is derived from the definition of conditional probability:
+
+$$P(A|B) = {P(A\cap B) \over P(B)} = {P(B\cap A) \over P(B)}$$
+
+And replacing $P(B\cap A)$ with conditional probability (using a rearranged version of the definition for conditional probability):
+
+$$= {P(A)P(B|A) \over P(B)}$$
+
+And the denominator can be expanded using partitioning (total probability theorem):
+
+$$= {P(A)P(B|A) \over P(A)P(B|A)+P(A^c)P(B|A^c)}$$
+
+<!-- ### Bayesian Inverse
+
+~~Example: Machine learning
+
+Trying to find 
+
+~~
+
+### Prosecutor's Fallacy
+
+The prosecutors fallacy comes from a court case where  -->
+
+### Decision Making
+
+Trying to pick the most likely of disjoint events, at the start you just take their unconditional probability. However, if you receive more information, you should take that information into account and generate conditional probabilities given that new information.
+
+<!-- ~~Example: Morse code TODO: finish
+
+Morse code dots and dashes occur in a 3:4 proportion. If $D$ is the event of a dot, where $P(D) = 3/7$, and there is a $1/8$ probability of the dot or dash being incorrectly received as the other, consider the following:
+
+Without any observation, we should always guess a dash is received, as $4/7 \gt 3/7$.
+
+What is the probability a dot was sent if a dot is observed at the receiving end?
+
+Here we can use bayes' theorem (where $R$ is "a dot is received" and $D$ is "a dot was sent"):
+
+$$
+P(D|R) = {P(D)P(R|D \over P(D)P(R|D) + P(D^c)P(R|D^c)}
+$$
+$$
+P(D|R) = {\frac{3}{7} * \frac{7}{8} \over \frac{3}{7} * \frac{7}{8} + \frac{4}{7} * \frac{1}{8}} = \frac{21}{25}
+$$
+
+and the opposite event is:
+
+$$P(D^c|R) = 1 - P(D|R)= \frac{4}{25}$$
+
+~~ 
+
+### Generalized Bayes' Theorem
+
+$$
+P(A_i|B) = P(A_i\cap B) TODO
+$$ -->
+
+~~Example: Monty Hall Problem
+
+Imagine playing a game where there are three doors, and one of them has a prize behind it. You choose one of them randomly. The host of the game then reveals on of the other doors to show no prize. Is it better to switch or not?
+
+Assuming you chose door 1, using $A_i$ as the probability of door $i$ being right. Let $B$ be the probability of the host opening door 3:
+
+$$
+P(A_1|B) = {P(A_1)P(B|A_1) \over P(A_1)P(B|A_1) + P(A_2)P(B|A_2) + P(A_3)P(B|A_3)}
+$$
+
+Here, the probability of any of the doors being correct, $A_i$, is $1/3$. The probability of the host choosing the third door if the first is correct is $1/2$, as there are two doors for him to choose from. In the case where door 2 is correct, the host will choose door 3. If door 3 is correct, he will not choose it, so $P(B|A_3) = 0$.
+
+$$
+P(A_1|B) = {\frac{1}{3}\frac{1}{2} \over \frac{1}{3}\frac{1}{2} + \frac{1}{3}*1}
+$$
+
+The other way to solve this problem is to make a decision/tree diagram and mark out the possible paths.
+
+~~
+
+## Independence
+
+Two events are independent if we can calculate the probability of them happening together by simply multiplying their probability. This definition means that independence is often hard to intuitively guess. For example, the probability that the sum of two dice rolls is 7 is independent of the first die being a 4.
+
+Events are independent if:
+
+$$P(A\cap B) = P(A)P(B)$$
+
+If events are independent:
+
+$$P(A|B) = {P(A\cap B) \over P(B)} = {P(A)P(B) \over P(B)} = P(A)$$
+
+~~Example: coin toss
+
+Suppose we toss a fair coin twice. What is the probability that the first toss is a head (A) and the second is a tail (B)?
+
+$$P(A\cap B) = {|E|\over |\Omega|} = \frac{1}{4}$$
+
+$$P(A) = \frac{2}{4}$$
+$$P(B) = \frac{2}{4}$$
+
+$$P(A)P(B) = \frac{1}{4}$$
+
+This shows that the flipping of two coins are independent of each other.
+
+~~
+
+~~Example: cards
+
+A card is randomly selected from a standard deck of cards. If A is that a selected card is an ace, and B is that it is a spade, are A and B independent?
+
+$$P(A\cap B) = \frac{1}{52}$$
+
+$$P(A) = \frac{4}{52}$$
+$$P(B) = \frac{13}{52}$$
+
+$$P(A)P(B) = \frac{1}{52}$$
+
+They are independent.
+
+~~
+
+~~Example: more complex
+
+Rolling two dice, what is the probability that a 5 appears before a 7 in the sum?
+
+Using A as "5 appears before 7", B as "the first is 5", C as "the first is 7" and D is "the first is neither".
+
+In this problem, we can again split the problem into the cases where the first outcome is B,C, or D.
+
+$$P(A) = P(A|B)P(B) + P(A|C)P(C) + P(A|D)P(D)$$
+
+$$P(A|B) = 1$$
+$$P(A|C) = 0$$
+
+So we can simplify to:
+
+$$P(A) = P(B) + P(A|D)P(D)$$
+
+$$P(B) = \frac{4}{36}$$
+$$P(D) = \frac{26}{36}$$
+
+Now, the important part is that $P(A|D)$ is the same as $P(A)$, as the further trials are independent of the first one. So, we now have the relation:
+
+$$P(A) = \frac{4}{36} + P(A)\frac{26}{36}$$
+
+$$P(A) = \frac{2}{5}$$
+
+~~
+
+### Independence vs. Disjointness
+
+Two disjoint events may or may not be independent. If $A$ and $B$ are disjoint, their intersection is $\emptyset$, so the probability if their union is 0. This means that if they are independent, one of their probabilities myst be 0:
+
+$$P(A\cap B) = 0 = P(A)P(B)$$
+
+### Complements
+
+If two events A and B are independent, so are $A$ and $B^c$, $A^c$ and $B$ and $A^c$ and $B^c$.
+
+$$P(A\cap B^c) = P(A\cap(\Omega - B))$$
+$$= P(A\cap \Omega - A\cap B)$$
+$$= P(A) - P(A\cap B)$$
+$$= P(A) - P(A\cap B)$$
+
+### Multiple Independence
+
+Three events are pairwise independent if:
+
+$$P(A\cap B) = P(A)P(B)$$
+$$P(C\cap B) = P(C)P(B)$$
+$$P(A\cap C) = P(A)P(C)$$
+
+and they are independent if that is true and:
+
+$$P(A\cap B \cap C) = P(A)P(B)P(C)$$
+
+In general, several events are mutually independent if any combination of them are independent:
+
+$$P(\bigcap A_i) = \Pi P(A_i)$$
+
+### Conditional Independence
+
+Two events $A_1$ and $A_2$ are conditionally independent given an event $B$ if:
+
+$$P(A_1\cap A_2|B) = P(A_1|B)P(A_2|B)$$
+
+Note that normal independence and conditional independence do not imply each other; they are each separate.
+
+~~Example: Conditional Dice
+
+A fair die is rolled twice. $A_1$ is the event that the first roll is two, $A_2$ is that the second roll is six, and $B$ is that the sum is seven.
+
+Counting the possibilities, we have:
+
+$$P(A_1) = P(A_2) = \frac{1}{6}$$
+$$P(B) = \frac{6}{36} = \frac{1}{6}$$
+
+$$P(A_1 \cap A_2) = \frac{1}{36} = P(A_1) * P(A_2)$$
+
+And the conditional probabilities:
+
+$$P(A_1|B) = {P(A_1 \cap B) \over P(B)} = {\frac{1}{36} \over \frac{1}{6}} = \frac{1}{6}$$
+$$P(A_2|B) = {P(A_2 \cap B) \over P(B)} = {\frac{1}{36} \over \frac{1}{6}} = \frac{1}{6}$$
+
+And since $6 + 2 \ne 7$,
+
+$$P(A_1 \cap A_2 | B) = 0 \ne P(A_1|B) * P(A_2|B)$$
+
+Therefore, $A_1$ and $A_2$ are independent unconditionally, but are not independent conditionally on $B$.
+
+~~
+
+~~Example: Simpson's Paradox
+
+Consider a clinical trial where the patients' recovery rates are compared whether or not they are given a drug. According to the data, 20/40 given the drug recovered, where 16/40 not given the drug recovered. However, the information they are not giving is that recovery rate depends on gender. Males have a 60% recovery rate on the drug and 70% otherwise, and Females have a 20% recovery rate given the drug, and 30% otherwise. The numbers are caused by the trial having more males than females in the given group, raising the recovery rate, and more females than males in the not given group, lowering the recovery rate.
+
+
+So, it is important to not have any other affecting details when looking for one probability. If the trials both consisted of the same number of males and females, the numbers would come out correct. However, the dependence on gender means that it cannot be ignored in the results.
 
 ~~
 

@@ -1,0 +1,140 @@
+# Summary, Part One
+
+## Set Theory
+
+**Sets** are unordered collections of unique elements. **Elements** can be anything, including other sets. Sets have a size or **cardinality** representing the number of elements in the set. Sets can have a finite cardinality, have a countably infinite cardinality, or have an uncountably infinite cardinality.
+
+**Countably infinite** sets can be represented with a one-to-one function from counting numbers (positive integers) to the set's contents. **Uncountably infinite** sets are not able to be represented this way.
+
+### Examples
+
+- $\{2,4,3\} = \{2,3,4\}$: a small finite set, cardinality 3
+- $\mathbb{Z}$: integers, countably infinite
+- $\mathbb{Q}$: rationals, countably infinite
+- $\mathbb{R}$: real numbers, uncountably infinite
+- $\mathbb{C}$: complex numbers, uncountably infinite
+
+**Functions** are mappings from one set to another (and can also be represented with ordered tuples). Functions must map from an element of the first set to a single element of the destination set, but can cover elements of the destination set more than once. Functions can be **injective** (one-to-one), meaning they do not link to any elements in the destination set twice, **surjective** (onto), meaning they cover the entirety of the destination set at least once, or **bijective** (both), meaning they map each element of the source to a unique element of the destination, and vice-versa.
+
+### Operations
+
+**Union** is the OR combination of two sets, containing all of the elements of both sets (set A *or* set B). **Intersection** is the AND operation, containing only elements which are in set A *and* set B. **Complement** is the opposite of a set (every element which is not inside it). **Difference** is the set of items which are in one set but not the other.
+
+$$A - B = A \cap B^c$$
+
+**Disjoint** sets are sets which do not overlap.
+
+## Counting
+
+**Permutations** are ways of rearranging ordered elements. The number of permutations of $n$ elements is:
+
+$$P_n = n!$$
+
+**Combinations** are unordered groups of objects. The number of subgroups of size $k$ that can be made from a set of size $n$ is
+
+$$
+\left(
+  \begin{array}{c}n \\ k\end{array}
+\right)
+=
+{n! \over (n - k)!k!}
+$$
+
+**Partitioning** is creating several subsets out of a set at the same time, and the number of partitions of size $n_1, n_2, ...$ and $n_r$ is:
+
+
+$$
+\left(
+  \begin{array}{c}n \\ n_1, n_2, ... n_r\end{array}
+\right)
+=
+{n! \over n_1!n_2!*...*n_r!}
+$$
+
+When dealing with problems with *sampling*, it is important to consider replacement and order:
+
+1. With Replacement, with order: $n^k$ possibilities
+2. Without Replacement, with order: ${n! \over (n - k)!}$ possibilities
+3. With Replacement, without order: ${\left(\begin{array}{c}n + k - 1 \\ k\end{array}\right)}$ possibilities
+4. Without Replacement, without order: $\left(\begin{array}{c}n \\ k\end{array}\right) = {n! \over (n - k)!k!}$ possibilities
+
+You should not need to remember the third option.
+
+<!-- story proof?? -->
+
+## Axiomatic probability
+
+The **sample space** is the set of all possible outcomes. **Outcomes** are possible results of a probability experiment. **Events** are sets of outcomes within a sample space. **Probability** for an event is given by the number of outcomes in the event divided by the number of outcomes in the sample space.
+
+$$P(E) = {|E| \over |\Omega|}$$
+
+There are three main axioms to probability:
+
+1. Non-negativity: the probability of an event must be non-negative.
+
+$$P(E) \ge 0$$
+
+2. Normalization: the probability of the entire sample space is one:
+
+$$P(\Omega) = P(all\ outcomes) = {|\Omega| \over |\Omega|} = 1$$
+
+3. Countable additivity: the probability of the union of a countable number of disjoint events is equal to the sum of their individual probabilities.
+
+$$P(\bigcup E_i) = \sum P(E_i)$$
+
+### Inclusion-Exclusion
+
+The inclusion exclusion principle is for calculating the union of several *non-disjoint* events. In this case, we also sum all of the individual probabilities, but we double count their overlapping portions, so we need to subtract those.
+
+$$P(\bigcup E_i) = \sum P(E_i) - \sum P(E_i \cap E_j) + \sum P(E_i\cap E_j \cap E_k) - ... +\sum P(\bigcap E_i)$$
+
+## Conditional Probability
+
+**Conditional Probability** is the probability of one event given another is true:
+
+$$P(A|B) = {P(A \cap B) \over P(B)}$$
+
+The probability of an intersection can be calculated by rearranging this:
+
+$$P(A\cap B) = P(A|B)P(B)$$
+
+### Total Probability Theorem
+
+The probability of one event can be broken up into the conditional probability given several disjoint events, such as an event and its complement:
+
+$$P(A) = P(A|B)P(B) + P(A|B^c)P(B^c)$$
+
+### Bayes' Rule
+
+Conditional probability can be rearranged to generate a formula for the probability of one conditional event in terms of the opposite condition.
+
+$$P(A|B) = {P(B|A)P(A) \over P(B)}$$
+
+Which can be expanded further using total probability.
+
+## Independence
+
+This is not tested in the first section, but is important nonetheless. Two events are **independent** if the probability of their intersection is the same as the product of their individual probabilities.
+
+$$P(A\cap B) = P(A)P(B)$$
+
+### Conditional independence
+
+$$P(A\cap B|C) = P(A|C)P(B|C)$$
+
+### Pair-wise independence
+
+Multiple events can be pair wise if each of their combinations is independent and mutually independent if their combinations are independent and all of them are independent.
+
+Pairwise:
+
+$$P(A\cap B) = P(A)P(B)$$
+$$P(C\cap B) = P(C)P(B)$$
+$$P(A\cap C) = P(A)P(C)$$
+
+Mutual:
+
+$$P(A\cap B\cap C) = P(A)P(B)P(C)$$
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
