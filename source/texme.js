@@ -3,6 +3,18 @@ var script = window.document.createElement('script')
 script.src = "https://cdn.jsdelivr.net/npm/texme"
 window.document.head.appendChild(script)
 
+// global variables for the theme
+let themes = ["Dark", "Light", "Monotone", "Tropical", "Summer", "Hyperlight", "Gruvbox", "Everforest"];
+
+let currentTheme = "Dark";
+function changeTheme(name) {
+  if (!themes.includes(name)) return -1;
+  document.body.parentElement.classList.remove(currentTheme.toLowerCase());
+  currentTheme = name;
+  document.body.parentElement.classList.add(currentTheme.toLowerCase());
+  localStorage.setItem("theme", currentTheme);
+}
+
 script.onload = () => {
   let runTexme = window.onload || (() => { });
 
@@ -61,16 +73,6 @@ ${match[0].replace(/^ *&gt;(.*)$/gm, "$1")}
 
 function afterTexMe() {
   // add theme button
-  let themes = ["Dark", "Light", "Tropical", "Summer", "Hyperlight", "Gruvbox", "Everforest"];
-
-  let currentTheme = "Dark";
-  function changeTheme(name) {
-    if (!themes.includes(name)) return -1;
-    document.body.parentElement.classList.remove(currentTheme.toLowerCase());
-    currentTheme = name;
-    document.body.parentElement.classList.add(currentTheme.toLowerCase());
-    localStorage.setItem("theme", currentTheme);
-  }
 
   let themeToggle = document.createElement("div");
   themeToggle.classList.add("themetoggle")

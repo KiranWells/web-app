@@ -29,6 +29,17 @@
   --hl: #b48ead;
 }
 
+:root.monotone {
+  --fg: black;
+  --h1: black;
+  --h2: black;
+  --bg: white;
+  --bg-dark: white;
+  --ac: gray;
+  --al: gray;
+  --hl: gray;
+}
+
 :root.tropical {
   /* Colors custom generated */
   --fg: #c4c5c5;
@@ -326,18 +337,27 @@ a:visited {
   body {
     padding: 0;
     margin: 0;
-    background-color: white;
+    --fg: black;
+    --h1: black;
+    --h2: black;
+    --bg: white;
+    --bg-dark: white;
+    --ac: gray;
+    --al: gray;
+    --hl: gray;
   }
 
   main {
     width: 100%;
     margin: 0;
     box-shadow: none;
-    background-color: white;
-    color: black;
   }
 
   footer {
+    display: none;
+  }
+
+  [class^=theme] {
     display: none;
   }
 }
