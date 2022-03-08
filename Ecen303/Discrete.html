@@ -10,6 +10,8 @@
 
 For example, a random variable for the roll of a die could be the number of dots on the die: each result of the experiment (a roll) is assigned to a *unique* value in the real numbers, $[1..6]$.
 
+It is important that these values are unique because then we can treat them as disjoint, meaning to find a union we can just use countable additivity.
+
 ~~Example: repeated coin flips
 
 A random variable $X_i$ is defined as 0 if the ith flip of a coin is a tail, and a 1 when it is a head. So, the number of heads in a series of $n$ tosses can be modeled as:
@@ -21,6 +23,8 @@ $$\sum\limits_{i=1}^n X_i$$
 This example shows one of the purposes of random variables: to allow for calculations on unknown probabilistic values.
 
 A random variable is a **Discrete random variable** if it has a finite or countably infinite number of possible values. Note that the cardinality of the random variable's output is the same as the cardinality of the sample space it maps from. This means that a discrete random variable must describe a finite or countably infinite set.
+
+## Probability Descriptors
 
 ### Probability Mass Function
 
@@ -77,7 +81,7 @@ All probabilities in X can be described with the CDF:
 - $Pr(X \lt b) = \lim\limits_{n \to \infty} Pr(X \le b - \frac{1}{n}) = \lim\limits_{n \to \infty} F(b - \frac{1}{n})$
 - $Pr(X = b) = F(b) - F^-(b)$
 
-~~Example: 
+~~Example: cumulative distribution functions
 
 In this experiment, we are selecting 4 balls from 20 numbered ones. $X$ is defined as the largest number of the four balls. Here, the only outcomes we are concerned with are the ones with different maximums.
 
@@ -98,6 +102,216 @@ $$F(10) = P(X \le 10) = \sum\limits_{i=4}^10 {\left(\begin{array}{c}i-1 \\ 3\end
 But what about using counting? The outcomes where the max is less than or equal to 10 are the same as selecting four balls from the 10 which are less than or equal to 10. So, more generally:
 
 $$F(x) = {\left(\begin{array}{c}x \\ 4\end{array}\right) \over \left(\begin{array}{c}20 \\ 4\end{array}\right)}$$
+
+~~
+
+## Transformation
+
+You can create a new mapping $Y$ from $X$ by applying a real-valued function to $X$. This creates a new random variable which can be used to represent the set.
+
+~~Example: transformation
+
+$X$ is defined as a DRV with PMF $p_X(x)=\frac{1}{3}$ for $x = -1,0,1$. If we define $Y=X^2$, $Y$ is a new RV with PMF:
+
+$$
+p_Y(x) = \begin{cases}
+1: \frac{2}{3} \\
+0: \frac{1}{3}
+\end{cases}
+$$
+
+~~
+
+## Families of Random Variables
+
+A note on notation: If $X$ follows a distribution $Bern(p)$, we write:
+
+$$X ~ Bern(p)$$
+
+### Bernoulli
+
+Bernoulli random variables ($X ~ Bern(p)$) are boolean random variables (only two possible values). For example, mapping the flip of a coin to a random variable creates a Bernoulli random variable. They are often used to describe success or failure, and a PMF only has to describe the probability of success ($q$), since the failure probability is $1-q$.
+
+The CDF of a Bernoulli variable will be two step function:
+
+$$
+F(x) = \begin{cases}
+x \lt 0: 0 \\
+0 \le x \lt 1: 1 - p \\
+x \ge 1: 1
+\end{cases}
+$$
+
+The expectation is:
+
+$$E = success * (p) + fail * (1-p)$$
+
+### Binomial
+
+A binomial random variable ($X ~ Bin(p)$) is a succession of Bernoulli variables, such as multiple flips of a coin. The PMF can be defined as:
+
+$$
+p(i) = \left(\begin{array}{c}n \\ i\end{array}\right) q^i(1-q)^{n-i}, i \in [0..n]
+$$
+
+Where $X$ is the count of successes in $n$ trials. $X$ is called a binomial random variable with parameters $n$ and $q$.
+
+The above function is derived as a selection of all of the combinations where there are $i$ successes multiplied by the probability that there are $i$ successes and $n-i$ fails. This satisfies the normalization axiom because of the *binomial theorem*, which we discussed earlier.
+
+In addition, a bernoulli random variable is equivalent to a binomial variable with $n=1$.
+
+$$Bern(p) = Bin(1, p)$$
+
+The probability of $p(x)$ increases in the beginning to a max, then decreases to zero at $n+1$
+
+~~Example: Power of a single voter
+
+the candidate gaining the maximum number of votes is awarded the win. So, when does your vote cause the decision?
+
+To model this, we assume all other voters are independent, and that your vote is deciding when everyone else votes evenly. This is a binomial distribution, where $1/2$ of the remaining voters vote one way. So, defining $2k = n-1$ to be the remaining voters, the probability that you are deciding is:
+
+$$
+\left(\begin{array}{c}2k \\ k\end{array}\right) (\frac{1}{2})^k(1-\frac{1}{2})^{2k - k}
+$$
+
+This can be simplified using Stirling's formula:
+
+$$k! = k^{k+\frac{1}{2}}e^{-k}\sqrt{2\pi}$$
+
+To get:
+
+$$\frac{1}{\sqrt{k\pi}}$$
+
+This shows that with more people, the probability of being decisive is lower.
+
+~~
+
+### Geometric
+
+A geometric random variable has a PMF defined as:
+
+$$p(i) = (1-q)^{i-1}q$$
+
+One example is tossing a biased coin with probability $q$ or getting a head, and counting how many times it takes to get one head. The formula easily follows, as the probability that $i$ flips are necessary is the probability of having $i-1$ tails (with probability $1-q$) and one head.
+
+A variable like this is called a **geometric random variable** with parameter $q$, $X = Geo(q)$.
+
+This type of variable also follows the axioms of probability, and it can be shown the sum of all of the $i$s is one using a geometric series:
+
+$$\sum\limits_{i=1}^{\infty} p(i) = \sum\limits_{i=1}^{\infty} (1-q)^{i-1}q = {q \over 1 - (1-q)} = 1$$
+
+Geometric series are unique in that they are **memoryless**. This means the probability of getting $j$ more tails before a head after flipping $k$ tails is equal to the probability of just getting $j$ tails in the first place:
+
+$$P(X = j + k | X \gt k) = P(X = j)$$
+
+Which can be proven by using the definition of conditional probabilities.
+
+### Poisson Random Variables
+
+A **Poisson random variable** is an extension of a binomial random variable into infinite numbers of probabilities. Given a binomial variable with parameters $n, q$, the Poisson random variable is parameterized by $\lambda = nq$ as $n$ goes to infinity. The PMF is obtained by manipulating the PMF of the binomial:
+
+
+$$
+p(i) = \left(\begin{array}{c}n \\ i\end{array}\right) q^i(1-q)^{n-i}
+$$
+$$
+p(i) = {n! \over i! (n-i)!} \left(\frac{\lambda}{n}\right)^i\left(1-\frac{\lambda}{n}\right)^{n-i}
+$$
+$$
+p(i) = \left(\frac{\lambda}{1}\right)^i{n! \over i! (n-i)!n^i} \left(1-\frac{\lambda}{n}\right)^{-i} \left(1-\frac{\lambda}{n}\right)^{n}
+$$
+
+Which as $n \to \infty$, approaches:
+
+$$
+p(i) = \frac{\lambda^i}{i!}e^{-\lambda}
+$$
+
+This also will approach one when summed across $[1..\infty)$, which can be shown using a Taylor expansion.
+
+Poisson random variables are useful to analyze Binomial distributions where $n$ is very large (and possibly unknown).
+
+~~Example: defective items
+
+The probability that an item is defective is $0.1$. Find the probability that a sample of $10$ items will contain at most one defective item.
+
+Here, we can use a binomial random variable with parameters $Bin(10, 0.1)$. In addition, the probability of at most one defective item is:
+
+$$P(X \le 1) = P(X = 0) + P(X = 1) = \left(\begin{array}{c}10 \\ 0\end{array}\right)(0.9)^10(0.1)^0 + \left(\begin{array}{c}10 \\ 1\end{array}\right)(0.9)^9(0.1)^1$$
+
+However, we can also approximate this as a Poisson random variable with $\lambda = np = 1$. Again, we calculate the value at $0$ and $1$:
+
+$$P(X \le 1) = \frac{\lambda^0}{0!}e^{-\lambda} + \frac{\lambda^1}{1!}e^{-\lambda} =\frac{1^0}{0!}e^{-1} + \frac{1^1}{1!}e^{-1} = \frac{2}{e}$$
+
+~~
+
+~~Example: errors on a page
+
+The number of typos on a page is a Poisson distribution with $\lambda = 0.5$. What is the probability that there is at least one error on the page?
+
+Here, we need $P(X \ge 1)$, which is equivalent to $1- P(X = 0)$.
+
+$$P(X\ge 1) = 1 - \frac{0.5^0}{0!}e^{-0.5}$$
+
+~~
+
+~~Example: earthquakes
+
+The number of earthquakes within a time of $t$ weeks is a Poisson distribution with parameter $2t$.
+
+What is the probability that at least 3 earthquakes will occur during the next two weeks?
+
+$$P(X\ge 3) = 1-P(X=0)-P(X=1)-P(X=2)$$
+
+If T is the time in weeks until the next earthquake, what is the CDF of T?
+
+$$F(t) = P(T \le t) =  1- P(T\gt t) = 1 - P(X=0)\ for\ t\ weeks = 1 - e^{-2t}$$
+
+This happens to be the CDF of an exponential continuous random variable.
+
+~~
+
+#### Poisson Paradigm
+
+With $n$ events or $p_i$ as the probability of event $i$, if all of them are small and they are not very dependent, then the number of events that occur can be approximated by a Poisson distribution with parameter:
+
+$$\lambda = \sum\limits_{i=1}^n p_i$$
+
+## Practice
+
+~~Practice: maximum selected
+
+Consider ten numbered objects (from 1 to 10) in a jar. If $X$ is the largest number among three objects chosen, what is the probability $X = 5$?
+
+Here we can use counting. The number of possible combinations of the lower two objects is selecting two from the four less than 5, and the total number of combinations is just select 3 from 10:
+
+$$P(X = 5) = {\left(\begin{array}{c}4 \\ 2\end{array}\right) \over \left(\begin{array}{c}10 \\ 3\end{array}\right)}$$
+
+If $Y$ is the minimum number, what is the probability $Y \gt 5$?
+
+Here, we select three objects from the five greater than 5, giving:
+
+$$P(Y \gt 5) = {\left(\begin{array}{c}5 \\ 3\end{array}\right) \over \left(\begin{array}{c}10 \\ 3\end{array}\right)}$$
+
+~~
+
+~~Practice: given probability mass function
+
+Given a discrete random variable with PMF:
+
+$$p(k) = c\frac{\lambda^k}{k!}, k \in [0..\infty)$$
+
+What is c?
+
+Here, we need to find $c$ such that the sum of all probabilities is one, so that it fits the probability axioms.
+
+$$\sum p(k) = \sum\limits_{k=0}^{\infty} c\frac{\lambda^k}{k!}$$
+
+This is the Taylor series for $e^\lambda$:
+
+$$\sum p(k) = ce^{\lambda}$$
+
+So for it to be 1, $c = e^{-\lambda}$.
 
 ~~
 

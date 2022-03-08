@@ -1,0 +1,26 @@
+# Expectation
+
+> Definition:  
+> Expectation is the weighted average of all values, which is defined as the sum of all values multiplied by their respective weight, which is their probability.
+> $$E[X] = \sum\limits_{x\in X(\Omega)} xP(X = x)$$
+
+For example, the expectation of a Bernoulli variable with probability $q$ is:
+
+$$0 * (q-1) + 1 * (q) = q$$
+
+And a Binomial variable of $n, q$:
+
+$$\sum\limits_{x=0}^n \left( \begin{array}{c}n \\ x\end{array} \right)q^x(1-q)^{n-x}$$
+
+Which will simplify to:
+
+$$np$$
+
+This is true because a Binomial variable is just the sum of many Bernoulli variables. Because $E[X]$ is a linear function, the expectation of a sum is equal to the sum of the expectations:
+
+$$E[X] = \sum\limits_{i=1}^n E[X_i] = n * E[X_i] = np$$
+
+Note that the probability $P(X=x)$ is not necessarily linear, so this does not work with the PMF.
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
