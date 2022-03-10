@@ -4,9 +4,17 @@
 > Expectation is the weighted average of all values, which is defined as the sum of all values multiplied by their respective weight, which is their probability.
 > $$E[X] = \sum\limits_{x\in X(\Omega)} xP(X = x)$$
 
+The expectation of many repeated experiments is a **repeated expectation**.
+
+## Expectations of variable types:
+
+### Bernoulli
+
 For example, the expectation of a Bernoulli variable with probability $q$ is:
 
 $$0 * (q-1) + 1 * (q) = q$$
+
+### Binomial
 
 And a Binomial variable of $n, q$:
 
@@ -21,6 +29,42 @@ This is true because a Binomial variable is just the sum of many Bernoulli varia
 $$E[X] = \sum\limits_{i=1}^n E[X_i] = n * E[X_i] = np$$
 
 Note that the probability $P(X=x)$ is not necessarily linear, so this does not work with the PMF.
+
+### Geometric
+
+The expectation for geometric series is again a weighted average:
+
+$$E[X] = \sum\limits_{i=1}^{\infty}i(1-p)^{i-1}p$$
+
+Which can be simplified to:
+
+$$\frac{1}{p}$$
+
+This is because of the memoryless property. The probability after one test is done is the same as the probability before doing any tests, so you can create a recursive formula for $E[X]$ which simplifies down to $\frac{1}{p}$.
+
+### Poisson
+
+The expectation of a Poisson variable is:
+
+$$E[X] = \lambda$$
+
+### Hyper-Geometric and Negative Binomial
+
+Through a somewhat complex simplification process, the expectation of a hyper-geometric variable is:
+
+$$E[X] = \frac{mn}{N}$$
+
+The negative binomial variable follows a similar strategy for binomial, giving:
+
+$$E[X] =\sum\limits_{k=1}^r E[X_k] = \sum\limits_{k=1}^r \frac{1}{p} = \frac{r}{p}$$
+
+## Variance
+
+Variance is the spread of the random variable:
+
+$$E[(X-E[X])^2]$$
+
+This is similar to variance in statistics.
 
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">

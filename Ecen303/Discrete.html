@@ -206,7 +206,7 @@ $$P(X = j + k | X \gt k) = P(X = j)$$
 
 Which can be proven by using the definition of conditional probabilities.
 
-### Poisson Random Variables
+### Poisson
 
 A **Poisson random variable** is an extension of a binomial random variable into infinite numbers of probabilities. Given a binomial variable with parameters $n, q$, the Poisson random variable is parameterized by $\lambda = nq$ as $n$ goes to infinity. The PMF is obtained by manipulating the PMF of the binomial:
 
@@ -276,6 +276,26 @@ This happens to be the CDF of an exponential continuous random variable.
 With $n$ events or $p_i$ as the probability of event $i$, if all of them are small and they are not very dependent, then the number of events that occur can be approximated by a Poisson distribution with parameter:
 
 $$\lambda = \sum\limits_{i=1}^n p_i$$
+
+### Hyper-geometric
+
+Hyper-geometric variables are probabilities made by selecting some number of a set of two different items. For example, buying $m$ computers from a company which makes $N$ computers and has $n$ defective ones, and counting the number of defective ones you bought. It has a probability mass function:
+
+$$P(X=k)={\left(\begin{array}{c}N-n \\ m-k\end{array}\right)\left(\begin{array}{c}n \\ k\end{array}\right)\over \left(\begin{array}{c}N \\ m\end{array}\right)}$$
+
+This is the same as the number of ways to select $m-k$ good computers and select $k$ bad computers, out of the total number of combinations.
+
+The sum of this is clearly one, because you are adding up all of the possible ways to divide $m$ into $k$ bad and $k-1$ good computers, which is just all possible combinations of selecting $m$ computers.
+
+A hyper-geometric variable is parameterized by the number of experiments $m$, and the number of total objects $N$, and the number of defective objects $n$.
+
+### Negative Binomial
+
+A negative binomial random variable is defined as a binomial experiment where you cont the number of tries needed to get $r$ successes. $X$ can then be in $[r, \infty)$, and the PMF is:
+
+$$P(X = k) =\left(\begin{array}{c}k-1 \\ r-1\end{array}\right) (1-p)^{k-r}p^{r-1}p$$
+
+This is because, at the last experiment, there must be a success. The other $k-1$ trials are then divided into $r-1$ successes and the rest failures.
 
 ## Practice
 
