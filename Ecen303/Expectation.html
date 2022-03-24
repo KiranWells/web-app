@@ -6,6 +6,34 @@
 
 The expectation of many repeated experiments is a **repeated expectation**.
 
+## Properties
+
+Expectation is a linear function, so we can expand some equations inside an expectation:
+
+$$E[X_1 + 3X_2 + 2] = E[X_1] + 3E[X_2] + 2$$
+
+If $X$ is a discrete random variable with $g(x)$ as a function, then $Y = g(X)$ defines another discrete random variable. The expectation of $Y$ is given by:
+
+$$E[Y] = \sum\limits_{y\in Y} yp_Y(y)$$
+
+However, this can be done instead as a function of the original expectation:
+
+$$E[Y] = E[g(X)] = \sum\limits_{y\in Y} g(x)p_X(x)$$
+
+This allows us to avoid calculating a new PMF for $Y$.
+
+In addition, we can break apart the definition for variance with the linear property of the expectation (Where $\mu = E[X]$):
+
+$$E[(X - \mu)^2] = E[X^2 - 2\mu X + \mu^2] = E[X^2] - 2\mu E[X] + \mu^2$$
+
+The variance on the other hand is not linear:
+
+$$Var[aX + b] = a^2 Var[X]$$
+
+If $X$ takes only nonnegative integer values, then the following is true:
+
+$$E[X] = \sum\limits_{k=1}^{\infty}Pr(X\ge k)$$
+
 ## Expectations of variable types:
 
 ### Bernoulli
@@ -48,6 +76,8 @@ The expectation of a Poisson variable is:
 
 $$E[X] = \lambda$$
 
+The variance is also $\lambda$.
+
 ### Hyper-Geometric and Negative Binomial
 
 Through a somewhat complex simplification process, the expectation of a hyper-geometric variable is:
@@ -65,6 +95,24 @@ Variance is the spread of the random variable:
 $$E[(X-E[X])^2]$$
 
 This is similar to variance in statistics.
+
+## Examples
+
+~~Example: A Betting Strategy
+
+Consider a game where you bet on a coin toss, and you lose the money you bet if you are wrong, and gain that amount of money if you are right. One strategy is to double your bet each time you lose, to ensure that once you win you are at least net positive by one. With an infinite budget, you can always win with this, but what if you have a limited budget?
+
+Defining X as the amount of money you won, if you lose all $N$ coin tosses, it would be:
+
+$$X = -B_1 - B_2 - ... = -B_1 -2B_1 - 4B_1 ... = -(2^N-1)B_1$$
+
+If you win on the $i$th toss for any $i=1..N$, then $X=B_1$. This is because the doubling cancels out to just the original bet.
+
+<!-- The expectation is then given as (with $p$ beging the likelihood of a win):
+
+$$E[X] = -(2^N-1)B_1p^N + B_1p^{N-x}$$ -->
+
+~~
 
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">
