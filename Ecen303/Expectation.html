@@ -22,17 +22,13 @@ $$E[Y] = E[g(X)] = \sum\limits_{y\in Y} g(x)p_X(x)$$
 
 This allows us to avoid calculating a new PMF for $Y$.
 
-In addition, we can break apart the definition for variance with the linear property of the expectation (Where $\mu = E[X]$):
-
-$$E[(X - \mu)^2] = E[X^2 - 2\mu X + \mu^2] = E[X^2] - 2\mu E[X] + \mu^2$$
-
-The variance on the other hand is not linear:
-
-$$Var[aX + b] = a^2 Var[X]$$
-
 If $X$ takes only nonnegative integer values, then the following is true:
 
 $$E[X] = \sum\limits_{k=1}^{\infty}Pr(X\ge k)$$
+
+An alternative formula can also be used for expectation:
+
+$$E[X] = \sum\limits_{k=1}^{\infty} Pr(X \ge k)$$
 
 ## Expectations of variable types:
 
@@ -70,6 +66,16 @@ $$\frac{1}{p}$$
 
 This is because of the memoryless property. The probability after one test is done is the same as the probability before doing any tests, so you can create a recursive formula for $E[X]$ which simplifies down to $\frac{1}{p}$.
 
+In addition, for a geometric random variable
+
+$$Pr(X \ge k) = \sum\limits_{i=k}^{\infty}(1-p)^{i-1}p$$
+$$= p \frac{(1-p)^{k-1}}{1-(1-p)}$$
+$$= (1-p)^{k-1}$$
+
+This can be used alternatively to compute the expectation:
+
+$$E[X] = \sum\limits_{k=1}^{\infty} (1-p)^{k-1}$$
+
 ### Poisson
 
 The expectation of a Poisson variable is:
@@ -90,11 +96,45 @@ $$E[X] =\sum\limits_{k=1}^r E[X_k] = \sum\limits_{k=1}^r \frac{1}{p} = \frac{r}{
 
 ## Variance
 
-Variance is the spread of the random variable:
+Variance is the spread of the random variable. It captures how large of a range a random variable can cover, a type of uncertainty measure. It takes the form of an expectation of expectations:
 
 $$E[(X-E[X])^2]$$
 
-This is similar to variance in statistics.
+This is similar to variance in statistics, and the standard deviation is defined as the square root of variance.
+
+In addition, we can break apart the definition for variance with the linear property of the expectation (Where $\mu = E[X]$):
+
+$$E[(X - \mu)^2] = E[X^2 - 2\mu X + \mu^2] = E[X^2] - 2\mu E[X] + \mu^2 = E[X^2] - 2(E[X]) E[X] + (E[X])^2$$
+
+$$Var[X] = E[X^2] - (E[X])^2$$
+
+The variance, in contrast to the expectation, is not linear:
+
+$$Var[aX + b] = a^2 Var[X]$$
+
+### Moment
+
+A $n$th-order moment is defined as:
+
+$$E[X^n]$$
+
+Therefore, the expectation is a first order moment. The variance is a second order moment, but because of the subtraction in the formula it is called a *centered* second order moment. A general $n$th-order centered moment is defined as:
+
+$$E[(X - E[X])^n]$$
+
+### Generating Function
+
+The generating function is defined as:
+
+$$G(z) = E[z^X]$$
+
+This simplifies (using a Taylor expansion), and allows you to find the probability mass function of $X$. With continuous random variables, this is a $z$-transformation.
+
+The moment generating function is defined as:
+
+$$M(s) = E[e^{sX}]$$
+
+This also allows you to determine a moment of $X$ by expanding into a series. With continuous random variables, this is a Laplace transformation.
 
 ## Examples
 
@@ -108,9 +148,37 @@ $$X = -B_1 - B_2 - ... = -B_1 -2B_1 - 4B_1 ... = -(2^N-1)B_1$$
 
 If you win on the $i$th toss for any $i=1..N$, then $X=B_1$. This is because the doubling cancels out to just the original bet.
 
-<!-- The expectation is then given as (with $p$ beging the likelihood of a win):
+<!-- The expectation is then given as (with $p$ being the likelihood of a win):
 
 $$E[X] = -(2^N-1)B_1p^N + B_1p^{N-x}$$ -->
+
+~~
+
+~~Example: squared dice
+
+Given $X$ as the result of a fair die, what is the expectation of $X^2$?
+
+One way to solve this is to calculate all of the values $X^2$ could be, then find their expectation.
+
+$$X^2 = \{1,4,9,16,25,36\}$$
+
+$$E[X^2] = \sum (x)\frac{1}{6} = \frac{91}{6}$$
+
+The second way would be to use the expectation and variance of $X$ to calculate this value.
+
+This calculation can then be used to calculate the variance of $X$.
+
+~~
+
+~~Example: picking without replacement
+
+An urn contains 4 white and 8 black balls. Balls are randomly selected without replacement for 4 times, one at a time, what is the expected number of white balls?
+
+This is a hyper-geometric random variable, but can be modeled by a random variable for each draw. If $E[X_i]$ is the expectation of draw $i$:
+
+$$E[X] = \sum\limits_{i=1}^4 E[X_i] = \frac{4}{3}$$
+
+The probability of draw $i$ can be calculated by splitting later probabilities into the probability given the first succeeded and the first did not succeed (total probability theorem). This turns out to always be the same as the probability of the first one.
 
 ~~
 

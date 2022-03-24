@@ -1,0 +1,32 @@
+# Continuous Random Variables
+
+A continuous random variable $X$ is a random variable which comes from an *uncountably infinite* sample space. It is defined to have a CDF that can be written as:
+
+$$F(x) = Pr(X \le x) = \int\limits_{-\infty}^x f(a)da,\ \ \forall x \in \mathbb{R}$$
+
+For some *nonnegative* function $f(x)$. (It must be non-negative to ensure that the CDF is always increasing, and cannot go below 0.)
+
+In this case, there cannot be a PMF, as individual elements of $X$ are not assigned a specific probability (in fact, $Pr(X=k) = 0$, because the CDF is continuous). *Ranges*, on the other hand, are assigned a probability, meaning the CDF can easily be defined. Instead of a PMF, a **probability density function** (PDF) $f(x)$ is used.
+
+## Continuous Distribution Function Properties
+
+the CDF of a continuous random variable is by definition continuous. In addition, the conditions for non-negativity, being increasing, and having a range from $[0,1]$ hold true the same as for discrete random variables.
+
+The PDF can be derived from the CDF through taking the derivative.
+
+$$f(x) = \frac{dF(x)}{dx}$$
+
+The probability of a range is not dependent on which ends of the range are included:
+
+$$Pr(X \in (x_1, x_2)) = Pr(X \in [x_1, x_2)) = Pr(X \in (x_1, x_2]) = Pr(X \in [x_1, x_2])$$
+
+## Continuous random variables vs. discrete
+
+The PMF of a discrete random variable is always guaranteed to be in the range $[0,1]$, but a PDF can be any non-negative value.
+
+The CDF of discrete random variables is not always continuous, whereas the CDF of a CRV is.
+
+When applying a function to a DRV, you can keep the same PMF (always summing up the probability of events which are mapped to the same value), but with a CRV, you need to account for the stretching of the range, and therefore the changing of the density function.
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
