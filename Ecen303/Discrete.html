@@ -237,7 +237,7 @@ The probability that an item is defective is $0.1$. Find the probability that a 
 
 Here, we can use a binomial random variable with parameters $Bin(10, 0.1)$. In addition, the probability of at most one defective item is:
 
-$$P(X \le 1) = P(X = 0) + P(X = 1) = \left(\begin{array}{c}10 \\ 0\end{array}\right)(0.9)^10(0.1)^0 + \left(\begin{array}{c}10 \\ 1\end{array}\right)(0.9)^9(0.1)^1$$
+$$P(X \le 1) = P(X = 0) + P(X = 1) = \left(\begin{array}{c}10 \\ 0\end{array}\right)(0.9)^{10}(0.1)^0 + \left(\begin{array}{c}10 \\ 1\end{array}\right)(0.9)^9(0.1)^1$$
 
 However, we can also approximate this as a Poisson random variable with $\lambda = np = 1$. Again, we calculate the value at $0$ and $1$:
 

@@ -1,0 +1,185 @@
+# Summary, Part Two
+
+## Discrete Random Variables
+
+Random variables are a mapping from outcomes onto the set of real numbers which allow us to more easily reason about a set of probabilities and manipulate them.
+
+### Probability Mass Function
+
+A PMF is a function describing the probability of reach element of $X$. For example, the PMF of a dice roll is:
+
+$$
+p(x) = \Pr(X = x) = \frac{1}{6},\ \ X = \{1,2,3,4,5,6\}
+$$
+
+### Cumulative Distribution Function
+
+A CDF describes the probability of a variable being less than a value, and also completely describes the set's probabilities:
+
+$$
+F(x) = \Pr(X \le x) = \begin{cases}
+0 & x \lt 1 \\
+\frac{1}{6} & 1 \le x \lt 2 \\
+\frac{2}{6} & 2 \le x \lt 3 \\
+\frac{3}{6} & 3 \le x \lt 4 \\
+\frac{4}{6} & 4 \le x \lt 5 \\
+\frac{5}{6} & 5 \le x \lt 6 \\
+1 & 6 \le x
+\end{cases}
+$$
+
+A random variable must always satisfy the standard probability axioms. So, $F(\infty) = 1$, the CDF is always increasing, and the PMF and CDF are always between 0 and 1.
+
+### Expectations
+
+An expectation is a linear weighted average of the RV. It is defined as:
+
+$$E[X] = \sum\limits_{x \in X} x p(x)$$
+
+This is very similar to the *mean* value of the random variable. Because it is linear, the following are true:
+
+$$E[aX_1 + bX_2 + c] = aE[X_1] + bE[X_2] + c$$
+
+$$
+E\left[\sum\limits_i X_i\right] = \sum\limits_i E[X_i]
+$$
+
+#### Variance
+
+Variance is a non-linear measure of spread. It is defined as:
+
+$$Var[X] = E[(X - E[X])^2] = E[X^2] - (E[X])^2$$
+
+Importantly, since it is not linear:
+
+$$Var[aX + b] = a^2Var[X]$$
+
+### Transformations
+
+New random variables can be created from old ones by applying a function to the old one:
+
+$$Y = g(X)$$
+
+In this case, the new PMF of $Y$ is:
+
+$$p_Y(y) = \Pr(Y=y) = \sum\limits_{x_i : g(x_i) = y} p_X(x_i)$$
+
+This means the PMF of $Y$ is the same as $X$'s, except that we add up all of the elements of $X$ which result in the same $y$.
+
+### Moments
+
+A $n$th-order moment is defined as:
+
+$$E[X^n]$$
+
+Therefore, the expectation is a first order moment. The variance is a second order moment, but because of the subtraction in the formula it is called a *centered* second order moment. A general $n$th-order centered moment is defined as:
+
+$$E[(X - E[X])^n]$$
+
+## Families of Discrete Random Variables
+
+These are special types of discrete random variable which are commonly used:
+
+### Bernoulli
+
+A Bernoulli random variable is a binary one, such as a coin flip. You wither win or lose. It is parameterized by $Bern(p)$, where $p$ is the probability of success.
+
+PMF:
+
+$$
+p(x) = \begin{cases}
+  p & 1 \\
+  (p-1) & 0
+\end{cases}
+$$
+
+CDF:
+
+$$
+F(x) = \begin{cases}
+  0 & x < 0 \\
+  (p-1) & 0 \le x \lt 1 \\
+  1 & 1 \\
+\end{cases}
+$$
+
+Expectation:
+
+$$E[X] = p$$
+
+Variance:
+
+$$Var[X] = p - p^2$$
+
+### Binomial
+
+A Binomial random variable is a series of Bernoulli tests, such as a repeated coin flip. It is parameterized by $Bin(n, p)$, where $n$ is the number of tries and $p$ is the probability of success.
+
+PMF:
+
+$$
+p(x) = \binom{n}{x} p^x(1-p)^{n-x}
+$$
+
+Expectation:
+
+$$E[X] = np$$
+
+### Geometric
+
+A Geometric random variable is like repeating a coin flip until you get a head. It is parameterized by $Geo(p)$, where $p$ is the probability of success.
+
+PMF:
+
+$$
+p(x) = p(1-p)^{x-1}
+$$
+
+Expectation:
+
+$$E[X] = \frac{1}{p}$$
+
+Geometric series are memoryless, meaning the probability of a certain number of flips after getting the first few is the same as an unconditional same amount:
+
+$$P(X = j + k | X \gt k) = P(X = j)$$
+
+### Poisson
+
+A Poisson random variable is a way of modeling a large number of Bernoulli attempts ($n \to \infty$). It is parameterized by $Pois(\lambda)$, where $\lambda = np$.
+
+PMF:
+
+$$
+p(x) = \frac{\lambda^x}{x!}e^{-\lambda}
+$$
+
+Expectation:
+
+$$E[X] = Var[X] = \lambda$$
+
+These are the main few families of random variables. There are a few others, such as:
+
+- Hyper-geometric: a probability when selecting a certain number of objects $m$ from two sets of items, total $N$ and success $n$
+
+$$P(X=k)={\left(\begin{array}{c}N-n \\ m-k\end{array}\right)\left(\begin{array}{c}n \\ k\end{array}\right)\over \left(\begin{array}{c}N \\ m\end{array}\right)}$$
+
+- Negative binomial: a probability looking at a certain number $r$ of successes
+
+$$P(X = k) =\left(\begin{array}{c}k-1 \\ r-1\end{array}\right) (1-p)^{k-r}p^{r-1}p$$
+
+## Continuous Random Variables
+
+Continuous random variables are variables with an uncountably infinite number of values. Because of this, it is impossible to calculate the value of just one outcome, and uses a **probability density function** $f(x)$ to define probabilities instead. The CDF of a continuous variable is given by:
+
+$$F(x) = \Pr(X \le x) = \int\limits_{-\infty}^x f(a)da$$
+
+The differences between a continuous and discrete RV are:
+
+- Continuous RVs have a continuous CDF, discrete do not.
+- Continuous RVs have an uncountably infinite number of values in their set, discrete are finite or countably infinite.
+- Continuous RVs use a PDF instead of a PMF.
+  - A PMF must be between $[0,1]$, a CDF can be any non-negative value.
+- Transforming a continuous RV requires adjusting the PDF by the scaling factor, transforming a discrete RV works by just summing up the values which are mapped to the same $y$. 
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">

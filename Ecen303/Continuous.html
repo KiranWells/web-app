@@ -4,11 +4,13 @@ A continuous random variable $X$ is a random variable which comes from an *uncou
 
 $$F(x) = Pr(X \le x) = \int\limits_{-\infty}^x f(a)da,\ \ \forall x \in \mathbb{R}$$
 
-For some *nonnegative* function $f(x)$. (It must be non-negative to ensure that the CDF is always increasing, and cannot go below 0.)
+For some *nonnegative* function $f(x)$, which is called the **probability density function** (PDF). (It must be non-negative to ensure that the CDF is always increasing, and cannot go below 0.)
 
-In this case, there cannot be a PMF, as individual elements of $X$ are not assigned a specific probability (in fact, $Pr(X=k) = 0$, because the CDF is continuous). *Ranges*, on the other hand, are assigned a probability, meaning the CDF can easily be defined. Instead of a PMF, a **probability density function** (PDF) $f(x)$ is used.
+In this case, there cannot be a PMF, as individual elements of $X$ are not assigned a specific probability (in fact, $Pr(X=k) = 0$, because the CDF is continuous). *Ranges*, on the other hand, are assigned a probability, meaning the CDF can easily be defined. Instead of a PMF, the probability density function $f(x)$ is used.
 
-## Continuous Distribution Function Properties
+## Properties
+
+### Continuous Distribution Function
 
 the CDF of a continuous random variable is by definition continuous. In addition, the conditions for non-negativity, being increasing, and having a range from $[0,1]$ hold true the same as for discrete random variables.
 
@@ -18,7 +20,20 @@ $$f(x) = \frac{dF(x)}{dx}$$
 
 The probability of a range is not dependent on which ends of the range are included:
 
-$$Pr(X \in (x_1, x_2)) = Pr(X \in [x_1, x_2)) = Pr(X \in (x_1, x_2]) = Pr(X \in [x_1, x_2])$$
+$$
+\begin{split}
+Pr(X \in (x_1, x_2))& = Pr(X \in [x_1, x_2))\\ 
+  & = Pr(X \in (x_1, x_2])\\ 
+  & = Pr(X \in [x_1, x_2])\\ 
+  & = F(x_1) - F(x_2) \\
+  & = \int\limits_{-\infty}^{x_2} f(x)dx - \int\limits_{-\infty}^{x_1} f(x) dx\\
+  & = \int\limits_{x_1}^{x_2} f(x)dx
+\end{split}
+$$
+
+### Probability Density Function
+
+The PDF is by definition the density of the probability values evaluated at $x$. 
 
 ## Continuous random variables vs. discrete
 
@@ -27,6 +42,109 @@ The PMF of a discrete random variable is always guaranteed to be in the range $[
 The CDF of discrete random variables is not always continuous, whereas the CDF of a CRV is.
 
 When applying a function to a DRV, you can keep the same PMF (always summing up the probability of events which are mapped to the same value), but with a CRV, you need to account for the stretching of the range, and therefore the changing of the density function.
+
+## Transformation of CRVs
+
+When converting a CRV $X$ with PDF $f_X(\cdot)$ to a $Y = g(X)$, if the inverse of $g^{-1}(y)$ is finite or countably infinite, then $Y$ is also a CRV and we can define its PDF as:
+
+$$
+f_Y(y) = \sum\limits_{x_i: g(x_i) = y} \frac{f_X(x_i)}{|g'(x_i)|}
+$$
+
+This is similar to the transformation of a DRV, where we sum up all of the probabilities which map to a specific $y$. However, we also need to account for any stretching of the density range by dividing by the derivative of the transformation function at those points.
+
+In practice, if the function maps $x$ to $y$ in a one-to-one manner, then there is no summation that needs to take place. This means we can simplify the derivation of $f_Y$ to:
+
+$$f_Y(y) = \frac{f_X(g^{-1}(y))}{|g'(g^{-1}(y))|}$$
+
+~~Example: Transformations
+
+Defining a CRV $X$ and $Y = aX + b$, then $f_Y$ is:
+
+$$x = g^{-1}(y) = \frac{y-b}{a}$$
+$$g'(x) = a$$
+
+$$f_Y(y) = \frac{1}{|a|} f_X\left(\frac{y-b}{a}\right)$$
+
+Defining $Y = X^2$, we need to add both sides of the parabola (for the summation):
+
+$$g^{-1}(y) = \pm\sqrt{y}$$
+$$g'(x) = 2x$$
+
+$$f_Y(y) = \begin{cases}
+
+0, & y \lt 0 \\
+\frac{1}{2\sqrt{y}}\left(f_X(\sqrt{y})+f_X(-\sqrt{y})\right) & y\gt 0
+
+\end{cases}$$
+
+~~
+
+## Families of CRVs
+
+### Uniform
+
+Uniform random variables have the same density over the range which they are defined, $[a,b]$. This means all values are equally likely over their range. Their density function is of the form:
+
+$$
+f(x) = \begin{cases}
+
+\frac{1}{b-a} & a \lt x \lt b \\
+0 & \textrm{otherwise}
+
+\end{cases}
+$$
+
+and CDF:
+
+$$
+F(x) = \begin{cases}
+
+0 & x \lt a \\
+\frac{x-a}{b-a} & a \le x \lt b \\
+0 & b \le x
+
+\end{cases}
+$$
+
+Uniform random variables are denoted $\textrm{Unif}(a, b)$. For any random variable, we can define a transformation to a uniform variable $G(X)$ where $X = G^{-1}(U)$. As long as this function satisfies the requirements for a CDF, we can convert this uniform random variable to the non-uniform one. The new CDF $F_X$ can be found as:
+
+$$
+\begin{split}
+F_X(x) & = Pr(X \le x) \\
+  & = Pr(G^{-1}(U) \le x) \\
+  & = Pr(U \le G(x)) \\
+  & = G(x) 
+\end{split}
+$$
+
+This is useful in the calculation of a random variable in computers, such as in machine learning. 
+
+### Exponential
+
+An exponential random variable is a RV with a PDF defined as an exponential function:
+
+$$
+f(x) = \begin{cases}
+  \lambda e^{-\lambda x} & x \gt 0 \\
+  0 & x \lt 0
+\end{cases}
+$$
+
+and CDF:
+
+$$
+F(x) = \begin{cases}
+  1- e^{-\lambda x} & x \ge 0 \\
+  0 & x \lt 0
+\end{cases}
+$$
+
+This distribution also has the memoryless property:
+
+$$P(X \gt s + t\ |\ X \gt t) = P(X \gt s)$$
+
+<!-- ### Gaussian (normal distribution) -->
 
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">
