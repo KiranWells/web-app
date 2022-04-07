@@ -107,18 +107,24 @@ F(x) = \begin{cases}
 \end{cases}
 $$
 
-Uniform random variables are denoted $\textrm{Unif}(a, b)$. For any random variable, we can define a transformation to a uniform variable $G(X)$ where $X = G^{-1}(U)$. As long as this function satisfies the requirements for a CDF, we can convert this uniform random variable to the non-uniform one. The new CDF $F_X$ can be found as:
+Uniform random variables are denoted $\textrm{Unif}(a, b)$, and a *standard uniform variable* is often denoted $U = \textrm{Unif}(0, 1)$. 
+
+#### Universality Theorem
+
+For any random variable, we can define a transformation to a uniform variable $G(X)$ where $X = G^{-1}(U)$. As long as this function satisfies the requirements for a CDF, we can convert this uniform random variable to the non-uniform one. The new CDF $F_X$ can be found as:
 
 $$
 \begin{split}
-F_X(x) & = Pr(X \le x) \\
-  & = Pr(G^{-1}(U) \le x) \\
-  & = Pr(U \le G(x)) \\
+F_X(x) & = \Pr(X \le x) \\
+  & = \Pr(G^{-1}(U) \le x) \\
+  & = \Pr(U \le G(x)) \\
   & = G(x) 
 \end{split}
 $$
 
-This is useful in the calculation of a random variable in computers, such as in machine learning. 
+In the last step, we use the properties of $U$, where it has a PDF of 1, meaning that $\Pr(U \le G(x))=G(x)$. Essentially, this means that we can find a CDF for a continuous variable $X$ just by finding a transformation from the standard uniform variable to $X$.
+
+This property is useful in the calculation of a random variable in computers, such as in machine learning.
 
 ### Exponential
 
@@ -144,7 +150,99 @@ This distribution also has the memoryless property:
 
 $$P(X \gt s + t\ |\ X \gt t) = P(X \gt s)$$
 
-<!-- ### Gaussian (normal distribution) -->
+These are denoted $\textrm{Exp}(\lambda)$
+
+Using the universality theorem, we can also define an exponential RV as:
+
+$$X = -\frac{1}{\lambda}\log(1-U)$$
+
+### Gaussian (normal distribution)
+
+A gaussian random variable has a PDF:
+
+$$f(x) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$
+
+This creates a normal distribution centered at $\mu$ with a standard deviation $\sigma$. It is parameterized by these two variables as $\textrm{Gauss}(\mu,\sigma^2)$. A *standard Gaussian* random variable is $Z = \textrm{Gauss}(0,1)$.
+
+The CDF is much more complex, and results in:
+
+$$F(x) = \Phi(x) = \frac{1}
+{\sqrt{2\pi}}\int\limits_{-\infty}^{x} e^{-\frac{x^2}{2}}da$$
+
+Transforming a Gaussian random variable is fairly simple, as if $X = \textrm{Gauss}(\mu,\sigma^2)$ and $Y = aX+b$, then $Y$ is:
+
+$$Y = \textrm{Gauss}(a\mu+b,a^2\sigma^2)$$
+
+$$f_Y(y) = \frac{1}{|a|}f_X\left( \frac{y-b}{a} \right) = \frac{1}{\sqrt{2\pi a^2\sigma^2}}e^{-\frac{(x-(a\mu+b))^2}{2a^2\sigma^2}}$$
+
+This makes sense, as the $\mu$ is just an expectation and $\sigma^2$ is just a variance. This also means that any Gaussian RV can be written using the standard gaussian variable as:
+
+$$Y=\sigma Z + \mu $$
+
+The CDF of a standard Gaussian $Z$ is:
+
+$$\Phi(x) = \frac{a}{\sqrt{2\pi}}\int\limits_{-\infty}^{x}e^{-\frac{a^2}{2}}$$
+
+This is extremely difficult to calculate analytically, but it has been recorded for $x\ge 0$ as a *z-table*. Importantly, the distribution here is symmetric around 0, so finding $x\lt 0$ is quite simple. These measurements can then easily be adjusted to get the CDF values for any Gaussian distribution.
+
+For example:
+
+$$
+\begin{align*}
+\Pr(Y \in (a,b)) &= \Pr(a\lt Y\lt b) \\
+  &= \Pr(a \lt \sigma Z + \mu \lt b) \\
+  &= \Pr\left( \frac{a-\mu}{\sigma} \lt Z \lt \frac{a-\mu}{\sigma} \right) \\
+  &= \Phi\left(\frac{a-\mu}{\sigma}\right) - \Phi\left(\frac{a-\mu}{\sigma}\right)
+\end {align*}
+$$
+
+~~Example: Grading on a Curve
+
+Given a set of scores on a test are distributed as $Y = \sigma Z + \mu$, grades are assigned as:
+
+- A: $Y \in (\mu + \sigma, \infty)$
+- B: $Y \in (\mu, \mu + \sigma)$
+- C: $Y \in (\mu - \sigma, \mu)$
+- D: $Y \in (\mu - 2\sigma, \mu - \sigma)$
+- F: $Y \in (-\infty, \mu - 2\sigma)$
+
+~~
+
+## Properties
+
+> Law of Large Numbers  
+> When taking a large number ($\to \infty$) of random measurements, the average of the measurements will approach the expectation.
+
+> Central Limit Theorem  
+> When taking a large number of random measurements, the average of the measurements will behave like a Gaussian variable $\textrm{Gauss}(E[X],(Var[X])^2)$.
+
+These two properties allow us to model measurements in statistics as Gaussian variables with normal distributions, and use that to calculate things like confidence intervals.
+
+Using this property, we can model binomial variables as a series of measurements with either 1 or 0 as their values. This yields another way of approximating a binomial variable, which is useful when $np(1-p)$ is very large.
+
+$$
+Z \approx \frac{X - np}{\sqrt{np(1-p)}}
+$$
+
+Gaussian approximation can be done with the standard $Z$, and range:
+
+$$\Pr(X = x) \approx \Pr(x - p \lt X \lt x + p) = \Pr\left(\frac{x - p - np}{\sqrt{np(1-p)}} \lt Z \lt \frac{x+p - np}{\sqrt{np(1-p)}}\right)$$
+
+## Expectation
+
+Because of their continuity, the expectation of a random variable can be calculated as:
+
+$$
+E[X] = \int\limits_{-\infty}^{\infty} xf(x)dx
+$$
+
+This is essentially the same definition as with a discrete RV, but changed into a continuous form.
+
+Transformation of a variable will change its expectation as ($Y = g(X)$)
+
+$$
+E[Y] = E[g(X)] = \int\limits_{-\infty}^{\infty} g(x)f_X(x)dxd
+$$
 
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">
