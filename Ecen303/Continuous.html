@@ -241,8 +241,78 @@ This is essentially the same definition as with a discrete RV, but changed into 
 Transformation of a variable will change its expectation as ($Y = g(X)$)
 
 $$
-E[Y] = E[g(X)] = \int\limits_{-\infty}^{\infty} g(x)f_X(x)dxd
+E[Y] = E[g(X)] = \int\limits_{-\infty}^{\infty} g(x)f_X(x)dx
 $$
+
+However, the linear property still holds:
+
+$$E[aX + b] = aE[X] + b$$
+
+## Variance
+
+For continuous random variables, variance is defined as:
+
+$$\textrm{Var}[X] = E[(X - \mu)^2] = \int\limits_{-\infty}^{\infty} (x-\mu)^2f(x)dx$$
+
+Similarly to discrete variables:
+
+$$\textrm{Var}[X] = E[X^2] - (E[X])^2$$
+$$\textrm{Var}[aX + b] = a^2\textrm{Var}[X]$$
+
+## Expectation and Variance of Specific Random Variables
+
+### Uniform
+
+For a uniform CRV, $\textrm{Unif}(a,b)$, the expectation and variance are defined by:
+
+$$E[X] = \frac{a+b}{2}$$
+$$E[X^2] = \frac{a^2 + b^2 + ab}{3}$$
+$$Var[X] = \frac{(b-a)^2}{12}$$
+
+Note that for the standard uniform variable, the expectation is $\frac{1}{2}$.
+
+### Exponential
+
+For an exponential CRV, $\textrm{Exp}(\lambda)$, the expectation and variance are defined by:
+
+$$E[X] = \frac{1}{\lambda}$$
+$$Var[X] = \frac{1}{\lambda^2}$$
+
+### Gaussian
+
+For a standard Gaussian CRV, $\textrm{Gauss}(\lambda)$, the expectation is:
+
+$$E[X] = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} xe^{-\frac{x^2}{2}}dx = 0$$
+
+Because it is symmetric around the origin. The second order moment is:
+
+$$E[X^2] = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} x^2e^{-\frac{x^2}{2}}dx$$
+
+This requires an integral by parts with $x$ and $x e^{x^2}$, simplifying it to an integral of the PDF, eventually yielding:
+
+$$E[X^2] = 1$$
+
+Using this, the variance can be computed as:
+
+$$Var[X] = E[X^2] - (E[X])^2 = 1$$
+
+For a non-standard Gaussian RV, we can use the properties of expectation and variance to derive them from the standard:
+
+$$E[Y] = E[\sigma X + \mu] = \sigma E[X] + \mu = \mu$$
+
+$$Var[Y] = Var[\sigma X + \mu] = \sigma^2 Var[X] = \sigma^2$$
+
+One interesting property of the Gaussian variable is that it's distribution is *fully* described by the expectation and variance.
+
+## Cauchy RVs
+
+An interesting random variable is the Cauchy random variable, which has a PDF defined as:
+
+$$
+f_X(x) = \frac{\lambda}{\pi(\lambda^2 + x^2)}
+$$
+
+This RV is interesting because it has no expectation or higher-order moments. In addition, the central limit theorem does not hold for a Cauchy distribution, as it assumes the RV has an expectation.
 
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">

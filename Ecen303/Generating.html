@@ -1,0 +1,122 @@
+# Generating Functions
+
+## Moment Generating Functions
+
+a moment generating function is defined as:
+
+$$
+M_X(s) = E\left[ e^{sX} \right]
+$$
+
+or for continuous random variables:
+
+$$
+M_X(s) = \int\limits_{=\infty}^{\infty} f_X(x)e^{sx}dx
+$$
+
+This is essentially the Laplace transform of the PDF. It is called the moment *generating* function because the $n^{th}$-order moment can be given by:
+
+$$
+\frac{d^n}{ds^n}{M_X}(0) = \frac{d^n}{ds^n}  E\left[ e^{sX} \right] = E\left[  \frac{d^n}{ds^n} e^{sX}  \right]
+$$
+
+~~Example: Transformation
+
+Given a MGF $M_X$ for $X$, the moment for $Y = aX + b$ can be found as:
+
+$$
+M_Y(s) = E\left[ e^{sY} \right] = E\left[ e^{s(aX + b)} \right] = e^{sb}E\left[ e^{saX} \right] = e^{sb}M_X(as)
+$$
+
+~~
+
+~~Example: Standard Gaussian
+
+Given $X$ as a standard Gaussian with PDF:
+
+$$
+f_X(x) = \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}
+$$
+
+The moment of $X$ can be found as:
+
+$$
+\begin{align}
+M_X(s) &= \int\limits_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}} e^{sx}dx \\
+&= \int\limits_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2-2sx}{2}} dx \\
+&= e^{\frac{s^2}{2}} \int\limits_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}} e^{-\frac{x^2-2sx+s^2}{2}} dx \\
+&= e^{\frac{s^2}{2}} \int\limits_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}} e^{-\frac{(x-s)^2}{2}} dx \\
+&= e^{\frac{s^2}{2}} \\
+\end{align}
+$$
+
+The last step is achieved by identifying the integral in the third equation as the integral of the PDF for the Gaussian of $(x-s)$, which is always equal to 1 due to the normalization axiom.
+
+This can then be used to compute the expectation:
+
+$$
+E[X] = \left. \frac{d}{ds} e^{s^2}{2} \right|_{s=0} = 0
+$$
+
+The second order moment can be found as:
+
+$$
+E\left[ X^2 \right] = \left. \frac{d^2}{ds^2} e^{s^2}{2} \right|_{s=0} = \left. e^{\frac{s^2}{2}} + se^{\frac{s^2}{2}} \right|_{s=0} = 1
+$$
+
+This can then be used to find the variance:
+
+$$
+Var[X] = E\left[ X^2 \right] - (E[X])^2 = 1
+$$
+
+~~
+
+~~Example: non-standard gaussian
+
+Here we can use the transformation property for $Y = \sigma X + \mu$:
+
+$$
+M_Y(s) = E\left[ e^{sY} \right] = e^{s\mu}E\left[ e^{s\sigma X} \right] =  e^{s\mu} e^{\frac{(\sigma s)^2}{2}} = e^{s\mu + \frac{s^2\sigma^2}{2}}
+$$
+
+Evaluating to find the expectation and variance:
+
+$$
+E[X] = \left. \frac{d}{ds} e^{s\mu + \frac{s^2\sigma^2}{2}} \right|_{s=0} = \mu
+$$
+
+$$
+E\left[ X^2 \right] = \left. \frac{d^2}{ds^2} e^{s\mu + \frac{s^2\sigma^2}{2}} \right|_{s=0} = \sigma^2 + \mu^2
+$$
+
+$$
+Var[X] = E\left[ X^2 \right] - (E[X])^2 = \sigma^2 + \mu^2 - \mu^2 = \sigma^2
+$$
+
+~~
+
+## Ordinary Generating Function
+
+The ODF, otherwise called the **probability generating function**, is defined as (for discrete random variables):
+
+$$
+G_X(z) = E\left[ z^X \right] = \sum\limits_{k=0}^{\infty} z^k p_X(k)
+$$
+
+This is a different type of transformation. It is called a *probability generating function* because the PDF can be found through the taylor expansion:
+
+$$
+p_X(k) = \frac{1}{k!}\frac{d^k}{dz^k}{G_X}(0)
+$$
+
+For integer-values RVs, the following is true:
+
+$$
+M_X(s) = \sum\limits_{k\in X(\Omega)} e^{sk}p_X(k) = G_X(e^s)
+$$
+
+Both the MGF and OGF capture the full information for a random variable.
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">

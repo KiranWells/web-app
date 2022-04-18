@@ -1,0 +1,86 @@
+
+# Multiple RVs
+
+It is often necessary to deal with multiple random variables at the same time.
+
+## Joint CDF
+
+The most universal measure of an RV is the CDF, as both discrete and continuous RVs have them. We can create a joint CDF for two variables as:
+
+$$
+F(x,y) = Pr(X \le x, Y\le y)
+$$
+
+Where $A,B$ is the same as saying $A\cap B$. This CDF can be split into the two components by taking the probability of one and making the other go to 100% probability:
+
+$$F_X(x) = F(x, \infty) = Pr(X \le x, Y \le \infty)$$
+$$F_Y(y) = F(\infty, y) = Pr(X \le \infty, Y \le y)$$
+
+This is similar to the Total Probability Theorem, where we can split one probability into the combination of several disjoint sections of it. Here, we are adding up all of the probabilities where $X \le x$ for all values of $y$, and therefore $Y \le \infty$.
+
+These separate PDFs are called the *marginal* CDFs.
+
+### Properties
+
+Finding an interval probability $[(x_1, y_1), (x_2, y_2)]$ can be solved as:
+
+$$
+Pr(x_1 \lt X \lt x_2, y_1 \lt Y \lt y_2) = F(x_2, y_2) - F(x_2, y_1) - F(x_1, y_2) + F(x_1, y_1)
+$$
+
+This is an application of the inclusion-exclusion principle.
+
+## Joint PMF
+
+A point PMF is defined similarly:
+
+$$
+p(x,y) = \Pr(X = x, Y = y)
+$$
+
+## Multinomial Random Variables
+
+This is an extension of a binomial random variable, where instead of just a success or failure, there are multiple different results. For example, rolling a die $n$ times and counting all of the times each number comes up. This will create several random variables, $X_1, X_2, \cdots X_6$. The PMF could be described as:
+
+$$
+p_{X_1, X_2, \cdots }(x_1,x_2,\cdots ) = \binom{n}{x_1,x_2,\cdots }p_1^{x_1}p_2^{x_2}\cdots 
+$$
+
+The main limitation is that the outcomes must be independent, and sum to 1:
+
+$$\sum p_i = 1$$
+
+The marginal PMFs can be found as:
+
+$$p_{X_6}(x_6) = \binom{n}{x_6}p_6^{x_6}(1-p)^{n-x_6}$$
+
+## Joint PDF
+
+We can say $X$ and $Y$ are **jointly continuous** if we can define a joint PDF for them $f(x,y)$ where
+
+$$
+Pr((X,Y)\in B) = \int_B f(a,b)da db
+$$
+
+## Conditional Distribution Functions
+
+The conditional PMF is defined as:
+
+$$
+p_{Y|X}(y|x) = \Pr(Y-y|X=x)
+$$
+
+which can be simplified using Bayes' Rule to:
+
+$$\frac{p_{X,Y}(x,y)}{p_X(x)}$$
+
+Two random variables are independent if:
+
+$$\Pr(X\in A, Y\in B) = \Pr(X \in A)\Pr(Y \in B)$$
+
+For any set $B$. In terms of the joint CDF:
+
+$$F(x,y) = F_X(x)F_Y(y) \forall (x,y) \in \mathbb{R}^2$$
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
