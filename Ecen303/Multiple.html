@@ -38,6 +38,40 @@ $$
 p(x,y) = \Pr(X = x, Y = y)
 $$
 
+Because this is just a probability of the intersection, *if the two events are independent* we can write the probability as:
+
+$$p_{XY}(x,y) = \Pr(X = x \cap Y = y) = \Pr(X = x)\Pr(Y = y)$$
+
+If the probabilities are not independent, we can still use total probability theorem to simplify the problem, if it applies.
+
+### Multiple Variables
+
+If you have many random variables, you can always simplify to:
+
+$$
+\begin{align*}
+p(x_1, x_2, x_3 \cdots) &=  \\
+  & p(x_2, x_3 \cdots | x_1)p(x_1) + \\
+  & p(x_1, x_3 \cdots | x_2)p(x_2) + \\
+  & \vdots
+\end{align*}
+$$
+
+Which can be simplified even further to:
+
+$$
+\begin{align*}
+p(x_1, x_2, x_3 \cdots) &=  \\
+  & p(x_3, x_4 \cdots | x_2, x_1)p(x_2|x_1)p(x_1) + \\
+  & p(x_1, x_4 \cdots | x_3, x_2)p(x_3|x_2)p(x_2) + \\
+  & \vdots
+\end{align*}
+$$
+
+And so on. This is difficult to calculate because there will be nearly $2^n$ different probabilities that you need to specify to determine it. This can be approximated by a **Markov Chain Assumption**. This assumes that when looking at a conditional probability at a certain state that you can ignore previous information. In other words, the next step is only dependent on this step, not all of the previous steps. This simplifies the number of probabilities you need to calculate to a linear increase: $\approx 2n$.
+
+See [this link](https://www.geeksforgeeks.org/markov-chain/) for more information.
+
 ## Multinomial Random Variables
 
 This is an extension of a binomial random variable, where instead of just a success or failure, there are multiple different results. For example, rolling a die $n$ times and counting all of the times each number comes up. This will create several random variables, $X_1, X_2, \cdots X_6$. The PMF could be described as:
@@ -46,7 +80,7 @@ $$
 p_{X_1, X_2, \cdots }(x_1,x_2,\cdots ) = \binom{n}{x_1,x_2,\cdots }p_1^{x_1}p_2^{x_2}\cdots 
 $$
 
-The main limitation is that the outcomes must be independent, and sum to 1:
+For this to be valid, the requirement is that the outcomes must be independent, and sum to 1:
 
 $$\sum p_i = 1$$
 
@@ -62,6 +96,43 @@ $$
 Pr((X,Y)\in B) = \int_B f(a,b)da db
 $$
 
+~~Example: Circular probability
+
+A circular area has a uniformly distributed probability of an object being at that location. The joint probability of $x$ and $y$ is given as:
+
+$$
+f_{XY} = \begin{cases}
+c & \sqrt{x^2 + y^2} \le R \\
+0 & \textrm{otherwise}
+\end{cases}
+$$
+
+a) Find the constant $c$ for this to be a valid PDF.
+
+The normalization axiom requires the sum of all the probabilities is 1, so we can take the integral over the entire area:
+
+$$
+\int\limits_0^R \int\limits_0^{2\pi} c r d\theta dr
+$$
+
+$$= \pi R^2 c \to c = \frac{1}{\pi R^2}$$
+
+b) find the marginal distributions $f_X$ and $f_Y$.
+
+Because the distribution is symmetric, $f_X$ will equal $f_Y$, one is just rotated. So, we only need to find $f_X$. This can be found using the joint PDF by summing all possible values of $y$:
+
+$$f_X(x) = \int\limits_{Y_r} f_{XY}(x,y) $$
+
+This means we need to integrate over the $y$ range at $x$, which is $\sqrt{R^2 - x^2}$:
+
+$$
+f_X = \int\limits_{-\sqrt{R^2 - x^2}}^{\sqrt{R^2 - x^2}} \frac{1}{\pi R^2}
+$$
+
+$$= \frac{2\sqrt{R^2 - x^2} }{ \pi R^2} $$
+
+~~
+
 ## Conditional Distribution Functions
 
 The conditional PMF is defined as:
@@ -74,13 +145,116 @@ which can be simplified using Bayes' Rule to:
 
 $$\frac{p_{X,Y}(x,y)}{p_X(x)}$$
 
+For conditional distribution functions:
+
+$$
+f_{X|Y}(x|y) = \frac{f_{X,Y}(x,y)}{f_Y(y)}
+$$
+
+~~Example: Circle revisited
+
+From the previous example, the conditional probability $f_{X|Y}$ can be found as:
+
+$$
+\frac{f_{X,Y}(x,y)}{f_Y(y)} =
+\frac{\frac{1}{\pi R^2}}{\frac{2\sqrt{R^2 - y^2} }{ \pi R^2}}
+= \frac{1}{2\sqrt{R^2-y^2}}
+$$
+
+This can be checked by evaluating the normalization axiom.
+
+~~
+
+## Independence
+
 Two random variables are independent if:
 
 $$\Pr(X\in A, Y\in B) = \Pr(X \in A)\Pr(Y \in B)$$
 
-For any set $B$. In terms of the joint CDF:
+For any set $B$. In other words, $X$ and $Y$ are independent if all of the events inside them are independent. In terms of the joint CDF:
 
-$$F(x,y) = F_X(x)F_Y(y) \forall (x,y) \in \mathbb{R}^2$$
+$$F(x,y) = F_X(x)F_Y(y) \quad \forall (x,y) \in \mathbb{R}^2$$
+
+An therefore:
+
+$$f_{XY}(x,y) = f_X(x)f_Y(y) \quad \forall (x,y) \in \mathbb{R}^2$$
+
+For discrete random variables, $X$ and $Y$ are independent if and only if
+
+$$p_{XY}(x,y) = p_X(x)p_Y(y) \quad \forall (x,y) \in \mathbb{R}^2$$
+
+This can also be extended to more than two random variables. If $X_1$, $X_2$, and $X_3$ are independent, then
+
+$$f(x_1, x_2, x_3) = f(x_1)f(x_2)f(x_3)$$
+
+~~Example
+
+Are $X$ and $Y$ independent if their joint PDF is given as:
+
+$$
+f(x,y) = \begin{cases}
+e^{-(x+y)} & x\gt 0, y\gt 0 \\
+0 & \textrm{otherwise}
+\end{cases}
+$$
+
+To solve this, we need the marginal PDFs.
+
+$$
+f(x) = \int_0^{\infty} e^{-(x+y)}dy = e^{-x}\int e^{-y}dy
+$$
+
+$$= e^{-x}\left( -e^{-\infty} - (-e^{0}) \right) = e^{-x}$$
+
+The same process shows $f(y) = e^{-y}$. Now, we evaluate:
+
+$$f(x,y) \stackrel{?}{=} f(x)f(y)$$
+$$e^{-(x+y)} \stackrel{?}{=} e^{-x}e^{-y}$$
+
+This is true, so they are independent.
+
+~~
+
+## Functions of Random Variables
+
+Given $X$ and $Y$, and a set $Z = g(X,Y)$, we can determine the PDF or PMF of $Z$. If both are discrete:
+
+$$p_Z(z) = \sum\limits_{(x,y):g(x,y) = z} p(x,y)$$
+
+When both are continuous:
+
+$$F_Z(z) = \Pr(Z \le z) = \int\limits_{(x,y):g(x,y) \le z} f(x,y)$$
+
+~~Example: Circle continued
+
+Let $D$ be the distance from the origin. Find the PDF of $D$.
+
+We know $D$ is:
+
+$$D = \sqrt{X^2 + Y^2}$$
+
+we can calculate the CDF of $D$ as:
+
+$$
+F_D(d) = \Pr(D\le d) = \int_D \frac{1}{\pi R^2} dx dy = 
+\begin{cases}
+  0 & r \lt 0 \\
+  \frac{r^2}{R^2} & 0\le r \le R \\
+  1 & r \gt R 
+\end{cases}
+$$
+
+The PDF can then be found by taking the derivative of $F$:
+
+$$
+f_D(d) = \frac{dF_D}{dr} = 
+\begin{cases}
+  0 & r \lt 0, r\gt R \\
+  \frac{2r}{R^2} & 0\le r \le R  
+\end{cases}
+$$
+
+~~
 
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">
