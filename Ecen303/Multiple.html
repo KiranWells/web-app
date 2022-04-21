@@ -213,6 +213,14 @@ $$e^{-(x+y)} \stackrel{?}{=} e^{-x}e^{-y}$$
 
 This is true, so they are independent.
 
+b) Find $\Pr(Y \le X)$
+
+To do this, we can find the integral of the region where $y\le x$:
+
+$$\int_0^\infty \int_y^\infty e^{-(y+z)}dxdy$$
+
+$$\int_0^\infty e^{-y} \left( \int_y^\infty e^{-x}dx\right)dy  = \int_0^\infty e^{-2y} = \frac{1}{2}$$
+
 ~~
 
 ## Functions of Random Variables
@@ -255,6 +263,123 @@ f_D(d) = \frac{dF_D}{dr} =
 $$
 
 ~~
+
+### Sum of two RVs
+
+Given $Z = X+Y$ and $X$ and $Y$ are independent, find $F_Z(z)$.
+
+This is a simple application of the definition:
+
+$$F_Z(z) = \Pr(X+Y \le z) = \iint_{x+y\le z} f_{XY}(x,y)$$
+
+Which will be:
+
+$$
+\begin{align*}
+\int_{-\infty}^\infty \int_{-\infty}^{z-y} f_X(x)f_Y(y)dxdy \\
+=\int_{-\infty}^\infty f_Y(y)F_x(z-y)dy
+\end{align*}
+$$
+
+and the PDF will be:
+
+$$
+f_Z(z) = \frac{dF_Z}{dz} = \int_{-\infty}^\infty f_Y(y)f_X(z-y)dy
+$$
+
+Which is the convolution of two functions.
+
+~~Example: Square
+For example, take the PDF:
+
+$$
+f_{XY}(x,y) = \begin{cases} 1 & 0 \lt x \lt 1, 0 \lt y \lt 1 \\ 0 & \textrm{otherwise}\end{cases}
+$$
+
+Finding the PDF of $Z = X + Y$ is evaluating:
+
+$$
+\int_{0}^1 f_Y(y)f_X(z-y)dy
+$$
+
+Which can simplify (if we restrict $y$ to $[0,1]$) to:
+
+$$
+\int_{0}^1 f_X(z-y)dy
+$$
+
+Now, we can calculate the integral for the regions of $z$ which are valid for the range $y \in [0,1]$. Here, $f_X$ is one only if $0 \lt z - y \lt 1$. On the interval $0\lt z\lt 1$, the function is only one for $0\lt y\lt z$, so the integral simplifies to
+
+$$
+\int_0^z 1dy,\quad 0\lt z \lt 1
+$$
+
+Which is:
+
+$$z$$
+
+On the region $1\lt z \lt 2$, the function is only one for $z-1 \lt y \lt 1$, so the integral simplifies to
+
+$$
+\int_{z-1}^1 1dy,\quad 1\lt z \lt 2
+$$
+
+Which is:
+
+$$2-z$$
+
+So the PDF is:
+
+$$
+f_Z(z) = \begin{cases} z & 0 \lt z \lt 1 \\ 2-z & 1\lt z \lt 2  \end{cases}
+$$
+
+~~
+
+## Expectation
+
+Given some transformed RV $Z = g(X,Y)$, we can calculate the expectation of $Z$:
+
+$$
+\begin{gather*}
+E[Z] = \int zf_Z(z)dz \\ 
+\downarrow \\ 
+E[g(x,y)] = \int g(x,y)f_{XY}(x,y)dxdy
+\end{gather*}
+$$
+
+The same process can be done with discrete random variables, replacing the integral with a summation.
+
+### Sum Expectation
+
+$$
+\begin{align*}
+E[X+Y] &= \int_{-\infty}^\infty \int_{-\infty}^\infty (x+y)f(x,y)dxdy\\
+  &= E[X] + E[Y]
+\end{align*}
+$$
+
+This is true *regardless* of whether $X$ and $Y$ are independent.
+
+### Product Expectation
+
+*If $X$ and $Y$ are independent*:
+
+$$E[XY] = E[X]E[Y]$$
+
+This is true for any $g(x,y)$ which can be factored into two functions, $h(x)j(y)$:
+
+$$E[g(x,y)] = E[h(X)]E[j(y)]$$
+
+Again, *if the expectations are independent*.
+
+<!-- ~~Example: Gaussian
+
+Given $Z = X+Y$ and $X$ and $Y$ are independent Gaussian variables, find $F_Z$.
+
+Because these are independent, we can use the moment generating function to create the expectation of the summation, showing it is just the product of the expectations of $X$ and $Y$. The same process can then be used to calculate the higher order moments and variance, which fully describes a Gaussian random variable.
+
+~~ -->
 
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">
