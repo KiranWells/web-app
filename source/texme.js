@@ -4,7 +4,7 @@ script.src = "https://cdn.jsdelivr.net/npm/texme"
 window.document.head.appendChild(script)
 
 // global variables for the theme
-let themes = ["Dark", "Light", "Monotone", "Tropical", "Summer", "Hyperlight", "Gruvbox", "Everforest"];
+let themes = ["Dark", "Light", "Monotone", "Tropical", "Summer", "Hyperlight", "Gruvbox", "Everforest", "Ayu"];
 
 let currentTheme = "Dark";
 function changeTheme(name) {
