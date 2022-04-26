@@ -138,7 +138,7 @@ $$= \frac{2\sqrt{R^2 - x^2} }{ \pi R^2} $$
 The conditional PMF is defined as:
 
 $$
-p_{Y|X}(y|x) = \Pr(Y-y|X=x)
+p_{Y|X}(y|x) = \Pr(Y=y|X=x)
 $$
 
 which can be simplified using Bayes' Rule to:
@@ -361,6 +361,59 @@ $$
 
 This is true *regardless* of whether $X$ and $Y$ are independent.
 
+The variance, on the other hand, ends up being:
+
+$$
+\begin{align*}
+Var[X+Y] &= E[(X+Y-E[X+Y])^2] \\
+  &= E[(X-E[X]+Y-E[Y])^2] \\
+  &= E[(X-E[X])^2] + E[(Y-E[Y])^2] + 2E[(X-E[X])(Y-E[Y])] \\
+  &= Var[X] + Var[Y] + 2E[(X-E[X])(Y-E[Y])] \\
+  &= Var[X] + Var[Y] + 2Cov(X,Y)
+\end{align*}
+$$
+
+Where the last term, $E[ (X-E[X]) (Y-E[Y]) ]$ is called the **covariance** of $X$ and $Y$. A related value, the **Pearson Correlation**, is:
+
+$$\rho (X,Y) = \frac{Cov(x,y)}{\sqrt{Var[X]}\sqrt{Var[X]}}$$
+
+If $X$ and $Y$ are independent, then the Covariance simplifies to:
+
+$$Cov(X,Y) = E[X-E[X]]E[Y-E[Y]] = (E[X] - E[X])(E[Y] - E[Y]) = 0$$
+
+This means that if $X$ and $Y$ are independent, the covariance is $0$, and the variance of the sum is the sum of the variance:
+
+$$ Var[X + Y] = Var[X] + Var[Y] + 2Cov(X,Y) = Var[X] + Var[Y] $$
+
+~~Example: circle expectation
+
+From the previous examples, we have derived the PDF as:
+
+$$f_D(r) = \frac{2r}{R^2},\quad 0 \le r \le R$$
+
+Therefore, the expectation can be easily calculated as:
+
+$$
+E[D] = \int_0^R \frac{2r^2}{R^2}dr
+$$
+
+Which simplifies to:
+
+$$ \frac{2}{R^2}\frac{R^3}{3} = \frac{2}{3}R $$
+
+Alternatively, we can use the tranformation to calculate it:
+
+$$
+\begin{align*}
+E[D] &= E[\sqrt{X^2 + Y^2}] \\
+     &= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} \sqrt{x^2 + y^2}f(x,y)dxdy \\
+     &= \frac{1}{\pi R^2} \int_0^{2\pi} \int_0^R r^2 dr d\theta \\
+     &= \frac{2}{3}R
+\end{align*}
+$$
+
+~~
+
 ### Product Expectation
 
 *If $X$ and $Y$ are independent*:
@@ -380,6 +433,52 @@ Given $Z = X+Y$ and $X$ and $Y$ are independent Gaussian variables, find $F_Z$.
 Because these are independent, we can use the moment generating function to create the expectation of the summation, showing it is just the product of the expectations of $X$ and $Y$. The same process can then be used to calculate the higher order moments and variance, which fully describes a Gaussian random variable.
 
 ~~ -->
+
+~~Practice: true or false
+
+$$ E\left[\frac{X}{Y}\right] = \frac{E[X]}{E[Y]} $$
+
+This is **false**. This is a nonlinear function, so we cannot simplify using the linearity property of the expectation.
+
+However, *if $X$ and $Y$ are independent*, then the following is true:
+
+$$E[XY] = E[X]E[Y]$$
+
+Which, if we change $Y$ to $\frac{1}{Y}$, we get:
+
+$$ E\left[\frac{X}{Y}\right] E\left[X\frac{1}{Y}\right] = E[X]E\left[\frac{1}{Y}\right]$$
+
+~~
+
+<!-- ~~Practice: lambda
+
+Given the number of customers in a restaurant is a Poisson RV with $\lambda = 100$. Each person that enters is a male with probability $0.6$ and female with probability $0.4$. $X$ is the number of males and $Y$ is the number of females.
+
+a) are $X$ and $Y$ independent?
+
+We need to prove $p_{XY}(x,y) = p_X(x)p_Y(y)$.
+
+~~ -->
+
+## Conditional Expectation
+
+Conditional expectation is defined as:
+
+$$E_{X|Y}[X|Y] = \int_{\Omega_x} xf_{x|y}(x|y)dx $$
+
+This will be a random variable which is dependent on $y$, because it is conditioned on it.
+
+### Adam's Law
+
+The expectation of the conditional expectation:
+
+$$E_Y[E_{X|Y}[X|Y]] = E_Y[g(Y)] = E_X[X]$$
+
+This can be used to calculate the expectation of $X$ without directly calculating it, which is useful if it is very complex. It is similar to the divide-and-conquer approach which we used with total probability theorem.
+
+<!-- This is related to **Eve's Law**:
+
+$$Var[X] = E[Var[X|Y]] + Var$$ -->
 
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">
