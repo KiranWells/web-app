@@ -1,0 +1,200 @@
+# Summary, Part Three
+
+## Continuous Random Variables
+
+### Distribution Functions
+
+Continuous Random variables do not have a PMF, as the probability of any one item would be 0. Instead, they use Probability Density Functions, which are used to describe the density of the distribution. They are defined in conjunction with the Cumulative Distribution Function:
+
+$$
+F(x) = \int_{-\infty}^x f(x)dx
+$$
+
+The PDF can then be found by taking the derivative:
+
+$$
+f(x) = \frac{dF}{dx}
+$$
+
+#### Properties
+
+The CDF and PDF have to follow the same principles for non-negativity and normalization as normal. In particular, the CDf must be non-negative, increasing and continuous, as well as approaching one at infinity, and the PDF must be non-negative. The PDF can actually have a value much greater than one, as it is a density function, not actually the probability at any one point. In addition, whether of not the ends are included in a region does not affect the value CDF.
+
+### Transformation
+
+Continuous random variables can be transformed similarly to discrete RVs, but they must be adjusted to account for the stretching of the density. Given $Y = g(X)$
+
+$$
+f(y) = \sum\limits_{x| g(x) = y} \frac{f(x)}{|g'(x)|}
+$$
+
+and $x$ can be replaced with $g^{-1}(y)$ if necessary.
+
+### Expectation and Variance
+
+The expectation of a Continuous Random Variable is defined as:
+
+$$
+E[X] = \int_{-\infty}^{\infty} xf(x)dx
+$$
+
+Variance can be computed according to the normal equation.
+
+### Families
+
+#### Universal
+
+A uniform random variable $X \sim Unif(a,b)$ is defined to have a PDF:
+
+$$
+f(x) = \frac{1}{b-a}, \quad a\le x \le b
+$$
+
+And CDF:
+
+$$
+F(x) = \frac{x-a}{b-a}, \quad a\le x \le b
+$$
+
+The **standard uniform vairable** $U$ is defined as $Unif(0,1)$. In theory, every other CRV can be expressed as a transformation of this one.
+
+#### Exponential
+
+A uniform random variable $X \sim Exp(\lambda)$ is defined to have a PDF:
+
+$$
+f(x) = \lambda e^{-\lambda x}, \quad x \gt 0
+$$
+
+And CDF:
+
+$$
+F(x) = 1-e^{-\lambda x}, \quad x \gt 0
+$$
+
+
+#### Gaussian
+
+A uniform random variable $X \sim Gauss(\mu, \sigma^2)$ is defined to have a PDF:
+
+$$
+f(x) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}
+$$
+
+The Uniform Gaussian $Z$ is defined as $Gauss(0,1)$. It has a CDF of:
+
+$$
+F(x) = \Phi(x) = \frac{1}
+{\sqrt{2\pi}}\int\limits_{-\infty}^{x} e^{-\frac{a^2}{2}}da
+$$
+
+This can be used to approximate binomial random variables by adjusting and scaling it to the standard gaussian, which is useful when $np(1-p)$ is very large (as opposed to Poisson approximations).
+
+$$
+Z \approx \frac{X - np}{\sqrt{np(1-p)}}
+$$
+
+## Multiple Random Variables
+
+### Distribution Functions
+
+The joint distribution functions for random variables are fairly simple in theory:
+
+$$
+\begin{gather*}
+  p_{XY}(x,y) = \Pr(X = x, Y = y) \\
+  F_{XY}(x,y) = \Pr(X \le x, Y \le y)
+\end{gather*}
+$$
+
+The separate distributions of $x$ and $y$ can be found as:
+
+$$p_X(x) = \int_Y p_{XY}(x,y)dy$$
+
+And the same holds for each distribution function. Conditional distributions can be found as:
+
+$$
+\begin{align*}
+p_{X|Y}(x|y) &= \Pr(X=x|Y=y) \\
+  &= \frac{p_{XY}(x,y)}{p_Y(y)}
+\end{align*}
+$$
+
+### Independence
+
+If $X$ and $Y$ are independent:
+
+$$
+p_{XY}(x,y) = p_X(x)p_Y(y)
+$$
+
+### Transformation
+
+Given some $Z = g(X,Y)$:
+
+$$
+F_Z(z) = \int\limits_{(x,y)|g(x,y) \le z} f_{XY}(x,y)dxdy
+$$
+
+One example is the sum of two variables, $Z = X+Y$ where $X$ and $Y$ are independent:
+
+$$
+\begin{align*}
+F_Z(z) &= \int\limits_{(x,y)|g(x,y) \le z} f_{XY}(x,y)dxdy \\
+&= \int\limits_{-\infty}^{\infty}\int\limits_{-\infty}^{z-y} f_X(x)f_Y(y)dxdy \\
+&= \int\limits_{-\infty}^{\infty} F_X(z-y)f_Y(y)dy \\
+\frac{dF_Z}{dz} &= \int\limits_{-\infty}^{\infty} f_X(z-y)f_Y(y)dy
+\end{align*}
+$$
+
+Which is a convolution integral.
+
+
+### Expectation and Variance
+
+The expectation of a MRV can be found as:
+
+$$
+\begin{align*}
+E[Z] &= \int_{-\infty}^{\infty} zf_Z(z)dz \\
+E[g(X,Y)] &= \int_{-\infty}^{\infty} g(x,y)f_{XY}(x,y)dz 
+\end{align*}
+$$
+
+And variance can be found using the normal equations.
+
+#### Properties
+
+It is still true that:
+
+$$E[X+Y] = E[X] + E[Y]$$
+
+Variance, on the other hand, will have a covariance factor associated with it:
+
+$$
+Var[X+Y] = Var[X] + Var[Y] + 2Cov(X,Y)
+$$
+
+The covariance is 0 when $X$ and $Y$ are independent.
+
+Where the covariance is:
+
+$$
+2E[(X-E[X])(Y-E[Y])]
+$$
+
+Pearson Correlation is given by:
+
+$$
+\rho(x,y) = \frac{Cov(X,Y)}{\sqrt{Var[X]}\sqrt{Var[Y]}}
+$$
+
+<!-- - joint multivariant gauss
+  - covariance matrix
+  - affine transformation
+    - jacobian matrix
+
+$$f_{\vec x} (\vec x)|d\vec x| = f_{\vec y} (\vec y)|d\vec y|$$ -->
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">

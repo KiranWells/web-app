@@ -1,0 +1,62 @@
+# Convergence
+
+<!-- - $\Pr(A\cup B) \le \Pr(A) + \Pr(B)$
+- $-1\le \rho \le 1$
+- Markov Inequality -->
+
+## Chebyshev Inequality
+
+Given $X$ as a random variable with mean $\mu$ and variance $\sigma^2$:
+
+$$P(|X-\mu|\ge c)\le \frac{\sigma^2}{c^2}\qquad \forall c \gt 0$$
+
+This is universally true, for any variable with expectation and variance. It is derived from the Markov Inequality:
+
+### Markov Inequality
+
+For a set $S \in \mathbb{R}$:
+
+$$\Pr(X \in S) = E[1_S(X)] $$
+
+Taking some value $a$ where $S = [a,\infty)$, we have $\frac{x}{a}\ge 1_S(x)$.
+
+$$\Pr(X \ge a) = E[1_S(X)] \le \frac{E[X]}{a}$$
+
+This can be used with $S = \{x|(x-\mu^2\ge c^2 \}$ to prove the Chebyshev Inequality.
+
+## The Weak Law of Large Numbers
+
+Given several RVs $X_1, X_2, ...$ are independent and identically distributed with mean $\mu$, and a sample mean $M_n = \frac{X_1 + X_2 \cdots}{n}$, we can say (for a small $\epsilon$ and large $n$):
+
+$$
+\Pr(|M_n - \mu| \ge \epsilon) \to 0
+$$
+
+This means that there is a high probability that given a large number of samples of a random system, their sample average will approach the true average. This is useful for statistics, where we can use the mean of a large number of measurements to approximate the true value.
+
+## Central Limit Theorem
+
+Given the samples from before, define a variable $Z_n$:
+
+$$
+Z_n = \frac{X_1 + X_2 \cdots -n\mu}{\sigma \sqrt{n}}
+$$
+
+Then the CDF of $Z_n$ converges to the standard Gaussian CDF. This means that a large number of samples will imitate a Gaussian distribution.
+
+## DeMoivre-Laplace Theorem
+
+Given a Binomial variable $S_n$ which is the sum of Bernoulli variables:
+
+$$S_n = X_1 + X_2 \cdots$$
+
+By the central limit theorem:
+
+$$
+S_n - np \over \sqrt{np(1-p)}
+$$
+
+Is approximately the standard Gaussian.
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
