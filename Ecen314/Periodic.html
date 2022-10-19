@@ -1,0 +1,266 @@
+
+# Periodic Signals
+
+Periodic signals are signals which repeat. Formally, it means that there is an offset $T$ for which for all $t$ the following is valid:
+
+$$x(t) = x(t+T),\ T \in \mathbb{R}$$
+
+The smallest $T$ which satisfies this is called the **fundamental period**. If $T_0$ is the fundamental period, then all multiples of $T_0$ ($2T_0, 3T_0, ...$) are all periods of $x(t)$.
+
+The frequency is the inverse of the period.
+
+$$f = \frac{1}{T}$$
+
+where $f$ is measured in $Hz$ or $\frac{1}{s}$ and $T$ is measured in $s$. Note that we will often use angular frequency (measured in $\frac{rad}{s}$), which is:
+
+$$w = 2\pi f$$
+
+A discrete time signal is periodic if there is an $N$ which satisfies:
+
+$$x[n] = x[n+N],\ N \in \mathbb{Z}$$
+
+This is very similar to the previous case, but keep in mind that the period *must be an integer*. As before, the fundamental period is the smallest valid value of N, frequency is given as $F = \frac{1}{N}$, and angular frequency is $\Omega = 2\pi F$
+
+## Even and Odd Signals
+
+A signal is even if it is symmetrical about the vertical axis:
+
+$$
+\begin{gather*}
+x(t) = x(-t)\\
+x[n] = x[-n]
+\end{gather*}
+$$
+
+It is odd if the negative time region is the inverse of the positive region:
+
+$$
+\begin{gather*}
+x(t) = -x(-t)\\
+x[n] = -x[-n]
+\end{gather*}
+$$
+
+### Decomposition
+
+Every signal can be decomposed as the unique sum of an even and odd signal.
+
+$$x(t) = x_e(t) + x_o(t)$$
+
+The same is true for both continuous and discrete time signals.
+
+~~Proof
+
+Given x(t) is a signal, it can be written as:
+
+$$x(t) = \frac{x(t)}{2} + \frac{x(t)}{2}$$
+
+And adding and subtracting the same value:
+
+$$x(t) = \frac{x(t)}{2} + \frac{x(t)}{2} + (\frac{x(-t)}{2} - \frac{x(-t)}{2})$$
+$$x(t) = \frac{x(t) + x(-t)}{2} + \frac{x(t) - x(-t)}{2}$$
+
+Here, $\frac{x(t) + x(-t)}{2}$ is even and $\frac{x(t) - x(-t)}{2}$ is odd.
+
+$$
+\begin{align*}
+x_e(t) = \frac{x(t) + x(-t)}{2} \\
+x_o(t) = \frac{x(t) - x(-t)}{2}
+\end{align*}
+$$
+
+You can do the same with DT, giving:
+
+$$
+\begin{align*}
+x_e[n] = \frac{x[n] + x[-n]}{2} \\
+x_o[n] = \frac{x[n] - x[-n]}{2}
+\end{align*}
+$$
+
+~~
+
+~~Example 1
+
+Given a discrete signal which is zero except for at $t=3$, where it is $2$, find $x_e$ and $x_o$.
+
+Here, we end up with a signal which is $1$ at $t=3,-3$ and a signal which is $1$ at $t=3$ and $-1$ at $t=-3$. When added, the points at $t=-3$ will cancel out, and the points at $t=3$ will add, giving the original signal.
+
+Try drawing the signals, it will be much more clear.
+
+~~
+
+### Integrals
+
+An integral over an even integral (symmetric integral) of an odd function will always be 0, as there will be equal values on either side of $t=0$. On the other hand, a symmetric integral of an even function will be twice the integral over one side, since the values will be identical on either side of $t=0$.
+
+## Elementary Signals
+
+These are signals which are the building blocks of all other signals; any other function can be broken down into a linear combination of some of these other signals.
+
+### Unit Signal (Step)
+
+$$u(t) = \begin{cases} 0 & t \lt 0 \\ 1 & t \ge 0\end{cases}$$
+
+This is a very simple signal which has a value of 1 in the positive $t$ region.
+
+### Dirac-Delta Signal (Impulse)
+
+$$\delta(t) = \begin{cases} \infty & t = 0 \\ 0 & t \ne 0\end{cases}$$
+
+This is a much more complex function. It is defined by its integral:
+
+$$\int\limits_{-\infty}^{\infty} \delta(t) = 1$$
+
+And is zero for all $t\ne0$. It is used to mathematically sample a function, allowing us to convert continuous signals into discrete signals. Note that this function also exists for discrete time, where it is simply 1 at $t=0$.
+
+The discrete version of this signal is interesting because it can be combined to create *any* discrete signal by scaling and shifting it:
+
+$$x[n] = A\delta[n-b] + C\delta[n-d] + ...$$
+
+A continuous signal can be converted to a discrete signal with something like this:
+
+$$
+x[n] = \sum\limits_{n \to \infty} x(t) \delta[n - N]
+$$
+
+### Sinusoidal/Complex Exponential Signal
+
+The Fourier transform tells you that you can rewrite nearly any signal into a combination of sinusoidal signals, so these are an extremely important set of signals.
+
+The elementary signal is really:
+
+$$x(t) = Ce^{j\omega_0t},\ C \in \mathbb{C},\ \omega_0 \in \mathbb{R}$$
+
+Generally we can simplify this in concept by setting $C=1$; this becomes a simple *periodic* signal which can be represented as a rotating value in the complex plane.
+
+<!-- $$\sin(t)$$
+$$x(t) = Ce^{at},\ C,a \in \mathbb{C}$$
+
+If both $a$ and $C$ are real, then this is called a **real exponential**. Otherwise, the equation can still be broken down into a real and complex exponential -->
+
+The fundamental period for this function is $T_0 = \frac{2\pi}{\omega_0}$.
+
+Looking at this equation, and the real and imaginary portions, we can see that the phase is unrelated to the period (or frequency). It represents a shift in time to one side or another.
+
+The energy of periodic signals is always $\infty$. This is because the signals extends infinitely, meaning it increases in energy forever. The power, because it represents an average, can be calculated by taking only one period. 
+
+~~Example 2
+
+Find the energy and power of the periodic signal $x(t) = 2e^{j\omega_0 t}$.
+
+$$E_{\infty} = \infty$$
+
+$$E_{period} = \int_0^{T_0} \left| 2e^{j\omega_0 t} \right|^2 dt = \int_0^{T_0} 4 dt = 4T_0$$
+
+$$P_{period} = \frac{E_{period}}{T_0} = 4$$
+
+$$P_{\infty} = \lim\limits_{T\to\infty} \frac{1}{2T} \int_{-T}^T \left| 2e^{j\omega_0 t} \right|^2 dt = 4$$
+
+~~
+
+#### Discrete Signals
+
+With discrete signals, periodicity is a bit more complicated for the sinusoidal function. This is because the period must also be exactly an integer.
+
+$$x[n] = x[n + N] \to e^{j\Omega_0 n} = e^{j\Omega_0 (n+N)}$$
+
+$$e^{j\Omega_0 N} = 1$$
+
+$$\Omega_0 N = 2\pi k,\ k \in \mathbb{Z}$$
+
+$$N = \frac{2\pi}{\Omega_0}k,\ N \in \mathbb{Z}$$
+
+However, we must ensure that $N$ is still an integer, meaning that $\Omega_0$ must cancel out the $\pi$.
+
+For example, $x[n] = \cos\left[\frac{2\pi}{12}n\right]$ gives:
+
+$$N = \frac{2\pi}{\frac{2\pi}{12}}k,\ N \in \mathbb{Z}$$
+$$N = 12k,\ N \in \mathbb{Z}$$
+
+Therefore, taking $k=1$ as the smallest integer value of both $N$ and $k$, $N=12$.
+
+~~Example 3
+
+$$g[n] = \sqrt{3}\cos\left(\frac{5\pi}{11}n + \theta\right)$$
+
+$$N = \frac{2\pi}{\frac{5\pi}{11}}k = \frac{22}{5}k$$
+
+We can take $N=22$ for $k=5$.
+
+~~
+
+When combining signals, you need to find the period carefully for the combination, as there is no one rule to determine the periodicity of a combination of periodic signals.
+
+~~Example 4
+
+$$x[n] = e^{j\frac{2\pi}{5}n} + \sin{\frac{3\pi}{2}n}$$
+
+The period of the first exponential is:
+
+$$N_1 = \frac{2\pi}{\frac{2\pi}{5}}k = 5,\ k=1$$
+
+and the second:
+$$N_2 = \frac{2\pi}{\frac{3}{2}\pi}k = \frac{4}{3}k = 4,\ k = 3$$
+
+Through reasoning, you could guess that the combined $N$ is $N = 20$, because that multiple will be a period for both the first and second.
+
+~~
+
+## Properties of periodic signals
+
+### Continuous
+
+$$x(t) = e^{j\omega_0 t}$$
+
+This is always periodic with a fundamental period $T_0 = \frac{2\pi}{\omega_0}$.
+
+The portion $\omega_0$ is related to the frequency of $x(t)$. The larger $\omega_0$ is, the faster $x_1$ oscillates and the higher the frequency. In addition, no two continuous signals will have the same $\omega_0$
+
+### Discrete
+
+$$x[n] = e^{j\Omega_{0}n}$$
+
+This may or may not be periodic; if the fundamental period $N_0 = k\frac{2\pi}{\Omega_0}$ is not an integer, it is not periodic. Note that $k$ is the smallest integer for which $N$ is an integer.
+
+In contrast to the continuous time case, there can be two identical discrete time signals with different values of $\Omega_0$. In addition, the value of $\Omega_0$ is not directly tied to the frequency of the signal.
+
+## Delta and unit Function
+
+In the CT case, the delta function is defined by:
+
+$$\delta(t) = 0, t \ne 0$$
+$$\int\limits_{-\infty}^{\infty} \delta(t) = 1$$
+
+We can also define $u(t)$ in terms of $\delta(t)$:
+
+$$u(t) = \int\limits_0^{\infty} \delta(t - \sigma) d\sigma = \begin{cases}1 & t\ge 0 \\ 0 & t \lt 0 \end{cases}$$
+
+Note that in a certain sense, we are integrating backwards from t to $-\infty$. This will be 0 if $t \lt 0$.
+
+This also means that the delta function is the derivative of the unit function.
+
+### Sifting property
+
+The delta function has an effect called the "sifting property", which is extremely useful.
+
+$$x[n]\delta[n - n_0] = n[n_0]\delta[n - n_0]$$
+$$\sum\limits_{n=0}^{\infty} x[n]\delta[n - n_0] = x[n_0]$$
+
+The same is valid for the continuous time case.
+
+~~Example 5
+
+Using these properties, we can calculate derivatives of some strange functions. For example:
+
+$$x(t) = t^2u(t - 2) - 2u(t - 4)$$
+
+$$x'(t) = \frac{d}{dt}(t^2 u(t-2)) + \frac{d}{dt}(-2u(t - 4))$$
+$$x'(t) = \frac{d}{dt}(t^2)u(t-2) + t^2\frac{d}{dt}(u(t-2)) + \frac{d}{dt}(-2u(t - 4))$$
+$$x'(t) = 2tu(t-2) + t^2\delta(t-2) -2\delta(t - 4)$$
+$$x'(t) = 2tu(t-2) + 4\delta(t-2) -2\delta(t - 4)$$
+
+~~
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">

@@ -1,0 +1,406 @@
+# Systems
+
+In this course, we mostly deal with single input and output systems. We call input **excitation** and output **response**. In a sense, a system can be treated as a black box; where we can abstract away the internals and represent it as its inputs and outputs (usually as functions).
+
+Systems are modeled as outputs $y(t)$ and inputs $x(t)$. A system might look like this:
+
+$$y(t) = 4x(2t) + 5$$
+
+I will model abstract systems as:
+
+$$x(t) \stackrel{S}{\to} y(t)$$
+
+## Properties
+
+### Memory
+
+A **memoryless** system is a system which does not have memory, meaning the output at any time only depends on the input at that time. It does not care about past or future input values to calculate outputs.
+
+~~memory examples
+
+1. $$y(t) = x(t) + 5$$
+
+This is memoryless because it does not use any value of $x$ other than at $t$
+
+2. $$y(t) = \sin(x(t)) - \cos(x(t-1))$$
+
+This system has memory, because $y$ depends on $x(t-1)$.
+
+3. $$y[n] = 3n x^2[n]$$
+
+This system has memory, because $y$ depends only on $x[n]$ and n. Note that $3n$ is not a future input, that would be $x[3n]$.
+
+~~
+
+### Invertibility
+
+A system is **invertible** if it can be undone. This means that you can construct another **inverse system** which has the opposite effect:
+
+$$x(t) \stackrel{H}{\to} y(t)$$
+$$y(t) \stackrel{H^{inv}}{\to} x(t)$$
+
+In order to prove intertibility you must find $H^{inv}$, and to disprove it, you must find two distinct inputs that give the same output.
+
+There are some systems where proving or disproving invertibility is very difficult.
+
+~~invertibility examples
+
+1. $$y(t) = Ax(t - 1) + b, A \ne 0$$
+
+This system is invertible:
+
+$$w(t) = \frac{y(t+1) - b}{A}, A \ne 0 = x(t)$$
+
+2. $$y(t) = cos(x(t)+2)$$
+
+This is not invertible, as $t = 0$ and $t = 2\pi$ give the same output.
+
+3. $$y[n] = 4$$
+
+This is not invertible, as all inputs give the same output.
+
+~~
+
+### Causality
+
+A system is **causal** if it only depends on previous (and current) inputs, meaning it does not look into the future. Note that memoryless systems are a subset of causal systems: they only depend on current inputs. All physical systems must be causal, as they cannot see the future.
+
+~~causality examples
+
+1. $$y(t) = x^3(t-2)$$
+
+This is causal, as it only depends on $x(t-2)$, which is a past value.
+
+2. The inverse of the system above.
+
+This is not causal, as the inverse system will be:
+
+$$x(t) = \sqrt[\frac{1}{3}]{y(t+2)}$$
+
+This will depend on future values of $y$.
+
+~~
+
+### Stability
+
+A stable system is one which has **Bounded-Input Bounded-Output**. This means that inputs which are not infinite will not create infinite outputs. The definition is:
+
+$$
+\begin{gather*}
+x(t) \stackrel{S}{\to} y(t) \\
+|x(t)| \le M_x \lt \infty \to |y(t)| \le M_y \lt \infty, \forall t
+\end{gather*}
+$$
+
+In order to prove stability, you must find the bound $M_y$ of $y(t)$. To disprove it, you must take a bounded input and show it creates an unbounded output.
+
+~~stability examples
+
+<!-- 1. $$y(t) = \tan^{-1}(x(t))$$
+
+This is a stable system, as  -->
+
+1. $$y(t) = x^2(t)$$
+
+This is stable; the bound is $M_y = M_x^2$
+
+2. $$y(t) = 5e^{jx(t)}$$
+
+This is stable, but it takes a bit more work to prove. Given a bounded input $M_x$:
+
+$$|x(t)| \le M_x \lt \infty$$
+
+The output will be equal to:
+
+$$|y(t)| = |5e^{jx(t)}| \le |5e^{jM_x}| = 5$$
+
+3. $$y(t) = 3^t\sin(x(t))$$
+
+This is unbounded. To prove this, we must show that there is a bounded input $x(t)$ which produces an infinite $|y(t)|$.
+
+Given a bounded input $M_x$:
+
+$$|x(t)| \le M_x \lt \infty$$
+
+$|y(t)|$ must be bounded for this to be stable, for all $t$. This means:
+
+$$\lim\limits_{t \to \infty} |y(t)| \lt \infty$$
+$$\lim\limits_{t \to -\infty} |y(t)| \lt \infty$$
+
+Let $x(t) = \pi$. This is clearly bounded. Then the equation simplifies to:
+
+$$y(t) = 3^t$$
+
+Taking the limit:
+
+$$\lim\limits_{t \to \infty} |3^t| \to \infty$$
+
+This is unbounded.
+
+~~
+
+### Time-Invariance
+
+For a system to be **time-invariant** if:
+
+$$x(t - t_0) \to y(t-t_0),\ \forall t_0 \in \mathbb{R}$$
+
+You must prove or disprove this definition to prove or disprove time-invariance.
+
+A good rule of thumb is to see if $y$ depends on only $x$, or some combination of $x$ and $t$/$n$:
+
+$$y(t) = f(x(t)) \to \textrm{time-invariant}$$
+$$y(t) = f(x(t), t) \to \textrm{not time-invariant}$$
+
+This does not work for all equations, however. For example: $y(t) = x(-t)$ is not time-invariant.
+
+~~time-invariance examples
+
+1. $$y[n] = 3x^2[n]$$
+
+This is time-invariant, as there is no $n$ factor. $y$ only depends directly on $x$:
+
+$$x_0[n] = x[n-n_0] \to y_0[n] = 3x_0^2[n] = 3x^2[n-n_0]$$
+$$y[n-n_0] = 3x^2[n-n_0] = y_0[n]$$
+
+2. $$y(t) = sin(t)x(t)$$
+
+This is not time-invariant:
+
+$$x_0(t) = x(t-t_0) \to y_0(t) = \sin(t)x_0(t) = \sin(t)x(t-t_0)$$
+
+$$y(t - t_0) = sin(t - t_0)x(t - t_0) \ne sin(t)x(t - t_0)$$
+
+Even though for some intervals it appears time-invariant, this is not valid for *all* $t_0$.
+
+~~
+
+### Linearity
+
+Most of the time, we are concerned with **linear** systems. A system is linear if a linear combination of inputs generates a linear combination of outputs. You have likely seen this property in other classes.
+
+Given a system $y(t)$ defined as a function of $x(t)$ and $t$:
+
+$$y(t) = f(x, t)$$
+
+Then for any values $x_1 \to y_1, x_2 \to y_2$:
+
+$$\alpha_1x_1 + \alpha_2x_2 \to \alpha_1y_1 + \alpha_2y_2$$
+
+This can be broken into two properties: 
+
+#### Homogeneity
+
+$$x(t) \to y(t)$$
+$$Ax(t) \to Ay(t),\ \forall A \in \mathbb{C}$$
+
+Note that $A$ can be complex, in addition to real.
+
+#### Additivity
+
+$$x_1(t) \to y_1(t)$$
+$$x_2(t) \to y_2(t)$$
+$$x_1(t) + x_2(t) \to y_1(t) + y_2(t)$$
+
+~~linearity examples
+
+1. $$y(t) = t^2x(t)$$
+
+Lets test homogeneity first:
+
+$$t^2(Ax(t)) = A(t^2x(t)) = A(y(t))$$
+
+And additivity:
+
+$$t^2(x_0(t) + x_1(t)) = t^2x_0(t) + t^2x_1(t) = y_0(t) + y_1(t)$$
+
+Both of these properties hold, so this is linear.
+
+2. $$y(t) = \frac{1}{x(t)}$$
+
+This is not linear, and this is easy to show with additivity:
+
+$$\frac{1}{x_0(t) + x_1(t)} \ne y_0(t) + y_1(t) = \frac{1}{x_0(t)} + \frac{1}{x_1(t)}$$
+
+~~
+
+### LTI Systems
+
+These are systems that are both linear and time-invariant. One reason that LTI systems are important is that we can model the response to more complex inputs to a function as linear combinations of a given input and output. To explain the generic use of this property, we need to explain impulse response:
+
+The **impulse response** is the output of a system when the input is a delta function. If the system is LTI, then the impulse response completely characterizes the system. This means that if you know the impulse response, you can predict the output of that system for any input.
+
+For example, let's take an LTI system. The impulse response is given as:
+
+$$\delta[n] \stackrel{LTI}{\to} h[n]$$
+
+The value of $\delta[n-k]$ can be found as:
+
+$$\delta[n-k] \stackrel{LTI}{\to} h[n-k]$$
+
+This is only possible because $LTI$ is time-invariant. In addition:
+
+$$\alpha\delta[n-k] \stackrel{LTI}{\to} \alpha h[n-k]$$
+
+This also uses the homogeneity property.
+
+We can extend this property even further to represent any x[n] using the linear combination property of LTI systems. Remember that any discrete time signal can be written as a linear combination of $\delta[n]$ as:
+
+$$
+x[n] = \sum\limits_{i=-\infty}^{\infty} x[i]\delta[n-i]
+$$
+
+Now, taking the generic $x[n]$:
+
+$$\sum\limits_{i=-\infty}^{\infty} x[i]\delta[n-i] \stackrel{LTI}{\to} \sum\limits_{i=-\infty}^{\infty} x[i]h[n-i]$$
+
+Writing this more generically gives the formula:
+
+$$x[n] \stackrel{LTI}{\to} x[n] \ast h[n]$$
+
+Where $\ast$ is the convolution operator. The interesting fact is that this works just the same with continuous time signals. Instead of sums, we would use integrals, giving the same final equation:
+
+$$x(t) \stackrel{LTI}{\to} x(t) \ast h(t)$$
+
+Where $\ast$ is defined as:
+
+$$x(t) \ast h(t) = \int\limits_{-\infty}^{\infty} x(\tau) h(t-\tau)d\tau$$
+
+Note: convolution is commutative, meaning $x[n] \ast h[n] = h[n] \ast x[n]$
+
+#### Computing the Convolution Sum
+
+This will consist of a few steps:
+
+1. Sketch/analyze $x[k]$ as a function of k
+2. Sketch/analyze $h[k]$ as a function of k
+3. Choose a signal to flip (to make the problem easier)
+4. Flip that signal to get $f[-k]$
+5. Shift by n to get $f[n-k]$
+
+This will give you either:
+
+$$x[k], h[n-k] \textrm{or} x[n-k], h[k]$$
+
+6. Calculate the multiplication and sum for each element
+
+This process is highly graphical for simple equations, so it is best to do some practice on paper.
+
+~~Example: convolution
+
+Calculate the convolution between
+
+$$
+\begin{gather*}
+x[n] = u[n] \\
+h[n] = 2^nu[2-n]
+\end{gather*}
+$$
+
+We start with the definition:
+
+$$y[n] = x[n]\ast j[n] = \sum\limits_{k=-\infty}^{\infty} x[k]h[n-k] = \sum\limits_{k=-\infty}^{\infty} x[n-k]h[k]$$
+
+First, we choose the signal to flip. In this case, $x[k]$ seems simpler to flip, so we get:
+
+$$x[-k] = u[-k]$$
+
+Next, we shift by n:
+
+$$x[n-k] = u[n-k]$$
+
+Then, for each $n$ where $x$ and $h$ overlap (meaning they are non-zero), we calculate the sum:
+
+$$
+\begin{gather*}
+\sum\limits_{k=-\infty}^{\infty} x[n-k]h[k] \\
+\sum\limits_{k=-\infty}^{\infty} u[n-k](5^ku[2-k])
+\end{gather*}
+$$
+
+This has two cases:
+
+$$
+\begin{cases}
+\sum\limits_{k=-\infty}^{\infty} 5^ku[2-k] & n \ge 2 \\
+\sum\limits_{k=-\infty}^{\infty} 5^ku[n-k] & n \lt 2
+\end{cases}
+$$
+
+This can then be rewritten with new limits:
+
+$$
+\begin{cases}
+\sum\limits_{k=-\infty}^{2} 5^k & n \ge 2 \\
+\sum\limits_{k=-\infty}^{n} 5^k & n \lt 2
+\end{cases}
+$$
+
+This can be rewritten as:
+
+$$
+\begin{cases}
+\sum\limits_{k=-2}^{\infty} 5^{-k} & n \ge 2 \\
+\sum\limits_{k=-n}^{\infty} 5^{-k} & n \lt 2
+\end{cases}
+$$
+$$
+\begin{cases}
+\sum\limits_{k=-2}^{\infty} {\frac{1}{5}}^{k} & n \ge 2 \\
+\sum\limits_{k=-n}^{\infty} {\frac{1}{5}}^{k} & n \lt 2
+\end{cases}
+$$
+
+And then shifting:
+
+$$
+\begin{cases}
+\sum\limits_{k=0}^{\infty} {\frac{1}{5}}^{k-2} & n \ge 2 \\
+\sum\limits_{k=0}^{\infty} {\frac{1}{5}}^{k-n} & n \lt 2
+\end{cases}
+$$
+$$
+\begin{cases}
+\sum\limits_{k=0}^{\infty} 5^2{\frac{1}{5}}^{k} & n \ge 2 \\
+\sum\limits_{k=0}^{\infty} 5^n{\frac{1}{5}}^{k} & n \lt 2
+\end{cases}
+$$
+$$
+\begin{cases}
+5^2\sum\limits_{k=0}^{\infty} {\frac{1}{5}}^{k} & n \ge 2 \\
+5^n\sum\limits_{k=0}^{\infty} {\frac{1}{5}}^{k} & n \lt 2
+\end{cases}
+$$
+
+
+The geometric formula for an infinite sum tells us that:
+
+$$\sum\limits_{k=0}^{\infty} \alpha^{k} = \frac{1}{1-\alpha},\ 0 \lt \alpha \lt 1$$
+
+This gives:
+
+$$
+\begin{cases}
+5^2(\frac{1}{1-\frac{1}{5}}) & n \ge 2 \\
+5^n(\frac{1}{1-\frac{1}{5}}) & n \lt 2
+\end{cases}
+$$
+$$
+\begin{cases}
+\frac{5}{4}\cdot 5^{2} & n \ge 2 \\
+\frac{5}{4}\cdot 5^n & n \lt 2
+\end{cases}
+$$
+$$
+\begin{cases}
+\frac{125}{4} & n \ge 2 \\
+\frac{5}{4}5^n & n \lt 2
+\end{cases}
+$$
+
+This strategy can be extended to work for continuous functions as well.
+
+~~
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">

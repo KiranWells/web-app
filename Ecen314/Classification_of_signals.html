@@ -1,0 +1,195 @@
+# Introduction to Signals
+
+## Classification of Signals
+
+There are two main types of signals that are dealt with in this course.
+
+### Continuous-Time Signals
+
+$$x(t),\ t \in \mathbb{R}$$
+
+In a continuous-time signal, $x(t)$ is defined for every $t$ on the x-axis. In addition, $t$ is continuous. This does not mean that $x(t)$ is continuous; it can have discontinuities as long as the two prior conditions are true. In other words, the *time* is continuous, not the *signal*.
+
+### Discrete-Time Signals
+
+$$x[n],\ n \in \mathbb{Z}$$
+
+In DT Signals, $x$ is a collection of discrete measurements, similar to what you might see in a digitally encoded signal. More visually, this could be seen as a scatter plot, in contrast to a CT signal's line plot.
+
+Most transformations that work for CT signals will also work for DT signals, but there may be some differences due to $n$ being required to be an integer. For example, offsets of $x[n]$ are not defined except for integer values.
+
+In addition to these types, there are other ways of classifying signals.
+
+### Power Signals & Energy Signals
+
+#### CT Signals
+
+If $x(t)$ is a CT signal, **instantaneous power** is:
+
+$$p(t) = x^2(t)$$
+
+Where $x^2(t)$ is shorthand for $(x(t))^2$.
+
+**average power** is:
+
+$$\frac{1}{t_2 - t_1} \int_{t_1}^{t_2} p(t)dt$$
+
+**energy** over $t_1 \le t \le t_2$ is:
+
+$$E = \int_{t_1}^{t_2} p(t)dt = \int_{t_1}^{t_2} x^2(t)dt$$
+
+If $x(t)$ is complex, then we use $|x(t)|^2$, or the magnitude of the complex power. Total energy and power over an infinite interval is:
+
+$$
+\begin{aligned}
+E_{\infty} &\triangleq \lim_{T \to \infty} \int_{-T}^{T} |x(t)|^2 dt \\
+P_{\infty} &\triangleq \lim_{T \to \infty} \frac{1}{2T} \int_{-T}^{T} |x(t)|^2 dt
+\end{aligned}
+$$
+
+If $E_{\infty}$ is finite, then we say that energy is finite, and this is an **energy signal**. When this happens, $P_{\infty} = 0$ because the limit will simplify and $E_{\infty}$ will be divided by an infinite value.
+
+If $P_{\infty}$ is finite and nonzero, this is a **power signal**, and $E_{\infty}$ must be infinite. While no real signal has infinite energy, the models we use for periodic signals, for example, will have infinite energy.
+
+If $P_{\infty} \to \infty$, then so does $E_{\infty}$, and this is neither an energy nor a power signal.
+
+#### DT Signals
+
+The definitions here are the same, except for a couple of changes. Where CT signals are integrated, DT signals are summed. Where CT signals are differentiated, DT signals are 
+
+$$
+\begin{aligned}
+\int^{CT} & \leftrightarrow \sum^{DT} \\
+\frac{d}{dt} & \leftrightarrow x[n] - x[n_0]
+\end{aligned}
+$$
+
+Therefore, the DT versions are:
+
+$$
+\begin{aligned}
+E_{\infty} &\triangleq \lim\limits_{N \to \infty} \sum\limits_{n=-N}^{N} |x[n]|^2 dt \\
+P_{\infty} &\triangleq \lim\limits_{N \to \infty} \frac{1}{2T} \sum\limits_{n=-N}^{N} |x[n]|^2 dt
+\end{aligned}
+$$
+
+~~Example 1
+
+Given a graph from $(-1,0)$ to $(-1,1)$ to $(1,1)$ to $(1,0)$, is $x(t)$ an energy signal, power signal, or neither?
+
+$$
+E_{\infty} \triangleq \lim_{T \to \infty} \int_{-T}^{T} |x(t)|^2 dt
+$$
+
+$$x(t) = \begin{cases} 1 && -1 \lt t \lt 1 \\ 0 && \mathrm{otherwise} \end{cases}$$
+
+$$x^2(t) = \begin{cases} 1 && -1 \lt t \lt 1 \\ 0 && \mathrm{otherwise} \end{cases}$$
+
+We get:
+
+$$\lim_{T \to \infty} \int_{-T}^{T} 1 dt$$
+$$\lim_{T \to \infty} \left. t \right|_{-1}^{1} $$
+$$\lim_{T \to \infty} \left[ 1 + 1 \right ] $$
+$$\lim_{T \to \infty} 2 $$
+
+$$
+\begin{aligned}
+E_{\infty} &\triangleq 2 dt
+P_{\infty} &\triangleq \lim_{T \to \infty} \frac{1}{2T} 2 = 0 dt
+\end{aligned}
+$$
+
+The energy $E_{\infty}$ in this case is the sum under the graph, which ends up being $\frac{2}{3}$. The power $P_{\infty}$, then, is 0, and this is an energy signal.
+
+~~
+
+## Basic Operations on Signals
+
+Signals by definition are functions, and you can operate on them the same way (for both DT and CT signals). This includes transformations such as scaling using multiplication, or transforming the independent variable.
+
+### Time Shifting
+
+This consists of shifting the signal forward and backward in time by subtracting a constant from the independent variable:
+
+$$
+\begin{gather*}
+x(t) \to & x(t - t_0) \ t_0 \in \mathbb{R} \\
+x[n] \to & x[n - n_0] \ n_0 \in \mathbb{Z}
+\end{gather*}
+$$
+
+One important detail to note is that the shift is opposite the sign, as with most functions: if $t_0$ is positive (subtracting from $t$), the shift is to the right.
+
+### Time Reversal
+
+$$
+\begin{gather*}
+x(t) \to & x(-t) \\
+x[n] \to & x[-n]
+\end{gather*}
+$$
+
+This operation simply flips the independent axis - reversing time.
+
+### Time Scaling
+
+$$
+\begin{gather*}
+x(t) \to & x(\alpha t) & \alpha \gt 1 \\
+x[n] \to & x[\alpha n] & 0 \lt \alpha \lt 1
+\end{gather*}
+$$
+
+This "squishes" or stretches the graphs. For discrete signals, if the value of $\alpha$ is greater than one, you will end up throwing away parts of the signal, as the values in the transformed function will only cover some of the values in the original.
+
+### Multiple Transformations
+
+If you have a series of transformations, you need to be careful in which order you apply them. The order itself does not change the final answer, but it will change how you do the transformation.
+
+$$y(t) = Ax\left(\frac{t - t_0}{a}\right)$$
+
+In this case, you can use different orders:
+
+$$x(t) \to Ax(t) \stackrel{scale}{\to} Ax\left(\frac{t}{a}\right) \stackrel{shift}{\to} Ax\left(\frac{t - t_0}{a}\right)$$
+$$x(t) \to Ax(t) \stackrel{shift}{\to} Ax\left(t - \frac{t_0}{a}\right) \stackrel{scale}{\to} Ax\left(\frac{t}{a} - \frac{t_0}{a}\right)$$
+
+Notice how the constant we shifted by in the second example was adjusted to account for the scaling.
+
+~~Example 2
+
+Given $x(t)$ is the triangular function $(-1,0), (0,1), (1,0)$, do the scaling $y(t) = x(2 - 4t)$.
+
+In this case we can use two different orders: scale then shift or shift then scale. Let's try both.
+
+$$
+\begin{gather*}
+x(t) \stackrel{scale}{\to} x(4t) \\
+x(4t) = \left(-\frac{1}{4},0\right), \left(0,1\right), \left(\frac{1}{4},0\right) \\
+x(4t) \stackrel{scale}{\to} x(-4t) \\
+x(-4t) = \left(-\frac{1}{4},0\right), \left(0,1\right), \left(\frac{1}{4},0\right) \\
+x(-4t) \stackrel{shift}{\to} x(-4(t - \frac{1}{2})) \\
+x(-4(t - \frac{1}{2})) = \left(-\frac{1}{4} + \frac{1}{2},0\right), \left(0 + \frac{1}{2},1\right), \left(\frac{1}{4} + \frac{1}{2},0\right) \\
+x(2-4t) = \left(\frac{1}{4},0\right), \left(\frac{1}{2},1\right), \left(\frac{3}{4},0\right)
+\end{gather*}
+$$
+
+$$
+\begin{gather*}
+x(t) \stackrel{shift}{\to} x(t + 2) \\
+x(t+2) = (-1 - 2,0), (0 - 2,1), (1 - 2,0) \\
+x(t+2) \stackrel{scale}{\to} x(-4t + 2) \\
+x(-4t + 2) = \left(\frac{-1-2}{-4},0\right), \left(\frac{0-2}{-4},1\right), \left(\frac{1-2}{-4},0\right) \\
+x(-4t + 2) = \left(\frac{3}{4},0\right), \left(\frac{1}{2},1\right), \left(\frac{1}{4},0\right)
+\end{gather*}
+$$
+
+Note that these are the same final function; in one I switched the order of the vertices and in the other I did not.
+
+Importantly, both of the methods end in the same result. Be careful when scaling an off-center function, as you scale with respect to the origin, not the center of the function (the center of -4 became -2 above).
+
+~~
+
+It is also important to note the different between signal inversion and time reversal. Time reversal is $t \to -t$, and flips across the vertical axis. Signal inversion is $x(t) \to -x(t)$, and flips across the horizontal axis.
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">
