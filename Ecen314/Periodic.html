@@ -124,6 +124,12 @@ $$
 x[n] = \sum\limits_{n \to \infty} x(t) \delta[n - N]
 $$
 
+In summary, the delta function has the following properties (they exist in DT signals as well):
+
+$$x(t)\delta(t-t_0) = x(t_0)\delta(t-t_0)$$
+$$\int_{-\infty}^{\infty} x(t)\delta(t-t_0) = x(t_0)$$
+$$x(t) \ast \delta(t-t_0) = x(t - t_0)$$
+
 ### Sinusoidal/Complex Exponential Signal
 
 The Fourier transform tells you that you can rewrite nearly any signal into a combination of sinusoidal signals, so these are an extremely important set of signals.
@@ -261,6 +267,46 @@ $$x'(t) = 2tu(t-2) + t^2\delta(t-2) -2\delta(t - 4)$$
 $$x'(t) = 2tu(t-2) + 4\delta(t-2) -2\delta(t - 4)$$
 
 ~~
+
+## Properties of Convolution
+
+Convolution is commutative and distributive.
+
+## Combination of LTI Systems
+
+As we learned before, an LTI system with an impulse response $h$ will have the corresponding output:
+
+$$x(t) \to x(t) \ast h(t)$$
+
+Imaging combining two LTI systems in parallel, where we have the impulse response $h_1$ and $h_2$ of each one. The output of the first will be $x(t) \ast h_1(t)$, and the same for the second. The total output will be:
+
+$$x(t) \ast h_1(t) + x(t) \ast h_2(t)$$
+
+Using the distributive property of the convolution operator, we can write:
+
+$$x(t) \to x(t) \ast (h_1(t) + h_2(t))$$
+
+This is guaranteed to be an LTI system.
+
+On the other hand, what if we combined the systems in series? In this case, the output of one is the input to the other, so we can write the first as:
+
+$$x(t) \to x(t) \ast h_1(t)$$
+
+And the next will be:
+
+$$x(t) \ast h_1(t) \to (x(t) \ast h_1(t)) \ast h_2(t)$$
+
+So the total equation will become:
+
+$$x(t) \to (x(t) \ast h_1(t)) \ast h_2(t)$$
+
+Now, because of the commutative property, we can rewrite this as:
+
+$$x(t) \to x(t) \ast (h_1(t) \ast h_2(t))$$
+
+An LTI System is Memoryless iff $h(t) = C\delta(t)$, or in other words if $h(t)$ is 0 for all $n \ne 0$.
+
+For an LTI system to be stable, $h(t)$ must be bounded
 
 <script src="/source/texme.js"></script>
 <link rel="stylesheet" href="/source/theme.css">

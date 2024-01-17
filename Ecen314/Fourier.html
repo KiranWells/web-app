@@ -1,0 +1,387 @@
+# Section 3
+
+# Fourier Transform
+
+The Fourier Transform is a unique transformation that converts a signal into the frequency domain. It is different for every signal, allowing us to completely characterize a signal with it.
+
+By converting to the frequency domain, we can eliminate certain frequencies from a signal, such as eliminating noise.
+
+## Periodic Signals (Fourier Series)
+
+Originally, we found the impulse response by putting $\delta(t)$ into an LTI system. Now, we will see what the input of a complex exponential $e^{j\omega_0 t}$ into the system:
+
+$$
+\begin{align*}
+y(t) &= h(t) \ast e^{j\omega_0 t} \\
+&= \int_{-\infty}^{\infty} h(\tau) e^{j\omega_0 (t-\tau)}d\tau \\
+&= e^{j\omega_0 t} \int_{-\infty}^{\infty} h(\tau) e^{-j\omega_0 (\tau)}d\tau
+\end{align*}
+$$
+
+We have now described the output as the input function multiplied by some function of frequency. That frequency function is called the **transfer function** $H(j\omega)$:
+
+$$H(j\omega) = \int_{-\infty}^{\infty} h(\tau) e^{-j\omega (\tau)}d\tau$$
+
+Now, we can investigate the constant multiplication and combination of these exponential signals:
+
+$$a_1 e^{j\omega_1 t} \to a_1 e^{j\omega_1 t} H(j\omega_1)$$
+$$e^{j\omega_1 t} + e^{j\omega_2 t} \to e^{j\omega_1 t} H(j\omega_1) + e^{j\omega_0 t} H(j\omega_0)$$
+
+And combining:
+
+$$
+\sum\limits_k a_k e^{j\omega_k t} \to \sum\limits_k a_k e^{j\omega_k t} H(j\omega_k)
+$$
+
+Similar to the delta, lets assume we can write any function $x(t)$ as a combination of periodic signals with a shared period (meaning they have the same multiple of $\omega$):
+
+$$x(t) = \sum\limits_{k=-\infty}^{\infty} a_k e^{jk\omega_0 t}$$
+
+These will all share the period $T_0 = \frac{2\pi}{\omega_0}$.
+
+To find this decomposition, we need some formula to determine $a_k$.
+<!-- This is derived as follows:
+
+- multiply both sides by $e^{-jn\omega_0 t}$, where $n$ is a discrete time variable (meaning it is some integer)
+$$x(t)e^{-jn\omega_0 t} = \sum\limits_{k=-\infty}^{\infty} a_k e^{jk\omega_0 t}e^{-jn\omega_0 t}$$
+- integrate over 1 period of $x(t)$
+$$\int_0^T x(t)e^{-jn\omega_0 t} =\int_0^T \sum\limits_{k=-\infty}^{\infty} a_k e^{j(k-n)\omega_0 t}$$
+$$\int_0^T x(t)e^{-jn\omega_0 t} =\sum\limits_{k=-\infty}^{\infty} a_k \int_0^T e^{j(k-n)\omega_0 t}$$
+
+Focusing specifically on the integral:
+
+$$
+\begin{align*}
+ &\int_0^T e^{j(k-n)\omega_0 t}dt \\
+=&\int_0^T \cos[j(k-n)\omega_0 t]dt + j\int_0^T \sin[j(k-n)\omega_0 t]dt \
+=&
+\end{align*}
+$$ -->
+
+The formula then is:
+
+$$a_k = \frac{1}{T}\int_T x(t)e^{-jk\omega_0 t}dt$$
+
+For signals without a periodic portion, the only $a_k$ will be $a_0$, which will be:
+
+$$a_0 = \frac{1}{T}\int_T x(t)dt$$
+
+Which is the average value of $x(t)$.
+
+To decompose a function, we need to find the values of all of $a_k$, then construct the sum. We can either find $a_k$ using the formula above, or we can inspect the function and guess $a_k$ from the equation.
+
+~~an inspection example
+
+$$x(t) = \sin(at)$$
+
+To solve this by inspection, we need to get it into the format $e^{jk\omega_0 t}$ using the formula:
+
+$$\sin x = \frac{e^{jx} - e^{-jx}}{2j}$$
+
+$$x(t) = \frac{1}{2j} e^{jat} - \frac{1}{2j} e^{-jat}$$
+
+Here, we can use $k = 1, -1$ and the original formula tells us $\omega_0 = a$, giving:
+
+$$a_{1} = \frac{1}{2j}, a_{-1} = -\frac{1}{2j}$$
+
+We must also clarify that the rest are zero:
+
+$$a_k = 0,\ k \ne 1, -1$$
+
+~~
+
+~~a non-inspection example
+
+$$x(t) = \sum\limits_k u(t-2k) - u(t-2k-1)$$
+
+This is a signal which is periodic with $T=2$. This gives:
+
+$$\omega_0 = \frac{2\pi}{T} = \pi$$
+
+The formula for $a_k$ is:
+
+$$a_k = \frac{1}{T} \int_T x(t) e^{-jk\omega_0 t}dt$$
+
+Here, we can simplify by taking the first period ($0$ to $2$). $x(t) = 1$ for the period $0,1$, so the integral simplifies to:
+
+$$a_k = \frac{1}{2} \int_0^1 e^{-jk\pi t}dt$$
+$$a_k = \frac{1}{2} \left[\left. \frac{1}{-jk\pi} e^{-jk\pi t}\right|_0^1 \right]$$
+$$a_k = \frac{1}{2} \left[\frac{1}{-jk\pi} e^{-jk\pi} - \frac{1}{-jk\pi} \right]$$
+$$a_k = \frac{j}{2k\pi} e^{-jk\pi} - \frac{j}{2k\pi}$$
+
+Note this is not valid for $k=0$. However, we can use the formula above to get:
+
+
+$$a_0 = \frac{1}{T}\int_T x(t)dt = \frac{1}{2}1 = 0.5$$
+
+~~
+
+When using another example, you may end up with an $a_k$ which is of this form:
+
+$$a_k = \frac{\sin(\pi k)}{\pi k}$$
+
+This function is a new special function called $\mathrm{sinc}(x)$:
+
+$$\mathrm{sinc}(x) \triangleq \frac{\sin(\pi x)}{\pi x}$$
+
+This equation is a *modulated* sin signal which is 1 at 0 an decreases to 0 at $\pm \infty$. See [this graph](https://www.desmos.com/calculator/5imjob7gjv) on Desmos.
+
+### Dirichlet Conditions
+
+These are the conditions for which a Fourier series of a periodic signal $x(t)$ exists:
+
+1. $\int_T |x(t)|dt\lt \infty$
+2. $x(t)$ must have a finite number of maximums and minimums within a period.
+3. $x(t)$ must have a finite number of discontinuities within a period.
+
+If these conditions are met, we are guaranteed that the F.S. exists and that it converges.
+
+### Convergence of Fourier Series
+
+When Fourier series is an infinite series, we need to ensure it will converge. If $a_k$ is non-zero for an infinite number of values, then we will have an infinite sum:
+
+$$x(t) = \sum\limits_{k=-\infty}^{\infty} a_k e^{jk\omega_0 t}$$
+
+A signal which does not have an infinite number of $a_k$, we call it a **band-limited** signal. This is because it is limited to a finite number of frequency bands. 
+
+In contrast, a **time-limited** signal, which exists for finite time, will end up needing an infinite number of $a_k$.
+
+A signal which requires an infinite number of $a_k$ is guaranteed to converge if the Dirichlet conditions are met. However, we approximate these signals with a finite number of frequencies in practice, and we need to ensure that the approximations converge.
+
+### Gibbs Phenomenon
+
+The Gibbs Phenomenon is a strange effect where the approximation for a square wave will end up creating spikes near the discontinuities. For a visual example see [this Desmos graph](https://www.desmos.com/calculator/pwmgbci1vk). While the series is guaranteed to converge, these ripples may tend to grow near discontinuities with finite approximations of the series. 
+
+## Aperiodic Signals
+
+<!-- complex exponential -->
+
+In the previous section, we described the Fourier Series. This works for periodic signals only. However, there is a more general version called the Fourier Transform, which applies to all signals, not just periodic ones.
+
+One non-rigorous derivation for the Fourier Transform begins with taking the Fourier series as the period approaches infinity.
+
+$$\lim\limits_{T\to \infty} x(t) = \sum\limits_k a_k e^{jk\omega_0 t}$$
+
+This will require us to define a new continuous variable $\omega = k\omega_0$ and replacing $a_k$ with $X(j\omega)$
+
+$$x(t) = \frac{1}{2\pi} \int X(j\omega)e^{j\omega t}d\omega $$
+
+The $\frac{1}{2\pi}$ is required because we are using an angular frequency $\omega$ in this class, not the standard frequency. We can solve for $X$ as:
+
+$$ X(j\omega) = \int\limits_{-\infty}^{\infty} x(t) e^{j\omega t}dt$$
+
+Note that this equation does not include the $2\pi$ element. Together, these two equations represent the Fourier Transform and inverse Fourier Transform.
+
+$$
+\begin{align}
+X(j\omega) = \int\limits_{-\infty}^{\infty} x(t) e^{j\omega t}dt& \mathrm{transform} \\
+x(t) = \frac{1}{2\pi}_{-\infty}^{\infty} \int X(j\omega)e^{j\omega t}d\omega& \mathrm{inverse}
+\end{align}
+$$
+
+### Dirichlet Conditions
+
+1. $\int_T |x(t)|dt\lt \infty$
+2. $x(t)$ must have a finite number of maximums and minimums within a finite interval.
+3. $x(t)$ must have a finite number of discontinuities within a finite interval.
+
+### Gibbs Phenomenon
+
+The Fourier Transform is guaranteed to be convergent if the above conditions are met, but the Gibbs Phenomenon is that at discontinuities, there may be ripples that appear that appear to diverge for approximations of the full transform.
+
+~~Transform Example 
+
+Find the Fourier Transform of:
+
+$$x(t) = \delta(t)$$
+
+The Fourier Transform is defined as:
+
+$$X(j\omega) \triangleq \int\limits_{-\infty}^{\infty} x(t) e^{j\omega t}dt$$
+
+So we have:
+
+$$X(j\omega) = \int\limits_{-\infty}^{\infty} \delta(t)e^{j\omega t} dt = e^{j\omega (0)} = 1$$
+
+This transform is not band-limited, as the Fourier Transform extends to infinity, meaning an infinite number of frequencies are required.
+
+~~
+
+~~Inverse Example
+
+Find the inverse transform of:
+
+$$X(j\omega) = \delta(t)$$
+
+The inverse transform is:
+
+$$x(t) = \frac{1}{2\pi} \int_{-\infty}^{\infty} X(j\omega)e^{j\omega t}d\omega$$
+
+Giving:
+
+$$\frac{1}{2\pi} \int \delta(t) e^{j\omega t}d\omega = \frac{1}{2\pi} (e^{j(0) t}) = \frac{1}{2\pi}$$
+
+Note that this is a constant, just like the transform of $\delta(t)$.
+
+~~
+
+## Properties of the F.T.
+
+
+From these examples we can see the effects of two properties:
+
+- If we know one transform, we can predict the inverse
+- If a signal is band-limited, it cannot be time-limited, and vice-versa
+
+Another important property is this:
+
+- Multiplication in the frequency domain is equivalent to convolution in the time domain
+
+This last property allows us to implement filters, as we can use a combination of systems to create a convolution that represents a certain multiplication in the frequency domain to filter out specific frequencies.
+
+- The Fourier Transform encompasses the Fourier series
+
+This means that a periodic signal's Fourier Transform will be the Fourier coefficients ($a_k$), weighted by $2\pi$ (because of the angular frequency). More generally:
+
+$$x(t) = \sum\limits_{k=-\infty}^{\infty} a_k e^{-jk\omega_0 t}$$
+$$X(j\omega) = 2\pi \sum\limits_{k=-\infty}^{\infty} a_k \delta(\omega - k\omega_0)$$
+
+<!-- ### Other Properties -->
+
+- Because the F.T. is complex, it has magnitude and phase.
+
+The magnitude corresponds to which frequencies are present, and how strongly. This can be used to determine the properties of the system, for example whether it filters out certain frequencies. Note that there is no physical representation of negative frequencies, so the frequencies that are filtered are in the domain $[0,\infty)$.
+
+The phase, on the other hand, does not often have a direct translation. It is still necessary, however, to fully represent a signal.
+
+- The F.T. is linear, meaning
+
+$$
+\begin{gather*}
+
+    x(t) \leftrightarrow X(j\omega) \\
+    y(t) \leftrightarrow Y(j\omega) \\
+
+    z(t) = ax(t) + by(t) \leftrightarrow aX(j\omega)+bY(j\omega)
+
+\end{gather*}
+$$
+
+- Time-Shifting
+
+$$
+\begin{gather*}
+
+    x(t) \leftrightarrow X(j\omega) \\
+
+    x(t-t_0) \leftrightarrow e^{-j\omega t_0}X(j\omega)
+
+\end{gather*}
+$$
+
+Notice here that the magnitude of the shifted $X(j\omega)$ does not change. This is because time shifting a signal does not change the frequencies that it contains. However, it does change the phase. This makes sense, as time-shifting a $\sin$, for example, shifts its phase.
+
+- Frequency shifting
+
+$$
+\begin{gather*}
+
+    x(t) \leftrightarrow X(j\omega) \\
+
+    x(t)e^{j\gamma t} \leftrightarrow X(j(\omega - \gamma))
+
+\end{gather*}
+$$
+
+- Conjugation / Conjugate Symmetry
+
+$$
+\begin{gather*}
+
+    x(t) \leftrightarrow X(j\omega) \\
+
+    x^{\ast}(t) \leftrightarrow X^{\ast}(-j\omega)
+
+\end{gather*}
+$$
+
+There are two special cases:
+
+- If $x(t)$ is real-valued, then $X^{\ast}(j\omega) = X(-j\omega)$.
+- If $x(t)$ is imaginary-valued, then $X^{\ast}(j\omega) = -X(-j\omega)$.
+
+These properties have some implications. For example, with the real case, the magnitude must be even, and the phase must be odd.
+
+As a side note, 3Blue1Brown has an [interesting video](https://www.youtube.com/watch?v=851U557j6HE) related to the Fourier Transform and convolution.
+
+### Differentiation and Integration
+
+$$
+\begin{gather*}
+
+    x(t) \leftrightarrow X(j\omega) \\
+    \frac{dx(t)}{dt} \leftrightarrow j\omega X(j\omega) \\
+    \int_0^t x(t)dt \leftrightarrow \frac{1}{j\omega}X(j\omega) + \pi X(0) \delta (\omega)
+
+\end{gather*}
+$$
+
+### Parseval's Relation
+
+The energy of a signal can be found using FT:
+
+$$
+E(x) = \int_{-\infty}^{\infty} |x(t)|^2 dt \leftrightarrow \frac{1}{2\pi}\int_{-\infty}^{\infty} |X(j\omega)|^2 d\omega
+$$
+
+What this tells you is that the fourier transform preserves all of the information about the signal, including preserving energy. We can use this to simplify the calculation of the energy of complex functions, such as $\mathrm{sinc}$ that are very simple in the frequency domain.
+
+### Convolution Property
+
+$$
+\begin{gather*}
+
+    x(t) \leftrightarrow X(j\omega) \\
+    y(t) \leftrightarrow Y(j\omega) \\
+    x(t) \ast y(t) \leftrightarrow X(j\omega)Y(j\omega)
+
+\end{gather*}
+$$
+
+This makes computing convolutions much simpler, requiring only a FT and inverse FT. If you took differential equations, you may remember that the Laplace Transform has a similar property.
+
+Note the reverse is also true:
+
+$$x(t)y(t) \leftrightarrow \frac{1}{2\pi} X(j\omega) \ast Y(j\omega)$$
+
+~~proof
+
+Given an LTI system with impulse response $h(t)$, the output is given by:
+
+$$y(t) = x(t) \ast h(t)$$
+
+Which is given by:
+
+$$\int_{-\infty}^{\infty} x(\tau)h(t-\tau) d\tau$$
+
+Now, we will determine the FT of $y(t)$:
+
+$$
+\begin{align*}
+
+Y(j\omega) &= \int_{-\infty}^{\infty}y(t) e^{-j\omega t}dt \\
+ &= \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x(\tau)h(t-\tau) d\tau e^{-j\omega t}dt \\
+ &= \int_{-\infty}^{\infty} x(\tau) \left[ \int_{-\infty}^{\infty}h(t-\tau) e^{-j\omega t}dt \right]  d\tau \\
+ &= \int_{-\infty}^{\infty} x(\tau) \left[ e^{-j\omega \tau} H(j\omega) \right]  d\tau \\
+ &= H(j\omega) \int_{-\infty}^{\infty} x(\tau) e^{-j\omega \tau} d\tau \\
+ &= H(j\omega) X(j\omega) \\
+
+\end{align*}
+$$
+
+Note the use of the time-shifting property in step four.
+
+~~
+
+<script src="/source/texme.js"></script>
+<link rel="stylesheet" href="/source/theme.css">

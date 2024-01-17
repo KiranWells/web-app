@@ -1,0 +1,100 @@
+## Filters
+
+Filters are systems which reduce unwanted frequencies in a signal, therefore *filtering* them out.
+
+### Ideal Filters
+
+An ideal filter is a step function which is 1 where the wanted frequencies are and 0 where the unwanted frequency is. It can easily be modeled as a linear combination of $u(t - \alpha)$. However, these filters cannot truly be created, as they would be non-causal, meaning you would need to know the future.
+
+Low pass filters are 1 around $\omega=0$, passing low frequencies; by definition, they must pass the 0 frequency. High pass filters are 0 around $\omega=0$, representing $1-$ a low pass filter. Band pass filters will pass a certain range of frequencies, instead of starting at 0 or going to $\infty$.
+
+An important detail is that the negative domain of the frequency of a system does not have a physical representation, we are only concerned about the frequencies between $0$ and positive $\infty$.
+
+The **bandwidth** of a filter is the width of frequencies in the *positive* domain that a filter passes.
+
+### Non-ideal Filters
+
+It is impossible to create a perfectly ideal filters, so real filters will be non-ideal. These filters have a curve of some sort for the falloff near the edges.
+
+## Distortionless Systems
+
+A **distortionless system** is an LTI with an impulse response equal to:
+
+$$h(t) = C\delta(t-t_0)$$
+
+The Fourier Transform of this system is:
+
+$$H(j\omega) = Ce^{-j\omega t_0}$$
+
+Note that the magnitude of this frequency response is just $C$, a constant. This means it will scale the frequencies in a signal, but will not change the relative strengths of these frequencies, meaning is does not distort them.
+
+## Sampling
+
+We have previously discussed the idea of sampling, where we take a continuous signal and create a discrete time signal from it by taking the amplitude at a specific time interval. This is useful to be able to encode an analog signal into a digital signal, however, it makes it difficult to reconstruct the original signal, as there are an infinite number of signals which can produce the same discrete signal in this way.
+
+To fix this issues, we will will reconstruct the signal by taking the Fourier transform of the sampled signal and using a filter to remove all of the other possible signals that could be represented.
+
+The process is as follows:
+
+1. Sample $x(t)$:
+
+$$x_p(t) = x(t) \sum\limits_{k=-\infty}^{\infty} \delta(t-kT_s) = \sum\limits_{k=-\infty}^{\infty} x(kT_s) \delta(t-kT_s)$$
+
+Where $T_s$ is the sampling period, and $\omega_s = \frac{2\pi}{T_s}$ is the sampling frequency. This step will result in a time-discretized signal; to create a digital signal we would also make the amplitude discrete (quantization).
+
+2. Find the Fourier Transform of the sampled function:
+
+$$X_p(j\omega) = \frac{1}{2\pi}X(j\omega) \ast P(j\omega)$$
+$$P(j\omega) = \mathcal{F}\left\{\sum\limits_{k=-\infty}^{\infty} \delta(t-kT_s)\right\} = \frac{2\pi}{T_s} \sum\limits_{k=-\infty}^{\infty}\delta\left(\omega - \frac{2\pi k}{T_s}\right)$$
+$$
+\begin{align*}
+X_p(j\omega) &= \frac{1}{T_s} X(j\omega) \ast \sum\limits_{k=-\infty}^{\infty}\delta(\omega - \omega_s k) \\
+&= \frac{1}{T_s} \sum\limits_{k=-\infty}^{\infty} X(j\omega) \ast \delta(\omega - \omega_s k) \\
+&= \frac{1}{T_s} \sum\limits_{k=-\infty}^{\infty} X(j(\omega - \omega_s k)) \\
+\end{align*}$$
+
+This signal is a collection of scaled and time-shifted versions of $X(j\omega)$
+
+3. Separate out the original signal
+
+We now want to return to the original $x(t)$. To do this, we can take the inverse transform of $X(j\omega)$. Notice that if we take only one time-shifted iteration of the above signal, it simplifies to:
+
+$$\frac{1}{T_s} X\left(j\left(\omega- \frac{2\pi}{T_s}k\right)\right)$$
+
+If we set $k=0$ and multiply by $T_s$, we get the original transformed signal!
+
+How do we get this single signal, however? Since we are just adding a series of time shifted signals, then as long as the original signal is band-limited, meaning it only exists for a specific period, and we have a period which is larger than that bandwidth, then the copies will not overlap. Therefore, we can use a filter of one period to eliminate all other iterations and recover the original.
+
+For this to work, there are two requirements:
+
+1. The bandwidth of the signal cannot be infinite
+2. The frequency of sampling must be at least twice the bandwidth of the original signal.
+
+The second requirement is called the **Nyquist Rate**, and is defined as twice the bandwidth of the signal. It represents the minimum sampling rate that you can use before *aliasing* occurs, where the repeated signals will overlap themselves and you will reconstruct the wrong signal.
+
+More concretely, if the bandwidth of the signal is found as $X(j\omega) = 0, |\omega| \gt \omega_n$, and $2\omega_n \lt \omega_s \lt \infty$:
+
+$$
+\begin{align*}
+x(t) &= \mathcal{F}^{-1}\left\{ X_p(j\omega) T_s \left(u\left(t+\frac{1}{2}\omega_s\right) - u\left(t-\frac{1}{2}\omega_s\right)\right) \right\}\\
+&= x_p(t) \ast \mathcal{F}^{-1}\left\{ \left(u\left(t+\frac{1}{2}\omega_s\right) - u\left(t-\frac{1}{2}\omega_s\right)\right) \right\}\\
+&= x_p(t) \ast T_s \frac{\frac{1}{2}\omega_s}{\pi}\mathrm{sinc}\left( \frac{\frac{1}{2}\omega_s t}{\pi} \right)\\
+&= x_p(t) \ast \mathrm{sinc}\left( \frac{\omega_s t}{2\pi} \right)
+\end{align*}
+$$
+
+This is the **Nyquist Theorem** or sampling theorem, and it guarantees we can recover the original signal if the two conditions listed above are satisfied. The problem is, in all practical situations, we never have a band-limited signals, as no signals are infinite in the time domain. However, in processing, we can use a low-pass filter to band-limit a signal as an **anti-aliasing filter** before processing. This loses some high frequencies, but that is not a problem if these frequencies are not important to the data.
+
+The filter used to reclaim the original signal is called a **band-limited interpolation filter**, and is defined as:
+
+$$
+X_y(j\omega) = X(j\omega) \times T_s(u(t+\omega_s/2) - u(t-\omega_s/2))
+$$
+
+This filter extracts the single period that represents the signal based on the Nyquist rate and scales it to the proper amplitude. This will return the original signal as long as there is no aliasing.
+
+## Stroboscopic Effect
+
+The issue with samples is that when we measure, we only get a reading of a very small portion of the signal. In certain cases, this can cause strange effects where the samples look like they came from a much different curve. For example, if you only sample at exactly one period, the samples appear to be from a constant signal.
+
+This property is called the **stroboscopic effect**, named after a simple illustration of this effect using a strobe light. If you imagine a rotating point being illuminated by a strobe light, you will only see the point when the strobe flashes. If the strobe flashes at the period of rotation, the point will appear stationary. If it gets just a little bit faster, the dot will look like it is moving backwards! (This is also related to why wheels can appear to move backwards in videos, or a helicopter may look like its blades are not spinning on camera.)
